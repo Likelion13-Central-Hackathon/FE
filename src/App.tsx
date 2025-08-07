@@ -3,6 +3,7 @@ import {
   createBrowserRouter,
   Navigate,
 } from "react-router-dom";
+import "./styles/global.scss";
 import Layout from "./components/Layout";
 import MainPage from "./pages/MainPage";
 import FormPage from "./pages/FormPage";
