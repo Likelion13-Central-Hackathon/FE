@@ -1,0 +1,25 @@
+@use "../styles//mixins" as m;
+@use "../styles/variables" as *;
+
+// ----- Navbar 스타일
+.navbar {
+  @include m.flex-row-center;
+  gap: 4.69vw;
+}
+
+.link {
+  // 메뉴 하나
+  font-size: 1.04vw;
+  font-weight: 600;
+  color: $gray-700;
+  text-decoration: none;
+  padding-bottom: 0.05vw;
+  border-bottom: 0.1vw solid transparent;
+  transition: color 0.3s ease-in-out, border-bottom 0.3s ease-in-out;
+}
+
+.active {
+  // 활성화된 메뉴
+  color: $color-black;
+  border-bottom: 0.1vw solid black;
+}
