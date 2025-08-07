@@ -1,5 +1,5 @@
 import React from "react";
-import LOGO from "../assets/images/main-logo.svg";
+import LOGO from "../../assets/images/main-logo.svg";
 
 interface LogoProps {
   width?: string;
