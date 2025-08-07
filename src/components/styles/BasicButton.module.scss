@@ -1,0 +1,22 @@
+@use "../../styles//mixins" as m;
+@use "../../styles/variables" as *;
+
+.button {
+  @include m.flex-row-double-center;
+  background-color: transparent;
+  border: 0.07vw solid $color-black;
+  border-radius: 0.42vw;
+  color: $color-black;
+  font-size: 0.83vw;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease,
+    transform 0.1s ease;
+
+  &:active {
+    background-color: $main-color1;
+    border: none;
+    color: $color-white;
+    transform: scale(0.95);
+  }
+}
