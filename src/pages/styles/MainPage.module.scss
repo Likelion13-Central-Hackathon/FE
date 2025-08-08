@@ -1,0 +1,25 @@
+@use "../../styles/mixins" as m;
+
+.mainPageWrapper {
+  @include m.flex-row-double-center;
+  padding-top: 4.17vw;
+  aspect-ratio: 1920 / 1080;
+  background: url("../../assets/images/main-background.png") center/contain
+    no-repeat;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top center;
+  width: 100%;
+
+  .titleContainer {
+    padding-bottom: 10.42vw;
+    padding-left: 7.81vw;
+  }
+
+  .buttonContainer {
+    width: 16.98vw;
+    @include m.flex-row-center;
+    gap: 0.63vw;
+    margin-top: 4.17vw;
+  }
+}
