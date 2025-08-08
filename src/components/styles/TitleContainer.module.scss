@@ -1,0 +1,25 @@
+@use "../../styles//variables" as *;
+
+.titleContainer {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.04vw;
+  width: fit-content;
+  height: fit-content;
+
+  .titleImage {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+  }
+
+  .titleText {
+    font-size: 1.25vw;
+    font-weight: 600;
+    color: $gray-500;
+    line-height: 140%;
+    white-space: pre-line; // \n 기준 줄바꿈
+  }
+}
