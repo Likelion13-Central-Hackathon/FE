@@ -1,10 +1,9 @@
 import React from "react";
 import s from "./styles/TitleContainer.module.scss";
-import { ImageSizeProps } from "../types/common";
+import { SizeTextProps } from "../types/common";
 
-interface TitleContainerProps extends ImageSizeProps {
+interface TitleContainerProps extends SizeTextProps {
   imgSrc: string;
-  text: string;
 }
 
 const TitleContainer: React.FC<TitleContainerProps> = ({
