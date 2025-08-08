@@ -1,0 +1,116 @@
+.wrapper {
+  position: relative;
+  width: 47.06vw;
+  height: 40.94vw;
+}
+
+@keyframes float1 {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-1vw) rotate(1.5deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+@keyframes float2 {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(2vw) rotate(-2deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+@keyframes float3 {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-1.5vw) rotate(-1deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+@keyframes float4 {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(1vw) rotate(2deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+.floatingWrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 46.41vw;
+  height: 32.32vw;
+  transform: translate(-50%, -50%);
+}
+
+.floatingImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.img1 {
+  animation: float1 4s ease-in-out infinite;
+}
+.img2 {
+  animation: float2 5s ease-in-out infinite 0.5s;
+}
+.img3 {
+  animation: float3 6s ease-in-out infinite 1s;
+}
+.img4 {
+  animation: float4 7s ease-in-out infinite 1.5s;
+}
+
+// 캐릭터
+.characterWrapper {
+  position: absolute;
+  top: 47%;
+  left: 55%;
+
+  width: 39.64vw;
+  height: auto;
+  z-index: 10;
+  animation: floatOnce 3s ease-in-out forwards;
+}
+
+.characterImage {
+  width: 100%;
+  height: auto;
+  user-select: none;
+  pointer-events: none;
+}
+
+@keyframes floatOnce {
+  0% {
+    transform: translate(-50%, -50%) translateY(0);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateY(1vw);
+  }
+  100% {
+    transform: translate(-50%, -50%) translateY(0);
+  }
+}
