@@ -1,0 +1,36 @@
+.container {
+  position: absolute;
+  top: 0vw;
+  left: 0vw;
+  width: 100vw;
+  height: 56.25vw;
+  overflow: hidden;
+  background-color: white;
+}
+
+/* 배경 이미지 */
+.background {
+  position: absolute;
+  top: 0vw;
+  left: 0vw;
+  width: 100vw;
+  height: 56.25vw;
+}
+
+/* 캐릭터 이미지 */
+.character {
+  position: absolute;
+  top: 8.49vw;
+  left: 6.35vw;
+  width: 47.06vw;
+  height: 49.78vw;
+}
+
+/* 텍스트 이미지 */
+.warningtext {
+  position: absolute;
+  top: 19.27vw;
+  left: 55.57vw;
+  width: 26.3vw;
+  height: 9.58vw;
+}
