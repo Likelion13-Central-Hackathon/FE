@@ -2,7 +2,7 @@
 
 .mainPageWrapper {
   @include m.flex-row-double-center;
-  padding-top: 4.17vw;
+
   padding-left: 7.81vw;
   aspect-ratio: 1920 / 1080;
   background: url("../../assets/images/main-background.png") center/contain
@@ -26,6 +26,6 @@
     width: 16.98vw;
     @include m.flex-row-center;
     gap: 0.63vw;
-    margin-top: 4.17vw;
+    //margin-top: 4.17vw;
   }
 }

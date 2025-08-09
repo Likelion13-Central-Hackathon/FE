@@ -5,13 +5,8 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 1.04vw;
-  width: fit-content;
-  height: fit-content;
 
   .titleImage {
-    display: block;
-    width: auto;
-    height: auto;
     max-width: 100%;
 
     &.init {
