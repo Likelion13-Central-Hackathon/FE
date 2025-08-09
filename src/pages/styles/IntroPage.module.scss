@@ -1,0 +1,26 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as m;
+
+.underlineBtn {
+  display: inline-block;
+  padding: 0;
+  color: $gray-500;
+  font-size: 0.83vw;
+  font-weight: "600";
+  background: none;
+  border: none;
+  border-bottom: 0.05vw solid $gray-500;
+  cursor: pointer;
+}
+
+.boxContainer1 {
+  @include m.flex-column-center;
+  gap: 0.63vw;
+}
+
+.boxContainer2 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.63vw;
+}
