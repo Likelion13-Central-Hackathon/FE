@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import IntroLayout from "../components/IntroLayout";
 import TITLE from "../assets/images/second-logo.svg";
 import BasicButton from "../components/BasicButton";
-import EmailPWBox from "../components/EmailPwBox";
+import EmailPWBox from "../components/EmailPWBox";
 
 const FormIntroPage = () => {
   const [showEmailPwBox, setShowEmailPwBox] = useState(false);
