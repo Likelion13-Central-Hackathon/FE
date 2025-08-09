@@ -3,6 +3,7 @@
 .mainPageWrapper {
   @include m.flex-row-double-center;
   padding-top: 4.17vw;
+  padding-left: 7.81vw;
   aspect-ratio: 1920 / 1080;
   background: url("../../assets/images/main-background.png") center/contain
     no-repeat;
@@ -12,8 +13,13 @@
   width: 100%;
 
   .titleContainer {
-    padding-bottom: 10.42vw;
-    padding-left: 7.81vw;
+    padding-bottom: 5.21vw;
+    //padding-left: 7.81vw;
+  }
+
+  .titleChildren {
+    @include m.flex-column-center;
+    align-items: flex-start;
   }
 
   .buttonContainer {
