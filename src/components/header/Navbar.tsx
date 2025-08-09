@@ -13,7 +13,7 @@ const Navbar = () => {
         창업할각?
       </NavLink>
       <NavLink
-        to="/form"
+        to="/form-intro"
         className={({ isActive }) =>
           isActive ? `${s.link} ${s.active}` : s.link
         }

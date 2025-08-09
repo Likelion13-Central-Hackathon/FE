@@ -23,7 +23,7 @@ const MainPage = () => {
         <div className={s.buttonContainer}>
           <BasicButton
             text="분석할각?"
-            onClick={() => handleNavigate("/form")}
+            onClick={() => handleNavigate("/form-intro")}
           />
           <BasicButton
             text="선정될각?"
