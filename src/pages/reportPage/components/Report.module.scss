@@ -7,6 +7,10 @@
     inset 0.31vw 0.31vw 0.21vw -0.1vw $color-white,
     inset -0.21vw -0.21vw 0.21vw -0.1vw $color-white
   );
+  gap: 1.04vw;
+}
+.column {
+  flex-direction: column;
 }
 
 .inbox {
