@@ -3,15 +3,25 @@
 .emailBox {
   width: 25.26vw;
   height: 11.66vw;
-  background: $color-white;
+  background: $translucent;
   border-radius: 0.42vw;
-  filter: drop-shadow(0 0.42vw 1.56vw rgba(4, 0, 250, 0.06));
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
   padding: 0.73vw 1.09vw;
-  gap: 0.52vw;
+  gap: 0.63vw;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: inset 2px 2px 2px -2px $color-white,
+    inset -2px -2px 2px -2px $color-white, 0px 8px 12px rgba(4, 0, 250, 0.06);
+  overflow: hidden;
+
+  section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.42vw;
+  }
 }
 
 .label {
@@ -21,12 +31,17 @@
 }
 
 .input {
+  background: $translucent;
   width: 22.92vw;
   height: 2.08vw;
-  border: 0.05vw solid $gray-300;
+  border: none;
   border-radius: 0.42vw;
   outline: none;
   padding: 0.5vw;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: inset 3px 3px 3px -2px $color-white,
+    inset -3px -3px 3px -2px $color-white, 0px 8px 12px rgba(4, 0, 250, 0.06);
 
   &::placeholder {
     font-size: 0.83vw;
