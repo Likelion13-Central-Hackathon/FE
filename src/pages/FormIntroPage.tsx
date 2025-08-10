@@ -43,7 +43,7 @@ const FormIntroPage = () => {
           />
           <button
             className={s.underlineBtn}
-            onClick={() => navigate("/dashboard")}
+            onClick={() => navigate("/report")}
           >
             분석결과 조회
           </button>
