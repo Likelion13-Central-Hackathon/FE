@@ -1,0 +1,37 @@
+@use "./variables" as *;
+
+@mixin flex-row-center {
+  // row
+  display: flex;
+  align-items: center;
+}
+
+@mixin flex-row-double-center {
+  // row
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-column-center {
+  // column
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+// 자주 쓰는 구조 있으면 추가
+
+/*
+[사용법]
+
+파일 맨 위에 @use "../../../styles/mixins" as m; (경로는 알아서)
+
+.account-box {
+    width: 13.28vw;
+    height: 4.95vw;
+    @include m.flex-column-center; --> 이렇게
+    padding: 0.52vw;
+}
+*/

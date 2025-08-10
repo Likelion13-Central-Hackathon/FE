@@ -1,0 +1,28 @@
+// 색상
+$background-color: #ffffff; // 변경될수도
+
+$color-black: #111111;
+$color-white: #ffffff;
+
+$translucent: #ffffff80;
+
+$main-color1: #0400fa;
+
+$gray-300: #c4c4c4;
+$gray-500: #767676;
+$gray-700: #505050;
+
+// 자주 쓰는 색 있으면 추가
+
+/*
+[사용법]
+
+파일 맨 위에 @use "../../../styles/variables" as *; (경로는 알아서)
+
+.account-box {
+    width: 13.28vw;
+    height: 4.95vw;
+    background-color: $background-color2; --> 이렇게
+    padding: 0.52vw;
+}
+*/
