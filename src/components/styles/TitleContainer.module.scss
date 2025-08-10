@@ -1,0 +1,65 @@
+@use "../../styles//variables" as *;
+
+.titleContainer {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.04vw;
+
+  .titleImage {
+    max-width: 100%;
+
+    &.init {
+      animation: slideInDiagonal 0.6s ease forwards;
+    }
+    &.exit {
+      animation: slideUpFadeOut 0.5s ease forwards;
+    }
+    &.enter {
+      animation: slideUpFadeIn 0.5s ease forwards;
+    }
+  }
+
+  .titleText {
+    font-size: 1.25vw;
+    font-weight: 600;
+    color: #9d9d9ded;
+    line-height: 140%;
+    white-space: pre-line; // \n 기준 줄바꿈
+  }
+}
+
+// title 모션
+@keyframes slideInDiagonal {
+  // 우측하단에서 올라옴
+  from {
+    opacity: 0;
+    transform: translate(10%, 10%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes slideUpFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes slideUpFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

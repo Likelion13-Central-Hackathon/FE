@@ -1,13 +1,11 @@
 // 기본 메인 버튼
 import React from "react";
 import s from "./styles/BasicButton.module.scss";
+import { SizeTextProps } from "../types/common";
 
-type ButtonProps = {
-  width: string;
-  height: string;
-  text: string;
+interface ButtonProps extends SizeTextProps {
   onClick?: () => void;
-};
+}
 
 const BasicButton: React.FC<ButtonProps> = ({
   width = "8.18vw",

@@ -13,6 +13,7 @@ import BusinessResultPage from "./pages/BusinessResultPage";
 import BusinessDetailPage from "./pages/BusinessDetailPage";
 import DocumentPage from "./pages/DocumentPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import FormIntroPage from "./pages/FormIntroPage";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { path: "main", element: <MainPage /> },
+      { path: "form-intro", element: <FormIntroPage /> },
       { path: "form", element: <FormPage /> },
       { path: "dashboard", element: <DashBoardPage /> },
       { path: "business", element: <BusinessPage /> },
