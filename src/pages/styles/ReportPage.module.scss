@@ -24,6 +24,7 @@
       inset -0.21vw -0.21vw 0.21vw -0.1vw $color-white
     );
 
+    // 하단 경고문구
     .warningText {
       font-size: 0.83vw;
       font-weight: 500;
@@ -31,6 +32,7 @@
       margin-top: 0.78vw;
     }
 
+    // 제목 + 날짜 + 아이콘 2개
     .titleContainer {
       width: 63.85vw;
       @include m.flex-row-center;
@@ -47,6 +49,7 @@
       }
     }
 
+    // 레포트 전체
     .reportContent {
       display: flex;
       flex-direction: column;
@@ -63,19 +66,30 @@
     }
 
     .swotBox {
-      // 이미지로 변경 예정
+      width: 63.65vw;
+      height: 21.61vw;
+      background-image: url("../../assets/images/swot-box.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(2, auto);
-      row-gap: 0.63vw;
-      column-gap: 1.04vw;
+      grid-template-rows: repeat(2, 1fr);
+      row-gap: 5.33vw;
+      column-gap: 0;
+      padding: 5.8vw 0 0 9.5vw;
 
       .swot {
-        width: 31.25vw;
-        height: 10.58vw;
-        background-color: $translucent;
-        border-radius: 1.04vw;
+        width: 18.49vw;
+        height: 3.44vw;
+        @include m.flex-row-double-center;
         text-align: center;
+        overflow: hidden;
+
+        font-size: 0.83vw;
+        font-weight: 500;
+        color: $gray-500;
       }
     }
   }
