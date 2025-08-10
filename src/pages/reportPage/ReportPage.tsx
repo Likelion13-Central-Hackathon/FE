@@ -13,7 +13,7 @@ const ReportPage = () => {
     <div className={s.reportPageWrapper}>
       <div className={s.reportContainer}>
         {/* 상단 제목 부분 + 아이콘 2개 */}
-        <div className={s.titleContainer}>
+        <section className={s.titleContainer}>
           <div
             style={{ display: "flex", flexDirection: "column", gap: "0.42vw" }}
           >
@@ -27,9 +27,9 @@ const ReportPage = () => {
             <IconButton imgSrc={DOWNLOAD} text="PDF" />
             <IconButton imgSrc={MAIL} text="Mail" />
           </div>
-        </div>
+        </section>
 
-        <div className={s.reportContent}>
+        <section className={s.reportContent}>
           {/* 창업할각(각도기, 캐릭터, QR코드) */}
           <ReportOutBox>
             <ReportInBox>
@@ -69,17 +69,17 @@ const ReportPage = () => {
 
           {/* swot 강점, 약점, 기회, 위협 */}
           <div className={s.swotBox}>
-            <div className={s.swot}>S</div>
-            <div className={s.swot}>W</div>
-            <div className={s.swot}>O</div>
-            <div className={s.swot}>T</div>
+            <p className={s.swot}>{data.data.strength}</p>
+            <p className={s.swot}>{data.data.weakness}</p>
+            <p className={s.swot}>{data.data.opportunity}</p>
+            <p className={s.swot}>{data.data.threat}</p>
           </div>
 
           {/* 추천 창업 계획 다이어그램 */}
           <ReportOutBox height="43.59vw">
             <div>추천 창업 계획</div>
           </ReportOutBox>
-        </div>
+        </section>
         <p className={s.warningText}>
           ※ 본 결과는 AI 분석을 기반으로 제공되었으며, 실제 상황과 차이가 있을
           수 있습니다. 참고 자료로 만 활용하시기 바랍니다.
