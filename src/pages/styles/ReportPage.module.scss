@@ -1,0 +1,12 @@
+@use "../../styles/mixins" as m;
+
+.reportPageWrapper {
+  @include m.flex-row-double-center;
+  aspect-ratio: 1920 / 2419;
+  background: url("../../assets/images/report-background.png") center/contain
+    no-repeat;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top center;
+  width: 100%;
+}
