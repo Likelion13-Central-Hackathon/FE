@@ -65,6 +65,7 @@
       }
     }
 
+    // ---- swot
     .swotBox {
       width: 63.65vw;
       height: 21.61vw;
@@ -90,6 +91,30 @@
         font-size: 0.83vw;
         font-weight: 500;
         color: $gray-500;
+      }
+    }
+
+    // ---- 추천 창업 계획
+    .planText {
+      font-size: 1.04vw;
+      font-weight: 600;
+      color: $gray-800;
+    }
+
+    .planLabel {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      row-gap: 0.63vw;
+      column-gap: 0.42vw;
+
+      p {
+        font-size: 0.73vw;
+        font-weight: 500;
+
+        span {
+          font-weight: 700;
+        }
       }
     }
   }
