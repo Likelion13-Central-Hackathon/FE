@@ -12,6 +12,8 @@
   width: 100%;
 
   .reportContainer {
+    @include m.flex-column-center;
+    gap: 0.83vw;
     margin-top: 2.6vw;
     padding: 1.93vw 3.75vw;
     width: 71.35vw;
@@ -21,20 +23,60 @@
       inset 0.31vw 0.31vw 0.16vw -0.1vw $color-white,
       inset -0.21vw -0.21vw 0.21vw -0.1vw $color-white
     );
-  }
 
-  .titleContainer {
-    @include m.flex-row-center;
-    justify-content: space-between;
-
-    .title {
-      font-size: 1.88vw;
-      font-weight: 700;
+    .warningText {
+      font-size: 0.83vw;
+      font-weight: 500;
+      color: $gray-300;
+      margin-top: 0.78vw;
     }
-    .date {
-      font-size: 1.04vw;
-      font-weight: 400;
-      color: $main-color1;
+
+    .titleContainer {
+      width: 63.85vw;
+      @include m.flex-row-center;
+      justify-content: space-between;
+
+      .title {
+        font-size: 1.88vw;
+        font-weight: 700;
+      }
+      .date {
+        font-size: 1.04vw;
+        font-weight: 400;
+        color: $main-color1;
+      }
+    }
+
+    .reportContent {
+      display: flex;
+      flex-direction: column;
+      gap: 0.63vw;
+
+      .middleSection {
+        @include m.flex-row-double-center;
+        gap: 0.63vw;
+      }
+      .rightSection {
+        @include m.flex-column-center;
+        gap: 0.63vw;
+      }
+    }
+
+    .swotBox {
+      // 이미지로 변경 예정
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, auto);
+      row-gap: 0.63vw;
+      column-gap: 1.04vw;
+
+      .swot {
+        width: 31.25vw;
+        height: 10.58vw;
+        background-color: $translucent;
+        border-radius: 1.04vw;
+        text-align: center;
+      }
     }
   }
 }
