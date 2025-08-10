@@ -1,10 +1,6 @@
 import React from "react";
 import s from "./Report.module.scss";
-import { SizeProps } from "../../../types/common";
-
-interface InBoxProps extends SizeProps {
-  children?: React.ReactNode; // 하위 컴포넌트
-}
+import { InBoxProps } from "../../../types/report";
 
 const ReportInBox: React.FC<InBoxProps> = ({
   width = "23.13vw",

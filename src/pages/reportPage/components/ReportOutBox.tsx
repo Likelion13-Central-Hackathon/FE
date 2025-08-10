@@ -1,11 +1,6 @@
 import React from "react";
 import s from "./Report.module.scss";
-import { SizeProps } from "../../../types/common";
-
-interface OutBoxProps extends SizeProps {
-  children?: React.ReactNode; // 하위 컴포넌트
-  className?: string;
-}
+import { OutBoxProps } from "../../../types/report";
 
 const ReportOutBox: React.FC<OutBoxProps> = ({
   width = "63.65vw",
