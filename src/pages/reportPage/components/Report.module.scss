@@ -5,8 +5,20 @@
   @include m.flex-row-double-center;
   background-color: $translucent;
   border-radius: 0.94vw;
+  backdrop-filter: blur(0.52vw);
   box-shadow: inset 0.31vw 0.31vw 0.21vw -0.1vw $color-white,
     inset -0.21vw -0.21vw 0.21vw -0.1vw $color-white,
+    0vw 0.42vw 0.63vw rgba(4, 0, 250, 0.06);
+  overflow: hidden;
+}
+
+.inbox {
+  @include m.flex-row-double-center;
+  background-color: $translucent;
+  border-radius: 0.94vw;
+  backdrop-filter: blur(0.52vw);
+  box-shadow: inset 0.21vw 0.21vw 0.1vw -0.1vw $color-white,
+    inset -0.1vw -0.1vw 0.1vw -0.1vw $color-white,
     0vw 0.42vw 0.63vw rgba(4, 0, 250, 0.06);
   overflow: hidden;
 }

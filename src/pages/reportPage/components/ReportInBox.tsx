@@ -1,0 +1,21 @@
+import React from "react";
+import s from "./Report.module.scss";
+import { SizeProps } from "../../../types/common";
+
+interface InBoxProps extends SizeProps {
+  children?: React.ReactNode; // 하위 컴포넌트
+}
+
+const ReportInBox: React.FC<InBoxProps> = ({
+  width = "23.13vw",
+  height = "11.25vw",
+  children,
+}) => {
+  return (
+    <div className={s.inbox} style={{ width, height }}>
+      {children}
+    </div>
+  );
+};
+
+export default ReportInBox;
