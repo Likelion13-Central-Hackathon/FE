@@ -12,10 +12,10 @@
   background-position: top center;
   width: 100%;
 
-  .titleContainer {
-    padding-bottom: 5.21vw;
-    //padding-left: 7.81vw;
-  }
+  // .titleContainer {
+  //   padding-bottom: 3.13vw;
+  //   padding-left: 7.81vw;
+  // }
 
   .titleChildren {
     @include m.flex-column-center;
@@ -26,6 +26,6 @@
     width: 16.98vw;
     @include m.flex-row-center;
     gap: 0.63vw;
-    //margin-top: 4.17vw;
+    margin-top: 4.17vw;
   }
 }
