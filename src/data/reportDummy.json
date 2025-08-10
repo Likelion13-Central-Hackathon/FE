@@ -1,0 +1,46 @@
+{
+  "isSuccess": true,
+  "code": "SUCCESS_200",
+  "httpStatus": 200,
+  "message": "호출에 성공하였습니다.",
+  "data": {
+    "id": 1,
+    "angle": 90,
+    "researchMethod": "타겟 고객 인터뷰 및 경쟁제품 벤치마킹을 수행하세요.",
+    "strength": "팀의 기술 역량이 높고 실행력이 빠름",
+    "weakness": "시장 인지도 부족 및 초기 마케팅 예산 한정",
+    "opportunity": "스마트팜 관련 정책 지원 확대",
+    "threat": "대기업의 유사 서비스 진입 가능성",
+    "step1": "고객 문제 정의 및 JTBD 인터뷰 10건",
+    "step2": "핵심 가설 설정 및 MVP 기능 정의",
+    "step3": "MVP 제작 및 사용자 테스트",
+    "step4": "가격 실험 및 전환 퍼널 점검",
+    "expectedEffect": "고객 세그먼트 명확화 및 초기 전환율 5%p 개선",
+    "createdAt": "2025.08.10",
+    "newsList": [
+      {
+        "title": "핀테크 데모데이 개최",
+        "link": "https://news.example.com/article1"
+      },
+      {
+        "title": "정부, 스타트업 지원 예산 확대",
+        "link": "https://news.example.com/article2"
+      }
+    ],
+    "recommendations": [
+      {
+        "title": "서울 핀테크 위크 2025 데모데이",
+        "startDate": "2025.08.08",
+        "endDate": "2025.08.13",
+        "suitability": 87
+      },
+      {
+        "title": "혁신아이콘 지원 프로그램",
+        "startDate": "2025.08.07",
+        "endDate": "2025.09.02",
+        "suitability": 75
+      }
+    ]
+  },
+  "timeStamp": "2025-08-10 12:21:32"
+}

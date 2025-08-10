@@ -1,4 +1,5 @@
 @use "../../styles/mixins" as m;
+@use "../../styles/variables" as *;
 
 .reportPageWrapper {
   @include m.flex-row-double-center;
@@ -9,4 +10,33 @@
   background-size: cover;
   background-position: top center;
   width: 100%;
+
+  .reportContainer {
+    margin-top: 2.6vw;
+    padding: 1.93vw 3.75vw;
+    background-color: $translucent;
+    width: 71.35vw;
+    height: 115.16vw;
+    border-radius: 1.04vw;
+    backdrop-filter: blur(0.26vw);
+    box-shadow: inset 0.31vw 0.31vw 0.16vw -0.1vw $color-white,
+      inset -0.21vw -0.21vw 0.21vw -0.1vw $color-white,
+      0vw 0.42vw 0.63vw rgba(4, 0, 250, 0.06);
+    overflow: hidden;
+  }
+
+  .titleContainer {
+    @include m.flex-row-center;
+    justify-content: space-between;
+
+    .title {
+      font-size: 1.88vw;
+      font-weight: 700;
+    }
+    .date {
+      font-size: 1.04vw;
+      font-weight: 400;
+      color: $main-color1;
+    }
+  }
 }

@@ -12,6 +12,7 @@ const IconButton: React.FC<IconButtonProps> = ({ imgSrc, text }) => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        cursor: "pointer",
       }}
     >
       <img src={imgSrc} />
