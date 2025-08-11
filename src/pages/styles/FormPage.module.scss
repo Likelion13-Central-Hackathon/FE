@@ -1,0 +1,78 @@
+.container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.background {
+  position: absolute;
+  top: 0vw;
+  left: 0vw;
+  width: 100vw;
+  height: 56.25vw;
+}
+
+.formBox {
+  position: relative;
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  width: 38.645833vw;
+  height: 43.229167vw;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.label {
+  font-weight: 600;
+  margin-top: 1rem;
+  display: block;
+}
+
+.row {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+
+  input,
+  select {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+}
+
+.regionBtn,
+.choiceBtn,
+.submitBtn {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.regionBtn {
+  background: #eee;
+}
+
+.choiceBtn {
+  background: #eee;
+  flex: 1;
+}
+
+.submitBtn {
+  width: 100%;
+  margin-top: 2rem;
+  background: #007bff;
+  color: white;
+}
