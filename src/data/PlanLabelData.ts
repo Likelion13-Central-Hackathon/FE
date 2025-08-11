@@ -27,3 +27,10 @@ export const planLabels: PlanLabel[] = [
     desc: "확보 데이터 기반으로 투자자 설득 가능 + 파트너십 확장",
   },
 ] as const;
+
+export const planStepTitles: string[] = [
+  "1차 [리서치 & 아이디어 검증 단계]",
+  "2차 [MVP 제작 & 초기 시장 테스트]",
+  "3차 [정식 론칭 준비 & 마케팅]",
+  "4차 [스케일업 & 투자 준비]",
+];

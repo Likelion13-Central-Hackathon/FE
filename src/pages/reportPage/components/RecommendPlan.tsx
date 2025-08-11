@@ -2,8 +2,19 @@ import React from "react";
 import s from "./Report.module.scss";
 import CHART from "../../../assets/images/charts.svg";
 import { rotateArray, startMonthIndex } from "../../../utils/date";
+import { planStepTitles } from "../../../data/PlanLabelData";
 
-const RecommendPlan: React.FC<{ createdAt: string }> = ({ createdAt }) => {
+type StepItem = {
+  id: number | string;
+  step: string;
+};
+
+interface RecommendPlanProps {
+  createdAt: string;
+  steps: StepItem[];
+}
+
+const RecommendPlan: React.FC<RecommendPlanProps> = ({ createdAt, steps }) => {
   const yAxis = ["180°", "150°", "120°", "90°", "60°", "30°", "0°"];
   const xAxis = [
     "Jan",
@@ -23,7 +34,7 @@ const RecommendPlan: React.FC<{ createdAt: string }> = ({ createdAt }) => {
   const months = startIdx === null ? xAxis : rotateArray(xAxis, startIdx); // 최종 x축 배열
 
   return (
-    <div>
+    <div className={s.planWrapper}>
       <div className={s.planContainer}>
         {/* Y축: 각도*/}
         <section className={s.planY} aria-label="Y axis">
@@ -48,7 +59,15 @@ const RecommendPlan: React.FC<{ createdAt: string }> = ({ createdAt }) => {
           </section>
         </div>
       </div>
-      <div>설명</div>
+      {/* 1,2,3,4단계 */}
+      <div className={s.stepsWrapper}>
+        {planStepTitles.map((title, idx) => (
+          <div key={idx} className={s.stepGroup}>
+            <p className={s.stepTitleItem}>{title}</p>
+            <p className={s.stepItem}>{steps?.[idx]?.step}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

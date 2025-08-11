@@ -31,63 +31,99 @@
 }
 
 // 추천 창업 계획
-.planContainer {
-  display: grid;
-  grid-template-columns: 1.1vw 56.92vw;
-  grid-template-rows: 21.2vw 1.25vw 1.2vw;
-  column-gap: 1.09vw;
-  width: 59.48vw;
-  height: 23.65vw;
+.planWrapper {
+  @include m.flex-column-center;
+  gap: 1.04vw;
 
-  .planY {
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding-right: 0.4vw;
-
-    font-size: 0.73vw;
-    font-weight: 400;
-    color: $main-color1;
-  }
-
-  .rightSection {
-    grid-column: 2 / 3;
-    grid-row: 1 / 4;
-
+  // 다이어그램
+  .planContainer {
     display: grid;
-    grid-template-rows: 21.2vw 1.2vw;
-    row-gap: 1.25vw;
+    grid-template-columns: 1.1vw 56.92vw;
+    grid-template-rows: 21.2vw 1.25vw 1.2vw;
+    column-gap: 1.09vw;
+    width: 59.48vw;
+    height: 23.65vw;
 
-    .planImg {
+    .planY {
+      grid-column: 1 / 2;
       grid-row: 1 / 2;
 
-      width: 100%;
-      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-right: 0.4vw;
 
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        display: block;
-      }
+      font-size: 0.73vw;
+      font-weight: 400;
+      color: $main-color1;
     }
 
-    .planX {
-      grid-row: 2 / 3;
-      width: 100%;
-      height: 100%;
-      font-size: 0.73vw;
-      font-weight: 500;
-      color: $main-color1;
+    .rightSection {
+      grid-column: 2 / 3;
+      grid-row: 1 / 4;
 
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 0.4vw;
+      display: grid;
+      grid-template-rows: 21.2vw 1.2vw;
+      row-gap: 1.25vw;
+
+      .planImg {
+        grid-row: 1 / 2;
+
+        width: 100%;
+        height: 100%;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          display: block;
+        }
+      }
+
+      .planX {
+        grid-row: 2 / 3;
+        width: 100%;
+        height: 100%;
+        font-size: 0.73vw;
+        font-weight: 500;
+        color: $main-color1;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 0.4vw;
+      }
+    }
+  }
+
+  // 1,2,3,4단계
+  .stepsWrapper {
+    @include m.flex-row-double-center;
+    gap: 1.46vw;
+    flex-wrap: nowrap;
+
+    .stepGroup {
+      width: 13.85vw;
+      @include m.flex-column-center;
+
+      .stepTitleItem {
+        width: 100%;
+        height: 1.3vw;
+        font-size: 0.94vw;
+        font-weight: 700;
+        color: $main-color1;
+        @include m.flex-row-double-center;
+      }
+
+      .stepItem {
+        height: 6.35vw;
+        font-size: 0.83vw;
+        font-weight: 500;
+        color: $gray-500;
+        @include m.flex-row-double-center;
+        overflow: hidden;
+      }
     }
   }
 }
