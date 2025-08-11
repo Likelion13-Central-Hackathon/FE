@@ -5,6 +5,7 @@ import data from "../../data/reportDummy.json";
 import IconButton from "../../components/IconButton";
 import DOWNLOAD from "../../assets/images/icon/download-icon.svg";
 import MAIL from "../../assets/images/icon/mail-icon.svg";
+import PLUS from "../../assets/images/icon/plus-icon.svg";
 import ReportOutBox from "./components/ReportOutBox";
 import ReportInBox from "./components/ReportInBox";
 import RecommendPlan from "./components/RecommendPlan";
@@ -12,6 +13,7 @@ import RecommendPlanLabel from "./components/RecommendPlanLabel";
 import { planLabels } from "../../data/PlanLabelData";
 import NewsItem from "./components/NewsItem";
 import MarkDownBox from "./components/MarkDownBox";
+import BusinessItem from "./components/BusinessItem";
 
 const ReportPage = () => {
   const news = data?.data?.newsList ?? []; // 뉴스기사 목록
@@ -64,12 +66,17 @@ const ReportPage = () => {
                 height="13.58vw"
                 className={b.column}
               >
-                <ReportInBox width="46.72vw" height="6.15vw">
-                  <div>적합한 청년창업지원사업</div>
-                </ReportInBox>
-                <ReportInBox width="46.72vw" height="6.15vw">
-                  <div>적합한 청년창업지원사업</div>
-                </ReportInBox>
+                <div className={s.businessBox}>
+                  <div
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <p className={s.subTitle}>적합한 청년창업지원사업</p>
+                    <img src={PLUS} alt="plus-icon" />
+                  </div>
+
+                  <BusinessItem business={data.data.recommendations[0]} />
+                  <BusinessItem business={data.data.recommendations[1]} />
+                </div>
               </ReportOutBox>
 
               {/* 관련 뉴스 2개 */}

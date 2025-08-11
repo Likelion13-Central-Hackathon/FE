@@ -88,6 +88,13 @@
         @include m.flex-column-center;
         gap: 0.63vw;
 
+        // ---- 청년창업지원사업
+        .businessBox {
+          display: flex;
+          flex-direction: column;
+          gap: 0.63vw;
+        }
+
         // ---- 뉴스기사 2개
         .newsContainer {
           display: flex;
