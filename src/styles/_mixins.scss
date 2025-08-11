@@ -29,6 +29,19 @@
   overflow: hidden;
 }
 
+@mixin button-click($hoverScale: 1.04, $activeScale: 0.96) {
+  cursor: pointer;
+  transition: transform 0.15s ease;
+
+  &:hover {
+    transform: scale($hoverScale);
+  }
+
+  &:active {
+    transform: scale($activeScale);
+  }
+}
+
 // 자주 쓰는 구조 있으면 추가
 
 /*

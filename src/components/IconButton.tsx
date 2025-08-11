@@ -1,4 +1,5 @@
 import React from "react";
+import s from "./styles/IconButton.module.scss";
 
 interface IconButtonProps {
   imgSrc: string;
@@ -7,15 +8,8 @@ interface IconButtonProps {
 
 const IconButton: React.FC<IconButtonProps> = ({ imgSrc, text }) => {
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        cursor: "pointer",
-      }}
-    >
-      <img src={imgSrc} />
+    <div className={s.iconBtn}>
+      <img src={imgSrc} style={{ width: "1.88vw" }} />
       <p style={{ fontSize: "0.73vw", fontWeight: "500", color: "#757575" }}>
         {text}
       </p>

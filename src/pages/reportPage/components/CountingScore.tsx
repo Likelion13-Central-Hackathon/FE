@@ -16,7 +16,7 @@ const text: React.CSSProperties = {
 
 export const CountingScore: React.FC<CounterProps> = ({
   target,
-  duration = 5,
+  duration = 2,
 }) => {
   const count = useMotionValue(0);
   const rounded = useTransform(count, (v) => Math.round(v));

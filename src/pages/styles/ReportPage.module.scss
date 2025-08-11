@@ -98,6 +98,19 @@
             color: $gray-800;
           }
         }
+        .angleImg {
+          display: block;
+          width: 100%;
+        }
+        .arcOverlay {
+          position: absolute;
+          top: 35%;
+          left: -2%;
+          width: 100%; /* = 18.59vw */
+          height: 67%;
+          pointer-events: none;
+          overflow: visible;
+        }
       }
 
       .middleSection {
@@ -120,6 +133,10 @@
           display: flex;
           flex-direction: column;
           gap: 0.63vw;
+
+          img {
+            @include m.button-click(1.06, 0.94);
+          }
         }
 
         // ---- 뉴스기사 2개

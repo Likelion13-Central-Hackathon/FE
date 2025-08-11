@@ -22,6 +22,7 @@ import MarkDownBox from "./components/MarkDownBox";
 import BusinessItem from "./components/BusinessItem";
 import { CountingScore } from "./components/CountingScore";
 import { getAngleMessage } from "../../utils/getScoreMsg";
+import ProtractorStroker from "./components/ProtractorStroker";
 
 const ReportPage = () => {
   const news = data?.data?.newsList ?? []; // 뉴스기사 목록
@@ -53,7 +54,11 @@ const ReportPage = () => {
           <ReportOutBox>
             <div className={s.angleWrap}>
               <p className={s.subTitle}>창업할 각</p>
-              <img src={ANGLE} alt="protractor" style={{ width: "18.59vw" }} />
+              <img src={ANGLE} alt="protractor" className={s.angleImg} />
+              <ProtractorStroker
+                angle={data.data.angle}
+                className={s.arcOverlay}
+              />
               <div className={s.scoreContainer}>
                 <img src={SCORE} alt="protractor" style={{ width: "1.56vw" }} />
                 <CountingScore target={data.data.angle} />
@@ -64,7 +69,7 @@ const ReportPage = () => {
               <motion.div
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.55, ease: "easeOut" }}
+                transition={{ duration: 2, ease: "easeOut" }}
               >
                 <ReportInBox width="17vw" height="3.33vw">
                   <p style={{ fontSize: "0.83vw", fontWeight: "600" }}>
@@ -75,11 +80,21 @@ const ReportPage = () => {
               <img src={CHAR} alt="character-2d" style={{ width: "11vw" }} />
             </div>
             {/* QR코드 */}
-            <ReportInBox>
-              <img src={LOGO} alt="report-logo" style={{ width: "14.48vw" }} />
-              <div style={{ width: "1.25vw" }} />
-              <img src={QR} alt="qr-code" style={{ width: "4.95vw" }} />
-            </ReportInBox>
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 2, ease: "easeOut" }}
+            >
+              <ReportInBox>
+                <img
+                  src={LOGO}
+                  alt="report-logo"
+                  style={{ width: "14.48vw" }}
+                />
+                <div style={{ width: "1.25vw" }} />
+                <img src={QR} alt="qr-code" style={{ width: "4.95vw" }} />
+              </ReportInBox>
+            </motion.div>
           </ReportOutBox>
 
           <div className={s.middleSection}>
@@ -105,7 +120,11 @@ const ReportPage = () => {
                     style={{ display: "flex", justifyContent: "space-between" }}
                   >
                     <p className={s.subTitle}>적합한 청년창업지원사업</p>
-                    <img src={PLUS} alt="plus-icon" />
+                    <img
+                      src={PLUS}
+                      alt="plus-icon"
+                      style={{ width: "1.56vw" }}
+                    />
                   </div>
 
                   <BusinessItem business={data.data.recommendations[0]} />
@@ -136,12 +155,18 @@ const ReportPage = () => {
           </div>
 
           {/* swot 강점, 약점, 기회, 위협 */}
-          <div className={s.swotBox}>
-            <p className={s.swot}>{data.data.strength}</p>
-            <p className={s.swot}>{data.data.weakness}</p>
-            <p className={s.swot}>{data.data.opportunity}</p>
-            <p className={s.swot}>{data.data.threat}</p>
-          </div>
+          <motion.div
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 2, ease: "easeOut" }}
+          >
+            <div className={s.swotBox}>
+              <p className={s.swot}>{data.data.strength}</p>
+              <p className={s.swot}>{data.data.weakness}</p>
+              <p className={s.swot}>{data.data.opportunity}</p>
+              <p className={s.swot}>{data.data.threat}</p>
+            </div>
+          </motion.div>
 
           {/* 추천 창업 계획 다이어그램 */}
           <ReportOutBox height="43.59vw" className={b.column}>
