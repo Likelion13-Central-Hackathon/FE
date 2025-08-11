@@ -3,16 +3,7 @@ import s from "./Report.module.scss";
 import CHART from "../../../assets/images/charts.svg";
 import { rotateArray, startMonthIndex } from "../../../utils/date";
 import { planStepTitles } from "../../../data/PlanLabelData";
-
-type StepItem = {
-  id: number | string;
-  step: string;
-};
-
-interface RecommendPlanProps {
-  createdAt: string;
-  steps: StepItem[];
-}
+import { RecommendPlanProps } from "../../../types/report";
 
 const RecommendPlan: React.FC<RecommendPlanProps> = ({ createdAt, steps }) => {
   const yAxis = ["180°", "150°", "120°", "90°", "60°", "30°", "0°"];

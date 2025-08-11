@@ -8,3 +8,14 @@ export interface OutBoxProps extends SizeProps {
   children?: React.ReactNode;
   className?: string;
 }
+
+// RecommendPlan
+type StepItem = {
+  id: number | string;
+  step: string;
+};
+
+export interface RecommendPlanProps {
+  createdAt: string;
+  steps: StepItem[];
+}
