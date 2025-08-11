@@ -37,7 +37,11 @@ const ReportPage = () => {
             <div
               style={{ display: "flex", gap: "0.63vw", alignItems: "flex-end" }}
             >
-              <IconButton imgSrc={DOWNLOAD} text="PDF" />
+              <IconButton
+                imgSrc={DOWNLOAD}
+                text="PDF"
+                onClick={() => window.print()}
+              />
               <IconButton imgSrc={MAIL} text="Mail" />
             </div>
           </div>

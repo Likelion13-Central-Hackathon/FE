@@ -77,3 +77,14 @@ section {
   border: 0;
   padding: 0;
 }
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0mm;
+  }
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
