@@ -1,78 +1,271 @@
+/* 전체 vw 통일, 1920px 기준 변환 */
+@use '../../styles/mixins' as m;
+@use '../../styles/variables' as *;
+
 .container {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 56.25vw; /* 16:9 */
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .background {
   position: absolute;
-  top: 0vw;
-  left: 0vw;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 56.25vw;
 }
 
 .formBox {
   position: relative;
-  background: white;
-  border-radius: 16px;
-  padding: 2rem;
+  margin-top: 8.854167vw;
+  background: #fff;
+  border-radius: 1.041667vw;
   width: 38.645833vw;
   height: 43.229167vw;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.208333vw 1.041667vw rgba(0, 0, 0, 0.1);
+  font-family: 'Pretendard', sans-serif;
+  display: flex;
+  flex-direction: column;
 }
 
 .logo {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  top: 1.770833vw;
+  left: 14.322917vw;
+  width: 10.052083vw;
+  height: 2.03125vw;
 }
 
-.label {
-  font-weight: 600;
-  margin-top: 1rem;
-  display: block;
-}
-
-.row {
-  display: flex;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-
-  input,
-  select {
-    flex: 1;
-    padding: 0.5rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-  }
-}
-
-.regionBtn,
-.choiceBtn,
-.submitBtn {
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-}
-
-.regionBtn {
-  background: #eee;
-}
-
-.choiceBtn {
-  background: #eee;
+.questionbox {
+  margin-top: 6.927083vw;
+  margin-left: 5.885417vw;
+  width: 26.927083vw;
   flex: 1;
 }
 
-.submitBtn {
+/* 질문 간격 100px */
+.q + .q {
+  margin-top: 5.208333vw;
+}
+
+.label {
+  font-size: 1.041667vw;
+  font-weight: 700;
+  display: block;
+}
+.caption {
+  margin-top: 0.520833vw;
+  font-size: 0.729167vw;
+  color: #9aa3b2;
+}
+
+.subLabel {
+  width: 7.03125vw;
+  height: 1.145833vw;
+  font-size: 0.83vw;
+  font-weight: 600;
+  color: #434a57;
+}
+
+/* row */
+.row {
+  display: flex;
+  gap: 2.6vw;
+  margin-top: 1.041667vw;
+  overflow: visible; /* 드롭다운 잘림 방지 */
+
+  input,
+  button {
+    padding: 0 0.833333vw;
+    border: 0.052083vw solid #dde3ee;
+    border-radius: 0.625vw;
+    font-size: 0.833333vw;
+    background: #fff;
+  }
+  input[type='text'] {
+    width: 7.03125vw;
+    height: 2.1875vw;
+  }
+}
+
+/* 개별 입력 */
+.row input.age {
+  width: 7.03125vw;
+  height: 2.1875vw;
+  font-size: 0.625vw;
+  background: #f9faff;
+  border-radius: 0.26vw;
+  border-color: #8ebefa;
+  margin-top: 0.625vw;
+}
+
+.row input.unv {
+  width: 7.03125vw;
+  height: 2.1875vw;
+  font-size: 0.625vw;
+  background: #f9faff;
+  border-radius: 0.26vw;
+  border-color: #8ebefa;
+}
+
+.row button.regionBtn {
+  width: 7.03125vw;
+  height: 2.1875vw;
+  font-size: 0.625vw;
+  background: #fff;
+  border-radius: 0.26vw;
+  margin-top: 0.625vw;
+}
+
+.col {
+  width: 7.1875vw;
+  height: 3.90625vw;
+}
+
+/* 예/아니오 버튼 */
+.btnGroup {
+  display: flex;
+  gap: 2.6vw;
+  margin-top: 1.041667vw;
+  :global(.button) {
+    border: 0.052083vw solid #dde3ee;
+    border-radius: 0.625vw;
+    background: #fff;
+    font-weight: 700;
+    box-shadow: 0 0.15625vw 0.520833vw rgba(0, 0, 0, 0.05);
+    transition: background 0.15s, color 0.15s, border-color 0.15s,
+      box-shadow 0.15s;
+  }
+  :global(.active) {
+    background: #111;
+    color: #fff;
+    border-color: #111;
+  }
+}
+
+/* 다음 버튼 */
+.nextBtnWrapper {
+  font-size: 0.625vw;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.692708vw;
+}
+
+/* ===== 단일 선택 드롭다운 ===== */
+.selectWrap {
+  position: relative;
+  width: 7.03125vw; /* 트리거 너비: 필요시 조절 */
+}
+
+/* 트리거 버튼 */
+.selectTrigger {
   width: 100%;
-  margin-top: 2rem;
-  background: #007bff;
-  color: white;
+  height: 2.1875vw;
+  padding: 0 0.833333vw;
+  border: 0; /* 테두리 제거 */
+  border-radius: 0.625vw;
+  background: #f2f4f8;
+  font-size: 0.833333vw;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  box-shadow: 0 0.15625vw 0.520833vw rgba(0, 0, 0, 0.05);
+  appearance: none;
+}
+
+.selectTriggerActive {
+  background: #8ebefa; /* 활성 시 파란톤 */
+  color: #111;
+}
+
+.caret {
+  margin-left: 0.520833vw;
+}
+
+/* 드롭다운 메뉴(카드) */
+.selectMenu {
+  position: absolute;
+  top: calc(100% + 0.416667vw);
+  left: 0;
+  width: 11.458333vw; /* 필요시 조절 */
+  max-height: 15.625vw; /* 스크롤 영역 */
+  overflow-y: auto;
+  background: #fff;
+  border: 0; /* 테두리 없음 */
+  border-radius: 1.041667vw;
+  box-shadow: 0 0.208333vw 1.041667vw rgba(0, 0, 0, 0.12);
+  padding: 0.416667vw 0; /* 위아래 여백 */
+  z-index: 10;
+
+  /* 깔끔한 얇은 스크롤바 */
+  &::-webkit-scrollbar {
+    width: 0.416667vw;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #d0d5dd;
+    border-radius: 1.041667vw;
+  }
+}
+
+/* 옵션 행: 테두리/구분선 없이 */
+.optRow {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.833333vw;
+  padding: 0.833333vw 1.041667vw;
+  background: transparent;
+  border: 0; /* 버튼 기본 테두리 제거 */
+  text-align: left;
+  cursor: pointer;
+  appearance: none; /* 브라우저 기본 제거 */
+
+  &:hover {
+    background: #f7f8fa;
+  }
+  &[aria-selected='true'] .optText {
+    font-weight: 700;
+  }
+}
+
+/* 사각 체크박스 (윤곽선만) */
+.box {
+  flex: 0 0 auto;
+  width: 1.25vw; /* 24px */
+  height: 1.25vw;
+  border: 0.052083vw solid #cfd6e4;
+  border-radius: 0.3125vw; /* 6px */
+  background: #fff;
+}
+
+/* 선택 시 체크 표시(심플) */
+.boxOn {
+  position: relative;
+  border-color: #111;
+}
+.boxOn::after {
+  content: '';
+  position: absolute;
+  left: 0.3125vw; /* 6px */
+  top: 0.15625vw; /* 3px */
+  width: 0.625vw; /* 12px */
+  height: 0.3125vw; /* 6px */
+  border: 0.15625vw solid #111;
+  border-top: 0;
+  border-left: 0;
+  transform: rotate(45deg);
+}
+
+.optText {
+  font-size: 0.833333vw; /* 16px */
+  color: #111;
 }
