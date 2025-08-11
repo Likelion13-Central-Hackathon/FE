@@ -159,18 +159,20 @@ const ReportPage = () => {
           </div>
 
           {/* swot 강점, 약점, 기회, 위협 */}
-          <motion.div
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 2, ease: "easeOut" }}
-          >
-            <div className={s.swotBox}>
-              <p className={s.swot}>{data.data.strength}</p>
-              <p className={s.swot}>{data.data.weakness}</p>
-              <p className={s.swot}>{data.data.opportunity}</p>
-              <p className={s.swot}>{data.data.threat}</p>
+          <div className={s.swotBox}>
+            <div className={`${s.swot} ${s.s}`}>
+              <p>{data.data.strength}</p>
             </div>
-          </motion.div>
+            <div className={`${s.swot} ${s.w}`}>
+              <p>{data.data.weakness}</p>
+            </div>
+            <div className={`${s.swot} ${s.o}`}>
+              <p>{data.data.opportunity}</p>
+            </div>
+            <div className={`${s.swot} ${s.t}`}>
+              <p>{data.data.threat}</p>
+            </div>
+          </div>
 
           {/* 추천 창업 계획 다이어그램 */}
           <ReportOutBox height="43.59vw" className={b.column}>

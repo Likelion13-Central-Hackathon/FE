@@ -19,7 +19,7 @@ const NewsItem: React.FC<NewsItemProps> = ({
   return (
     <div className={styles.newsItem}>
       <div className={styles.headerRow}>
-        <img src={NEWS} alt="news-icon" />
+        <img src={NEWS} alt="news-icon" style={{ width: "1.25vw" }} />
         <p className={styles.title} title={title}>
           {title}
         </p>
