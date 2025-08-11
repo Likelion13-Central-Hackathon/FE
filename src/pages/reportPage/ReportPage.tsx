@@ -10,8 +10,11 @@ import ReportInBox from "./components/ReportInBox";
 import RecommendPlan from "./components/RecommendPlan";
 import RecommendPlanLabel from "./components/RecommendPlanLabel";
 import { planLabels } from "../../data/PlanLabelData";
+import NewsItem from "./components/NewsItem";
 
 const ReportPage = () => {
+  const news = data?.data?.newsList ?? []; // 뉴스기사 목록
+
   return (
     <div className={s.reportPageWrapper}>
       <div className={s.reportContainer}>
@@ -65,7 +68,12 @@ const ReportPage = () => {
 
               {/* 관련 뉴스 2개 */}
               <ReportOutBox width="48.80vw" height="6.15vw">
-                <div>뉴스 2개</div>
+                {news.slice(0, 2).map((item, idx, arr) => (
+                  <React.Fragment key={item.link ?? idx}>
+                    <NewsItem title={item.title ?? ""} url={item.link ?? ""} />
+                    {idx < arr.length - 1 && <div className={s.newsDivider} />}
+                  </React.Fragment>
+                ))}
               </ReportOutBox>
             </div>
           </div>

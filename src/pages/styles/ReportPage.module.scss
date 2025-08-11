@@ -62,6 +62,18 @@
       .rightSection {
         @include m.flex-column-center;
         gap: 0.63vw;
+
+        // ---- 뉴스기사 2개
+        .newsRow {
+          @include m.flex-row-double-center;
+          gap: 0.84vw;
+        }
+
+        .newsDivider {
+          width: 0.08vw;
+          height: 80%;
+          background-color: $main-color2;
+        }
       }
     }
 
