@@ -24,7 +24,7 @@
 @mixin glass-box($inner1, $inner2) {
   background-color: $translucent;
   border-radius: 0.94vw;
-  backdrop-filter: blur(0.52vw);
+  backdrop-filter: blur(0.2vw);
   box-shadow: #{$inner1}, #{$inner2}, 0vw 0.42vw 0.63vw rgba(4, 0, 250, 0.06);
   overflow: hidden;
 }

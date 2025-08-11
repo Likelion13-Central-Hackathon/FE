@@ -26,7 +26,7 @@
 
     .subTitle {
       font-size: 1.04vw;
-      font-weight: 500;
+      font-weight: 700;
       color: black;
     }
 
@@ -38,6 +38,23 @@
       margin-top: 0.78vw;
     }
 
+    // 생성일자, 메일 경고문구
+    .dateBox {
+      width: 100%;
+      @include m.flex-row-center;
+      justify-content: space-between;
+      .date {
+        font-size: 1.04vw;
+        font-weight: 400;
+        color: $main-color1;
+      }
+      .mailText {
+        font-size: 0.83vw;
+        font-weight: 400;
+        color: $main-color1;
+      }
+    }
+
     // 제목 + 날짜 + 아이콘 2개
     .titleContainer {
       width: 63.85vw;
@@ -47,11 +64,6 @@
       .title {
         font-size: 1.88vw;
         font-weight: 700;
-      }
-      .date {
-        font-size: 1.04vw;
-        font-weight: 400;
-        color: $main-color1;
       }
     }
 
@@ -77,15 +89,22 @@
         gap: 0.63vw;
 
         // ---- 뉴스기사 2개
-        .newsRow {
-          @include m.flex-row-double-center;
-          gap: 0.84vw;
-        }
+        .newsContainer {
+          display: flex;
+          flex-direction: column;
+          gap: 0.15vw;
 
-        .newsDivider {
-          width: 0.08vw;
-          height: 80%;
-          background-color: $main-color2;
+          .newsRow {
+            @include m.flex-row-center;
+            gap: 3.62vw;
+          }
+
+          .newsDivider {
+            width: 0.1vw;
+            height: 4.32vw;
+            align-self: center;
+            background-color: $main-color2;
+          }
         }
       }
     }
@@ -124,12 +143,6 @@
       @include m.flex-column-center;
       gap: 0.63vw;
     }
-    .planText {
-      width: 59.9vw;
-      font-size: 1.04vw;
-      font-weight: 600;
-      color: $gray-800;
-    }
 
     .planLabel {
       width: 59.9vw;
@@ -149,4 +162,11 @@
       }
     }
   }
+}
+
+.subTitle {
+  width: 100%;
+  font-size: 1.04vw;
+  font-weight: 600;
+  color: $gray-800;
 }

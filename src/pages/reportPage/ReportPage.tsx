@@ -19,20 +19,22 @@ const ReportPage = () => {
   return (
     <div className={s.reportPageWrapper}>
       <div className={s.reportContainer}>
-        {/* 상단 제목 부분 + 아이콘 2개 */}
-        <section className={s.titleContainer}>
-          <div
-            style={{ display: "flex", flexDirection: "column", gap: "0.42vw" }}
-          >
+        <section>
+          {/* 상단 제목 부분 + 아이콘 2개 */}
+          <div className={s.titleContainer}>
             <p className={s.title}>창업할각 로드맵</p>
-            <p className={s.date}>{`생성일자 | ${data.data.createdAt}`}</p>
+            <div
+              style={{ display: "flex", gap: "0.63vw", alignItems: "flex-end" }}
+            >
+              <IconButton imgSrc={DOWNLOAD} text="PDF" />
+              <IconButton imgSrc={MAIL} text="Mail" />
+            </div>
           </div>
-
-          <div
-            style={{ display: "flex", gap: "0.63vw", alignItems: "flex-end" }}
-          >
-            <IconButton imgSrc={DOWNLOAD} text="PDF" />
-            <IconButton imgSrc={MAIL} text="Mail" />
+          <div className={s.dateBox}>
+            <p className={s.date}>{`생성일자 | ${data.data.createdAt}`}</p>
+            <p className={s.mailText}>
+              * 메일 알림을 설정하지 않을 시, 로드맵을 다시 조회할 수 없습니다.
+            </p>
           </div>
         </section>
 
@@ -59,7 +61,7 @@ const ReportPage = () => {
               {/* 적합한 청년창업지원사업 2개 */}
               <ReportOutBox
                 width="48.80vw"
-                height="15.83vw"
+                height="13.58vw"
                 className={b.column}
               >
                 <ReportInBox width="46.72vw" height="6.15vw">
@@ -71,13 +73,23 @@ const ReportPage = () => {
               </ReportOutBox>
 
               {/* 관련 뉴스 2개 */}
-              <ReportOutBox width="48.80vw" height="6.15vw">
-                {news.slice(0, 2).map((item, idx, arr) => (
-                  <React.Fragment key={item.link ?? idx}>
-                    <NewsItem title={item.title ?? ""} url={item.link ?? ""} />
-                    {idx < arr.length - 1 && <div className={s.newsDivider} />}
-                  </React.Fragment>
-                ))}
+              <ReportOutBox width="48.80vw" height="8.39vw">
+                <div className={s.newsContainer}>
+                  <p className={s.subTitle}>관련 지역 & 산업 뉴스 및 트랜드</p>
+                  <div className={s.newsRow}>
+                    {news.slice(0, 2).map((item, idx, arr) => (
+                      <React.Fragment key={item.link ?? idx}>
+                        <NewsItem
+                          title={item.title ?? ""}
+                          url={item.link ?? ""}
+                        />
+                        {idx < arr.length - 1 && (
+                          <div className={s.newsDivider} />
+                        )}
+                      </React.Fragment>
+                    ))}
+                  </div>
+                </div>
               </ReportOutBox>
             </div>
           </div>
@@ -93,7 +105,7 @@ const ReportPage = () => {
           {/* 추천 창업 계획 다이어그램 */}
           <ReportOutBox height="43.59vw" className={b.column}>
             <div className={s.recommendBox}>
-              <p className={s.planText}>추천 창업 계획</p>
+              <p className={s.subTitle}>추천 창업 계획</p>
 
               {/* 라벨 4개 */}
               <div className={s.planLabel}>
