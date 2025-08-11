@@ -166,3 +166,49 @@
     }
   }
 }
+
+.markdownBox {
+  display: block;
+  padding: 0 0.73vw;
+  max-height: 90%;
+  overflow-y: auto;
+  font-size: 0.83vw;
+
+  /* 스크롤바  */
+  &::-webkit-scrollbar {
+    width: 0.52vw;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $gray-300;
+    border-radius: 4px;
+  }
+
+  > * {
+    display: block;
+    width: 100%;
+  }
+
+  line-height: 1.4;
+  h1 {
+    font-size: 1.8vw;
+  }
+  h2 {
+    font-size: 1.6vw;
+  }
+  h3 {
+    font-size: 1.4vw;
+  }
+  h1,
+  h2,
+  h3 {
+    margin: 1em 0 0.5em;
+  }
+  p {
+    margin: 0.75em 0;
+  }
+  ul,
+  ol {
+    margin: 0.75em 0;
+    padding-left: 1.25rem;
+  }
+}
