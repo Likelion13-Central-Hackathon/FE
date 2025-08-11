@@ -7,6 +7,9 @@ import DOWNLOAD from "../../assets/images/icon/download-icon.svg";
 import MAIL from "../../assets/images/icon/mail-icon.svg";
 import ReportOutBox from "./components/ReportOutBox";
 import ReportInBox from "./components/ReportInBox";
+import RecommendPlan from "./components/RecommendPlan";
+import RecommendPlanLabel from "./components/RecommendPlanLabel";
+import { planLabels } from "../../data/PlanLabelData";
 
 const ReportPage = () => {
   return (
@@ -76,10 +79,26 @@ const ReportPage = () => {
           </div>
 
           {/* 추천 창업 계획 다이어그램 */}
-          <ReportOutBox height="43.59vw">
-            <div>추천 창업 계획</div>
+          <ReportOutBox height="43.59vw" className={b.column}>
+            <div>
+              <p className={s.planText}>추천 창업 계획</p>
+
+              {/* 라벨 4개 */}
+              <div className={s.planLabel}>
+                {planLabels.map((item) => (
+                  <RecommendPlanLabel key={item.title} width={item.width}>
+                    <p>
+                      <span>{item.title}</span>ㅣ{item.desc}
+                    </p>
+                  </RecommendPlanLabel>
+                ))}
+              </div>
+              {/* 다이어그램 */}
+              <RecommendPlan createdAt={data.data.createdAt} />
+            </div>
           </ReportOutBox>
         </section>
+
         <p className={s.warningText}>
           ※ 본 결과는 AI 분석을 기반으로 제공되었으며, 실제 상황과 차이가 있을
           수 있습니다. 참고 자료로 만 활용하시기 바랍니다.
