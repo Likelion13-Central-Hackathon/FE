@@ -24,6 +24,12 @@
       inset -0.21vw -0.21vw 0.21vw -0.1vw $color-white
     );
 
+    .subTitle {
+      font-size: 1.04vw;
+      font-weight: 500;
+      color: black;
+    }
+
     // 하단 경고문구
     .warningText {
       font-size: 0.83vw;
@@ -58,6 +64,13 @@
       .middleSection {
         @include m.flex-row-double-center;
         gap: 0.63vw;
+
+        // ---- 추천 리서치 방법
+        .researchBox {
+          display: flex;
+          flex-direction: column;
+          gap: 1.04vw;
+        }
       }
       .rightSection {
         @include m.flex-column-center;

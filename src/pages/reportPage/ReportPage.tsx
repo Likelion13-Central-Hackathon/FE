@@ -11,6 +11,7 @@ import RecommendPlan from "./components/RecommendPlan";
 import RecommendPlanLabel from "./components/RecommendPlanLabel";
 import { planLabels } from "../../data/PlanLabelData";
 import NewsItem from "./components/NewsItem";
+import MarkDownBox from "./components/MarkDownBox";
 
 const ReportPage = () => {
   const news = data?.data?.newsList ?? []; // 뉴스기사 목록
@@ -45,10 +46,13 @@ const ReportPage = () => {
 
           <div className={s.middleSection}>
             {/* 추천 리서치 방법 */}
-            <ReportOutBox width="14.22vw" height="22.60vw">
-              <ReportInBox width="12.14vw" height="18.02vw">
-                <div>추천 리서치 방법</div>
-              </ReportInBox>
+            <ReportOutBox width="14.22vw" height="22.60vw" className={b.column}>
+              <div className={s.researchBox}>
+                <p className={s.subTitle}>추천 리서치 방법</p>
+                <ReportInBox width="12.14vw" height="18.02vw">
+                  <MarkDownBox research={data.data.researchMethod} />
+                </ReportInBox>
+              </div>
             </ReportOutBox>
 
             <div className={s.rightSection}>
