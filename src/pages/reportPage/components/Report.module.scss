@@ -30,6 +30,37 @@
   );
 }
 
+// 청년창업지원사업
+.businessItemContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 1.04vw;
+  gap: 0.21vw;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.01);
+  }
+
+  .businessTitle {
+    font-size: 0.83vw;
+    font-weight: 500;
+    color: $color-black;
+  }
+  .businessPercent {
+    font-size: 0.83vw;
+    font-weight: 400;
+    color: $color-black;
+  }
+  .businessDate {
+    font-size: 0.73vw;
+    font-weight: 500;
+    color: $gray-500;
+  }
+}
+
 // 뉴스기사 2개
 .newsItem {
   width: 19.58vw;

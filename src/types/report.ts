@@ -19,3 +19,15 @@ export interface RecommendPlanProps {
   createdAt: string;
   steps: StepItem[];
 }
+
+// BusinessItem
+interface Business {
+  title: string;
+  suitability: number;
+  startDate: string;
+  endDate: string;
+}
+
+export interface BusinessItemProps {
+  business: Business;
+}
