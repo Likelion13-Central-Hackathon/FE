@@ -17,7 +17,7 @@ export const planLabels: PlanLabel[] = [
     desc: "유료 고객 전환 → 수익 구조 타당성 검증",
   },
   {
-    width: "20.16vw",
+    width: "20.15vw",
     title: "브랜드 구축",
     desc: "초기 팬층 + SNS 브랜딩을 통한 충성도 높은 고객 확보",
   },

@@ -80,7 +80,7 @@ const ReportPage = () => {
 
           {/* 추천 창업 계획 다이어그램 */}
           <ReportOutBox height="43.59vw" className={b.column}>
-            <div>
+            <div className={s.recommendBox}>
               <p className={s.planText}>추천 창업 계획</p>
 
               {/* 라벨 4개 */}
@@ -94,7 +94,10 @@ const ReportPage = () => {
                 ))}
               </div>
               {/* 다이어그램 */}
-              <RecommendPlan createdAt={data.data.createdAt} />
+              <RecommendPlan
+                createdAt={data.data.createdAt}
+                steps={data.data.steps}
+              />
             </div>
           </ReportOutBox>
         </section>
