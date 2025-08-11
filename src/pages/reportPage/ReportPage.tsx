@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import s from "../styles/ReportPage.module.scss";
 import b from "./components/Report.module.scss";
 import data from "../../data/reportDummy.json";
@@ -6,6 +7,11 @@ import IconButton from "../../components/IconButton";
 import DOWNLOAD from "../../assets/images/icon/download-icon.svg";
 import MAIL from "../../assets/images/icon/mail-icon.svg";
 import PLUS from "../../assets/images/icon/plus-icon.svg";
+import LOGO from "../../assets/images/report-logo.svg";
+import QR from "../../assets/images/qr-code.png";
+import CHAR from "../../assets/images/character-2d.png";
+import ANGLE from "../../assets/images/protractor.png";
+import SCORE from "../../assets/images/icon/report-score.svg";
 import ReportOutBox from "./components/ReportOutBox";
 import ReportInBox from "./components/ReportInBox";
 import RecommendPlan from "./components/RecommendPlan";
@@ -14,6 +20,8 @@ import { planLabels } from "../../data/PlanLabelData";
 import NewsItem from "./components/NewsItem";
 import MarkDownBox from "./components/MarkDownBox";
 import BusinessItem from "./components/BusinessItem";
+import { CountingScore } from "./components/CountingScore";
+import { getAngleMessage } from "../../utils/getScoreMsg";
 
 const ReportPage = () => {
   const news = data?.data?.newsList ?? []; // 뉴스기사 목록
@@ -43,8 +51,34 @@ const ReportPage = () => {
         <section className={s.reportContent}>
           {/* 창업할각(각도기, 캐릭터, QR코드) */}
           <ReportOutBox>
+            <div className={s.angleWrap}>
+              <p className={s.subTitle}>창업할 각</p>
+              <img src={ANGLE} alt="protractor" style={{ width: "18.59vw" }} />
+              <div className={s.scoreContainer}>
+                <img src={SCORE} alt="protractor" style={{ width: "1.56vw" }} />
+                <CountingScore target={data.data.angle} />
+              </div>
+            </div>
+            {/* 캐릭터 + 말풍선 */}
+            <div className={s.commentBox}>
+              <motion.div
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.55, ease: "easeOut" }}
+              >
+                <ReportInBox width="17vw" height="3.33vw">
+                  <p style={{ fontSize: "0.83vw", fontWeight: "600" }}>
+                    {getAngleMessage(data.data.angle)}
+                  </p>
+                </ReportInBox>
+              </motion.div>
+              <img src={CHAR} alt="character-2d" style={{ width: "11vw" }} />
+            </div>
+            {/* QR코드 */}
             <ReportInBox>
-              <div>창업할각</div>
+              <img src={LOGO} alt="report-logo" style={{ width: "14.48vw" }} />
+              <div style={{ width: "1.25vw" }} />
+              <img src={QR} alt="qr-code" style={{ width: "4.95vw" }} />
             </ReportInBox>
           </ReportOutBox>
 

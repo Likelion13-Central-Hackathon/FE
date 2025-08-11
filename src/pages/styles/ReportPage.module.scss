@@ -73,6 +73,33 @@
       flex-direction: column;
       gap: 0.63vw;
 
+      // ---- 캐릭터 + 말풍선
+      .commentBox {
+        @include m.flex-column-center;
+        gap: 0.88vw;
+      }
+
+      .angleWrap {
+        position: relative;
+        display: inline-block;
+        width: 18.59vw;
+
+        .scoreContainer {
+          @include m.flex-row-double-center;
+          position: absolute;
+          left: 35%;
+          bottom: 0%;
+          gap: 0.42vw;
+          z-index: 1;
+
+          span {
+            font-size: 1.04vw;
+            font-weight: 600;
+            color: $gray-800;
+          }
+        }
+      }
+
       .middleSection {
         @include m.flex-row-double-center;
         gap: 0.63vw;
