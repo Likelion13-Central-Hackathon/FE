@@ -281,6 +281,8 @@
 .col {
   width: 7.1875vw;
   height: 3.90625vw;
+  column-gap: 2.6vw; /* 가로 간격 */
+  row-gap: 0.8vw; /* 세로 간격 */
 }
 
 /* 예/아니오 버튼 */
