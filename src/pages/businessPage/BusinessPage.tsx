@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import s from "../styles/BusinessPage.module.scss";
 import b from "../../components/styles/Box.module.scss";
 import BACK from "../../assets/images/icon/back-icon.svg";
@@ -9,12 +10,18 @@ import BusinessItem from "./components/BusinessItem";
 import data from "../../data/businessDummy.json";
 
 const BusinessPage = () => {
+  const navigate = useNavigate();
   const [region, setRegion] = useState("서울"); // 선택된 지역
   const filteredData = data.data.filter((item) => item.region === region);
 
   return (
     <div className={s.businessWrapper}>
-      <img src={BACK} alt="back-icon" className={s.backButton} />
+      <img
+        src={BACK}
+        alt="back-icon"
+        className={s.backButton}
+        onClick={() => navigate("/business/result")}
+      />
       <div className={s.businessContainer}>
         <section className={s.titleBox}>
           <p className={s.businessTitle}>2025년 청년지원사업 통합 공고</p>

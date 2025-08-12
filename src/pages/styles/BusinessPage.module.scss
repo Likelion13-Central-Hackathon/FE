@@ -16,6 +16,7 @@
     height: 1.72vw;
     margin-top: 6.51vw;
     margin-left: 2.19vw;
+    @include m.button-click;
   }
 }
 
