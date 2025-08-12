@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import s from "../styles/ReportPage.module.scss";
-import b from "./components/Report.module.scss";
+import b from "../../components/styles/Box.module.scss";
 import data from "../../data/reportDummy.json";
 import IconButton from "../../components/IconButton";
 import DOWNLOAD from "../../assets/images/icon/download-icon.svg";

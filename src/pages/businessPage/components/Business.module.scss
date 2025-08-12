@@ -4,8 +4,8 @@
 .regionButton {
   @include m.flex-row-double-center;
   @include m.button-click(1, 0.96);
-  width: 4.53vw;
-  height: 1.31vw;
+  width: 3.17vw;
+  height: 1.25vw;
   background-color: $main-color1;
   font-size: 0.73vw;
   font-weight: 700;
