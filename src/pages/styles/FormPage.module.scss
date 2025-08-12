@@ -72,27 +72,37 @@
 }
 
 /* row */
+/* row 내부 인풋/셀렉트/버튼 공통 포커스 해제 */
 .row {
   display: flex;
-  gap: 2.6vw;
+  /* 원하는 값: 좌우 2.6vw, 상하 0.8vw */
+  column-gap: 2.6vw; /* 가로 간격 */
+  row-gap: 0.8vw; /* 세로 간격 */
   margin-top: 1.041667vw;
-  overflow: visible; /* 드롭다운 잘림 방지 */
+  overflow: visible;
 
-  input,
-  button {
+  > input,
+  > select,
+  > button,
+  > .col > input,
+  > .col > select,
+  > .col > button {
     padding: 0 0.833333vw;
     border: 0.052083vw solid #dde3ee;
     border-radius: 0.625vw;
     font-size: 0.833333vw;
     background: #fff;
+    outline: none;
+    box-shadow: none;
   }
+
   input[type='text'] {
     width: 7.03125vw;
     height: 2.1875vw;
   }
 }
 
-/* 개별 입력 */
+/* 나이 입력 */
 .row input.age {
   width: 7.03125vw;
   height: 2.1875vw;
@@ -101,8 +111,19 @@
   border-radius: 0.26vw;
   border-color: #8ebefa;
   margin-top: 0.625vw;
+
+  outline: none;
+  box-shadow: none;
+
+  &:focus,
+  &:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: #8ebefa; // 기존 색 유지
+  }
 }
 
+/* 학교 입력 */
 .row input.unv {
   width: 7.03125vw;
   height: 2.1875vw;
@@ -110,16 +131,152 @@
   background: #f9faff;
   border-radius: 0.26vw;
   border-color: #8ebefa;
+
+  outline: none;
+  box-shadow: none;
+
+  &:focus,
+  &:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: #8ebefa;
+  }
 }
 
-.row button.regionBtn {
+/* ===== 지역 선택 드롭다운: regionBtn 디자인 유지 + 화살표 제거 ===== */
+.regionWrap {
+  position: relative;
+  display: inline-block;
+  width: 7.03125vw; /* 기존 버튼과 동일 */
+}
+
+.regionTrigger {
+  /* 기존 button.regionBtn과 동일한 룩앤필 */
   width: 7.03125vw;
   height: 2.1875vw;
   font-size: 0.625vw;
   background: #fff;
   border-radius: 0.26vw;
   margin-top: 0.625vw;
+  padding: 0 0.833333vw;
+  border: 0.052083vw solid #dde3ee;
+  color: #111;
+
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 화살표 제거했으니 가운데 정렬 */
+  gap: 0.5vw;
+  cursor: pointer;
+
+  /* 기본 화살표 제거 */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: none;
+
+  outline: none;
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
 }
+
+/* IE/Edge 화살표 제거 */
+.regionTrigger::-ms-expand {
+  display: none;
+}
+
+.regionLabel {
+  line-height: 1;
+}
+
+/* 드롭다운 메뉴 */
+.regionMenu {
+  position: absolute;
+  top: calc(100% + 0.416667vw);
+  left: 0;
+  z-index: 50;
+  width: 15.8vw;
+  height: 31.5vw;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: none;
+  box-shadow: 0 0.520833vw 2.604167vw rgba(0, 0, 0, 0.18);
+  border: none;
+  outline: none;
+
+  &::-webkit-scrollbar {
+    width: 0.416667vw;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #e0e6f3;
+    border-radius: 0.416667vw;
+  }
+}
+
+/* 옵션 줄: 외곽선 완전 제거 */
+.regionOption {
+  width: 15vw;
+  height: 2.5vw;
+  display: flex;
+  align-items: center;
+  gap: 0.833333vw;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  text-align: left;
+  cursor: pointer;
+
+  &:hover {
+    background: #f6f8ff;
+  }
+
+  &::-moz-focus-inner {
+    border: none;
+  }
+  &:focus,
+  &:focus-visible,
+  &:active {
+    border: none;
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+/* 체크박스: 기본 테두리 제거, hover/선택 시 표시 */
+.box {
+  flex: 0 0 auto;
+  width: 1.041667vw;
+  height: 1.041667vw;
+  border: none; /* 기본 테두리 제거 */
+  border-radius: 0.26vw;
+  background: #fff;
+  position: relative;
+}
+
+.regionOption:hover .box {
+  border: 0.052083vw solid #cfd6e4; /* hover 시만 연한 테두리 */
+}
+
+.boxOn {
+  border: 0.052083vw solid #111; /* 선택 시 진한 테두리 */
+}
+.boxOn::after {
+  content: '';
+  position: absolute;
+  left: 0.260417vw;
+  top: 0.104167vw;
+  width: 0.625vw;
+  height: 0.489583vw;
+  border: 0.15625vw solid #111;
+  border-top: 0;
+  border-right: 0;
+  transform: rotate(-45deg);
+  box-sizing: border-box;
+}
+
+/* 체크 박스(상태와 동일한 스타일 공유) */
+/* 이미 .box / .boxOn 이 위쪽에 정의되어 있으면 생략 가능 */
 
 .col {
   width: 7.1875vw;
@@ -131,6 +288,7 @@
   display: flex;
   gap: 2.6vw;
   margin-top: 1.041667vw;
+
   :global(.button) {
     border: 0.052083vw solid #dde3ee;
     border-radius: 0.625vw;
@@ -158,7 +316,8 @@
 /* ===== 단일 선택 드롭다운 ===== */
 .selectWrap {
   position: relative;
-  width: 7.03125vw; /* 트리거 너비: 필요시 조절 */
+  width: 7.916667vw; /* ~152px */
+  height: 2.1875vw;
 }
 
 /* 트리거 버튼 */
@@ -177,11 +336,12 @@
   cursor: pointer;
   box-shadow: 0 0.15625vw 0.520833vw rgba(0, 0, 0, 0.05);
   appearance: none;
+  color: #111;
 }
 
 .selectTriggerActive {
-  background: #8ebefa; /* 활성 시 파란톤 */
-  color: #111;
+  background: #1237ff; /* 활성 시 파란톤(가독성↑) */
+  color: #fff;
 }
 
 .caret {
@@ -191,14 +351,14 @@
 /* 드롭다운 메뉴(카드) */
 .selectMenu {
   position: absolute;
-  top: calc(100% + 0.416667vw);
+  top: calc(100% + 0.416667vw); /* 트리거 바로 아래 */
   left: 0;
-  width: 11.458333vw; /* 필요시 조절 */
-  max-height: 15.625vw; /* 스크롤 영역 */
+  width: 7.916667vw;
+  height: 10vw; /* 스크롤 영역 */
   overflow-y: auto;
   background: #fff;
-  border: 0; /* 테두리 없음 */
-  border-radius: 1.041667vw;
+  border: 1vw;
+  border-radius: 0 0.42vw 0.42vw 0; /* 카드 라운드 */
   box-shadow: 0 0.208333vw 1.041667vw rgba(0, 0, 0, 0.12);
   padding: 0.416667vw 0; /* 위아래 여백 */
   z-index: 10;
@@ -215,19 +375,39 @@
     border-radius: 1.041667vw;
   }
 }
+.selectMenuWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.selectext {
+  font-size: 1vw;
+  font-weight: bold;
+  padding: 0.8vw 1vw 0 1vw;
+}
+
+.subtext {
+  font-size: 0.7vw;
+  color: #888;
+  padding: 0 1vw 0.5vw 1vw;
+}
 
 /* 옵션 행: 테두리/구분선 없이 */
 .optRow {
-  width: 100%;
+  width: 7vw;
+  height: 2.5vw;
   display: flex;
   align-items: center;
   gap: 0.833333vw;
   padding: 0.833333vw 1.041667vw;
   background: transparent;
-  border: 0; /* 버튼 기본 테두리 제거 */
+  border: 0; /* 기본 테두리 제거 */
   text-align: left;
   cursor: pointer;
   appearance: none; /* 브라우저 기본 제거 */
+  outline: none;
+  box-shadow: none;
+  border-radius: 0.520833vw;
 
   &:hover {
     background: #f7f8fa;
@@ -236,36 +416,53 @@
     font-weight: 700;
   }
 }
-
-/* 사각 체크박스 (윤곽선만) */
-.box {
-  flex: 0 0 auto;
-  width: 1.25vw; /* 24px */
-  height: 1.25vw;
-  border: 0.052083vw solid #cfd6e4;
-  border-radius: 0.3125vw; /* 6px */
-  background: #fff;
+.selectMenuWrapper {
+  display: flex;
+  flex-direction: column;
 }
 
-/* 선택 시 체크 표시(심플) */
-.boxOn {
+.selectext {
+  font-size: 0.9vw;
+  font-weight: 700;
+  padding: 0.8vw 1vw 0 1vw;
+}
+
+.subtext {
+  font-size: 0.7vw;
+  color: #888;
+  padding: 0 1vw 0.5vw 1vw;
+}
+
+/* 사각 체크박스 */
+.box {
+  flex: 0 0 auto;
+  width: 1.041667vw; /* 20px */
+  height: 1.041667vw;
+  border: 0.052083vw solid #cfd6e4;
+  border-radius: 0.26vw; /* ~5px */
+  background: #fff;
   position: relative;
+}
+
+/* 선택 시 체크 표시 — 한쪽이 짧은 체크(가로 12px, 세로 9.4px → vw 변환) */
+.boxOn {
   border-color: #111;
 }
 .boxOn::after {
   content: '';
   position: absolute;
-  left: 0.3125vw; /* 6px */
-  top: 0.15625vw; /* 3px */
+  left: 0.260417vw; /* ~5px: 중앙정렬 보정 */
+  top: 0.104167vw; /* ~2px */
   width: 0.625vw; /* 12px */
-  height: 0.3125vw; /* 6px */
-  border: 0.15625vw solid #111;
+  height: 0.489583vw; /* 9.4px */
+  border: 0.15625vw solid #111; /* 3px */
   border-top: 0;
-  border-left: 0;
-  transform: rotate(45deg);
+  border-right: 0; /* ← 왼쪽이 짧고 오른쪽이 긴 형태 */
+  transform: rotate(-45deg); /* 짧은쪽 왼쪽 / 긴쪽 오른쪽 */
+  box-sizing: border-box;
 }
 
 .optText {
-  font-size: 0.833333vw; /* 16px */
-  color: #111;
+  font-size: 0.833333vw;
+  color: #2b2f37;
 }

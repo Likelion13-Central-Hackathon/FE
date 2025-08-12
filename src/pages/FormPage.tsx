@@ -5,10 +5,29 @@ import logo from "../assets/images/main-logo.svg";
 import BasicButton from "../components/BasicButton";
 
 const STATUS_OPTIONS = ["휴학", "재학", "편입", "재입학"];
+const REGION_OPTIONS = [
+  "서울특별시",
+  "부산광역시",
+  "대구광역시",
+  "인천광역시",
+  "광주광역시",
+  "대전광역시",
+  "울산광역시",
+  "경기도",
+  "강원특별자치도",
+  "충청북도",
+  "충청남도",
+  "전라북도",
+  "전라남도",
+  "경상북도",
+  "경상남도",
+  "제주특별자치도",
+];
 
 const FormPage: React.FC = () => {
   const [isCollege, setIsCollege] = useState<boolean | null>(null);
-  const [status, setStatus] = useState<string | null>(null); // 단일 선택
+  const [status, setStatus] = useState<string | null>(null);
+  const [region, setRegion] = useState<string | null>(null);
 
   return (
     <div className={styles.container}>
@@ -28,9 +47,15 @@ const FormPage: React.FC = () => {
                 <div className={styles.subLabel}>나이</div>
                 <input className={styles.age} type="text" placeholder="Ex. 만 25세" />
               </div>
+
               <div className={styles.col}>
                 <div className={styles.subLabel}>사업장 주소</div>
-                <button className={styles.regionBtn}>지역 선택하기</button>
+                <RegionSelect
+                  value={region}
+                  onChange={setRegion}
+                  placeholder="지역 선택하기"
+                  options={REGION_OPTIONS}
+                />
               </div>
             </div>
           </div>
@@ -68,7 +93,8 @@ const FormPage: React.FC = () => {
             {isCollege === true && (
               <div className={styles.row}>
                 <input className={styles.unv} type="text" placeholder="학교입력" />
-                <StatusSelect value={status} onChange={setStatus} />
+                {/* ✅ options를 넘겨줌 */}
+                <StatusSelect value={status} onChange={setStatus} options={STATUS_OPTIONS} />
               </div>
             )}
           </div>
@@ -89,14 +115,15 @@ export default FormPage;
 function StatusSelect({
   value,
   onChange,
+  options,                // ✅ 옵션을 받도록 수정
 }: {
   value: string | null;
   onChange: (v: string) => void;
+  options: string[];      // ✅ 타입 추가
 }) {
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
 
-  // 바깥 클릭 시 닫기
   useEffect(() => {
     const onDoc = (e: MouseEvent) => {
       if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) {
@@ -107,12 +134,8 @@ function StatusSelect({
     return () => document.removeEventListener("mousedown", onDoc);
   }, []);
 
-  // 트리거 라벨은 항상 고정
   const label = "학적 입력";
-  // 값이 있거나 열려 있으면 파란 버튼
-  const triggerClass = `${styles.selectTrigger} ${
-    open || value ? styles.selectTriggerActive : ""
-  }`;
+  const triggerClass = `${styles.selectTrigger} ${open || value ? styles.selectTriggerActive : ""}`;
 
   return (
     <div className={styles.selectWrap} ref={wrapRef}>
@@ -129,27 +152,31 @@ function StatusSelect({
 
       {open && (
         <div
-          className={styles.selectMenu}
+          className={styles.regionMenu}
           role="listbox"
-          onMouseDown={(e) => e.preventDefault()} // 클릭 시 포커스 이동 방지
+          onMouseDown={(e) => e.preventDefault()}
         >
-          {STATUS_OPTIONS.map((opt) => {
+          {/* 헤더 */}
+          <div className={styles.selectext}>시/도</div>
+          <div className={styles.subtext}>다중선택 가능</div>
+
+          {/* 옵션들 */}
+          {options.map((opt) => {
             const checked = value === opt;
             return (
               <button
-                type="button"
                 key={opt}
-                className={styles.optRow}
+                type="button"
+                className={styles.regionOption}
                 role="option"
                 aria-selected={checked}
                 onClick={() => {
-                  onChange(opt);  // 값 저장
-                  setOpen(false); // 닫기
+                  onChange(opt);
+                  setOpen(false);
                 }}
               >
-                {/* 왼쪽 사각 체크박스(윤곽선은 SCSS에서만 표시) */}
                 <span className={`${styles.box} ${checked ? styles.boxOn : ""}`} />
-                <span className={styles.optText}>{opt}</span>
+                <span className={styles.regionText}>{opt}</span>
               </button>
             );
           })}
@@ -159,4 +186,73 @@ function StatusSelect({
   );
 }
 
+/* ===== 지역 선택 드롭다운 (디자인 유지) ===== */
+function RegionSelect({
+  value,
+  onChange,
+  placeholder = "지역 선택하기",
+  options,
+}: {
+  value: string | null;
+  onChange: (v: string) => void;
+  placeholder?: string;
+  options: string[];
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    const onDoc = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("mousedown", onDoc);
+    return () => document.removeEventListener("mousedown", onDoc);
+  }, []);
+
+  const label = value ?? placeholder;
+
+  return (
+    <div className={styles.regionWrap} ref={ref}>
+      <button
+        type="button"
+        className={styles.regionTrigger}
+        onClick={() => setOpen((o) => !o)}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+      >
+        <span className={styles.regionLabel}>{label}</span>
+      </button>
+
+      {open && (
+        <div
+          className={styles.regionMenu}
+          role="listbox"
+          onMouseDown={(e) => e.preventDefault()}
+        >
+          <div className={styles.selectext}>시/도</div>
+          <div className={styles.subtext}>다중선택 가능</div>
+
+          {options.map((opt) => {
+            const checked = value === opt;
+            return (
+              <button
+                key={opt}
+                type="button"
+                className={styles.regionOption}
+                role="option"
+                aria-selected={checked}
+                onClick={() => {
+                  onChange(opt);
+                  setOpen(false);
+                }}
+              >
+                <span className={`${styles.box} ${checked ? styles.boxOn : ""}`} />
+                <span className={styles.regionText}>{opt}</span>
+              </button>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
