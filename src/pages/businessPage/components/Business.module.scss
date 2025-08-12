@@ -4,7 +4,7 @@
 .regionButton {
   @include m.flex-row-double-center;
   @include m.button-click(1, 0.96);
-  width: 3.17vw;
+  width: 4.53vw;
   height: 1.31vw;
   background-color: $main-color1;
   font-size: 0.73vw;
@@ -12,4 +12,45 @@
   color: $color-white;
   border-radius: 1.67vw;
   user-select: none;
+}
+
+// 지원사업 아이템 하나
+.businessItemContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.63vw;
+  width: 100%;
+  height: auto;
+  padding: 0.83vw;
+
+  .busiInfo {
+    font-size: 1.04vw;
+    font-weight: 500;
+    color: $gray-500;
+  }
+
+  .busiTitle {
+    font-size: 1.25vw;
+    font-weight: 700;
+    color: $gray-800;
+  }
+}
+
+.linkButton {
+  @include m.flex-row-double-center;
+  width: 5.3vw;
+  height: 1.98vw;
+  border: none;
+  border-radius: 0.31vw;
+  margin: 0.83vw;
+  @include m.button-click();
+  background-color: $main-color1;
+  gap: 0.1vw;
+  box-shadow: 0px 8px 26px rgba(0, 94, 255, 0.06);
+
+  p {
+    font-size: 0.83vw;
+    font-weight: 700;
+    color: $color-white;
+  }
 }
