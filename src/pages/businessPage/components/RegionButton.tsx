@@ -7,9 +7,13 @@ interface RegionButtonProps {
   onClick?: () => void;
 }
 
-const RegionButton: React.FC<RegionButtonProps> = ({ region, style }) => {
+const RegionButton: React.FC<RegionButtonProps> = ({
+  region,
+  style,
+  onClick,
+}) => {
   return (
-    <div className={s.regionButton} style={style}>
+    <div className={s.regionButton} style={style} onClick={onClick}>
       {region}
     </div>
   );
