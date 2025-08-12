@@ -7,7 +7,7 @@ import "./styles/global.scss";
 import Layout from "./components/Layout";
 import MainPage from "./pages/MainPage";
 import FormPage from "./pages/FormPage";
-import DashBoardPage from "./pages/DashBoardPage";
+import ReportPage from "./pages/reportPage/ReportPage";
 import BusinessPage from "./pages/BusinessPage";
 import BusinessResultPage from "./pages/BusinessResultPage";
 import BusinessDetailPage from "./pages/BusinessDetailPage";
@@ -27,7 +27,7 @@ const router = createBrowserRouter([
       { path: "main", element: <MainPage /> },
       { path: "form-intro", element: <FormIntroPage /> },
       { path: "form", element: <FormPage /> },
-      { path: "dashboard", element: <DashBoardPage /> },
+      { path: "report", element: <ReportPage /> },
       { path: "business", element: <BusinessPage /> },
       { path: "business/result", element: <BusinessResultPage /> },
       { path: "business/detail/:id", element: <BusinessDetailPage /> },
