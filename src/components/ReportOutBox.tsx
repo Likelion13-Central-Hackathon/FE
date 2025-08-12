@@ -1,6 +1,6 @@
 import React from "react";
-import s from "./Report.module.scss";
-import { OutBoxProps } from "../../../types/report";
+import s from "./styles/Box.module.scss";
+import { OutBoxProps } from "../types/report";
 
 const ReportOutBox: React.FC<OutBoxProps> = ({
   width = "63.65vw",

@@ -1,26 +1,6 @@
 @use "../../../styles/mixins" as m;
 @use "../../../styles/variables" as *;
 
-.outbox {
-  @include m.flex-row-double-center;
-  @include m.glass-box(
-    inset 0.31vw 0.31vw 0.21vw -0.1vw $color-white,
-    inset -0.21vw -0.21vw 0.21vw -0.1vw $color-white
-  );
-  gap: 1.04vw;
-}
-.column {
-  flex-direction: column;
-}
-
-.inbox {
-  @include m.flex-row-double-center;
-  @include m.glass-box(
-    inset 0.21vw 0.21vw 0.1vw -0.1vw $color-white,
-    inset -0.1vw -0.1vw 0.1vw -0.1vw $color-white
-  );
-}
-
 .label {
   @include m.flex-row-double-center;
   border-radius: 0.52vw !important;

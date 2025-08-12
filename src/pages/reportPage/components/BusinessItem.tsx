@@ -1,6 +1,6 @@
 import React from "react";
 import s from "./Report.module.scss";
-import ReportInBox from "./ReportInBox";
+import ReportInBox from "../../../components/ReportInBox";
 import { BusinessItemProps } from "../../../types/report";
 
 const BusinessItem: React.FC<BusinessItemProps> = ({ business }) => {
