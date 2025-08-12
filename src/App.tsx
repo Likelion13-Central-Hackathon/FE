@@ -6,7 +6,7 @@ import {
 import "./styles/global.scss";
 import Layout from "./components/Layout";
 import MainPage from "./pages/MainPage";
-import FormPage from "./pages/FormPage";
+import FormPage from "./pages/formPage/FormPage";
 import DashBoardPage from "./pages/DashBoardPage";
 import BusinessPage from "./pages/BusinessPage";
 import BusinessResultPage from "./pages/BusinessResultPage";

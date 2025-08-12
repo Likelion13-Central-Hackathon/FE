@@ -5,6 +5,8 @@ import { SizeTextProps } from "../types/common";
 
 interface ButtonProps extends SizeTextProps {
   onClick?: () => void;
+  active?: boolean;           
+  className?: string;
 }
 
 const BasicButton: React.FC<ButtonProps> = ({
@@ -12,6 +14,8 @@ const BasicButton: React.FC<ButtonProps> = ({
   height = "3.33vw",
   text = "텍스트",
   onClick,
+  active = false,             
+  className = "",
 }) => {
   const style = {
     width,
@@ -19,7 +23,7 @@ const BasicButton: React.FC<ButtonProps> = ({
   };
 
   return (
-    <button className={s.button} style={style} onClick={onClick}>
+    <button className={`${s.button} ${active ? s.active : ""} ${className}`} style={style} onClick={onClick}>
       {text}
     </button>
   );
