@@ -10,14 +10,9 @@ export interface OutBoxProps extends SizeProps {
 }
 
 // RecommendPlan
-type StepItem = {
-  id: number | string;
-  step: string;
-};
-
 export interface RecommendPlanProps {
   createdAt: string;
-  steps: StepItem[];
+  steps: string[];
 }
 
 // BusinessItem

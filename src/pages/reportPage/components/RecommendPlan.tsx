@@ -52,10 +52,10 @@ const RecommendPlan: React.FC<RecommendPlanProps> = ({ createdAt, steps }) => {
       </div>
       {/* 1,2,3,4단계 */}
       <div className={s.stepsWrapper}>
-        {planStepTitles.map((title, idx) => (
+        {steps.map((step, idx) => (
           <div key={idx} className={s.stepGroup}>
-            <p className={s.stepTitleItem}>{title}</p>
-            <p className={s.stepItem}>{steps?.[idx]?.step}</p>
+            <p className={s.stepTitleItem}>{planStepTitles[idx]}</p>
+            <p className={s.stepItem}>{step}</p>
           </div>
         ))}
       </div>
