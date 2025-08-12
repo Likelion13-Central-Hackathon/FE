@@ -1,0 +1,15 @@
+@use "../../../styles//mixins" as m;
+@use "../../../styles/variables" as *;
+
+.regionButton {
+  @include m.flex-row-double-center;
+  @include m.button-click(1, 0.96);
+  width: 3.17vw;
+  height: 1.31vw;
+  background-color: $main-color1;
+  font-size: 0.73vw;
+  font-weight: 700;
+  color: $color-white;
+  border-radius: 1.67vw;
+  user-select: none;
+}
