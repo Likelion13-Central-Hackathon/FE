@@ -8,7 +8,7 @@ import Layout from "./components/Layout";
 import MainPage from "./pages/MainPage";
 import FormPage from "./pages/FormPage";
 import ReportPage from "./pages/reportPage/ReportPage";
-import BusinessPage from "./pages/BusinessPage";
+import BusinessPage from "./pages/businessPage/BusinessPage";
 import BusinessResultPage from "./pages/BusinessResultPage";
 import BusinessDetailPage from "./pages/BusinessDetailPage";
 import DocumentPage from "./pages/DocumentPage";

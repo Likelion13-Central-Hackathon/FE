@@ -1,0 +1,37 @@
+{
+  "isSuccess": true,
+  "code": "SUCCESS_200",
+  "httpStatus": 200,
+  "message": "호출에 성공하였습니다.",
+  "data": [
+    {
+      "id": 101,
+      "supportArea": "행사ㆍ네트워크",
+      "region": "서울",
+      "title": "서울 핀테크 위크 2025 데모데이",
+      "link": "https://startup.example.com/support/101"
+    },
+    {
+      "id": 102,
+      "supportArea": "멘토링ㆍ컨설팅ㆍ교육",
+      "region": "경기",
+      "title": "경기 창업 멘토링 프로그램",
+      "link": "https://startup.example.com/support/102"
+    },
+    {
+      "id": 103,
+      "supportArea": "멘토링ㆍ컨설팅ㆍ교육",
+      "region": "경기",
+      "title": "경기 창업 멘토링 프로그램",
+      "link": "https://startup.example.com/support/102"
+    },
+    {
+      "id": 104,
+      "supportArea": "멘토링ㆍ컨설팅ㆍ교육",
+      "region": "부산",
+      "title": "경기 창업 멘토링 프로그램",
+      "link": "https://startup.example.com/support/102"
+    }
+  ],
+  "timeStamp": "2025-08-10 12:21:32"
+}

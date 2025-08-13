@@ -15,7 +15,7 @@ const MainPage = () => {
   return (
     <IntroLayout
       title={TITLE}
-      text={`청년의 시작, 확신으로 바꾸다.\n청년창업의 실질적인 어려움을 함께 해결합니다.`}
+      text={`청년의 시작, 확신으로 바꾸다.\n클릭 한 번으로 알아보는 나의 창업 유형`}
       height="5.92vw"
     >
       <div className={s.buttonContainer}>
