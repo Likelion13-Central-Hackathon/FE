@@ -48,11 +48,11 @@ const BusinessResultPage = () => {
           </div>
           <div className={s.rankBlock}>
             <RankItem rankImg={RANK1} item={data1.data[0]} />
-            <DetailButton onClick={() => scrollToResult(rankIndex[0])} />
+            <DetailButton onClick={() => scrollToResult(rankIndex[1])} />
           </div>
           <div className={s.rankBlock}>
             <RankItem rankImg={RANK3} item={data1.data[2]} />
-            <DetailButton onClick={() => scrollToResult(rankIndex[0])} />
+            <DetailButton onClick={() => scrollToResult(rankIndex[2])} />
           </div>
         </div>
 
