@@ -14,9 +14,10 @@ type RankItemCommon = {
   supportArea: string;
 };
 
-type RankItemSimple = RankItemCommon & {
-  recommendedId: number;
-};
+// 통신용
+// type RankItemSimple = RankItemCommon & {
+//   recommendedId: number;
+// };
 
 type RankItemDetail = RankItemCommon & {
   link: string;
@@ -33,5 +34,10 @@ type RankItemDetail = RankItemCommon & {
 
 export type RankItemProps = {
   rankImg: string;
-  item: RankItemSimple | RankItemDetail; // 유니온
+  item: RankItemCommon;
+};
+
+export type ResultItemProps = {
+  rankImg: string;
+  item: RankItemDetail;
 };

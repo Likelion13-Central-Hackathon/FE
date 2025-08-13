@@ -3,19 +3,20 @@ import s from "./BusinessResult.module.scss";
 import b from "../../../components/styles/Box.module.scss";
 import ReportOutBox from "../../../components/ReportOutBox";
 import RankItem from "./RankItem";
-import { RankImageProps } from "../../../types/business";
+import { ResultItemProps } from "../../../types/business";
 import ReportInBox from "../../../components/ReportInBox";
 import LinkButton from "../../../components/LinkButton";
 import ANGLE from "../../../assets/images/protractor2.png";
 import SCORE from "../../../assets/images/icon/report-score.svg";
 import CHAR from "../../../assets/images/character-2d.png";
 import ProtractorStroker from "../../../components/ProtractorStroker";
+import { formatToMMDD } from "../../../utils/date";
 
-const ResultItem: React.FC<RankImageProps> = ({ rankImg }) => {
+const ResultItem: React.FC<ResultItemProps> = ({ rankImg, item }) => {
   return (
     <div className={s.resultItemContainer}>
       <section>
-        <RankItem rankImg={rankImg} />
+        <RankItem rankImg={rankImg} item={item} />
       </section>
       <div className={s.resultItemBox}>
         <div className={s.resultContents}>
@@ -26,26 +27,29 @@ const ResultItem: React.FC<RankImageProps> = ({ rankImg }) => {
                 height="18.80vw"
                 className={b.column}
               >
-                <p className={s.supportArea}>지원분야 | OOOOO</p>
+                <p className={s.supportArea}>지원분야 | {item.supportArea}</p>
 
                 {/* 제목 + 링크 */}
                 <ReportInBox width="37.08vw" height="4.43vw">
-                  <div className={s.resultTitle}>지원사업 제목</div>
+                  <div className={s.resultTitle}>{item.title}</div>
                   <LinkButton link="sflkdsj" />
                 </ReportInBox>
 
                 {/* 업력, 기간, 지역, 기관, 대상, 연락처 */}
                 <ReportInBox width="37.08vw" height="8.65vw">
                   <div className={s.infoBox}>
-                    <div className={s.infoBoxText}>
-                      <p>창업업력 |</p>
-                      <p>신청기간 |</p>
-                      <p>지역 |</p>
+                    <div className={s.infoBoxText1}>
+                      <p>창업업력 | {item.stage}</p>
+                      <p>
+                        신청기간 | {formatToMMDD(item.startDate)}~
+                        {formatToMMDD(item.endDate)}
+                      </p>
+                      <p>지역 | {item.region}</p>
                     </div>
-                    <div className={s.infoBoxText}>
-                      <p>주관기관 |</p>
-                      <p>대상 |</p>
-                      <p>연락처 |</p>
+                    <div className={s.infoBoxText2}>
+                      <p>주관기관 | {item.agency}</p>
+                      <p>대상 | {item.target}</p>
+                      <p>연락처 | {item.contact}</p>
                     </div>
                   </div>
                 </ReportInBox>
@@ -58,7 +62,7 @@ const ResultItem: React.FC<RankImageProps> = ({ rankImg }) => {
                   <p className={s.angleTitle}>지원사업 매칭 보고서</p>
                   <img src={ANGLE} alt="protractor" className={s.angleImg} />
                   <ProtractorStroker
-                    angle={89}
+                    angle={item.suitability}
                     className={s.arcOverlay}
                     radius={137}
                   />
@@ -68,7 +72,7 @@ const ResultItem: React.FC<RankImageProps> = ({ rankImg }) => {
                       alt="report-score"
                       style={{ width: "1.56vw" }}
                     />
-                    <span>89%</span>
+                    <span>{item.suitability}%</span>
                   </div>
                 </div>
                 {/* 매칭 이유 */}
@@ -83,7 +87,7 @@ const ResultItem: React.FC<RankImageProps> = ({ rankImg }) => {
                     }}
                   />
                   <ReportInBox width="15.36vw" height="10.73vw">
-                    <p className={s.reason}>AI 분석 매칭내용</p>
+                    <p className={s.reason}>{item.reason}</p>
                   </ReportInBox>
                 </div>
               </ReportOutBox>
@@ -97,19 +101,19 @@ const ResultItem: React.FC<RankImageProps> = ({ rankImg }) => {
                 <div className={s.coreContent}>
                   <div>
                     <span>신청 방법</span>
-                    <p>내용</p>
+                    <p>{item.applyMethod}</p>
                   </div>
                   <div>
                     <span>지원 내용</span>
-                    <p>내용</p>
+                    <p>{item.supportDetails}</p>
                   </div>
                   <div>
                     <span>제출 서류</span>
-                    <p>내용</p>
+                    <p>{item.requiredDocuments}</p>
                   </div>
                   <div>
                     <span>신청 절차 및 평가 방법</span>
-                    <p>내용</p>
+                    <p>{item.applyProcedureAndEvaluation}</p>
                   </div>
                 </div>
               </ReportInBox>
