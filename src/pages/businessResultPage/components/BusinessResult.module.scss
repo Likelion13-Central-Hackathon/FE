@@ -1,6 +1,7 @@
 @use "../../../styles//mixins" as m;
 @use "../../../styles/variables" as *;
 
+// RankItem
 .rankBox {
   @include m.flex-column-center;
   gap: 0.94vw;
@@ -44,7 +45,7 @@
 
 // ResultItem
 .resultItemContainer {
-  background-color: green;
+  //background-color: rgb(230, 166, 5);
   @include m.flex-row-double-center;
   width: 90vw;
   height: 36.3vw;
@@ -59,6 +60,41 @@
     .resultMiddle {
       @include m.flex-column-center;
       gap: 0.94vw;
+
+      .supportArea {
+        width: 90%;
+        font-size: 1.04vw;
+        font-weight: 700;
+        color: $gray-800;
+      }
+
+      .resultTitle {
+        width: 28.59vw;
+        font-size: 1.67vw;
+        font-weight: 700;
+        color: $color-sub-black;
+        @include m.overflow-ellipsis;
+      }
+
+      .infoBox {
+        @include m.flex-row-double-center;
+        gap: 1.25vw;
+
+        .infoBoxText {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          width: 16.93vw;
+          height: 6.56vw;
+          font-size: 1.25vw;
+          font-weight: 500;
+          color: $color-sub-black;
+
+          p {
+            @include m.overflow-ellipsis;
+          }
+        }
+      }
     }
   }
 

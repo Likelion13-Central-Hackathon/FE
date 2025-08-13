@@ -1,8 +1,11 @@
 import React from "react";
 import s from "./BusinessResult.module.scss";
+import b from "../../../components/styles/Box.module.scss";
 import ReportOutBox from "../../../components/ReportOutBox";
 import RankItem from "./RankItem";
 import { RankImageProps } from "../../../types/business";
+import ReportInBox from "../../../components/ReportInBox";
+import LinkButton from "../../../components/LinkButton";
 
 const ResultItem: React.FC<RankImageProps> = ({ rankImg }) => {
   return (
@@ -14,8 +17,34 @@ const ResultItem: React.FC<RankImageProps> = ({ rankImg }) => {
         <div className={s.resultContents}>
           <section className={s.resultMiddle}>
             <div>
-              <ReportOutBox width="40.10vw" height="18.80vw">
-                정보
+              <ReportOutBox
+                width="40.10vw"
+                height="18.80vw"
+                className={b.column}
+              >
+                <p className={s.supportArea}>지원분야 | OOOOO</p>
+
+                {/* 제목 + 링크 */}
+                <ReportInBox width="37.08vw" height="4.43vw">
+                  <div className={s.resultTitle}>지원사업 제목</div>
+                  <LinkButton link="sflkdsj" />
+                </ReportInBox>
+
+                {/* 업력, 기간, 지역, 기관, 대상, 연락처 */}
+                <ReportInBox width="37.08vw" height="8.65vw">
+                  <div className={s.infoBox}>
+                    <div className={s.infoBoxText}>
+                      <p>창업업력 |</p>
+                      <p>신청기간 |</p>
+                      <p>지역 |</p>
+                    </div>
+                    <div className={s.infoBoxText}>
+                      <p>주관기관 |</p>
+                      <p>대상 |</p>
+                      <p>연락처 |</p>
+                    </div>
+                  </div>
+                </ReportInBox>
               </ReportOutBox>
             </div>
             <div>
