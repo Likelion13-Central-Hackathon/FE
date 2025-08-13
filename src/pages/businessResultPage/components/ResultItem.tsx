@@ -6,6 +6,10 @@ import RankItem from "./RankItem";
 import { RankImageProps } from "../../../types/business";
 import ReportInBox from "../../../components/ReportInBox";
 import LinkButton from "../../../components/LinkButton";
+import ANGLE from "../../../assets/images/protractor2.png";
+import SCORE from "../../../assets/images/icon/report-score.svg";
+import CHAR from "../../../assets/images/character-2d.png";
+import ProtractorStroker from "../../../components/ProtractorStroker";
 
 const ResultItem: React.FC<RankImageProps> = ({ rankImg }) => {
   return (
@@ -49,7 +53,37 @@ const ResultItem: React.FC<RankImageProps> = ({ rankImg }) => {
             </div>
             <div>
               <ReportOutBox width="40.10vw" height="13.07vw">
-                매칭
+                <div className={s.angleWrap}>
+                  <p className={s.angleTitle}>지원사업 매칭 보고서</p>
+                  <img src={ANGLE} alt="protractor" className={s.angleImg} />
+                  <ProtractorStroker
+                    angle={89}
+                    className={s.arcOverlay}
+                    radius={137}
+                  />
+                  <div className={s.scoreContainer}>
+                    <img
+                      src={SCORE}
+                      alt="report-score"
+                      style={{ width: "1.56vw" }}
+                    />
+                    <span>89%</span>
+                  </div>
+                </div>
+                <div style={{ display: "flex", alignItems: "flex-end" }}>
+                  <img
+                    src={CHAR}
+                    alt="char-2d"
+                    style={{
+                      height: "6.25vw",
+                      marginRight: "-2.0vw",
+                      zIndex: 2,
+                    }}
+                  />
+                  <ReportInBox width="15.36vw" height="10.73vw">
+                    <p className={s.reason}>AI 분석 매칭내용</p>
+                  </ReportInBox>
+                </div>
               </ReportOutBox>
             </div>
           </section>

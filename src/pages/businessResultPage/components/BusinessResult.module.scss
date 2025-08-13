@@ -76,6 +76,7 @@
         @include m.overflow-ellipsis;
       }
 
+      // 정보(분야, 제목, 주관기관, 연락처 등)
       .infoBox {
         @include m.flex-row-double-center;
         gap: 1.25vw;
@@ -93,6 +94,60 @@
           p {
             @include m.overflow-ellipsis;
           }
+        }
+      }
+
+      .reason {
+        width: 85%;
+        height: 85%;
+        font-size: 0.83vw;
+        font-weight: 600;
+        color: black;
+        line-height: 1.5;
+
+        overflow-y: scroll;
+        text-overflow: ellipsis;
+      }
+
+      // 각도기
+      .angleWrap {
+        position: relative;
+        display: inline-block;
+        width: 16.78vw;
+
+        .angleTitle {
+          font-size: 1.04vw;
+          font-weight: 700;
+          color: $gray-800;
+          margin-bottom: 1.6vw;
+        }
+
+        .scoreContainer {
+          @include m.flex-row-double-center;
+          position: absolute;
+          left: 35%;
+          bottom: 0%;
+          gap: 0.42vw;
+          z-index: 1;
+
+          span {
+            font-size: 1.04vw;
+            font-weight: 600;
+            color: $gray-800;
+          }
+        }
+        .angleImg {
+          display: block;
+          width: 100%;
+        }
+        .arcOverlay {
+          position: absolute;
+          top: 32%;
+          left: 0.4%;
+          width: 100%;
+          height: 67%;
+          pointer-events: none;
+          overflow: visible;
         }
       }
     }
