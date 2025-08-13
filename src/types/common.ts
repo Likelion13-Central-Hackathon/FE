@@ -9,3 +9,7 @@ export interface SizeTextProps {
   height?: string;
   text?: string;
 }
+
+export interface LinkProps {
+  link?: string;
+}
