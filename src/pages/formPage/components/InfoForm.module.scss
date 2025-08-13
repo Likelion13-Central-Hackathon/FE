@@ -55,8 +55,7 @@
   }
 
   input[type='text'] {
-    width: 7.03vw;
-    height: 2.19vw;
+    /* 기본 크기 지정 제거해서 개별 필드에서 설정 */
   }
 }
 
@@ -67,10 +66,29 @@
   row-gap: 0.8vw;
 }
 
-/* 입력 */
-.age,
-.unv {
-  width: 7.03vw;
+.row input.age {
+  width: 7.19vw;
+  height: 2.19vw;
+  margin-top: 0.63vw;
+  font-size: 0.63vw;
+  background: #f9faff;
+  border-radius: 0.26vw;
+  border-color: #8ebefa;
+  outline: none;
+  box-shadow: none;
+
+  box-shadow: 0 0.42vw 1.35vw rgba(4, 0, 250, 0.06);
+
+  &:focus,
+  &:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: #8ebefa;
+  }
+}
+
+.row input.unv {
+  width: 7.19vw;
   height: 2.19vw;
   font-size: 0.63vw;
   background: #f9faff;
@@ -78,6 +96,8 @@
   border-color: #8ebefa;
   outline: none;
   box-shadow: none;
+
+  box-shadow: 0 0.42vw 1.35vw rgba(4, 0, 250, 0.06);
 
   &:focus,
   &:focus-visible {
@@ -92,27 +112,29 @@
   position: relative;
   width: 7.92vw;
   height: 2.19vw;
+  border: 0.05vw solid #000; /* ← style+color 포함해서 지정 */
+  border-radius: 0.42vw;
+  background: #fff;
 }
 
 .selectTrigger {
-  width: 100%;
-  height: 2.19vw;
-  padding: 0 0.83vw;
-  border: 0;
-  border-radius: 0.63vw;
-  background: #f2f4f8;
-  font-size: 0.63vw;
-  font-weight: 600;
-
   display: flex;
   align-items: center;
-  justify-content: center; /* 가운데 정렬 */
-  gap: 0.42vw;
+  justify-content: center; /* 텍스트 가운데 정렬 */
+  gap: 0.42vw; /* 텍스트와 아이콘 사이 간격 */
+
+  width: 7.92vw;
+  height: 2.19vw;
+
+  border: 0.05vw solid #000; /* 검정 테두리 */
+  border-radius: 0.42vw; /* 모서리 둥글게 */
+  background: #fff;
+
+  font-size: 0.73vw;
+  font-weight: medium;
+  color: #000;
+
   cursor: pointer;
-  box-shadow: 0 0.16vw 0.52vw rgba(0, 0, 0, 0.05);
-  appearance: none;
-  color: #111;
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
 
 .selectTriggerActive {
@@ -158,6 +180,13 @@
   flex-direction: column;
 }
 
+.regionMenu .selectext {
+  margin-top: 0.42vw;
+  margin-left: 0.83vw;
+  font-size: 1.04vw;
+  font-weight: bold;
+}
+
 .optRow {
   width: 7.5vw;
   height: 2.5vw;
@@ -198,16 +227,17 @@
 }
 
 .boxOn {
-  border-color: #111;
+  background: #0400fa;
+  border-color: #0400fa;
 }
 .boxOn::after {
   content: '';
   position: absolute;
-  left: 0.26vw;
+  left: 0.18vw;
   top: 0.1vw;
   width: 0.63vw;
   height: 0.49vw;
-  border: 0.16vw solid #111;
+  border: 0.16vw solid #fff;
   border-top: 0;
   border-right: 0;
   transform: rotate(-45deg);
@@ -275,7 +305,9 @@
 }
 
 .regionOption {
-  width: 15vw;
+  margin-top: 0.83vw;
+  margin-left: 0.83vw;
+  width: 14vw;
   height: 2.5vw;
   display: flex;
   align-items: center;
@@ -285,23 +317,10 @@
   box-shadow: none;
   text-align: left;
   cursor: pointer;
-
-  &:hover {
-    background: #f6f8ff;
-  }
-  &::-moz-focus-inner {
-    border: none;
-  }
-  &:focus,
-  &:focus-visible,
-  &:active {
-    border: none;
-    outline: none;
-    box-shadow: none;
-  }
 }
 
 .regionText {
+  margin-left: 1.67vw;
   font-size: 0.83vw;
   color: #2b2f37;
 }
@@ -311,6 +330,7 @@
   display: flex;
   gap: 2.6vw;
   margin-top: 1.04vw;
+  font-size: 0.63vw;
 
   :global(.button) {
     border: 0.05vw solid #dde3ee;
@@ -334,4 +354,8 @@
   justify-content: center;
   margin-top: 2vw;
   margin-bottom: 1.69vw;
+}
+
+.smallBtn {
+  font-size: 0.63vw;
 }

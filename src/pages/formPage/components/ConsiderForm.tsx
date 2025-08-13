@@ -19,9 +19,24 @@ const SUPPORT_ITEMS: SupportItem[] = [
   { key: "global", label: "글로벌" },
 ];
 
-const RANK_OPTIONS = ["순위", "1순위", "2순위", "3순위", "4순위", "5순위"];
-const CAREER_OPTIONS = ["예비창업", "초기(3년 이내)", "도약기(4~7년)", "혁신형(10년 이내)"];
-const STATUS_OPTIONS = ["탐색단계", "기획&검증단계", "준비단계", "아이디어 단계", "실행단계", "성장단계"];
+const RANK_OPTIONS = ["순위", "상", "중", "하", "없음"]
+// 창업 업력 옵션 + 각 버튼 폭 지정
+const CAREER_OPTIONS = [
+  { label: "예비창업", width: "6vw" },
+  { label: "초기(3년 이내)", width: "8vw" },
+  { label: "도약기(4~7년)", width: "8vw" },
+  { label: "혁신형(10년 이내)", width: "9vw" },
+];
+
+// 창업 현황 옵션 + 각 버튼 폭 지정
+const STATUS_OPTIONS = [
+  { label: "탐색단계", width: "6vw" },
+  { label: "기획&검증단계", width: "8vw" },
+  { label: "준비단계", width: "6vw" },
+  { label: "아이디어 단계", width: "9vw" },
+  { label: "실행단계", width: "7vw" },
+  { label: "성장단계", width: "7vw" },
+];
 
 // ✅ onPrev, onNext 콜백을 props로 받음
 const ConsiderForm: React.FC<{ onPrev: () => void; onNext: () => void }> = ({
@@ -99,47 +114,38 @@ const ConsiderForm: React.FC<{ onPrev: () => void; onNext: () => void }> = ({
           </div>
         </section>
 
-        {/* 섹션 3: 창업 업력 */}
-        <section className={styles.section}>
-          <h3 className={styles.label}>창업 업력에 대해서도 알려주세요.</h3>
-          <div className={styles.chipRow}>
-            {CAREER_OPTIONS.map((c) => {
-              const on = careers.includes(c);
-              return (
-                <button
-                  key={c}
-                  type="button"
-                  className={`${styles.chip} ${on ? styles.chipOn : ""}`}
-                  onClick={() => setCareers((prev) => toggleFromArray(prev, c))}
-                  aria-pressed={on}
-                >
-                  {c}
-                </button>
-              );
-            })}
-          </div>
-        </section>
+<section className={styles.section}>
+  <h3 className={styles.label}>창업 업력에 대해서도 알려주세요.</h3>
+  <div className={styles.chipRow}>
+    {CAREER_OPTIONS.map((c) => (
+      <BasicButton
+        key={c.label}
+        text={c.label}
+        active={careers === c.label}
+        onClick={() => setCareers(prev => prev === c.label ? null : c.label)}
+        width={c.width}
+        height="2.1875vw"
+      />
+    ))}
+  </div>
+</section>
 
-        {/* 섹션 4: 창업 현황 */}
-        <section className={styles.section}>
-          <h3 className={styles.label}>현재 창업 현황을 알려주세요.</h3>
-          <div className={styles.chipRow}>
-            {STATUS_OPTIONS.map((st) => {
-              const on = statuses.includes(st);
-              return (
-                <button
-                  key={st}
-                  type="button"
-                  className={`${styles.chip} ${on ? styles.chipOn : ""}`}
-                  onClick={() => setStatuses((prev) => toggleFromArray(prev, st))}
-                  aria-pressed={on}
-                >
-                  {st}
-                </button>
-              );
-            })}
-          </div>
-        </section>
+<section className={styles.section}>
+  <h3 className={styles.label}>현재 창업 현황을 알려주세요.</h3>
+  <div className={styles.chipRow}>
+    {STATUS_OPTIONS.map((st) => (
+      <BasicButton
+        key={st.label}
+        text={st.label}
+        active={statuses === st.label}
+        onClick={() => setStatuses(prev => prev === st.label ? null : st.label)}
+        width={st.width}
+        height="2.1875vw"
+      />
+    ))}
+  </div>
+</section>
+
 
         {/* 섹션 5: 아이템 텍스트 */}
         <section className={styles.section}>

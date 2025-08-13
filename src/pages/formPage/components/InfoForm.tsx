@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import s from "./InfoForm.module.scss";
+import styles from "./InfoForm.module.scss";
 import BasicButton from "../../../components/BasicButton";
 import ConsiderForm from "./ConsiderForm";
-import BaseResource from "./BaseResource"; // ✅ 유지
+import BaseResource from "./BaseResource";
 
 const STATUS_OPTIONS = ["휴학", "재학", "편입", "재입학"];
 const REGION_OPTIONS = [
@@ -12,17 +13,14 @@ const REGION_OPTIONS = [
 ];
 
 export const InfoForm: React.FC = () => {
-  // ✅ "base" 포함
   const [step, setStep] = useState<"info" | "consider" | "base">("info");
 
   const [isCollege, setIsCollege] = useState<boolean | null>(null);
   const [status, setStatus] = useState<string | null>(null);
-  const [region, setRegion] = useState<string[]>([]);
+  // ✅ 단일 선택
+  const [region, setRegion] = useState<string>("");
 
-  const goNext = () => {
-    // TODO: 필요 시 유효성 검사
-    setStep("consider");
-  };
+  const goNext = () => setStep("consider");
 
   return (
     <>
@@ -43,8 +41,8 @@ export const InfoForm: React.FC = () => {
                 <div className={s.col}>
                   <div className={s.subLabel}>사업장 주소</div>
                   <RegionSelect
-                    value={region}
-                    onChange={(v) => setRegion(v)}
+                    value={region}                     // ✅ string
+                    onChange={(v) => setRegion(v)}     // ✅ string setter
                     placeholder="지역 선택하기"
                     options={REGION_OPTIONS}
                   />
@@ -61,16 +59,16 @@ export const InfoForm: React.FC = () => {
                   onClick={() => setIsCollege(true)}
                   width="7.03125vw"
                   height="2.1875vw"
-                  // @ts-ignore
                   active={isCollege === true}
+                  className={styles.smallBtn}
                 />
                 <BasicButton
                   text="아니오"
                   onClick={() => setIsCollege(false)}
                   width="7.03125vw"
                   height="2.1875vw"
-                  // @ts-ignore
                   active={isCollege === false}
+                  className={styles.smallBtn}
                 />
               </div>
             </div>
@@ -88,7 +86,7 @@ export const InfoForm: React.FC = () => {
                   <StatusSelect
                     value={status}
                     onChange={(v) => setStatus(v)}
-                    options={["휴학", "재학", "편입", "재입학"]}
+                    options={STATUS_OPTIONS}
                   />
                 </div>
               </div>
@@ -100,25 +98,19 @@ export const InfoForm: React.FC = () => {
             <BasicButton
               text="다음"
               onClick={goNext}
-              width="5.260417vw"
+              width="5.26vw"
               height="1.92vw"
+              className={styles.smallBtn}
             />
           </div>
         </>
       )}
 
-      {/* ✅ ConsiderForm는 한 번만 렌더 */}
       {step === "consider" && (
-        <ConsiderForm
-          onPrev={() => setStep("info")}
-          onNext={() => setStep("base")}
-        />
+        <ConsiderForm onPrev={() => setStep("info")} onNext={() => setStep("base")} />
       )}
 
-      {/* ✅ BaseResource */}
-      {step === "base" && (
-        <BaseResource onPrev={() => setStep("consider")} />
-      )}
+      {step === "base" && <BaseResource onPrev={() => setStep("consider")} />}
     </>
   );
 };
@@ -163,11 +155,7 @@ function StatusSelect({
       </button>
 
       {open && (
-        <div
-          className={s.selectMenu}
-          role="listbox"
-          onMouseDown={(e) => e.preventDefault()}
-        >
+        <div className={s.selectMenu} role="listbox" onMouseDown={(e) => e.preventDefault()}>
           <div className={s.selectMenuWrapper}>
             {options.map((opt) => {
               const checked = value === opt;
@@ -195,23 +183,24 @@ function StatusSelect({
   );
 }
 
-/* ===== 지역 선택 드롭डाउन (복수 선택 가능) ===== */
+/* ===== 지역 선택 드롭다운 (단일 선택) ===== */
 function RegionSelect({
   value,
   onChange,
   placeholder = "지역 선택하기",
   options,
 }: {
-  value: string[];
-  onChange: (v: string[]) => void;
+  value: string;                  // ✅ 단일 문자열
+  onChange: (v: string) => void;  // ✅ 단일 문자열
   placeholder?: string;
   options: string[];
 }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  const [selectedSido, setSelectedSido] = useState<string[]>([]);
-  const [selectedSigungu, setSelectedSigungu] = useState<Record<string, string[]>>({});
+  // 단일 선택 상태
+  const [selectedSido, setSelectedSido] = useState<string | null>(null);
+  const [selectedSigungu, setSelectedSigungu] = useState<string | null>(null);
   const [activeSido, setActiveSido] = useState<string | null>(null);
 
   const SIGUNGU_MAP: Record<string, string[]> = {
@@ -244,48 +233,26 @@ function RegionSelect({
     return () => document.removeEventListener("mousedown", onDoc);
   }, []);
 
-  let label = placeholder;
-  if (selectedSido.length > 0) {
-    label = selectedSido
-      .map(sido => {
-        const sigungu = selectedSigungu[sido] || [];
-        return sigungu.length > 0 ? `${sido} / ${sigungu.join(", ")}` : sido;
-      })
-      .join(", ");
-  }
+  // 표시 라벨
+  const label =
+    selectedSido
+      ? (selectedSigungu ? `${selectedSido} / ${selectedSigungu}` : selectedSido)
+      : (value || placeholder);
 
-  const toggleSido = (sido: string): void => {
-    setSelectedSido((prev) =>
-      prev.includes(sido) ? prev.filter((s) => s !== sido) : [...prev, sido]
-    );
-    setSelectedSigungu((prev) => {
-      if (!prev[sido]) return { ...prev, [sido]: [] };
-      return prev;
-    });
+  // 시/도 선택 (단일)
+  const chooseSido = (sido: string) => {
+    setSelectedSido(sido);
     setActiveSido(sido);
+    setSelectedSigungu(null); // 시/도 바꾸면 시군구 초기화
   };
 
-  const toggleSigungu = (sgg: string) => {
-    if (!activeSido) return;
-    setSelectedSigungu((prev) => {
-      const current = prev[activeSido] || [];
-      return {
-        ...prev,
-        [activeSido]: current.includes(sgg)
-          ? current.filter((s) => s !== sgg)
-          : [...current, sgg],
-      };
-    });
+  // 시/군/구 선택 (단일 → 확정 후 닫기)
+  const chooseSigungu = (sgg: string) => {
+    if (!selectedSido) return;
+    setSelectedSigungu(sgg);
+    onChange(`${selectedSido} ${sgg}`);
+    setOpen(false);
   };
-
-  useEffect(() => {
-    const combined = selectedSido.flatMap((sido) =>
-      (selectedSigungu[sido] && selectedSigungu[sido].length > 0)
-        ? selectedSigungu[sido].map((sgg) => `${sido} ${sgg}`)
-        : [sido]
-    );
-    onChange(combined);
-  }, [selectedSido, selectedSigungu]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const sigunguList = activeSido ? (SIGUNGU_MAP[activeSido] || []) : [];
 
@@ -293,7 +260,7 @@ function RegionSelect({
     <div className={s.regionWrap} ref={ref}>
       <button
         type="button"
-        className={`${s.regionTrigger} ${value.length > 0 ? s.regionTriggerActive : ""}`}
+        className={`${s.regionTrigger} ${value ? s.regionTriggerActive : ""}`}
         onClick={() => setOpen((o) => !o)}
         aria-haspopup="listbox"
         aria-expanded={open}
@@ -303,22 +270,17 @@ function RegionSelect({
 
       {open && (
         <>
-          {/* 시/도 */}
-          <div
-            className={s.regionMenu}
-            role="listbox"
-            onMouseDown={(e) => e.preventDefault()}
-          >
+          {/* 시/도 - 단일 선택 */}
+          <div className={s.regionMenu} role="listbox" onMouseDown={(e) => e.preventDefault()}>
             <div className={s.selectext}>시/도</div>
-            <div className={s.subtext}>다중선택 가능</div>
             {options.map((sido) => {
-              const checked = selectedSido.includes(sido);
+              const checked = selectedSido === sido;
               return (
                 <button
                   key={sido}
                   type="button"
                   className={s.regionOption}
-                  onClick={() => toggleSido(sido)}
+                  onClick={() => chooseSido(sido)}
                 >
                   <span className={`${s.box} ${checked ? s.boxOn : ""}`} />
                   <span className={s.regionText}>{sido}</span>
@@ -327,7 +289,7 @@ function RegionSelect({
             })}
           </div>
 
-          {/* 시/군/구 */}
+          {/* 시/군/구 - 단일 선택 */}
           {activeSido && (
             <div
               className={s.regionMenu}
@@ -336,15 +298,14 @@ function RegionSelect({
               style={{ left: "calc(100% + 10vw)" }}
             >
               <div className={s.selectext}>시/군/구</div>
-              <div className={s.subtext}>다중선택 가능</div>
               {sigunguList.map((sgg) => {
-                const checked = selectedSigungu[activeSido]?.includes(sgg);
+                const checked = selectedSigungu === sgg;
                 return (
                   <button
                     key={sgg}
                     type="button"
                     className={s.regionOption}
-                    onClick={() => toggleSigungu(sgg)}
+                    onClick={() => chooseSigungu(sgg)}
                   >
                     <span className={`${s.box} ${checked ? s.boxOn : ""}`} />
                     <span className={s.regionText}>{sgg}</span>

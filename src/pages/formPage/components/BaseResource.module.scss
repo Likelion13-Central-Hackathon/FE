@@ -1,78 +1,155 @@
-/* 섹션 간 간격 */
+/* 섹션 간 12px (0.625vw) */
 .sectionsWrapper {
-  gap: calc(0.625vw * 0.85); /* 0.531vw */
+  display: flex;
+  flex-direction: column;
+  gap: 0.625vw;
+  flex: 1; /* ★ 남는 공간 채우기 */
+  min-height: 0; /* ★ flex 자식 스크롤 이슈 방지 */
 }
 
 .section {
-  gap: calc(0.63vw * 0.85); /* 0.5355vw */
+  display: flex;
+  flex-direction: column;
+  gap: 0.63vw;
 }
 
 .label {
-  font-size: calc(1.04vw * 0.85); /* 0.884vw */
-  margin-bottom: calc(0.9vw * 0.85); /* 0.765vw */
+  font-size: 1.04vw;
+  font-weight: 700;
+  margin-bottom: 0.9vw;
 }
 
-/* 칩 공통 */
+/* 선택 칩 공통 */
+.chipRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625vw;
+}
+
 .chip {
-  height: calc(2.1875vw * 0.85); /* 1.859vw */
-  padding: 0 calc(1.04vw * 0.85); /* 0.884vw */
-  border-radius: calc(0.63vw * 0.85); /* 0.5355vw */
-  border-width: calc(0.05vw * 0.85); /* 0.0425vw */
-  font-size: calc(0.73vw * 0.85); /* 0.6205vw */
-  box-shadow: 0 calc(0.16vw * 0.85) calc(0.52vw * 0.85) rgba(0, 0, 0, 0.05);
+  height: 2.1875vw;
+  padding: 0 1.04vw;
+  border-radius: 0.63vw;
+  border: 0.05vw solid #dde3ee;
+  background: #fff;
+  font-weight: 700;
+  font-size: 0.73vw;
+  box-shadow: 0 0.16vw 0.52vw rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
 
-/* 카드 */
+.chipOn {
+  background: #1237ff;
+  color: #fff;
+  border-color: #1237ff;
+}
+
+/* 자원 카드 그리드 */
 .resourceGrid {
-  gap: calc(1.25vw * 0.85) calc(1.2vw * 0.85);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25vw 1.2vw;
 }
 
 .resourceCard {
-  gap: calc(0.6vw * 0.85);
-  padding: calc(1.1vw * 0.85) calc(1.2vw * 0.85);
-  border-width: calc(0.05vw * 0.85);
-  border-radius: calc(0.8vw * 0.85);
-  min-height: calc(7.6vw * 0.85);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.6vw;
+  padding: 1.1vw 1.2vw;
+  border: 0.05vw solid #dde3ee;
+  border-radius: 0.8vw;
+  background: #fff;
+  box-shadow: 0 0.16vw 0.52vw rgba(0, 0, 0, 0.04);
+  min-height: 7.6vw;
 }
 
-/* 글자 크기 */
+.resourceHead {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3vw;
+}
 .resourceTitle {
-  font-size: calc(0.94vw * 0.85);
+  font-size: 0.94vw;
+  font-weight: 800;
 }
 .resourceDesc {
-  font-size: calc(0.73vw * 0.85);
+  font-size: 0.73vw;
+  color: #5a5f6d;
+  line-height: 1.5;
 }
 
-/* 랭크 칩 */
-.rankSelect {
-  height: calc(1.7vw * 0.85);
-  padding: 0 calc(0.8vw * 0.85);
-  border-width: calc(0.052vw * 0.85);
-  border-radius: calc(0.52vw * 0.85);
-  font-size: calc(0.73vw * 0.85);
+/* 순위 선택/칩 */
+.rankWrap {
+  display: flex;
+  align-items: center;
 }
+.rankSelect {
+  height: 1.7vw;
+  padding: 0 0.8vw;
+  border: 0.052vw solid #dde3ee;
+  border-radius: 0.52vw;
+  background: #fff;
+  font-size: 0.73vw;
+  outline: none;
+  cursor: pointer;
+}
+
 .rankChip {
-  height: calc(2vw * 0.85);
-  padding: 0 calc(0.9vw * 0.85);
-  border-radius: calc(0.63vw * 0.85);
-  border-width: calc(0.05vw * 0.85);
-  font-size: calc(0.73vw * 0.85);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2vw;
+  padding: 0 0.9vw;
+  border-radius: 0.63vw;
+  border: 0.05vw solid #cfd6e4;
+  background: #f4f6ff;
+  font-weight: 700;
+  font-size: 0.73vw;
+  cursor: pointer;
+}
+.rankChipOn {
+  background: #1237ff;
+  color: #fff;
+  border-color: #1237ff;
 }
 
 /* 하단 버튼 */
 .footerBtns {
-  gap: calc(1.04vw * 0.85);
-  margin-top: calc(2.2vw * 0.85);
+  display: flex;
+  justify-content: center;
+  gap: 1.04vw;
+  margin-top: 0; /* ★ 위 여백 제거: 밀림 방지 */
 }
 
-/* 외곽 레이아웃 */
+/* 외곽 레이아웃 (다른 폼과 맞춤) */
 .groupBody {
-  width: calc(26.93vw * 0.85);
-  height: calc(37.19vw * 0.85);
-  margin-top: calc(1.77vw * 0.85);
-  margin-left: calc(5.89vw * 0.85);
+  width: 26.93vw;
+  height: 37.19vw;
+  margin-top: 1.77vw;
+  margin-left: 5.89vw;
+  overflow: hidden;
+  position: relative; /* ★ scale 래퍼 기준 */
+  --ui-scale: 0.9; /* ★ 전체 축소 비율 (필요시 0.88/0.92 조정) */
 }
+
+/* ★ 내부 전체를 균등 축소 + 세로 플렉스로 배치 */
+.scaleWrap {
+  position: absolute;
+  inset: 0;
+  width: calc(100% / var(--ui-scale));
+  height: calc(100% / var(--ui-scale));
+  transform: scale(var(--ui-scale));
+  transform-origin: top left;
+
+  display: flex; /* ★ 섹션 + 푸터 세로 배치 */
+  flex-direction: column;
+}
+
+/* 푸터는 항상 하단 고정(줄어들지 않음) */
 .groupFooter {
-  padding: calc(1.56vw * 0.85) calc(2.6vw * 0.85);
-  border-top-width: calc(0.05vw * 0.85);
+  flex-shrink: 0; /* ★ */
+  padding: 1.56vw 2.6vw; /* 30px 50px */
+  border-top: 0.05vw solid #eee; /* 1px */
 }
