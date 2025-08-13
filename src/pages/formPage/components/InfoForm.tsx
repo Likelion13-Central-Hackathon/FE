@@ -5,6 +5,9 @@ import BasicButton from "../../../components/BasicButton";
 import ConsiderForm from "./ConsiderForm";
 import BaseResource from "./BaseResource";
 
+/* 새로 분리한 컴포넌트 import */
+import StatusSelect from "../../../components/StatusSelect";
+
 const STATUS_OPTIONS = ["휴학", "재학", "편입", "재입학"];
 const REGION_OPTIONS = [
   "서울특별시","부산광역시","대구광역시","인천광역시","광주광역시",
@@ -41,8 +44,8 @@ export const InfoForm: React.FC = () => {
                 <div className={s.col}>
                   <div className={s.subLabel}>사업장 주소</div>
                   <RegionSelect
-                    value={region}                     // ✅ string
-                    onChange={(v) => setRegion(v)}     // ✅ string setter
+                    value={region}
+                    onChange={(v) => setRegion(v)}
                     placeholder="지역 선택하기"
                     options={REGION_OPTIONS}
                   />
@@ -83,10 +86,24 @@ export const InfoForm: React.FC = () => {
 
                 <div className={s.row}>
                   <input className={s.unv} type="text" placeholder="학교입력" />
+
+                  {/* ✅ 분리한 StatusSelect 사용 */}
                   <StatusSelect
                     value={status}
                     onChange={(v) => setStatus(v)}
                     options={STATUS_OPTIONS}
+                    classes={{
+                      wrap: s.selectWrap,
+                      trigger: s.selectTrigger,
+                      triggerActive: s.selectTriggerActive,
+                      caret: s.caret,
+                      menu: s.selectMenu,
+                      menuWrapper: s.selectMenuWrapper,
+                      optRow: s.optRow,
+                      optText: s.optText,
+                      box: s.box,
+                      boxOn: s.boxOn,
+                    }}
                   />
                 </div>
               </div>
@@ -115,74 +132,6 @@ export const InfoForm: React.FC = () => {
   );
 };
 
-/* ===== 단일 선택 드롭다운 (학적 상태) ===== */
-function StatusSelect({
-  value,
-  onChange,
-  options,
-}: {
-  value: string | null;
-  onChange: (v: string) => void;
-  options: string[];
-}) {
-  const [open, setOpen] = useState(false);
-  const wrapRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const onDoc = (e: MouseEvent) => {
-      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", onDoc);
-    return () => document.removeEventListener("mousedown", onDoc);
-  }, []);
-
-  const label = value ?? "학적 입력";
-  const triggerClass = `${s.selectTrigger} ${open || value ? s.selectTriggerActive : ""}`;
-
-  return (
-    <div className={s.selectWrap} ref={wrapRef}>
-      <button
-        type="button"
-        className={triggerClass}
-        onClick={() => setOpen((o) => !o)}
-        aria-haspopup="listbox"
-        aria-expanded={open}
-      >
-        {label}
-        <span className={s.caret}>▼</span>
-      </button>
-
-      {open && (
-        <div className={s.selectMenu} role="listbox" onMouseDown={(e) => e.preventDefault()}>
-          <div className={s.selectMenuWrapper}>
-            {options.map((opt) => {
-              const checked = value === opt;
-              return (
-                <button
-                  key={opt}
-                  type="button"
-                  className={s.optRow}
-                  role="option"
-                  aria-selected={checked}
-                  onClick={() => {
-                    onChange(opt);
-                    setOpen(false);
-                  }}
-                >
-                  <span className={`${s.box} ${checked ? s.boxOn : ""}`} />
-                  <span className={s.optText}>{opt}</span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
 /* ===== 지역 선택 드롭다운 (단일 선택) ===== */
 function RegionSelect({
   value,
@@ -190,8 +139,8 @@ function RegionSelect({
   placeholder = "지역 선택하기",
   options,
 }: {
-  value: string;                  // ✅ 단일 문자열
-  onChange: (v: string) => void;  // ✅ 단일 문자열
+  value: string;
+  onChange: (v: string) => void;
   placeholder?: string;
   options: string[];
 }) {
@@ -233,20 +182,17 @@ function RegionSelect({
     return () => document.removeEventListener("mousedown", onDoc);
   }, []);
 
-  // 표시 라벨
   const label =
     selectedSido
       ? (selectedSigungu ? `${selectedSido} / ${selectedSigungu}` : selectedSido)
       : (value || placeholder);
 
-  // 시/도 선택 (단일)
   const chooseSido = (sido: string) => {
     setSelectedSido(sido);
     setActiveSido(sido);
-    setSelectedSigungu(null); // 시/도 바꾸면 시군구 초기화
+    setSelectedSigungu(null);
   };
 
-  // 시/군/구 선택 (단일 → 확정 후 닫기)
   const chooseSigungu = (sgg: string) => {
     if (!selectedSido) return;
     setSelectedSigungu(sgg);
@@ -270,7 +216,7 @@ function RegionSelect({
 
       {open && (
         <>
-          {/* 시/도 - 단일 선택 */}
+          {/* 시/도 */}
           <div className={s.regionMenu} role="listbox" onMouseDown={(e) => e.preventDefault()}>
             <div className={s.selectext}>시/도</div>
             {options.map((sido) => {
@@ -289,7 +235,7 @@ function RegionSelect({
             })}
           </div>
 
-          {/* 시/군/구 - 단일 선택 */}
+          {/* 시/군/구 */}
           {activeSido && (
             <div
               className={s.regionMenu}

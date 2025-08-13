@@ -2,63 +2,83 @@ import React, { useMemo, useState } from "react";
 import styles from "./ConsiderForm.module.scss";
 import BasicButton from "../../../components/BasicButton";
 
+import CR1 from "../../../assets/images/consider-resource1.svg";
+import CR2 from "../../../assets/images/consider-resource2.svg";
+import CR3 from "../../../assets/images/consider-resource3.svg";
+import CR4 from "../../../assets/images/consider-resource4.svg";
+import CR5 from "../../../assets/images/consider-resource5.svg";
+import CR6 from "../../../assets/images/consider-resource6.svg";
+import CR7 from "../../../assets/images/consider-resource7.svg";
+import CR8 from "../../../assets/images/consider-resource8.svg";
+
+
+/* ── 타입 ──────────────────────────────────────────────────────────── */
 type SupportItem = {
   key: string;
   label: string;
-  icon?: string;
+  icon: string; // 아이콘을 반드시 갖도록 변경
 };
 
+/* ── 데이터 ────────────────────────────────────────────────────────── */
 const SUPPORT_ITEMS: SupportItem[] = [
-  { key: "facility", label: "사업화" },
-  { key: "rnd", label: "기술개발(R&D)" },
-  { key: "space", label: "시설·공간·보육" },
-  { key: "mentor", label: "멘토링·컨설팅" },
-  { key: "network", label: "행사·네트워크" },
-  { key: "finance", label: "융자" },
-  { key: "hr", label: "인력" },
-  { key: "global", label: "글로벌" },
+  { key: "facility", label: "사업화",           icon: CR1 },
+  { key: "rnd",      label: "기술개발(R&D)",   icon: CR2 },
+  { key: "space",    label: "시설·공간·보육",  icon: CR3 },
+  { key: "mentor",   label: "멘토링·컨설팅",   icon: CR4 },
+  { key: "network",  label: "행사·네트워크",   icon: CR5 },
+  { key: "finance",  label: "융자",            icon: CR6 },
+  { key: "hr",       label: "인력",            icon: CR7 },
+  { key: "global",   label: "글로벌",          icon: CR8 },
 ];
 
-const RANK_OPTIONS = ["순위", "상", "중", "하", "없음"]
+const RANK_OPTIONS = ["순위", "상", "중", "하", "없음"];
+
 // 창업 업력 옵션 + 각 버튼 폭 지정
 const CAREER_OPTIONS = [
-  { label: "예비창업", width: "6vw" },
-  { label: "초기(3년 이내)", width: "8vw" },
-  { label: "도약기(4~7년)", width: "8vw" },
+  { label: "예비창업",        width: "6vw" },
+  { label: "초기(3년 이내)",  width: "8vw" },
+  { label: "도약기(4~7년)",   width: "8vw" },
   { label: "혁신형(10년 이내)", width: "9vw" },
 ];
 
 // 창업 현황 옵션 + 각 버튼 폭 지정
 const STATUS_OPTIONS = [
-  { label: "탐색단계", width: "6vw" },
+  { label: "탐색단계",      width: "6vw" },
   { label: "기획&검증단계", width: "8vw" },
-  { label: "준비단계", width: "6vw" },
+  { label: "준비단계",      width: "6vw" },
   { label: "아이디어 단계", width: "9vw" },
-  { label: "실행단계", width: "7vw" },
-  { label: "성장단계", width: "7vw" },
+  { label: "실행단계",      width: "7vw" },
+  { label: "성장단계",      width: "7vw" },
 ];
 
-// ✅ onPrev, onNext 콜백을 props로 받음
+/* ── 컴포넌트 ──────────────────────────────────────────────────────── */
+// onPrev, onNext 콜백을 props로 받음
 const ConsiderForm: React.FC<{ onPrev: () => void; onNext: () => void }> = ({
   onPrev,
   onNext,
 }) => {
   const [selectedField, setSelectedField] = useState<string | null>(null);
   const [supportRanks, setSupportRanks] = useState<Record<string, string>>({});
-  const [careers, setCareers] = useState<string[]>([]);
-  const [statuses, setStatuses] = useState<string[]>([]);
-  const [itemText, setItemText] = useState("");
 
-  const toggleFromArray = (arr: string[], v: string) =>
-    arr.includes(v) ? arr.filter((x) => x !== v) : [...arr, v];
+  // ✅ 단일 선택으로 사용하므로 타입을 string | null 로 정리
+  const [careers, setCareers] = useState<string | null>(null);
+  const [statuses, setStatuses] = useState<string | null>(null);
+
+  const [itemText, setItemText] = useState("");
 
   const handleRankChange = (key: string, rank: string) => {
     setSupportRanks((prev) => ({ ...prev, [key]: rank }));
   };
 
-  // ✅ 다음 버튼에서 부모로 단계 전환 호출
+  // 다음 버튼에서 부모로 단계 전환 호출
   const handleNext = () => {
-    const payload = { field: selectedField, support: supportRanks, careers, statuses, itemText };
+    const payload = {
+      field: selectedField,
+      support: supportRanks,
+      careers,
+      statuses,
+      itemText,
+    };
     console.log("다음으로 넘길 값:", payload);
     onNext();
   };
@@ -67,7 +87,7 @@ const ConsiderForm: React.FC<{ onPrev: () => void; onNext: () => void }> = ({
 
   return (
     <div className={styles.groupBody}>
-      {/* 섹션들을 감싸는 부모: gap으로 섹션 간격 12px(0.625vw) 부여 */}
+      {/* 섹션들을 감싸는 부모 */}
       <div className={styles.sectionsWrapper}>
         {/* 섹션 1: 분야 선택 */}
         <section className={styles.section}>
@@ -88,12 +108,9 @@ const ConsiderForm: React.FC<{ onPrev: () => void; onNext: () => void }> = ({
             {SUPPORT_ITEMS.map((it) => (
               <div key={it.key} className={styles.supportCard}>
                 <div className={styles.supportIcon}>
-                  {it.icon ? (
-                    <img src={it.icon} alt={it.label} />
-                  ) : (
-                    <div className={styles.iconPlaceholder} aria-hidden />
-                  )}
+                  <img src={it.icon} alt={it.label} />
                 </div>
+
                 <div className={styles.supportLabel}>{it.label}</div>
 
                 <div className={styles.rankWrap}>
@@ -114,38 +131,43 @@ const ConsiderForm: React.FC<{ onPrev: () => void; onNext: () => void }> = ({
           </div>
         </section>
 
-<section className={styles.section}>
-  <h3 className={styles.label}>창업 업력에 대해서도 알려주세요.</h3>
-  <div className={styles.chipRow}>
-    {CAREER_OPTIONS.map((c) => (
-      <BasicButton
-        key={c.label}
-        text={c.label}
-        active={careers === c.label}
-        onClick={() => setCareers(prev => prev === c.label ? null : c.label)}
-        width={c.width}
-        height="2.1875vw"
-      />
-    ))}
-  </div>
-</section>
+        {/* 섹션 3: 창업 업력 */}
+        <section className={styles.section}>
+          <h3 className={styles.label}>창업 업력에 대해서도 알려주세요.</h3>
+          <div className={styles.chipRow}>
+            {CAREER_OPTIONS.map((c) => (
+              <BasicButton
+                key={c.label}
+                text={c.label}
+                active={careers === c.label}
+                onClick={() =>
+                  setCareers((prev) => (prev === c.label ? null : c.label))
+                }
+                width={c.width}
+                height="2.1875vw"
+              />
+            ))}
+          </div>
+        </section>
 
-<section className={styles.section}>
-  <h3 className={styles.label}>현재 창업 현황을 알려주세요.</h3>
-  <div className={styles.chipRow}>
-    {STATUS_OPTIONS.map((st) => (
-      <BasicButton
-        key={st.label}
-        text={st.label}
-        active={statuses === st.label}
-        onClick={() => setStatuses(prev => prev === st.label ? null : st.label)}
-        width={st.width}
-        height="2.1875vw"
-      />
-    ))}
-  </div>
-</section>
-
+        {/* 섹션 4: 현재 창업 현황 */}
+        <section className={styles.section}>
+          <h3 className={styles.label}>현재 창업 현황을 알려주세요.</h3>
+          <div className={styles.chipRow}>
+            {STATUS_OPTIONS.map((st) => (
+              <BasicButton
+                key={st.label}
+                text={st.label}
+                active={statuses === st.label}
+                onClick={() =>
+                  setStatuses((prev) => (prev === st.label ? null : st.label))
+                }
+                width={st.width}
+                height="2.1875vw"
+              />
+            ))}
+          </div>
+        </section>
 
         {/* 섹션 5: 아이템 텍스트 */}
         <section className={styles.section}>
@@ -164,9 +186,7 @@ const ConsiderForm: React.FC<{ onPrev: () => void; onNext: () => void }> = ({
 
       <footer className={styles.groupFooter}>
         <div className={styles.footerBtns}>
-          {/* ✅ 이전: 부모에서 InfoForm으로 돌려보냄 */}
           <BasicButton text="이전" onClick={onPrev} width="7.8125vw" height="2.1875vw" />
-          {/* ✅ 다음: 부모에서 BaseResource로 전환 */}
           <BasicButton
             text="다음"
             onClick={handleNext}

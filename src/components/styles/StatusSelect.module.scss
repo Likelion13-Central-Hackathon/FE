@@ -1,0 +1,129 @@
+/* ===== 학적 상태 드롭다운 (StatusSelect 전용) ===== */
+.selectWrap {
+  position: relative;
+  width: 7.92vw;
+  height: 2.19vw;
+  background: #fff;
+}
+
+.selectTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.42vw;
+
+  width: 7.92vw;
+  height: 2.19vw;
+
+  border: 0.05vw solid #000;
+  border-radius: 0.42vw;
+  background: #fff;
+
+  font-size: 0.73vw;
+  font-weight: 500;
+  color: #000;
+
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.selectTriggerActive {
+  background: #0400fa;
+  color: #fff;
+}
+
+.caret {
+  display: inline-block;
+  width: 0.57vw;
+  height: 0.47vw;
+  transform: translateY(-0.02vw);
+  color: currentColor;
+}
+
+.selectMenu {
+  position: absolute;
+  top: calc(100% + 0.42vw);
+  left: 0;
+  width: 7.92vw;
+  height: 10vw;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 0 0.42vw 0.42vw 0;
+  box-shadow: 0 0.21vw 1.04vw rgba(0, 0, 0, 0.12);
+  padding: 0.42vw 0;
+  z-index: 10;
+
+  &::-webkit-scrollbar {
+    width: 0.42vw;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #d0d5dd;
+    border-radius: 1.04vw;
+  }
+}
+
+.selectMenuWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.optRow {
+  width: 7.5vw;
+  height: 2.5vw;
+  display: flex;
+  align-items: center;
+  row-gap: 0.83vw;
+  column-gap: 1.67vw;
+  padding: 0.83vw 1.04vw;
+  background: transparent;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+  appearance: none;
+  outline: none;
+  box-shadow: none;
+  border-radius: 0.52vw;
+
+  &:hover {
+    background: #f7f8fa;
+  }
+  &[aria-selected='true'] .optText {
+    font-weight: 700;
+  }
+}
+
+.optText {
+  font-size: 0.83vw;
+  color: #2b2f37;
+}
+
+.box {
+  flex: 0 0 auto;
+  width: 1.04vw;
+  height: 1.04vw;
+  border: 0.05vw solid #cfd6e4;
+  border-radius: 0.26vw;
+  background: #fff;
+  position: relative;
+}
+
+.boxOn {
+  background: #0400fa;
+  border-color: #0400fa;
+}
+.boxOn::after {
+  content: '';
+  position: absolute;
+  left: 0.18vw;
+  top: 0.1vw;
+  width: 0.63vw;
+  height: 0.49vw;
+  border: 0.16vw solid #fff;
+  border-top: 0;
+  border-right: 0;
+  transform: rotate(-45deg);
+  box-sizing: border-box;
+}
