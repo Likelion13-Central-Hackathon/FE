@@ -1,0 +1,42 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as m;
+
+.businessResultWrapper {
+  @include m.flex-column-center;
+  gap: 14.95vw;
+  aspect-ratio: 1920 / 3628;
+  background: url("../../assets/images/result-background.png") center/contain
+    no-repeat;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top center;
+  width: 100%;
+
+  .ranksThree {
+    @include m.flex-row-double-center;
+    gap: 4vw;
+    width: 63.75vw;
+    height: 29.69vw;
+
+    // 1, 3 하단 정렬
+    > :nth-child(1),
+    > :nth-child(3) {
+      align-self: flex-end;
+    }
+
+    // 2 상단 정렬
+    > :nth-child(2) {
+      align-self: flex-start;
+    }
+
+    .rankBlock {
+      @include m.flex-column-center;
+      gap: 1vw;
+    }
+  }
+
+  .resultsThree {
+    @include m.flex-column-center;
+    gap: 5.21vw;
+  }
+}
