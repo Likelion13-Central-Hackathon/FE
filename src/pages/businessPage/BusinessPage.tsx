@@ -12,7 +12,9 @@ import data from "../../data/businessDummy.json";
 const BusinessPage = () => {
   const navigate = useNavigate();
   const [region, setRegion] = useState("서울"); // 선택된 지역
-  const filteredData = data.data.filter((item) => item.region === region);
+  const filteredData = data.data.filter(
+    (item) => item.region === region || item.region === "전국"
+  );
 
   return (
     <div className={s.businessWrapper}>
