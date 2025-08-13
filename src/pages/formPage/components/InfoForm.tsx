@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import s from "./InfoForm.module.scss";
 import BasicButton from "../../../components/BasicButton";
+import ConsiderForm from "./ConsiderForm";
+import BaseResource from "./BaseResource"; // ✅ 유지
 
 const STATUS_OPTIONS = ["휴학", "재학", "편입", "재입학"];
 const REGION_OPTIONS = [
@@ -10,88 +12,113 @@ const REGION_OPTIONS = [
 ];
 
 export const InfoForm: React.FC = () => {
+  // ✅ "base" 포함
+  const [step, setStep] = useState<"info" | "consider" | "base">("info");
+
   const [isCollege, setIsCollege] = useState<boolean | null>(null);
   const [status, setStatus] = useState<string | null>(null);
-  const [region, setRegion] = useState<string[]>([]); // 복수 선택
+  const [region, setRegion] = useState<string[]>([]);
+
+  const goNext = () => {
+    // TODO: 필요 시 유효성 검사
+    setStep("consider");
+  };
 
   return (
     <>
-      <div className={s.questionbox}>
-        {/* Q1 */}
-        <div className={s.q}>
-          <label className={s.label}>
-            몇 살이에요? 어디에서 사업을 하고 계신지도 알려주세요.
-          </label>
-          <div className={s.row}>
-            <div className={s.col}>
-              <div className={s.subLabel}>나이</div>
-              <input className={s.age} type="text" placeholder="Ex. 만 25세" />
+      {step === "info" && (
+        <>
+          <div className={s.questionbox}>
+            {/* Q1 */}
+            <div className={s.q}>
+              <label className={s.label}>
+                몇 살이에요? 어디에서 사업을 하고 계신지도 알려주세요.
+              </label>
+              <div className={s.row}>
+                <div className={s.col}>
+                  <div className={s.subLabel}>나이</div>
+                  <input className={s.age} type="text" placeholder="Ex. 만 25세" />
+                </div>
+
+                <div className={s.col}>
+                  <div className={s.subLabel}>사업장 주소</div>
+                  <RegionSelect
+                    value={region}
+                    onChange={(v) => setRegion(v)}
+                    placeholder="지역 선택하기"
+                    options={REGION_OPTIONS}
+                  />
+                </div>
+              </div>
             </div>
 
-            <div className={s.col}>
-              <div className={s.subLabel}>사업장 주소</div>
-              <RegionSelect
-                value={region}
-                onChange={(v) => setRegion(v)}
-                placeholder="지역 선택하기"
-                options={REGION_OPTIONS}
-              />
+            {/* Q2 */}
+            <div className={s.q}>
+              <label className={s.label}>현재 대학교에 다니고 있나요?</label>
+              <div className={s.btnGroup}>
+                <BasicButton
+                  text="예"
+                  onClick={() => setIsCollege(true)}
+                  width="7.03125vw"
+                  height="2.1875vw"
+                  // @ts-ignore
+                  active={isCollege === true}
+                />
+                <BasicButton
+                  text="아니오"
+                  onClick={() => setIsCollege(false)}
+                  width="7.03125vw"
+                  height="2.1875vw"
+                  // @ts-ignore
+                  active={isCollege === false}
+                />
+              </div>
             </div>
+
+            {/* Q3 — 예일 때만 노출 */}
+            {isCollege === true && (
+              <div className={s.q}>
+                <label className={s.label}>
+                  어느 대학교에 다니고 계신가요? 학적상태도 알려주세요.
+                </label>
+                <div className={s.caption}>예를 선택했을 시에만 표기</div>
+
+                <div className={s.row}>
+                  <input className={s.unv} type="text" placeholder="학교입력" />
+                  <StatusSelect
+                    value={status}
+                    onChange={(v) => setStatus(v)}
+                    options={["휴학", "재학", "편입", "재입학"]}
+                  />
+                </div>
+              </div>
+            )}
           </div>
-        </div>
 
-        {/* Q2 */}
-        <div className={s.q}>
-          <label className={s.label}>현재 대학교에 다니고 있나요?</label>
-          <div className={s.btnGroup}>
+          {/* 하단 중앙 버튼 */}
+          <div className={s.nextBtnWrapper}>
             <BasicButton
-              text="예"
-              onClick={() => setIsCollege(true)}
-              width="7.03125vw"
-              height="2.1875vw"
-              // @ts-ignore
-              active={isCollege === true}
-            />
-            <BasicButton
-              text="아니오"
-              onClick={() => setIsCollege(false)}
-              width="7.03125vw"
-              height="2.1875vw"
-              // @ts-ignore
-              active={isCollege === false}
+              text="다음"
+              onClick={goNext}
+              width="5.260417vw"
+              height="1.92vw"
             />
           </div>
-        </div>
+        </>
+      )}
 
-        {/* Q3 — 예일 때만 노출 */}
-        {isCollege === true && (
-          <div className={s.q}>
-            <label className={s.label}>
-              어느 대학교에 다니고 계신가요? 학적상태도 알려주세요.
-            </label>
-            <div className={s.caption}>예를 선택했을 시에만 표기</div>
-
-            <div className={s.row}>
-              <input className={s.unv} type="text" placeholder="학교입력" />
-              <StatusSelect
-                value={status}
-                onChange={(v) => setStatus(v)}
-                options={STATUS_OPTIONS}
-              />
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* 하단 중앙 버튼 */}
-      <div className={s.nextBtnWrapper}>
-        <BasicButton
-          text="다음"
-          onClick={() => console.log("다음")}
-          width="5.260417vw"
-          height="1.92vw"
+      {/* ✅ ConsiderForm는 한 번만 렌더 */}
+      {step === "consider" && (
+        <ConsiderForm
+          onPrev={() => setStep("info")}
+          onNext={() => setStep("base")}
         />
-      </div>
+      )}
+
+      {/* ✅ BaseResource */}
+      {step === "base" && (
+        <BaseResource onPrev={() => setStep("consider")} />
+      )}
     </>
   );
 };
@@ -168,7 +195,7 @@ function StatusSelect({
   );
 }
 
-/* ===== 지역 선택 드롭다운 (복수 선택 가능) ===== */
+/* ===== 지역 선택 드롭डाउन (복수 선택 가능) ===== */
 function RegionSelect({
   value,
   onChange,
@@ -217,15 +244,12 @@ function RegionSelect({
     return () => document.removeEventListener("mousedown", onDoc);
   }, []);
 
-  // 라벨 표시
   let label = placeholder;
   if (selectedSido.length > 0) {
     label = selectedSido
       .map(sido => {
         const sigungu = selectedSigungu[sido] || [];
-        return sigungu.length > 0
-          ? `${sido} / ${sigungu.join(", ")}`
-          : sido;
+        return sigungu.length > 0 ? `${sido} / ${sigungu.join(", ")}` : sido;
       })
       .join(", ");
   }
@@ -254,7 +278,6 @@ function RegionSelect({
     });
   };
 
-  // 외부로 값 전달 (시도 단독은 "시도", 시군구 있으면 "시도 시군구")
   useEffect(() => {
     const combined = selectedSido.flatMap((sido) =>
       (selectedSigungu[sido] && selectedSigungu[sido].length > 0)

@@ -1,0 +1,172 @@
+/* 부모 래퍼 */
+.sectionsWrapper {
+  margin-top: 1.6vw; /* 2.45 -> 1.6: 상단 여백 축소 */
+  display: flex;
+  flex-direction: column;
+  gap: 0.45vw; /* 0.625 -> 0.45: 섹션 간 간격 축소 */
+}
+
+/* 각 섹션 */
+.section {
+  font-size: 0.88vw; /* 1.04 -> 0.88 */
+}
+
+.label {
+  font-size: 0.88vw; /* 1.04 -> 0.88 */
+  font-weight: 700;
+  margin-bottom: 0.6vw; /* 0.9 -> 0.6 */
+}
+
+/* 분야 선택 버튼 */
+.primaryChip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.75vw; /* 2.1875 -> 1.75 */
+  padding: 0 0.9vw; /* 0 1.2 -> 0 0.9 */
+  border-radius: 0.5vw; /* 0.63 -> 0.5 */
+  border: 0.05vw solid #cfd6e4;
+  background: #1237ff;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.6vw; /* 0.73 -> 0.6 */
+  box-shadow: 0 0.16vw 0.52vw rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+}
+
+/* 지원 형태 그리드 */
+.supportGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.9vw 0.8vw; /* 1.25/1.2 -> 0.9/0.8 */
+}
+
+.supportCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45vw; /* 0.6 -> 0.45 */
+}
+
+.supportIcon {
+  width: 3vw; /* 3.8 -> 3.0 */
+  height: 3vw;
+  display: grid;
+  place-items: center;
+}
+
+.supportIcon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.iconPlaceholder {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.48vw; /* 0.6 -> 0.48 */
+  background: #eaf0ff;
+}
+
+.supportLabel {
+  font-size: 0.72vw; /* 0.88 -> 0.72 */
+  font-weight: 700;
+}
+
+/* 순위 셀렉트 */
+.rankWrap {
+  margin-top: 0.16vw; /* 0.2 -> 0.16 */
+}
+
+.rankSelect {
+  height: 1.36vw; /* 1.7 -> 1.36 */
+  padding: 0 0.6vw; /* 0.8 -> 0.6 */
+  border: 0.052vw solid #dde3ee;
+  border-radius: 0.42vw; /* 0.52 -> 0.42 */
+  background: #fff;
+  font-size: 0.6vw; /* 0.73 -> 0.6 */
+  outline: none;
+  cursor: pointer;
+}
+
+/* 칩(멀티 선택) */
+.chipRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45vw; /* 0.625 -> 0.45 */
+}
+
+.chip {
+  height: 1.75vw; /* 2.1875 -> 1.75 */
+  padding: 0 0.85vw; /* 1.04 -> 0.85 */
+  border-radius: 0.5vw; /* 0.63 -> 0.5 */
+  border: 0.05vw solid #dde3ee;
+  background: #fff;
+  font-weight: 700;
+  font-size: 0.6vw; /* 0.73 -> 0.6 */
+  box-shadow: 0 0.16vw 0.52vw rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.chipOn {
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+
+/* 텍스트 영역 + 안내 */
+.textarea {
+  width: 100%;
+  height: 5vw; /* 6.5 -> 5.0 */
+  border-radius: 0.5vw; /* 0.63 -> 0.5 */
+  border: 0.052vw solid #dde3ee;
+  padding: 0.6vw 0.8vw; /* 0.8/1.0 -> 0.6/0.8 */
+  font-size: 0.72vw; /* 0.83 -> 0.72 */
+  background: #f9faff;
+  outline: none;
+}
+
+.note {
+  margin-top: 0.4vw; /* 0.6 -> 0.4 */
+  font-size: 0.6vw; /* 0.73 -> 0.6 */
+  color: #757b88;
+}
+
+/* 하단 버튼 */
+.footerBtns {
+  display: flex;
+  justify-content: center;
+  gap: 0.8vw; /* 간격 줄임 */
+  margin-top: auto; /* 항상 컨테이너 하단으로 밀림 */
+  padding-top: 1vw; /* 섹션과 버튼 사이 여백 */
+}
+
+.footerBtn {
+  height: 1.9vw; /* 버튼 높이 줄임 */
+  padding: 0 1.2vw; /* 좌우 패딩 축소 */
+  font-size: 0.72vw; /* 글자 크기 축소 */
+  border-radius: 0.42vw; /* 둥근 정도 축소 */
+  font-weight: 700;
+  background: #1237ff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+/* 컨테이너(현 규격 유지) */
+.groupBody {
+  width: 26.93vw;
+  height: 37.19vw;
+  margin-top: 1.77vw;
+  margin-left: 5.89vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* 섹션과 버튼을 위/아래로 분리 */
+  gap: 0.63vw;
+}
+
+.groupFooter {
+  padding: 1.2vw 2vw; /* 1.56/2.6 -> 1.2/2.0 */
+  border-top: 0.05vw solid #eee;
+}

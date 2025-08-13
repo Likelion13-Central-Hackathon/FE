@@ -1,12 +1,11 @@
 import React, { useMemo, useState } from "react";
 import styles from "./ConsiderForm.module.scss";
-import BasicButton from "../../components/BasicButton"; // 경로는 프로젝트 구조에 맞게 조정
+import BasicButton from "../../../components/BasicButton";
 
-// 아이콘은 네가 넣어줘. (예: import bizIcon from "../../assets/icons/biz.svg";)
 type SupportItem = {
   key: string;
   label: string;
-  icon?: string; // 이미지 경로 (선택)
+  icon?: string;
 };
 
 const SUPPORT_ITEMS: SupportItem[] = [
@@ -21,19 +20,20 @@ const SUPPORT_ITEMS: SupportItem[] = [
 ];
 
 const RANK_OPTIONS = ["순위", "1순위", "2순위", "3순위", "4순위", "5순위"];
-
 const CAREER_OPTIONS = ["예비창업", "초기(3년 이내)", "도약기(4~7년)", "혁신형(10년 이내)"];
 const STATUS_OPTIONS = ["탐색단계", "기획&검증단계", "준비단계", "아이디어 단계", "실행단계", "성장단계"];
 
-const ConsiderForm: React.FC = () => {
-  // 상태
-  const [selectedField, setSelectedField] = useState<string | null>(null); // 분야 선택하기 버튼(모달 연결 전 임시)
+// ✅ onPrev, onNext 콜백을 props로 받음
+const ConsiderForm: React.FC<{ onPrev: () => void; onNext: () => void }> = ({
+  onPrev,
+  onNext,
+}) => {
+  const [selectedField, setSelectedField] = useState<string | null>(null);
   const [supportRanks, setSupportRanks] = useState<Record<string, string>>({});
   const [careers, setCareers] = useState<string[]>([]);
   const [statuses, setStatuses] = useState<string[]>([]);
   const [itemText, setItemText] = useState("");
 
-  // 토글 유틸
   const toggleFromArray = (arr: string[], v: string) =>
     arr.includes(v) ? arr.filter((x) => x !== v) : [...arr, v];
 
@@ -41,33 +41,19 @@ const ConsiderForm: React.FC = () => {
     setSupportRanks((prev) => ({ ...prev, [key]: rank }));
   };
 
-  // 제출 or 다음
-  const onNext = () => {
-    const payload = {
-      field: selectedField,
-      support: supportRanks,
-      careers,
-      statuses,
-      itemText,
-    };
+  // ✅ 다음 버튼에서 부모로 단계 전환 호출
+  const handleNext = () => {
+    const payload = { field: selectedField, support: supportRanks, careers, statuses, itemText };
     console.log("다음으로 넘길 값:", payload);
-    // TODO: 라우팅 또는 상위에 lift
+    onNext();
   };
 
-  const disableNext = useMemo(() => false, []); // 필요 시 필수값 검증
+  const disableNext = useMemo(() => false, []);
 
   return (
-    <div className={styles.container}>
-      {/* 배경 이미지는 상위에서 깔거나 여기서 넣어도 됨. 필요 시 props로 */}
-      <div className={styles.formBox}>
-        {/* 제목/로고는 상단 고정 이미지 대신 텍스트로 처리. 필요 시 이미지 교체 */}
-        <div className={styles.header}>
-          <div className={styles.logoTitle}>
-            {/* 로고 이미지가 있다면 여기에 <img className={styles.logo} src={logo} alt="logo" /> */}
-            <span className={styles.title}>창업할까?</span>
-          </div>
-        </div>
-
+    <div className={styles.groupBody}>
+      {/* 섹션들을 감싸는 부모: gap으로 섹션 간격 12px(0.625vw) 부여 */}
+      <div className={styles.sectionsWrapper}>
         {/* 섹션 1: 분야 선택 */}
         <section className={styles.section}>
           <h3 className={styles.label}>어떤 분야에서 창업을 고려하고 있는지 알려주세요.</h3>
@@ -83,12 +69,10 @@ const ConsiderForm: React.FC = () => {
         {/* 섹션 2: 지원 형태 */}
         <section className={styles.section}>
           <h3 className={styles.label}>어떤 형태의 지원이 필요한 지 알려주세요.</h3>
-
           <div className={styles.supportGrid}>
             {SUPPORT_ITEMS.map((it) => (
               <div key={it.key} className={styles.supportCard}>
                 <div className={styles.supportIcon}>
-                  {/* 아이콘 이미지 경로가 있다면 아래 img 사용 */}
                   {it.icon ? (
                     <img src={it.icon} alt={it.label} />
                   ) : (
@@ -157,12 +141,12 @@ const ConsiderForm: React.FC = () => {
           </div>
         </section>
 
-        {/* 섹션 5: 아이템 텍스트 + 안내문 */}
+        {/* 섹션 5: 아이템 텍스트 */}
         <section className={styles.section}>
           <h3 className={styles.label}>어떤 창업 아이템을 준비중인가요?</h3>
           <textarea
             className={styles.textarea}
-            placeholder="ex) 지문인식을 통해 개인 또는 구체화하고자 하는 제품·서비스 개요(사용 용도, 시장, 가격 등), 핵심 기능·성능, 고객 피드백 획득 등&#10;ex) 예시 : 가계부(결제 자료를 확보해 유저의 흥미를 돋이는 자료(핵심 기능)를 사용"
+            placeholder="ex) 지문인식을 통해 개인 또는 구체화하고자 하는 제품·서비스 개요..."
             value={itemText}
             onChange={(e) => setItemText(e.target.value)}
           />
@@ -170,20 +154,22 @@ const ConsiderForm: React.FC = () => {
             * 입력 예시는 가이드일 뿐이며 실제 작성 형식은 자유입니다.
           </div>
         </section>
+      </div>
 
-        {/* 하단 버튼 */}
+      <footer className={styles.groupFooter}>
         <div className={styles.footerBtns}>
-          <BasicButton text="이전" onClick={() => console.log("이전")} width="7.8125vw" height="2.1875vw" />
+          {/* ✅ 이전: 부모에서 InfoForm으로 돌려보냄 */}
+          <BasicButton text="이전" onClick={onPrev} width="7.8125vw" height="2.1875vw" />
+          {/* ✅ 다음: 부모에서 BaseResource로 전환 */}
           <BasicButton
             text="다음"
-            onClick={onNext}
+            onClick={handleNext}
             width="7.8125vw"
             height="2.1875vw"
-            // @ts-ignore (프로젝트 타입 정의에 따라 필요할 수 있음)
             disabled={disableNext}
           />
         </div>
-      </div>
+      </footer>
     </div>
   );
 };
