@@ -41,3 +41,30 @@
     color: $gray-400;
   }
 }
+
+// ResultItem
+.resultItemContainer {
+  background-color: green;
+  @include m.flex-row-double-center;
+  width: 90vw;
+  height: 36.3vw;
+  gap: 2.4vw;
+
+  // 정보+매칭+본문
+  .resultContents {
+    display: flex;
+    gap: 0.63vw;
+
+    // 정보+매칭
+    .resultMiddle {
+      @include m.flex-column-center;
+      gap: 0.94vw;
+    }
+  }
+
+  .resultItemWarning {
+    font-size: 1.25vw;
+    font-weight: 800;
+    color: $main-color1;
+  }
+}
