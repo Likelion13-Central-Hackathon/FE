@@ -79,7 +79,7 @@ export const InfoForm: React.FC = () => {
                 <label className={s.label}>
                   어느 대학교에 다니고 계신가요? 학적상태도 알려주세요.
                 </label>
-                <div className={s.caption}>예를 선택했을 시에만 표기</div>
+                <div className={s.caption}>예를 선택했을 시에만 표기.</div>
 
                 <div className={s.row}>
                   <input className={s.unv} type="text" placeholder="학교입력" />
