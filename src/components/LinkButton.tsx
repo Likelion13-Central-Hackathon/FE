@@ -11,7 +11,7 @@ const LinkButton: React.FC<LinkProps> = ({ link }) => {
       onClick={() => window.open(link, "_blank", "noopener,noreferrer")}
     >
       <p>본문접속</p>
-      <img src={LINK} alt="link-icon" style={{ width: "0.52vw" }} />
+      <img src={LINK} alt="link-icon" style={{ width: "0.43vw" }} />
     </button>
   );
 };

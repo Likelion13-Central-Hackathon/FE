@@ -32,7 +32,7 @@ const ResultItem: React.FC<ResultItemProps> = ({ rankImg, item }) => {
                 {/* 제목 + 링크 */}
                 <ReportInBox width="37.08vw" height="4.43vw">
                   <div className={s.resultTitle}>{item.title}</div>
-                  <LinkButton link="sflkdsj" />
+                  <LinkButton link={item.link} />
                 </ReportInBox>
 
                 {/* 업력, 기간, 지역, 기관, 대상, 연락처 */}
