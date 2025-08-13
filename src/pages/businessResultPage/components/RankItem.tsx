@@ -1,12 +1,15 @@
 import React from "react";
 import s from "./BusinessResult.module.scss";
-import RANK from "../../../assets/images/result-first.svg";
 
-const ResultItem = () => {
+type RankItemProps = {
+  rankImg: string; // 이미지 경로
+};
+
+const ResultItem: React.FC<RankItemProps> = ({ rankImg }) => {
   return (
     <div style={{ position: "relative", width: "15.57vw", height: "21.67vw" }}>
       <img
-        src={RANK}
+        src={rankImg}
         alt="result-back"
         style={{ width: "100%", height: "100%" }}
       />
