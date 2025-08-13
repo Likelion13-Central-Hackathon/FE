@@ -2,7 +2,7 @@ import React from "react";
 import RegionButton from "./RegionButton";
 import MAP from "../../../assets/images/map.svg";
 import { RegionName } from "../../../types/business";
-import { regions } from "../../../data/BusinessData";
+import { regions } from "../../../data/businessData";
 
 type MapBoxProps = {
   onRegionSelect: (region: RegionName) => void;

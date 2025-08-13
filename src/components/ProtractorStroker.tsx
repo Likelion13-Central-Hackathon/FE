@@ -3,25 +3,36 @@ import { motion } from "framer-motion";
 
 type ProtractorStrokerProps = {
   angle: number; // 0~180
-  strokeWidthVW?: string;
+  radius?: number; // 반지름
+  strokeWidth?: string;
   duration?: number; // 초
   className?: string;
 };
 
 const ProtractorStroker: React.FC<ProtractorStrokerProps> = ({
   angle,
-  strokeWidthVW = "29px",
+  radius = 147,
+  strokeWidth = "20px",
   duration = 2,
   className,
 }) => {
   const a = Math.max(0, Math.min(180, Math.round(angle)));
+  const r = Math.max(0, Math.min(150, radius));
+
   const uid = useId();
   const gradId = `arcGrad-${uid}`;
   const fxId = `arcFx-${uid}`;
 
+  const cx = 150;
+  const baseY = 150;
+  const leftX = cx - r;
+  const rightX = cx + r;
+
+  const arcPath = `M ${leftX} ${baseY} A ${r} ${r} 0 0 1 ${rightX} ${baseY}`;
+
   return (
     <svg
-      viewBox="0 0 300 150" // 지름 300, 반지름 150
+      viewBox="0 0 300 150" // 고정
       className={className}
       preserveAspectRatio="xMidYMid meet"
       style={{ display: "block", overflow: "visible" }}
@@ -30,7 +41,7 @@ const ProtractorStroker: React.FC<ProtractorStrokerProps> = ({
         <linearGradient
           id={gradId}
           x1="150"
-          y1="0" // 중앙 위
+          y1="0"
           x2="150"
           y2="150"
           gradientUnits="userSpaceOnUse"
@@ -40,7 +51,6 @@ const ProtractorStroker: React.FC<ProtractorStrokerProps> = ({
         </linearGradient>
 
         <filter id={fxId} x="-50%" y="-50%" width="200%" height="200%">
-          {/* drop shadow */}
           <feDropShadow
             dx="0"
             dy="0.42"
@@ -48,7 +58,6 @@ const ProtractorStroker: React.FC<ProtractorStrokerProps> = ({
             floodColor="#0400FA"
             floodOpacity="0.06"
           />
-          {/* 핑크 */}
           <feGaussianBlur in="SourceAlpha" stdDeviation="0.62" result="blur1" />
           <feOffset dx="-0.47" dy="-0.31" in="blur1" result="off1" />
           <feComposite
@@ -65,7 +74,6 @@ const ProtractorStroker: React.FC<ProtractorStrokerProps> = ({
             values="0 0 0 0 0.984  0 0 0 0 0.741  0 0 0 0 0.976  0 0 0 0.5 0"
             result="inner1c"
           />
-          {/* 파랑 */}
           <feGaussianBlur in="SourceAlpha" stdDeviation="0.62" result="blur2" />
           <feOffset dx="-0.47" dy="0.31" in="blur2" result="off2" />
           <feComposite
@@ -79,10 +87,9 @@ const ProtractorStroker: React.FC<ProtractorStrokerProps> = ({
           <feColorMatrix
             in="inner2"
             type="matrix"
-            values="0 0 0 0 0.016  0 0 0 0 0  0 0 0 0 0.980  0 0 0 1 0"
+            values="0 0 0 0 0.016  0 0 0 0 0    0 0 0 0 0.980  0 0 0 1 0"
             result="inner2c"
           />
-          {/* 합치기 */}
           <feMerge>
             <feMergeNode in="inner1c" />
             <feMergeNode in="inner2c" />
@@ -91,13 +98,13 @@ const ProtractorStroker: React.FC<ProtractorStrokerProps> = ({
         </filter>
       </defs>
 
-      {/* 반원*/}
       <motion.path
-        d="M 0 150 A 150 150 0 0 1 300 150"
+        d={arcPath}
         fill="none"
         stroke={`url(#${gradId})`}
         filter={`url(#${fxId})`}
-        strokeWidth={strokeWidthVW}
+        strokeWidth={strokeWidth}
+        vectorEffect="non-scaling-stroke"
         pathLength={180}
         initial={{ strokeDasharray: "0 180" }}
         animate={{ strokeDasharray: `${a} 180` }}

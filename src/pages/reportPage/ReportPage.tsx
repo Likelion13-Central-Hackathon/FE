@@ -16,13 +16,13 @@ import ReportOutBox from "../../components/ReportOutBox";
 import ReportInBox from "../../components/ReportInBox";
 import RecommendPlan from "./components/RecommendPlan";
 import RecommendPlanLabel from "./components/RecommendPlanLabel";
-import { planLabels } from "../../data/PlanLabelData";
+import { planLabels } from "../../data/planLabelData";
 import NewsItem from "./components/NewsItem";
 import MarkDownBox from "./components/MarkDownBox";
 import BusinessItem from "./components/BusinessItem";
 import { CountingScore } from "./components/CountingScore";
 import { getAngleMessage } from "../../utils/getScoreMsg";
-import ProtractorStroker from "./components/ProtractorStroker";
+import ProtractorStroker from "../../components/ProtractorStroker";
 
 const ReportPage = () => {
   const news = data?.data?.newsList ?? []; // 뉴스기사 목록
@@ -81,7 +81,7 @@ const ReportPage = () => {
                   </p>
                 </ReportInBox>
               </motion.div>
-              <img src={CHAR} alt="character-2d" style={{ width: "11vw" }} />
+              <img src={CHAR} alt="character-2d" style={{ width: "6.5vw" }} />
             </div>
             {/* QR코드 */}
             <motion.div
