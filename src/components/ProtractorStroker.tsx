@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 type ProtractorStrokerProps = {
   angle: number; // 0~180
   radius?: number; // 반지름
-  strokeWidth?: string;
+  strokeWidth?: number;
   duration?: number; // 초
   className?: string;
 };
@@ -12,7 +12,7 @@ type ProtractorStrokerProps = {
 const ProtractorStroker: React.FC<ProtractorStrokerProps> = ({
   angle,
   radius = 147,
-  strokeWidth = "20px",
+  strokeWidth = 25,
   duration = 2,
   className,
 }) => {
@@ -104,7 +104,7 @@ const ProtractorStroker: React.FC<ProtractorStrokerProps> = ({
         stroke={`url(#${gradId})`}
         filter={`url(#${fxId})`}
         strokeWidth={strokeWidth}
-        vectorEffect="non-scaling-stroke"
+        //vectorEffect="non-scaling-stroke"
         pathLength={180}
         initial={{ strokeDasharray: "0 180" }}
         animate={{ strokeDasharray: `${a} 180` }}
