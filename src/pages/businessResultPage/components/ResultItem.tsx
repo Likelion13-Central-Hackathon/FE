@@ -17,7 +17,7 @@ const ResultItem: React.FC<RankImageProps> = ({ rankImg }) => {
       <section>
         <RankItem rankImg={rankImg} />
       </section>
-      <div style={{ display: "flex", flexDirection: "column", gap: "1.56vw" }}>
+      <div className={s.resultItemBox}>
         <div className={s.resultContents}>
           <section className={s.resultMiddle}>
             <div>
@@ -52,6 +52,7 @@ const ResultItem: React.FC<RankImageProps> = ({ rankImg }) => {
               </ReportOutBox>
             </div>
             <div>
+              {/* 매칭률 */}
               <ReportOutBox width="40.10vw" height="13.07vw">
                 <div className={s.angleWrap}>
                   <p className={s.angleTitle}>지원사업 매칭 보고서</p>
@@ -70,6 +71,7 @@ const ResultItem: React.FC<RankImageProps> = ({ rankImg }) => {
                     <span>89%</span>
                   </div>
                 </div>
+                {/* 매칭 이유 */}
                 <div style={{ display: "flex", alignItems: "flex-end" }}>
                   <img
                     src={CHAR}
@@ -88,8 +90,29 @@ const ResultItem: React.FC<RankImageProps> = ({ rankImg }) => {
             </div>
           </section>
           <section>
-            <ReportOutBox width="31.30vw" height="32.97vw">
-              본문
+            {/* 신청방법 + 지원내용 + 제출서류 + 절차및평가 */}
+            <ReportOutBox width="31.30vw" height="32.97vw" className={b.column}>
+              <div className={s.resultTitle}>핵심 본문 내용</div>
+              <ReportInBox width="29.22vw" height="27.19vw">
+                <div className={s.coreContent}>
+                  <div>
+                    <span>신청 방법</span>
+                    <p>내용</p>
+                  </div>
+                  <div>
+                    <span>지원 내용</span>
+                    <p>내용</p>
+                  </div>
+                  <div>
+                    <span>제출 서류</span>
+                    <p>내용</p>
+                  </div>
+                  <div>
+                    <span>신청 절차 및 평가 방법</span>
+                    <p>내용</p>
+                  </div>
+                </div>
+              </ReportInBox>
             </ReportOutBox>
           </section>
         </div>
