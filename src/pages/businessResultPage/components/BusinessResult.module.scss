@@ -1,0 +1,43 @@
+@use "../../../styles//mixins" as m;
+@use "../../../styles/variables" as *;
+
+.rankBox {
+  @include m.flex-column-center;
+  gap: 0.94vw;
+  width: 11.61vw;
+  height: 10.73vw;
+  position: absolute;
+  top: 42%;
+  left: 12%;
+
+  p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    display: block;
+  }
+
+  .rankPercent {
+    font-size: 1.67vw;
+    font-weight: 700;
+    color: $main-color1;
+  }
+
+  .rankInfo {
+    @include m.flex-column-center;
+    gap: 0.42vw;
+    align-items: start;
+    width: 96%;
+    font-size: 0.83vw;
+    font-weight: 600;
+    color: $gray-800;
+  }
+
+  .rankDate {
+    margin-top: 1.15vw;
+    font-size: 0.78vw;
+    font-weight: 500;
+    color: $gray-400;
+  }
+}

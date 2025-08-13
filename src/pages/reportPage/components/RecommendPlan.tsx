@@ -2,7 +2,7 @@ import React from "react";
 import s from "./Report.module.scss";
 import CHART from "../../../assets/images/charts.svg";
 import { rotateArray, startMonthIndex } from "../../../utils/date";
-import { planStepTitles } from "../../../data/PlanLabelData";
+import { planStepTitles } from "../../../data/planLabelData";
 import { RecommendPlanProps } from "../../../types/report";
 
 const RecommendPlan: React.FC<RecommendPlanProps> = ({ createdAt, steps }) => {
