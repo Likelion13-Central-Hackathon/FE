@@ -2,8 +2,8 @@
 @use "../../styles/mixins" as m;
 
 .businessResultWrapper {
-  @include m.flex-column-center;
-  gap: 14.95vw;
+  display: flex;
+  flex-direction: column;
   aspect-ratio: 1920 / 3628;
   background: url("../../assets/images/result-background.png") center/contain
     no-repeat;
@@ -11,6 +11,19 @@
   background-size: cover;
   background-position: top center;
   width: 100%;
+
+  .backButton {
+    width: 2.81vw;
+    height: 1.72vw;
+    margin-top: 6.51vw;
+    margin-left: 2.19vw;
+    @include m.button-click;
+  }
+}
+
+.businessResultContainer {
+  @include m.flex-column-center;
+  gap: 14.95vw;
 
   .ranksThree {
     @include m.flex-row-double-center;

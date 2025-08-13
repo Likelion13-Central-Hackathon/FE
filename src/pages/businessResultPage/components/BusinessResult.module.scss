@@ -193,6 +193,7 @@
 
 .detailButton {
   @include m.flex-row-double-center;
+  @include m.button-click;
   width: 11.41vw;
   height: 2.19vw;
   background-color: $main-color1;
