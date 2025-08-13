@@ -1,11 +1,8 @@
 import React from "react";
 import s from "./BusinessResult.module.scss";
+import { RankImageProps } from "../../../types/business";
 
-type RankItemProps = {
-  rankImg: string; // 이미지 경로
-};
-
-const ResultItem: React.FC<RankItemProps> = ({ rankImg }) => {
+const ResultItem: React.FC<RankImageProps> = ({ rankImg }) => {
   return (
     <div style={{ position: "relative", width: "15.57vw", height: "21.67vw" }}>
       <img

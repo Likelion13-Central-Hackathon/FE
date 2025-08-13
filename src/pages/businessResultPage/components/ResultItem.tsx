@@ -2,12 +2,9 @@ import React from "react";
 import s from "./BusinessResult.module.scss";
 import ReportOutBox from "../../../components/ReportOutBox";
 import RankItem from "./RankItem";
+import { RankImageProps } from "../../../types/business";
 
-type ResultItemProps = {
-  rankImg: string; // 이미지 경로
-};
-
-const ResultItem: React.FC<ResultItemProps> = ({ rankImg }) => {
+const ResultItem: React.FC<RankImageProps> = ({ rankImg }) => {
   return (
     <div className={s.resultItemContainer}>
       <section>
