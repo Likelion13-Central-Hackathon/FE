@@ -56,6 +56,16 @@ const BusinessResultPage = () => {
           </div>
         </div>
 
+        {/* 선정될각, 전체사업 버튼 */}
+        <div className={s.navigateButton}>
+          <button onClick={() => navigate("/document")}>
+            지원사업 선정될각?
+          </button>
+          <button onClick={() => navigate("/business")}>
+            다른 지원사업 살펴볼각?
+          </button>
+        </div>
+
         {/* 상위 랭킹 3개 상세화면 */}
         <div className={s.resultsThree}>
           <div ref={setResultRef(0)} className={s.resultSection}>

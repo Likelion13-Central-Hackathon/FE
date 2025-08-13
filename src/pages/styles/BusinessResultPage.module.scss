@@ -15,15 +15,14 @@
   .backButton {
     width: 2.81vw;
     height: 1.72vw;
-    margin-top: 6.51vw;
-    margin-left: 2.19vw;
+    margin: 6.51vw 0 4.74vw 2.19vw;
     @include m.button-click;
   }
 }
 
 .businessResultContainer {
   @include m.flex-column-center;
-  gap: 14.95vw;
+  gap: 8.8vw;
 
   .ranksThree {
     @include m.flex-row-double-center;
@@ -45,6 +44,23 @@
     .rankBlock {
       @include m.flex-column-center;
       gap: 1vw;
+    }
+  }
+
+  .navigateButton {
+    display: flex;
+    gap: 0.63vw;
+    height: 2.29vw;
+
+    button {
+      @include m.button-click;
+      border: none;
+      text-decoration: underline;
+      background-color: transparent;
+
+      color: $color-white;
+      font-size: 1.25vw;
+      font-weight: 300;
     }
   }
 
