@@ -8,6 +8,7 @@
   border: none;
   border-radius: 0.31vw;
   margin: 0.83vw;
+  padding: 0;
   @include m.button-click();
   background-color: $main-color1;
   gap: 0.1vw;

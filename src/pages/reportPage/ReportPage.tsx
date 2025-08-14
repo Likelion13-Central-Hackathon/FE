@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import s from "../styles/ReportPage.module.scss";
 import b from "../../components/styles/Box.module.scss";
@@ -25,6 +26,8 @@ import { getAngleMessage } from "../../utils/getScoreMsg";
 import ProtractorStroker from "../../components/ProtractorStroker";
 
 const ReportPage = () => {
+  const navigate = useNavigate();
+
   const news = data?.data?.newsList ?? []; // 뉴스기사 목록
 
   return (
@@ -128,6 +131,7 @@ const ReportPage = () => {
                       src={PLUS}
                       alt="plus-icon"
                       style={{ width: "1.56vw" }}
+                      onClick={() => navigate("/business/result")}
                     />
                   </div>
 

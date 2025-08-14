@@ -47,7 +47,7 @@ const BusinessPage = () => {
               ) : (
                 <p className={s.noDataMessage}>
                   현재 모집 중인 지원사업이 없어요!
-                  <img src={CHAR} alt="char-2d" style={{ width: "20vw" }} />
+                  <img src={CHAR} alt="char-2d" style={{ width: "9vw" }} />
                 </p>
               )}
             </div>
