@@ -9,6 +9,8 @@ const GradientBox: React.FC<InBoxProps> = ({
 }) => {
   return (
     <div className={s.gradientBox} style={{ width, height }}>
+      {/* 노란 타원 */}
+      <div className={s.ellipse} />
       {children}
     </div>
   );

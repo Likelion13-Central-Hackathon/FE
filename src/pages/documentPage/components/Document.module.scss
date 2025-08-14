@@ -2,18 +2,6 @@
 @use "../../../styles/variables" as *;
 
 // RevisingBox
-.ellipse {
-  position: absolute;
-  top: 36%;
-  right: -15%;
-  width: 23.07vw;
-  height: 28.12vw;
-  background-color: rgba(250, 245, 208, 0.8);
-  border-radius: 50%;
-  filter: blur(5.21vw);
-  z-index: 0; // 맨뒤로
-}
-
 .titleBox {
   margin-left: 0.8vw;
   margin-bottom: 1.25vw;

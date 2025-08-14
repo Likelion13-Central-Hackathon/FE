@@ -36,8 +36,6 @@ const RevisingBox: React.FC<RevisingTitle> = ({ title, explanation }) => {
 
   return (
     <GradientBox>
-      {/* 노란 타원 */}
-      <div className={s.ellipse} />
       <div>
         <div className={s.titleBox}>
           <div className={s.titleAndDownload}>
