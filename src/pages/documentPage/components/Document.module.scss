@@ -41,8 +41,9 @@
 // 문항 + 상세설명
 .itemInfo {
   width: 59.48vw;
-  height: 6.2vw;
-  margin-bottom: 1.04vw;
+  @include m.flex-column-center;
+  align-items: flex-start;
+  gap: 0.94vw;
 
   span {
     font-size: 1.67vw;
@@ -53,7 +54,6 @@
     font-size: 1.04vw;
     font-weight: 500;
     color: $gray-400;
-    margin-top: 0.94vw;
     white-space: pre-wrap;
   }
 }
@@ -95,6 +95,7 @@
   overflow-y: scroll;
 
   background-color: transparent;
+  padding: 0;
   border: none;
   outline: none;
   resize: none;
