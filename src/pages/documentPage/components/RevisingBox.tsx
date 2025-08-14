@@ -9,8 +9,9 @@ import PDF from "../../../assets/images/icon/download-icon.svg";
 import IconButton from "../../../components/IconButton";
 import GradientBox from "../../../components/GradientBox";
 import data from "../../../data/aiRevisingData.json";
+import { RevisingTitle } from "../../../data/RevisingTitleData";
 
-const RevisingBox = () => {
+const RevisingBox: React.FC<RevisingTitle> = ({ title, explanation }) => {
   const [aiAnswer, setAiAnswer] = useState<string>(""); // ai 첨삭 답변
   const [rotating, setRotating] = useState<boolean>(false); // 새로고침 이미지 돌아감
 
@@ -49,9 +50,9 @@ const RevisingBox = () => {
         </div>
         <ReportOutBox width="61.56vw" height="35.47vw" className={b.column}>
           {/* 문항 정보 */}
-          <section className={s.questionBox}>
-            <span>문항</span>
-            <p>상세설명</p>
+          <section className={s.itemInfo}>
+            <span>{title}</span>
+            <p>{explanation}</p>
           </section>
 
           <section style={{ display: "flex", gap: "1.35vw" }}>
