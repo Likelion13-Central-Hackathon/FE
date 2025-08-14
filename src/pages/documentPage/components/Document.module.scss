@@ -39,7 +39,7 @@
 }
 
 // 문항 + 상세설명
-.questionBox {
+.itemInfo {
   width: 59.48vw;
   height: 6.2vw;
   margin-bottom: 1.04vw;
@@ -123,5 +123,25 @@
   }
   to {
     transform: rotate(-360deg);
+  }
+}
+
+// QuestionBox
+.questionBox {
+  @include m.flex-column-center;
+  justify-content: flex-end;
+  gap: 0.57vw;
+
+  .infoText1,
+  .infoText2 {
+    font-size: 1.04vw;
+    color: $color-black;
+    white-space: pre-wrap;
+  }
+  .infoText1 {
+    font-weight: 600;
+  }
+  .infoText2 {
+    font-weight: 700;
   }
 }
