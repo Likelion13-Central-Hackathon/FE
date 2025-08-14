@@ -1,0 +1,11 @@
+{
+  "isSuccess": true,
+  "code": "SUCCESS_200",
+  "httpStatus": 200,
+  "message": "호출에 성공하였습니다.",
+  "data": {
+    "aiAnswer": "AI 응답 블라블라",
+    "answerId": 1
+  },
+  "timeStamp": "2025-08-10 12:21:32"
+}

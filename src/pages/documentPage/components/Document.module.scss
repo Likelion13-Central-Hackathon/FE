@@ -1,0 +1,127 @@
+@use "../../../styles//mixins" as m;
+@use "../../../styles/variables" as *;
+
+// RevisingBox
+.ellipse {
+  position: absolute;
+  top: 36%;
+  right: -15%;
+  width: 23.07vw;
+  height: 28.12vw;
+  background-color: rgba(250, 245, 208, 0.8);
+  border-radius: 50%;
+  filter: blur(5.21vw);
+  z-index: 0; // 맨뒤로
+}
+
+.titleBox {
+  margin-left: 0.8vw;
+  margin-bottom: 1.25vw;
+
+  .titleAndDownload {
+    @include m.flex-row-center;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    p {
+      font-size: 1.88vw;
+      font-weight: 700;
+      color: $main-color1;
+    }
+  }
+
+  p {
+    font-size: 1.04vw;
+    font-weight: 700;
+    color: $main-color1;
+    margin-top: 0.25vw;
+  }
+}
+
+// 문항 + 상세설명
+.questionBox {
+  width: 59.48vw;
+  height: 6.2vw;
+  margin-bottom: 1.04vw;
+
+  span {
+    font-size: 1.67vw;
+    font-weight: 700;
+    color: $gray-800;
+  }
+  p {
+    font-size: 1.04vw;
+    font-weight: 500;
+    color: $gray-400;
+    margin-top: 0.94vw;
+    white-space: pre-wrap;
+  }
+}
+
+// 답변 입력하기, AI 첨삭 답변 글씨
+.guideText {
+  width: 100%;
+  padding: 0 1.04vw;
+  font-size: 1.25vw;
+  font-weight: 500;
+  color: $color-black;
+}
+
+.aiTitle {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 1.04vw;
+}
+
+// AI 첨삭 답변
+.aiResponse {
+  overflow-y: scroll;
+
+  width: 20.94vw;
+  height: 16.67vw;
+  font-size: 1.04vw;
+  font-weight: 500;
+  color: $color-black;
+
+  overflow-y: auto;
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+
+.textarea {
+  width: 20.94vw;
+  height: 16.67vw;
+  overflow-y: scroll;
+
+  background-color: transparent;
+  border: none;
+  outline: none;
+  resize: none;
+  font-size: 0.83vw;
+  font-weight: 600;
+  color: $color-black;
+
+  &::placeholder {
+    color: $gray-400;
+  }
+}
+
+.returnButton {
+  @include m.flex-column-center;
+  gap: 0.78vw;
+  padding: 0 1.41vw;
+
+  .rotate {
+    animation: spin360 1s linear forwards;
+  }
+}
+
+@keyframes spin360 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
