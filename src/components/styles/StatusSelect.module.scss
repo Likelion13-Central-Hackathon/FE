@@ -4,9 +4,12 @@
   width: 7.92vw;
   height: 2.19vw;
   background: #fff;
+  z-index: 2;
 }
 
 .selectTrigger {
+  position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,12 +49,13 @@
   left: 0;
   width: 7.92vw;
   height: 10vw;
+  z-index: 9999;
   overflow-y: auto;
   background: #fff;
   border-radius: 0 0.42vw 0.42vw 0;
   box-shadow: 0 0.21vw 1.04vw rgba(0, 0, 0, 0.12);
   padding: 0.42vw 0;
-  z-index: 10;
+  z-index: 9999;
 
   &::-webkit-scrollbar {
     width: 0.42vw;
@@ -89,9 +93,6 @@
 
   &:hover {
     background: #f7f8fa;
-  }
-  &[aria-selected='true'] .optText {
-    font-weight: 700;
   }
 }
 

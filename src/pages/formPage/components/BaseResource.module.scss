@@ -1,10 +1,10 @@
-/* 섹션 간 12px (0.625vw) */
+/* 섹션 간격 */
 .sectionsWrapper {
   display: flex;
   flex-direction: column;
-  gap: 0.625vw;
-  flex: 1; /* ★ 남는 공간 채우기 */
-  min-height: 0; /* ★ flex 자식 스크롤 이슈 방지 */
+  gap: 2.6vw;
+  flex: 1;
+  min-height: 0; /* 스크롤/수축 안전 */
 }
 
 .section {
@@ -16,140 +16,108 @@
 .label {
   font-size: 1.04vw;
   font-weight: 700;
-  margin-bottom: 0.9vw;
 }
 
-/* 선택 칩 공통 */
+/* 섹션 1·2 버튼 행 */
 .chipRow {
+  font-size: 0.625vw !important;
+  font-weight: 700 !important;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.625vw;
+  gap: 0.31vw;
 }
 
-.chip {
-  height: 2.1875vw;
-  padding: 0 1.04vw;
-  border-radius: 0.63vw;
-  border: 0.05vw solid #dde3ee;
-  background: #fff;
-  font-weight: 700;
-  font-size: 0.73vw;
-  box-shadow: 0 0.16vw 0.52vw rgba(0, 0, 0, 0.05);
-  cursor: pointer;
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
-}
-
-.chipOn {
-  background: #1237ff;
-  color: #fff;
-  border-color: #1237ff;
-}
-
-/* 자원 카드 그리드 */
+/* 자원 카드 그리드: 두 줄(위/아래)로 분리 */
 .resourceGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.25vw 1.2vw;
+  display: flex;
+  flex-direction: column;
+  row-gap: 2vw; /* 위/아래 줄 간격 */
+}
+
+.resourceRowTop,
+.resourceRowBottom {
+  display: flex;
+  flex-wrap: nowrap; /* 3개씩 고정 */
+}
+
+/* 위 3개의 좌우 간격 */
+.resourceRowTop {
+  column-gap: 2.76vw;
+}
+
+/* 아래 3개의 좌우 간격 */
+.resourceRowBottom {
+  column-gap: 1.35vw;
 }
 
 .resourceCard {
+  flex: none;
+  width: auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 0.6vw;
-  padding: 1.1vw 1.2vw;
-  border: 0.05vw solid #dde3ee;
-  border-radius: 0.8vw;
-  background: #fff;
-  box-shadow: 0 0.16vw 0.52vw rgba(0, 0, 0, 0.04);
-  min-height: 7.6vw;
+  align-items: center;
+  text-align: center;
 }
 
 .resourceHead {
   display: flex;
   flex-direction: column;
   gap: 0.3vw;
+  align-items: center;
 }
+
 .resourceTitle {
-  font-size: 0.94vw;
-  font-weight: 800;
+  font-size: 1.04vw;
+  font-weight: bold;
 }
+
 .resourceDesc {
-  font-size: 0.73vw;
-  color: #5a5f6d;
+  width: 7.4vw;
+  font-size: 0.63vw;
+  color: #000000;
   line-height: 1.5;
 }
 
-/* 순위 선택/칩 */
+/* StatusSelect 래퍼 */
 .rankWrap {
   display: flex;
   align-items: center;
-}
-.rankSelect {
-  height: 1.7vw;
-  padding: 0 0.8vw;
-  border: 0.052vw solid #dde3ee;
-  border-radius: 0.52vw;
-  background: #fff;
-  font-size: 0.73vw;
-  outline: none;
-  cursor: pointer;
+  margin-top: 0.42vw;
 }
 
-.rankChip {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 2vw;
-  padding: 0 0.9vw;
-  border-radius: 0.63vw;
-  border: 0.05vw solid #cfd6e4;
-  background: #f4f6ff;
-  font-weight: 700;
-  font-size: 0.73vw;
-  cursor: pointer;
-}
-.rankChipOn {
-  background: #1237ff;
-  color: #fff;
-  border-color: #1237ff;
+/* ===== 외곽 레이아웃 ===== */
+.groupBody {
+  position: relative;
+  display: flex; /* 본문 + 하단 버튼 수직 스택 */
+  flex-direction: column;
+  width: 26.93vw;
+  height: 37.19vw;
+  margin-top: 7.24vw;
+  margin-left: 5.83vw;
+  overflow: visible;
 }
 
-/* 하단 버튼 */
+/* 본문 래퍼 */
+.scaleWrap {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* 남은 높이 채움 */
+  min-height: 0; /* 자식 스크롤 가능하도록 */
+  /* 필요시 내부 스크롤을 원하면 아래 주석 해제
+  overflow: auto;
+  */
+}
+
+/* ===== 하단 버튼 ===== */
+.groupFooter {
+  margin-top: 3.54vw;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
 .footerBtns {
   display: flex;
   justify-content: center;
-  gap: 1.04vw;
-  margin-top: 0; /* ★ 위 여백 제거: 밀림 방지 */
-}
-
-/* 외곽 레이아웃 (다른 폼과 맞춤) */
-.groupBody {
-  width: 26.93vw;
-  height: 37.19vw;
-  margin-top: 1.77vw;
-  margin-left: 5.89vw;
-  overflow: hidden;
-  position: relative; /* ★ scale 래퍼 기준 */
-  --ui-scale: 0.9; /* ★ 전체 축소 비율 (필요시 0.88/0.92 조정) */
-}
-
-/* ★ 내부 전체를 균등 축소 + 세로 플렉스로 배치 */
-.scaleWrap {
-  position: absolute;
-  inset: 0;
-  width: calc(100% / var(--ui-scale));
-  height: calc(100% / var(--ui-scale));
-  transform: scale(var(--ui-scale));
-  transform-origin: top left;
-
-  display: flex; /* ★ 섹션 + 푸터 세로 배치 */
-  flex-direction: column;
-}
-
-/* 푸터는 항상 하단 고정(줄어들지 않음) */
-.groupFooter {
-  flex-shrink: 0; /* ★ */
-  padding: 1.56vw 2.6vw; /* 30px 50px */
-  border-top: 0.05vw solid #eee; /* 1px */
+  gap: 0.52vw;
+  margin-top: 0;
 }

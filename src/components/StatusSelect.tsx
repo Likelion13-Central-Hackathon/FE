@@ -6,6 +6,10 @@ type Props = {
   onChange: (v: string) => void;
   options: string[];
   placeholder?: string;
+  /** 이 컴포넌트를 쓰는 파일에서만 개별 크기 제어 */
+  width?: string;   // 예: "7.92vw" / "160px" / "100%"
+  height?: string;  // 예: "2.19vw" / "40px"
+  style?: React.CSSProperties; // (선택) 더 세밀한 오버라이드
 };
 
 const StatusSelect: React.FC<Props> = ({
@@ -13,6 +17,9 @@ const StatusSelect: React.FC<Props> = ({
   onChange,
   options,
   placeholder = "학적 입력",
+  width,
+  height,
+  style,
 }) => {
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -30,7 +37,12 @@ const StatusSelect: React.FC<Props> = ({
   const label = value ?? placeholder;
 
   return (
-    <div className={styles.selectWrap} ref={wrapRef}>
+    <div
+      className={styles.selectWrap}
+      ref={wrapRef}
+      // ✅ 이 컴포넌트를 쓰는 파일에서만 크기 오버라이드
+      style={{ width, height, ...style }}
+    >
       <button
         type="button"
         className={`${styles.selectTrigger} ${
@@ -39,6 +51,8 @@ const StatusSelect: React.FC<Props> = ({
         onClick={() => setOpen((o) => !o)}
         aria-haspopup="listbox"
         aria-expanded={open}
+        // 버튼 높이도 맞춰줌 (width는 부모가 먹음)
+        style={{ width, height }}
       >
         {label}
         <span className={styles.caret}>▼</span>
@@ -66,9 +80,7 @@ const StatusSelect: React.FC<Props> = ({
                   }}
                 >
                   <span
-                    className={`${styles.box} ${
-                      checked ? styles.boxOn : ""
-                    }`}
+                    className={`${styles.box} ${checked ? styles.boxOn : ""}`}
                   />
                   <span className={styles.optText}>{opt}</span>
                 </button>
