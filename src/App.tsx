@@ -11,9 +11,10 @@ import ReportPage from "./pages/reportPage/ReportPage";
 import BusinessPage from "./pages/businessPage/BusinessPage";
 import BusinessResultPage from "./pages/BusinessResultPage";
 import BusinessDetailPage from "./pages/BusinessDetailPage";
-import DocumentPage from "./pages/DocumentPage";
+import DocumentPage from "./pages/documentPage/DocumentPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import FormIntroPage from "./pages/FormIntroPage";
+import DocumentIntroPage from "./pages/DocumentIntroPage";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
       { path: "business", element: <BusinessPage /> },
       { path: "business/result", element: <BusinessResultPage /> },
       { path: "business/detail/:id", element: <BusinessDetailPage /> },
+      { path: "document-intro", element: <DocumentIntroPage /> },
       { path: "document", element: <DocumentPage /> },
       { path: "*", element: <NotFoundPage /> }, // 404 처리
     ],
