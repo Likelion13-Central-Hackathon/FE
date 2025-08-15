@@ -1,0 +1,205 @@
+@use "../../../styles//mixins" as m;
+@use "../../../styles/variables" as *;
+
+// RankItem
+.rankBox {
+  @include m.flex-column-center;
+  gap: 0.94vw;
+  width: 11.61vw;
+  height: 10.73vw;
+  position: absolute;
+  top: 42%;
+  left: 12%;
+
+  p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    display: block;
+  }
+
+  .rankPercent {
+    font-size: 1.67vw;
+    font-weight: 700;
+    color: $main-color1;
+  }
+
+  .rankInfo {
+    @include m.flex-column-center;
+    gap: 0.42vw;
+    align-items: start;
+    width: 96%;
+    font-size: 0.83vw;
+    font-weight: 600;
+    color: $gray-800;
+  }
+
+  .rankDate {
+    margin-top: 1.15vw;
+    font-size: 0.78vw;
+    font-weight: 500;
+    color: $gray-400;
+  }
+}
+
+.resultItemBox {
+  @include m.flex-column-center;
+  gap: 1.56vw;
+}
+
+// ResultItem
+.resultItemContainer {
+  @include m.flex-row-double-center;
+  width: 90vw;
+  height: 36.3vw;
+  gap: 2.4vw;
+
+  // 정보+매칭+본문
+  .resultContents {
+    display: flex;
+    gap: 0.63vw;
+
+    // 정보+매칭
+    .resultMiddle {
+      @include m.flex-column-center;
+      gap: 0.94vw;
+
+      .supportArea {
+        width: 90%;
+        font-size: 1.04vw;
+        font-weight: 700;
+        color: $gray-800;
+      }
+
+      // 정보(분야, 제목, 주관기관, 연락처 등)
+      .infoBox {
+        @include m.flex-row-double-center;
+        gap: 1.25vw;
+
+        .infoBoxText1,
+        .infoBoxText2 {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          height: 6.56vw;
+          font-size: 1.25vw;
+          font-weight: 500;
+          color: $color-sub-black;
+
+          p {
+            @include m.overflow-ellipsis;
+          }
+        }
+        .infoBoxText1 {
+          width: 13.93vw;
+        }
+        .infoBoxText2 {
+          width: 19.93vw;
+        }
+      }
+
+      .reason {
+        width: 85%;
+        height: 85%;
+        font-size: 0.83vw;
+        font-weight: 600;
+        color: black;
+        line-height: 1.5;
+
+        overflow-y: scroll;
+        text-overflow: ellipsis;
+      }
+
+      // 각도기
+      .angleWrap {
+        position: relative;
+        display: inline-block;
+        width: 16.78vw;
+
+        .angleTitle {
+          font-size: 1.04vw;
+          font-weight: 700;
+          color: $gray-800;
+          margin-bottom: 1.6vw;
+        }
+
+        .scoreContainer {
+          @include m.flex-row-double-center;
+          position: absolute;
+          left: 35%;
+          bottom: 0%;
+          gap: 0.42vw;
+          z-index: 1;
+
+          span {
+            font-size: 1.04vw;
+            font-weight: 600;
+            color: $gray-800;
+          }
+        }
+        .angleImg {
+          display: block;
+          width: 100%;
+        }
+        .arcOverlay {
+          position: absolute;
+          top: 32%;
+          left: 0.4%;
+          width: 100%;
+          height: 67%;
+          pointer-events: none;
+          overflow: visible;
+        }
+      }
+    }
+
+    .coreContent {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+      padding: 1.04vw;
+      gap: 1.04vw;
+
+      span {
+        font-size: 1.25vw;
+        font-weight: 600;
+        color: $color-sub-black;
+      }
+      p {
+        font-size: 1.04vw;
+        font-weight: 500;
+        color: $color-sub-black;
+        margin-top: 0.42vw;
+      }
+    }
+  }
+
+  .resultTitle {
+    width: 28.59vw;
+    font-size: 1.67vw;
+    font-weight: 700;
+    color: $color-sub-black;
+    @include m.overflow-ellipsis;
+  }
+
+  .resultItemWarning {
+    font-size: 1.25vw;
+    font-weight: 800;
+    color: $main-color1;
+  }
+}
+
+.detailButton {
+  @include m.flex-row-double-center;
+  @include m.button-click;
+  width: 11.41vw;
+  height: 2.19vw;
+  background-color: $main-color1;
+  border-radius: 0.31vw;
+
+  font-size: 0.83vw;
+  font-weight: 700;
+  color: $color-white;
+}

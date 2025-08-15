@@ -1,0 +1,22 @@
+@use "../../styles/mixins" as m;
+@use "../../styles/variables" as *;
+
+.inbox {
+  @include m.flex-row-double-center;
+  @include m.glass-box(
+    inset 0.21vw 0.21vw 0.1vw -0.1vw $color-white,
+    inset -0.1vw -0.1vw 0.1vw -0.1vw $color-white
+  );
+}
+
+.outbox {
+  @include m.flex-row-double-center;
+  @include m.glass-box(
+    inset 0.31vw 0.31vw 0.21vw -0.1vw $color-white,
+    inset -0.21vw -0.21vw 0.21vw -0.1vw $color-white
+  );
+  gap: 1.04vw;
+}
+.column {
+  flex-direction: column;
+}

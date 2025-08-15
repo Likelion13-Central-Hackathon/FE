@@ -21,6 +21,36 @@
   justify-content: center;
 }
 
+@mixin glass-box($inner1, $inner2) {
+  background-color: $translucent;
+  border-radius: 0.94vw;
+  backdrop-filter: blur(0.2vw);
+  box-shadow: #{$inner1}, #{$inner2}, 0vw 0.42vw 0.63vw rgba(4, 0, 250, 0.06);
+  overflow: hidden;
+}
+
+@mixin button-click($hoverScale: 1.04, $activeScale: 0.96) {
+  cursor: pointer;
+  transition: transform 0.15s ease;
+
+  &:hover {
+    transform: scale($hoverScale);
+  }
+
+  &:active {
+    transform: scale($activeScale);
+  }
+}
+
+// 줄바꿈 불가, 넘치는건 ...으로
+@mixin overflow-ellipsis() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  max-width: 100%;
+}
+
 // 자주 쓰는 구조 있으면 추가
 
 /*

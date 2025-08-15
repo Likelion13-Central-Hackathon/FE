@@ -87,13 +87,13 @@
 // 캐릭터
 .characterWrapper {
   position: absolute;
-  top: 47%;
-  left: 55%;
+  top: 13%;
+  left: 14%;
 
   width: 39.64vw;
   height: auto;
   z-index: 10;
-  animation: floatOnce 3s ease-in-out forwards;
+  animation: floatOnce 2s ease-in-out forwards;
 }
 
 .characterImage {
@@ -105,12 +105,12 @@
 
 @keyframes floatOnce {
   0% {
-    transform: translate(-50%, -50%) translateY(0);
+    transform: translateY(0);
   }
   50% {
-    transform: translate(-50%, -50%) translateY(1vw);
+    transform: translateY(2vw);
   }
   100% {
-    transform: translate(-50%, -50%) translateY(0);
+    transform: translateY(0);
   }
 }

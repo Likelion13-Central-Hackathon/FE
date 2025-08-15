@@ -1,0 +1,36 @@
+{
+  "isSuccess": true,
+  "code": "SUCCESS_200",
+  "httpStatus": 200,
+  "message": "호출에 성공하였습니다.",
+  "data": [
+    {
+      "recommendedId": 11,
+      "suitability": 92,
+      "supportArea": "행사ㆍ네트워크",
+      "title": "서울 핀테크 위크 2025 데모데이",
+      "agency": "제2서울핀테크랩",
+      "startDate": "2025.08.08",
+      "endDate": "2025.08.13"
+    },
+    {
+      "recommendedId": 12,
+      "suitability": 87,
+      "supportArea": "멘토링ㆍ컨설팅ㆍ교육",
+      "title": "뉴본벤처스 월간 IR데이",
+      "agency": "주식회사 뉴본벤처스",
+      "startDate": "2025.08.07",
+      "endDate": "2025.08.18"
+    },
+    {
+      "recommendedId": 13,
+      "suitability": 80,
+      "supportArea": "판로ㆍ해외진출",
+      "title": "미국 해외진출 스타트업 지원 프로그램",
+      "agency": "글로벌벤처센터",
+      "startDate": "2025.08.05",
+      "endDate": "2025.08.14"
+    }
+  ],
+  "timeStamp": "2025-08-10 12:21:32"
+}

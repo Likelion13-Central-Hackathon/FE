@@ -1,0 +1,77 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as m;
+
+.businessWrapper {
+  display: flex;
+  aspect-ratio: 1920 / 1080;
+  background: url("../../assets/images/map-background.png") center/contain
+    no-repeat;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top center;
+  width: 100%;
+
+  .backButton {
+    width: 2.81vw;
+    height: 1.72vw;
+    margin-top: 6.51vw;
+    margin-left: 2.19vw;
+    @include m.button-click;
+  }
+}
+
+.businessContainer {
+  @include m.flex-column-center;
+  align-items: flex-start;
+  gap: 1.56vw;
+  padding-left: 13.18vw;
+  padding-top: 2.03vw;
+
+  .titleBox {
+    display: flex;
+    flex-direction: column;
+    gap: 0.42vw;
+
+    .businessTitle {
+      font-size: 1.67vw;
+      font-weight: 700;
+      color: $main-color1;
+    }
+
+    .businessSubTitle {
+      font-size: 1.04vw;
+      font-weight: 500;
+      color: $gray-400;
+    }
+  }
+
+  .businessBox {
+    display: flex;
+    gap: 2.5vw;
+
+    .regionFilter {
+      width: 95%;
+      font-size: 1.67vw;
+      font-weight: 700;
+      color: $main-color1;
+      flex-shrink: 0;
+      padding: 1.04vw 0 0 0;
+    }
+
+    .businessItems {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25vw;
+
+      .noDataMessage {
+        @include m.flex-column-center;
+        gap: 1.04vw;
+        margin-top: 8vw;
+        font-size: 1.46vw;
+        font-weight: 600;
+        color: $main-color2;
+      }
+    }
+  }
+}
