@@ -1,73 +1,57 @@
 // BaseResource.tsx
-import React, { useMemo } from "react";
+import React from "react";
 import styles from "./BaseResource.module.scss";
 import BasicButton from "../../../components/BasicButton";
 import StatusSelect from "../../../components/StatusSelect";
-import { FormData, UpdateForm } from "../FormPage";
+import type { StepComponentProps } from "../../../types/form";
+import {
+  TEAM_OPTIONS,
+  TEAM_WIDTHS,
+  CAPITAL_OPTIONS,
+  CAPITAL_WIDTHS,
+  LEVEL_OPTIONS,
+  RESOURCES,
+  CARD_WIDTHS_BY_KEY,
+  CARD_HEIGHT,
+} from "../../../data/formData";
 
 type Resource = { key: string; title: string; desc: string };
 
-const TEAM_OPTIONS = ["1-2명", "3-5명", "6-10명", "11-20명", "팀원 모집중"];
-const CAPITAL_OPTIONS = [
-  "100만원 이내",
-  "300만원 이내",
-  "500만원 이내",
-  "1,000만원 이내",
-  "1,000만원 이상",
-  "무자본",
-];
-const LEVEL_OPTIONS = ["상", "중", "하", "없음"];
-
-const RESOURCES: Resource[] = [
-  { key: "dev",       title: "기술·개발 역량",        desc: "앱 및 웹 개발, 데이터 분석,<br /> 제품개발" },
-  { key: "design",    title: "디자인 역량",          desc: "로고, 패키지, 상세페이지<br /> UX/UI, 영상제작, 홍보물" },
-  { key: "marketing", title: "홍보·마케팅 채널",     desc: "로고, 패키지, 상세페이지<br /> UX/UI, 영상제작, 홍보물" },
-  { key: "network",   title: "인적자원 및 네트워크", desc: "협업이 가능한 팀원&멘토<br /> 전문가 및 창업자 네트워크" },
-  { key: "space",     title: "공간·장비",             desc: "협업이 가능한 팀원&멘토<br /> 전문가 및 창업자 네트워크" },
-  { key: "knowledge", title: "지식·경험",             desc: "특정산업의 경험<br />(전공, 활동, 경력) 및 전문지식" },
-];
-
-const CARD_WIDTHS_BY_KEY: Record<string, string> = {
-  dev: "6.15vw",
-  design: "6.15vw",
-  marketing: "7.03vw",
-  network: "8.59vw",
-  space: "6.72vw",
-  knowledge: "6.89vw",
-};
-
-const CARD_HEIGHT = "5vw";
-const TEAM_WIDTHS    = ["4.43vw", "4.53vw", "4.84vw", "5.05vw", "5.63vw"];
-const CAPITAL_WIDTHS = ["6.15vw", "6.25vw", "6.25vw", "6.67vw", "6.67vw", "4.43vw"];
-
-const BaseResource: React.FC<{
-  data: FormData;
-  updateForm: UpdateForm;
-  onPrev: () => void;
-}> = ({ data, updateForm, onPrev }) => {
+const BaseResource: React.FC<StepComponentProps> = ({
+  data,
+  updateForm,
+  onPrev,
+}) => {
   const onSelectTeam = (v: string) =>
     updateForm({ team: data.team === v ? null : v });
-
   const onSelectCapital = (v: string) =>
     updateForm({ capital: data.capital === v ? null : v });
 
   const onChangeLevel = (key: string, v: string) => {
-    const next = { ...(data.levels || {}) };
-    next[key] = next[key] === v ? null : v;
+    const prev = data.levels ?? {};
+    const next: Record<string, string> = { ...prev };
+
+    if (prev[key] === v) {
+      delete next[key];
+    } else {
+      next[key] = v;
+    }
     updateForm({ levels: next });
   };
 
-  const disableNext = useMemo(() => false, []);
-
   const onNext = () => {
-    const payload = { team: data.team, capital: data.capital, levels: data.levels };
+    const payload = {
+      team: data.team,
+      capital: data.capital,
+      levels: data.levels,
+    };
     console.log("BaseResource payload:", payload);
-    // TODO: 제출 페이지 또는 다음 스텝으로 이동이 필요하면 연결
+    // TODO: 제출/다음 단계 이동이 필요하면 여기서 처리
   };
 
-  // 카드 렌더러 (공통)
+  // 카드 렌더러
   const renderCard = (r: Resource) => {
-    const v = data.levels?.[r.key] ?? null;
+    const v = (data.levels?.[r.key] ?? null) as string | null;
     return (
       <div
         key={r.key}
@@ -89,7 +73,7 @@ const BaseResource: React.FC<{
           <StatusSelect
             value={v}
             onChange={(val) => onChangeLevel(r.key, val)}
-            options={LEVEL_OPTIONS}
+            options={[...LEVEL_OPTIONS] as unknown as string[]}
             placeholder="순위"
             width="3.65vw"
             height="1.15vw"
@@ -117,9 +101,9 @@ const BaseResource: React.FC<{
                       text={opt}
                       onClick={() => onSelectTeam(opt)}
                       active={on}
-                      className={on ? styles.chipOn : undefined}
+                      className={styles.smallFontBtn}
                       width={TEAM_WIDTHS[idx]}
-                      height="2.1875vw"
+                      height="1.67vw"
                     />
                   );
                 })}
@@ -128,7 +112,9 @@ const BaseResource: React.FC<{
 
             {/* 섹션 2: 자본 규모 */}
             <section className={styles.section}>
-              <h3 className={styles.label}>현재 창업에 사용 가능한 자본 규모를 알려주세요.</h3>
+              <h3 className={styles.label}>
+                현재 창업에 사용 가능한 자본 규모를 알려주세요.
+              </h3>
               <div className={styles.chipRow}>
                 {CAPITAL_OPTIONS.map((opt, idx) => {
                   const on = data.capital === opt;
@@ -138,9 +124,9 @@ const BaseResource: React.FC<{
                       text={opt}
                       onClick={() => onSelectCapital(opt)}
                       active={on}
-                      className={on ? styles.chipOn : undefined}
+                      className={styles.smallFontBtn}
                       width={CAPITAL_WIDTHS[idx]}
-                      height="2.1875vw"
+                      height="1.67vw"
                     />
                   );
                 })}
@@ -149,15 +135,15 @@ const BaseResource: React.FC<{
 
             {/* 섹션 3: 자원 드롭다운 */}
             <section className={styles.section}>
-              <h3 className={styles.label}>자본 이외에도 활용가능한 자원이 있다면 알려주세요.</h3>
+              <h3 className={styles.label}>
+                자본 이외에도 활용가능한 자원이 있다면 알려주세요.
+              </h3>
 
-              {/* 2x3: 줄별 컨테이너 - 윗줄과 아랫줄의 좌우 간격을 다르게 */}
               <div className={styles.resourceGrid}>
                 {/* 윗줄 (좌우 갭 2.76vw) */}
                 <div className={styles.resourceRowTop}>
                   {RESOURCES.slice(0, 3).map(renderCard)}
                 </div>
-
                 {/* 아랫줄 (좌우 갭 1.35vw) */}
                 <div className={styles.resourceRowBottom}>
                   {RESOURCES.slice(3, 6).map(renderCard)}
@@ -168,11 +154,24 @@ const BaseResource: React.FC<{
         </div>
       </div>
 
-      {/* 버튼 바(※ groupBody 바깥) */}
+      {/* 버튼 바 */}
       <footer className={styles.groupFooter}>
         <div className={styles.footerBtns}>
-          <BasicButton text="이전" onClick={onPrev} width="5.26vw" height="1.93vw" />
-          <BasicButton text="다음" onClick={onNext} width="5.26vw" height="1.93vw" disabled={disableNext} />
+          <BasicButton
+            text="이전"
+            onClick={onPrev}
+            width="5.26vw"
+            height="1.93vw"
+            className={styles.smallBtn}
+          />
+          <BasicButton
+            text="다음"
+            onClick={onNext}
+            width="5.26vw"
+            height="1.93vw"
+            className={styles.smallBtn}
+          />
+          {/* BasicButton이 disabled를 지원한다면 prop 추가해서 제어할 수 있음 */}
         </div>
       </footer>
     </>

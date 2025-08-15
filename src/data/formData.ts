@@ -915,3 +915,84 @@ export const STATUS_MODAL: Record<string, { title: string; lines: string[] }> =
       ],
     },
   };
+
+// ----- BaseResource.tsx
+export type Resource = { key: string; title: string; desc: string };
+
+export const TEAM_OPTIONS = [
+  "1-2명",
+  "3-5명",
+  "6-10명",
+  "11-20명",
+  "팀원 모집중",
+] as const;
+export const TEAM_WIDTHS = [
+  "4.43vw",
+  "4.53vw",
+  "4.84vw",
+  "5.05vw",
+  "5.63vw",
+] as const;
+
+export const CAPITAL_OPTIONS = [
+  "100만원 이내",
+  "300만원 이내",
+  "500만원 이내",
+  "1,000만원 이내",
+  "1,000만원 이상",
+  "무자본",
+] as const;
+export const CAPITAL_WIDTHS = [
+  "6.15vw",
+  "6.25vw",
+  "6.25vw",
+  "6.67vw",
+  "6.67vw",
+  "4.43vw",
+] as const;
+
+export const LEVEL_OPTIONS = ["상", "중", "하", "없음"] as const;
+
+export const RESOURCES: readonly Resource[] = [
+  {
+    key: "dev",
+    title: "기술·개발 역량",
+    desc: "앱 및 웹 개발, 데이터 분석,\n제품개발",
+  },
+  {
+    key: "design",
+    title: "디자인 역량",
+    desc: "로고, 패키지, 상세페이지\nUX/UI, 영상제작, 홍보물",
+  },
+  {
+    key: "marketing",
+    title: "홍보·마케팅 채널",
+    desc: "로고, 패키지, 상세페이지\nUX/UI, 영상제작, 홍보물",
+  },
+  {
+    key: "network",
+    title: "인적자원 및 네트워크",
+    desc: "협업이 가능한 팀원&멘토\n전문가 및 창업자 네트워크",
+  },
+  {
+    key: "space",
+    title: "공간·장비",
+    desc: "협업이 가능한 팀원&멘토\n전문가 및 창업자 네트워크",
+  },
+  {
+    key: "knowledge",
+    title: "지식·경험",
+    desc: "특정산업의 경험\n(전공, 활동, 경력) 및 전문지식",
+  },
+] as const;
+
+export const CARD_WIDTHS_BY_KEY: Readonly<Record<string, string>> = {
+  dev: "6.15vw",
+  design: "6.15vw",
+  marketing: "7.03vw",
+  network: "8.59vw",
+  space: "6.72vw",
+  knowledge: "6.89vw",
+} as const;
+
+export const CARD_HEIGHT = "5vw" as const;

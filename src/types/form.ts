@@ -14,8 +14,8 @@ export type FormData = {
   statuses: string | null;
   itemText: string;
   team: string | null;
-  capital: number | null;
-  levels: Record<string, number>;
+  capital: string | null;
+  levels: Record<string, string>;
 };
 
 // 부분 업데이트 함수

@@ -76,6 +76,7 @@
   font-size: 0.63vw;
   color: #000000;
   line-height: 1.5;
+  white-space: pre-line;
 }
 
 /* StatusSelect 래퍼 */
@@ -120,4 +121,16 @@
   justify-content: center;
   gap: 0.52vw;
   margin-top: 0;
+}
+
+.smallFontBtn {
+  font-size: 0.63vw !important;
+  font-weight: 700;
+  white-space: nowrap;
+  word-break: keep-all;
+}
+
+.smallBtn {
+  font-size: 0.63vw;
+  font-weight: 700;
 }
