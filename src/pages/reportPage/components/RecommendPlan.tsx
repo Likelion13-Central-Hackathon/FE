@@ -2,8 +2,8 @@ import React from "react";
 import s from "./Report.module.scss";
 import CHART from "../../../assets/images/charts.svg";
 import { rotateArray, startMonthIndex } from "../../../utils/date";
-import { planStepTitles } from "../../../data/planLabelData";
 import { RecommendPlanProps } from "../../../types/report";
+import { planStepTitles } from "../../../data/planData";
 
 const RecommendPlan: React.FC<RecommendPlanProps> = ({ createdAt, steps }) => {
   const yAxis = ["180°", "150°", "120°", "90°", "60°", "30°", "0°"];
