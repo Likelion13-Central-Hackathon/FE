@@ -1,5 +1,5 @@
 .ring {
-  --ring-size: 46vw;
+  --ring-size: 43.75vw;
   --ring-right: -27.6vw;
   --ring-top: 9.8vw;
   --radius: 23.2vw;
@@ -10,9 +10,9 @@
   position: absolute;
   width: var(--ring-size);
   height: var(--ring-size);
-  border: 0.18vw solid rgba(64, 120, 255, 0.45);
+  border: 0.1vw solid #8ebefa;
   border-radius: 50%;
-  transform: translateX(70%);
+  transform: translateX(85%);
   right: 0;
   top: var(--ring-top);
 }
@@ -22,56 +22,51 @@
 
 .t1 {
   position: absolute;
-  top: 20%;
-  left: -2%;
+  top: 23%;
+  left: -8.2%;
+  transform: rotate(45deg);
+}
+
+.t2 {
+  position: absolute;
+  top: 50%;
+  left: -9%;
+  transform: rotate(0deg);
+}
+
+.t3 {
+  position: absolute;
+  top: 77%;
+  left: -1%;
+  transform: rotate(-45deg);
 }
 
 .dot {
   display: inline-block;
-  width: 0.46vw;
-  height: 0.46vw;
+  width: 0.72vw;
+  height: 0.72vw;
   border-radius: 50%;
-  background: rgba(64, 120, 255, 0.65);
-  box-shadow: 0 0 0.22vw rgba(64, 120, 255, 0.55);
+  background: #8ebefa;
+  margin-left: 0.72vw;
   margin-right: 0.42vw;
   vertical-align: middle;
 }
 
 .dot.on {
-  background: #1e4cff;
-  box-shadow: 0 0 0.3vw rgba(30, 76, 255, 0.85);
+  background: #0400fa;
 }
 
 .label {
   display: inline-block;
-  font-size: 0.73vw;
-  font-weight: 700;
-  color: #1e4cff;
+  font-size: 0.83vw;
+  font-weight: bold;
+  color: #0400fa;
   vertical-align: middle;
   white-space: nowrap;
   letter-spacing: -0.01em;
 }
 
 .label.dim {
-  color: #7aa0ff;
+  color: #8ebefa;
   font-weight: 600;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (max-width: 1280px) {
-  .orbitWrap {
-    --ring-right: -28.6vw;
-    --ring-top: 10.6vw;
-    --radius: 22.4vw;
-    --tick-right: -5.2vw;
-    --tick-top: 19.6vw;
-  }
 }

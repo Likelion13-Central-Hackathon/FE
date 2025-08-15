@@ -74,45 +74,42 @@ const InfoForm: React.FC<{
         </div>
 
         {/* Q3 — 예일 때만 노출 */}
-{data.isCollege === true && (
-  <div className={s.q}>
-    <label className={s.label}>
-      어느 대학교에 다니고 계신가요? 학적상태도 알려주세요.
-    </label>
-    <div className={s.caption}>예를 선택했을 시에만 표기.</div>
+        {data.isCollege === true && (
+          <div className={s.q}>
+            <label className={s.label}>
+              어느 대학교에 다니고 계신가요? 학적상태도 알려주세요.
+            </label>
+            <div className={s.caption}>예를 선택했을 시에만 표기.</div>
 
-    <div className={s.row}>
-      <input
-        className={s.unv}
-        type="text"
-        placeholder="학교입력"
-        value={data.university}                 // ✅ 바인딩
-        onChange={(e) =>                       // ✅ 부모 상태 업데이트
-          updateForm({ university: e.target.value })
-        }
-      />
+            <div className={s.row}>
+              <input
+                className={s.unv}
+                type="text"
+                placeholder="학교입력"
+                value={data.university}
+                onChange={(e) => updateForm({ university: e.target.value })}
+              />
 
-      <StatusSelect
-        value={data.status}
-        onChange={(v) => updateForm({ status: v })}
-        options={STATUS_OPTIONS as unknown as string[]}
-        classes={{
-          wrap: s.selectWrap,
-          trigger: s.selectTrigger,
-          triggerActive: s.selectTriggerActive,
-          caret: s.caret,
-          menu: s.selectMenu,
-          menuWrapper: s.selectMenuWrapper,
-          optRow: s.optRow,
-          optText: s.optText,
-          box: s.box,
-          boxOn: s.boxOn,
-        }}
-      />
-    </div>
-  </div>
-)}
-
+              <StatusSelect
+                value={data.status}
+                onChange={(v) => updateForm({ status: v })}
+                options={STATUS_OPTIONS as unknown as string[]}
+                classes={{
+                  wrap: s.selectWrap,
+                  trigger: s.selectTrigger,
+                  triggerActive: s.selectTriggerActive,
+                  caret: s.caret,
+                  menu: s.selectMenu,
+                  menuWrapper: s.selectMenuWrapper,
+                  optRow: s.optRow,
+                  optText: s.optText,
+                  box: s.box,
+                  boxOn: s.boxOn,
+                }}
+              />
+            </div>
+          </div>
+        )}
       </div>
 
       {/* 하단 중앙 버튼 */}
@@ -144,15 +141,13 @@ function RegionSelect({
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  // 단일 선택 상태(컴포넌트 내부 UI용)
+  // 단일 선택 상태
   const [selectedSido, setSelectedSido] = useState<string | null>(null);
   const [selectedSigungu, setSelectedSigungu] = useState<string | null>(null);
   const [activeSido, setActiveSido] = useState<string | null>(null);
 
   const SIGUNGU_MAP: Record<string, string[]> = {
-    "서울특별시": ["종로구","중구","용산구","성동구","광진구","동대문구","중랑구","성북구","강북구","도봉구",
-      "노원구","은평구","서대문구","마포구","양천구","강서구","구로구","금천구","영등포구","동작구",
-      "관악구","서초구","강남구","송파구","강동구"],
+    "서울특별시": ["종로구","중구","용산구","성동구","광진구","동대문구","중랑구","성북구","강북구","도봉구","노원구","은평구","서대문구","마포구","양천구","강서구","구로구","금천구","영등포구","동작구","관악구","서초구","강남구","송파구","강동구"],
     "인천광역시": ["중구","동구","미추홀구","연수구","남동구","부평구","계양구","서구","강화군","옹진군"],
     "부산광역시": ["중구","서구","동구","영도구","부산진구","동래구","남구","북구","해운대구","사하구","금정구","강서구","연제구","수영구","사상구","기장군"],
     "대구광역시": ["중구","동구","서구","남구","북구","수성구","달서구","달성군","군위군"],
@@ -249,7 +244,7 @@ function RegionSelect({
                     type="button"
                     className={s.regionOption}
                     onClick={() => chooseSigungu(sgg)}
-                >
+                  >
                     <span className={`${s.box} ${checked ? s.boxOn : ""}`} />
                     <span className={s.regionText}>{sgg}</span>
                   </button>
