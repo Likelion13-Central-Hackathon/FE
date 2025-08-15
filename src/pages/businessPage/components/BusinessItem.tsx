@@ -1,7 +1,7 @@
 import React from "react";
 import s from "./Business.module.scss";
-import LINK from "../../../assets/images/icon/link-icon.svg";
 import ReportInBox from "../../../components/ReportInBox";
+import LinkButton from "../../../components/LinkButton";
 
 interface BusinessItemProps {
   title: string;
@@ -24,13 +24,7 @@ const BusinessItem: React.FC<BusinessItemProps> = ({
         </div>
         <div className={s.busiTitle}>{title}</div>
       </section>
-      <button
-        className={s.linkButton}
-        onClick={() => window.open(link, "_blank", "noopener,noreferrer")}
-      >
-        <p>본문접속</p>
-        <img src={LINK} alt="link-icon" style={{ width: "0.52vw" }} />
-      </button>
+      <LinkButton link={link} />
     </ReportInBox>
   );
 };

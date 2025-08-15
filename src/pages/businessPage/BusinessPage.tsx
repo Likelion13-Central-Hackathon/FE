@@ -12,7 +12,9 @@ import data from "../../data/businessDummy.json";
 const BusinessPage = () => {
   const navigate = useNavigate();
   const [region, setRegion] = useState("서울"); // 선택된 지역
-  const filteredData = data.data.filter((item) => item.region === region);
+  const filteredData = data.data.filter(
+    (item) => item.region === region || item.region === "전국"
+  );
 
   return (
     <div className={s.businessWrapper}>
@@ -45,7 +47,7 @@ const BusinessPage = () => {
               ) : (
                 <p className={s.noDataMessage}>
                   현재 모집 중인 지원사업이 없어요!
-                  <img src={CHAR} alt="char-2d" style={{ width: "20vw" }} />
+                  <img src={CHAR} alt="char-2d" style={{ width: "9vw" }} />
                 </p>
               )}
             </div>

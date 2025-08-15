@@ -14,3 +14,10 @@ export const rotateArray = <T>(arr: T[], startIdx: number): T[] => {
   const s = ((startIdx % n) + n) % n;
   return [...arr.slice(s), ...arr.slice(0, s)];
 };
+
+// YYYY.MM.DD -> MM.DD
+export const formatToMMDD = (date: string): string => {
+  if (!date) return "";
+  const parts = date.split(".");
+  return parts.length >= 3 ? `${parts[1]}.${parts[2]}` : date;
+};

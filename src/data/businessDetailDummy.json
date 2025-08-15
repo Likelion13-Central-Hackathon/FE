@@ -1,0 +1,25 @@
+{
+  "isSuccess": true,
+  "code": "SUCCESS_200",
+  "httpStatus": 200,
+  "message": "호출에 성공하였습니다.",
+  "data": {
+    "supportArea": "사업화",
+    "title": "2025년 청년창업 지원사업",
+    "link": "https://www.k-startup.go.kr/web/contents/bizpbanc-00.do?seq=12345",
+    "startDate": "2025.08.20",
+    "endDate": "2025.09.10",
+    "region": "전국",
+    "stage": "3년미만",
+    "agency": "창업진흥원",
+    "target": "청년 예비창업자 및 3년 미만 창업기업",
+    "contact": "044-410-1658",
+    "applyMethod": "온라인 신청 (K-Startup 홈페이지)",
+    "supportDetails": "창업 사업화 자금 최대 5천만원, 창업 교육 및 전문 멘토링 제공",
+    "requiredDocuments": "사업계획서, 개인정보 동의서, 사업자등록증 사본",
+    "applyProcedureAndEvaluation": "온라인 접수 → 서류 심사 → 발표 평가 → 최종 선정 / 서류평가 50%, 발표평가 50%",
+    "suitability": 92,
+    "reason": "업력과 연령대가 지원 조건과 부합하며, 아이템이 사업화 분야와 높은 연관성을 가짐"
+  },
+  "timeStamp": "2025-08-10 12:21:32"
+}
