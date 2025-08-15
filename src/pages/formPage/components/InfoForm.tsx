@@ -5,7 +5,7 @@ import BasicButton from "../../../components/BasicButton";
 import StatusSelect from "../../../components/StatusSelect";
 import { StepComponentProps } from "../../../types/form";
 import {
-  STATUS_OPTIONS,
+  STATUS_OPTIONS1,
   REGION_OPTIONS,
   SIGUNGU_MAP,
 } from "../../../data/formData";
@@ -97,7 +97,7 @@ const InfoForm: React.FC<StepComponentProps> = ({
               <StatusSelect
                 value={data.status}
                 onChange={(v) => updateForm({ status: v })}
-                options={STATUS_OPTIONS as unknown as string[]}
+                options={STATUS_OPTIONS1 as unknown as string[]}
               />
             </div>
           </div>

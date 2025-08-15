@@ -1,6 +1,6 @@
 /* 전체 vw 통일, 1920px 기준 변환 */
-@use '../../styles/mixins' as m;
-@use '../../styles/variables' as *;
+@use "../../styles/mixins" as m;
+@use "../../styles/variables" as *;
 
 .container {
   position: relative;
@@ -28,7 +28,6 @@
   width: 38.54vw;
   height: 43.23vw;
   box-shadow: 0 0.21vw 1.04vw rgba(0, 0, 0, 0.1);
-  font-family: 'Pretendard', sans-serif;
   display: flex;
   flex-direction: column;
 }

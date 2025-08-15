@@ -1,16 +1,21 @@
+@use "../../../styles/mixins" as m;
+@use "../../../styles/variables" as *;
+
 .sectionsWrapper {
   display: flex;
   flex-direction: column;
   gap: 0.63vw;
-}
 
-.section {
+  .section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.63vw;
+  }
 }
 
 .label {
-  font-size: 0.88vw;
+  font-size: 1.04vw;
   font-weight: 700;
-  margin-bottom: 0.6vw;
 }
 
 .primaryChip {
@@ -21,7 +26,7 @@
   padding: 0 0.9vw;
   border-radius: 0.5vw;
   border: 0.05vw solid #cfd6e4;
-  background: #1237ff;
+  background: $main-color1;
   color: #fff;
   font-weight: 700;
   font-size: 0.6vw;
@@ -43,7 +48,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.42vw;
 }
 
 .supportCard:nth-child(n + 6) {
@@ -54,8 +58,8 @@
 }
 
 .supportIcon {
-  width: 3vw;
-  height: 3vw;
+  width: 2.86vw;
+  height: 2.86vw;
   display: grid;
   place-items: center;
 }
@@ -108,7 +112,6 @@
   font-size: 0.6vw;
   box-shadow: 0 0.16vw 0.52vw rgba(0, 0, 0, 0.05);
   cursor: pointer;
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
 .chipOn {
   background: #111;
@@ -118,15 +121,17 @@
 
 .textarea {
   width: 26.93vw;
-  height: 7.45vw;
+  height: 5.99vw;
   border-radius: 0.26vw;
-  border: 0.052vw solid #8ebefa;
+  border: 0.052vw solid $main-color2;
   font-size: 0.63vw;
   letter-spacing: -0.1vw;
   padding: 0.63vw;
   background: #f9faff;
   outline: none;
   resize: none;
+
+  box-shadow: 0 0.42vw 1.35vw rgba(4, 0, 250, 0.06);
 
   &::placeholder {
     color: #aaaaaa;
@@ -168,32 +173,29 @@
 .fieldWrap {
   position: relative;
   display: inline-block;
-  width: 7.2vw;
+  width: 6.15vw;
 }
 
 .fieldTrigger {
-  width: 7.2vw;
-  height: 2.19vw;
+  width: 6.15vw;
+  height: 1.67vw;
   font-size: 0.63vw;
   background: #fff;
-  border-radius: 0.26vw;
-  margin-top: 0.63vw;
-  padding: 0 0.83vw;
-  border: 0.05vw solid #dde3ee;
+  border-radius: 0.31vw;
+  border: 0.05vw solid black;
   color: #111;
 
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5vw;
+
   cursor: pointer;
   outline: none;
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
 .fieldTriggerActive {
-  background: #0400fa;
+  background: $main-color1;
   color: #fff;
-  border-color: #0400fa;
+  border-color: $main-color1;
 }
 .fieldTriggerLabel {
   line-height: 1;
@@ -230,11 +232,11 @@
   border-bottom: none;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0;
-    left: 1.5vw; /* 왼쪽 잘라내기 */
-    right: 1.5vw; /* 오른쪽 잘라내기 */
+    left: 1.5vw;
+    right: 1.5vw;
     height: 0.05vw;
     background-color: #d9d9d9;
   }
@@ -349,7 +351,7 @@
 
 .fieldRight {
   font-size: 0.83vw;
-  color: #1e1e1e;
+  color: $color-sub-black;
   font-weight: 400;
   line-height: 1.2;
   vertical-align: middle;
@@ -415,10 +417,14 @@
   right: 1.25vw;
   background: transparent;
   border: none;
-  color: #767676;
+  color: $gray-500;
   font-size: 0.63vw;
   cursor: pointer;
 }
 .modalSelect:hover {
-  color: #3b56ff;
+  color: $main-color1;
+}
+
+.smallBtn {
+  font-size: 0.63vw;
 }
