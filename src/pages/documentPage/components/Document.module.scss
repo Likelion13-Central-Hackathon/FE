@@ -133,4 +133,49 @@
   .infoText2 {
     font-weight: 700;
   }
+
+  .qaFourBox {
+    @include m.flex-column-center;
+    justify-content: flex-start;
+    gap: 1.04vw;
+    overflow-y: scroll;
+    width: 9.79vw;
+    height: 95%;
+
+    .qaItem {
+      width: 100%;
+      height: auto;
+
+      font-size: 0.63vw;
+
+      p {
+        font-weight: 500;
+        margin-top: 1.04vw;
+      }
+      span {
+        font-weight: 700;
+      }
+    }
+  }
+
+  .retryButton {
+    @include m.button-click;
+    width: 4.01vw;
+    height: 1.15vw;
+    font-size: 0.52vw;
+    font-weight: 700;
+    color: white;
+    border: none;
+    background-color: $main-color1;
+    border-radius: 5.21vw;
+    padding: 0;
+  }
+
+  .makeButton {
+    @include m.button-click;
+    font-size: 1.25vw;
+    font-weight: 500;
+    color: $gray-400;
+    border-bottom: 0.1vw solid $gray-400;
+  }
 }
