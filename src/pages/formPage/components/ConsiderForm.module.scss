@@ -126,7 +126,7 @@
   padding: 0.63vw;
   background: #f9faff;
   outline: none;
-  resize: none; /* 크기 조절 비활성화 */
+  resize: none;
 
   &::placeholder {
     color: #aaaaaa;
@@ -164,11 +164,11 @@
   word-break: keep-all;
 }
 
-/* ===== FieldSelect (섹션1 드롭다운 – 1단/단일) ===== */
+/* ===== FieldSelect ===== */
 .fieldWrap {
   position: relative;
   display: inline-block;
-  width: 7.2vw; /* InfoForm 지역 트리거 폭과 통일 */
+  width: 7.2vw;
 }
 
 .fieldTrigger {
@@ -202,13 +202,12 @@
   text-overflow: ellipsis;
 }
 
-/* 드롭다운 컨테이너 업그레이드 */
 .fieldMenu {
   position: absolute;
   top: calc(100% + 0.42vw);
   left: 0;
   z-index: 50;
-  width: 15.68vw; /* 검색 포함해 넓게 */
+  width: 15.68vw;
   height: 25.56vw;
   border-radius: 0 0.26vw 0.26vw 0;
   background: #fff;
@@ -217,7 +216,7 @@
   overflow: hidden;
 }
 
-/* 상단 헤더(분류 + 검색) */
+/* ===== 상단 헤더 ===== */
 .fieldHeader {
   position: sticky;
   top: 0;
@@ -228,14 +227,14 @@
   gap: 0.63vw;
   padding: 0.73vw 0.83vw 0.63vw;
   background: #fff;
-  border-bottom: none; /* 원래 선 제거 */
+  border-bottom: none;
 
   &::after {
     content: '';
     position: absolute;
     bottom: 0;
-    left: 0.83vw;
-    right: 1.1vw;
+    left: 1.5vw; /* 왼쪽 잘라내기 */
+    right: 1.5vw; /* 오른쪽 잘라내기 */
     height: 0.05vw;
     background-color: #d9d9d9;
   }
@@ -255,7 +254,7 @@
   height: 1.88vw;
   border: 0.05vw solid #e3e8f3;
   border-radius: 0.42vw;
-  padding: 0 1.98vw 0 0.83vw; /* 우측 아이콘 자리 */
+  padding: 0 1.98vw 0 0.83vw;
   font-size: 0.73vw;
   background: white;
   outline: none;
@@ -274,7 +273,6 @@
   opacity: 0.6;
 }
 
-/* 리스트 컨테이너 */
 .fieldList {
   max-height: 23vw;
   overflow-y: auto;
@@ -289,14 +287,12 @@
   }
 }
 
-/* 그룹 구분선 & 섹션 라벨 */
 .fieldDivider {
   height: 0.05vw;
   margin: 0.63vw 0.83vw;
   background: #d9d9d9;
 }
 
-/* 옵션 한 줄 레이아웃 */
 .fieldOption {
   width: 14.84vw;
   height: 3.65vw;
@@ -321,7 +317,6 @@
   outline: none;
 }
 
-/* 왼쪽 그룹 문자 + 텍스트 묶음 */
 .fieldMain {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -352,7 +347,6 @@
   line-height: 1.2;
 }
 
-/* 오른쪽 순번 */
 .fieldRight {
   font-size: 0.83vw;
   color: #1e1e1e;
@@ -364,7 +358,6 @@
   margin-right: 0.42vw;
 }
 
-/* 결과 없음 */
 .fieldEmpty {
   padding: 2vw 0.83vw;
   font-size: 0.73vw;
@@ -385,12 +378,13 @@
 .modal {
   position: relative;
   width: 25.26vw;
-  height: 9.48vw;
+  min-height: 9.48vw;
   background: #fff;
   border-radius: 0.42vw;
   box-shadow: 0 1.25vw 2.5vw rgba(20, 40, 120, 0.18);
   padding: 1.2vw 1.4vw 0.9vw;
 }
+
 .modalTitle {
   top: 1.15vw;
   left: 1.35vw;
