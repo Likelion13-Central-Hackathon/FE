@@ -1,0 +1,232 @@
+@use "../../../styles/mixins" as m;
+@use "../../../styles/variables" as *;
+
+.label {
+  @include m.flex-row-double-center;
+  border-radius: 0.52vw !important;
+  @include m.glass-box(
+    inset 0.21vw 0.21vw 0.1vw -0.1vw $color-white,
+    inset -0.1vw -0.1vw 0.1vw -0.1vw $color-white
+  );
+}
+
+// 청년창업지원사업
+.businessItemContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 1.04vw;
+  gap: 0.21vw;
+  cursor: pointer;
+  @include m.button-click(1.01, 0.99);
+
+  .businessTitle {
+    font-size: 0.83vw;
+    font-weight: 500;
+    color: $color-black;
+  }
+  .businessPercent {
+    font-size: 0.83vw;
+    font-weight: 400;
+    color: $color-black;
+  }
+  .businessDate {
+    font-size: 0.73vw;
+    font-weight: 500;
+    color: $gray-500;
+  }
+}
+
+// 뉴스기사 2개
+.newsItem {
+  width: 19.58vw;
+  height: 5.21vw;
+  display: flex;
+  flex-direction: column;
+  gap: 0.42vw;
+  margin-top: 0.78vw;
+
+  .headerRow {
+    @include m.flex-row-center;
+    gap: 0.42vw;
+
+    .title {
+      font-size: 1.04vw;
+      font-weight: 500;
+      color: $gray-800;
+      margin: 0;
+
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .link {
+    width: 100%;
+    height: 2.66vw;
+    line-height: 0.82vw;
+    font-size: 0.63vw;
+    font-weight: 500;
+    color: $gray-500;
+    text-decoration: none;
+    overflow: hidden;
+    white-space: normal;
+    word-break: break-word;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// 추천 창업 계획
+.planWrapper {
+  @include m.flex-column-center;
+  gap: 1.04vw;
+
+  // 다이어그램
+  .planContainer {
+    display: grid;
+    grid-template-columns: 1.1vw 56.92vw;
+    grid-template-rows: 21.2vw 1.25vw 1.2vw;
+    column-gap: 1.09vw;
+    width: 59.48vw;
+    height: 23.65vw;
+
+    .planY {
+      grid-column: 1 / 2;
+      grid-row: 1 / 2;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-right: 0.4vw;
+
+      font-size: 0.73vw;
+      font-weight: 400;
+      color: $main-color1;
+    }
+
+    .rightSection {
+      grid-column: 2 / 3;
+      grid-row: 1 / 4;
+
+      display: grid;
+      grid-template-rows: 21.2vw 1.2vw;
+      row-gap: 1.25vw;
+
+      .planImg {
+        grid-row: 1 / 2;
+
+        width: 100%;
+        height: 100%;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          display: block;
+          clip-path: inset(0 100% 0 0);
+          animation: liner 2s ease-out forwards;
+        }
+      }
+
+      .planX {
+        grid-row: 2 / 3;
+        width: 100%;
+        height: 100%;
+        font-size: 0.73vw;
+        font-weight: 500;
+        color: $main-color1;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 0.4vw;
+      }
+    }
+  }
+
+  // 1,2,3,4단계
+  .stepsWrapper {
+    @include m.flex-row-double-center;
+    gap: 1.46vw;
+    flex-wrap: nowrap;
+
+    .stepGroup {
+      width: 13.85vw;
+      @include m.flex-column-center;
+
+      .stepTitleItem {
+        width: 100%;
+        height: 1.3vw;
+        font-size: 0.94vw;
+        font-weight: 700;
+        color: $main-color1;
+        @include m.flex-row-double-center;
+      }
+
+      .stepItem {
+        height: 6.35vw;
+        font-size: 0.83vw;
+        font-weight: 500;
+        color: $gray-500;
+        @include m.flex-row-double-center;
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+.markdownBox {
+  display: block;
+  padding: 0 0.73vw;
+  max-height: 90%;
+  overflow-y: auto;
+  font-size: 0.83vw;
+
+  /* 스크롤바  */
+  &::-webkit-scrollbar {
+    width: 0.52vw;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $gray-300;
+    border-radius: 4px;
+  }
+
+  > * {
+    display: block;
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 1.8vw;
+  }
+  h2 {
+    font-size: 1.6vw;
+  }
+  h3 {
+    font-size: 1.4vw;
+  }
+  h1,
+  h2,
+  h3 {
+    margin: 1em 0 0.5em;
+  }
+  p {
+    margin: 0.75em 0;
+  }
+  ul,
+  ol {
+    margin: 0.75em 0;
+    padding-left: 1.25rem;
+  }
+}
+
+@keyframes liner {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}

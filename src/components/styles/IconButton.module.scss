@@ -1,0 +1,7 @@
+@use "../../styles//mixins" as m;
+@use "../../styles/variables" as *;
+
+.iconBtn {
+  @include m.flex-column-center;
+  @include m.button-click;
+}

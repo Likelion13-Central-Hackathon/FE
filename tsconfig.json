@@ -5,6 +5,7 @@
     "target": "ES6",
     "module": "commonjs",
     "strict": true,
+    "resolveJsonModule": true, // json import
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
