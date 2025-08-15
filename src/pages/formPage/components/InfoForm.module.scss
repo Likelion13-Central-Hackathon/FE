@@ -1,4 +1,6 @@
-/* 1920 기준 vw */
+@use "../../../styles/mixins" as m;
+@use "../../../styles/variables" as *;
+
 .questionbox {
   margin-top: 6.93vw;
   margin-left: 5.89vw;
@@ -15,12 +17,7 @@
   font-size: 1.04vw;
   font-weight: 700;
   display: block;
-}
-
-.caption {
-  margin-top: 0.52vw;
-  font-size: 0.73vw;
-  color: #9aa3b2;
+  color: $color-black;
 }
 
 .subLabel {
@@ -28,7 +25,7 @@
   height: 1.15vw;
   font-size: 0.83vw;
   font-weight: 600;
-  color: #434a57;
+  color: $color-black;
 }
 
 /* 행/열 */
@@ -49,13 +46,8 @@
     border: 0.05vw solid #dde3ee;
     border-radius: 0.63vw;
     font-size: 0.83vw;
-    background: #fff;
     outline: none;
     box-shadow: none;
-  }
-
-  input[type='text'] {
-    /* 기본 크기 지정 제거해서 개별 필드에서 설정 */
   }
 }
 
@@ -71,9 +63,8 @@
   height: 2.19vw;
   margin-top: 0.63vw;
   font-size: 0.63vw;
-  background: #f9faff;
   border-radius: 0.26vw;
-  border-color: #8ebefa;
+  border-color: $main-color2;
   outline: none;
   box-shadow: none;
 
@@ -83,7 +74,7 @@
   &:focus-visible {
     outline: none !important;
     box-shadow: none !important;
-    border-color: #8ebefa;
+    border-color: $main-color2;
   }
 }
 
@@ -91,9 +82,8 @@
   width: 7.19vw;
   height: 2.19vw;
   font-size: 0.63vw;
-  background: #f9faff;
   border-radius: 0.26vw;
-  border-color: #8ebefa;
+  border-color: $main-color2;
   outline: none;
   box-shadow: none;
 
@@ -103,7 +93,7 @@
   &:focus-visible {
     outline: none !important;
     box-shadow: none !important;
-    border-color: #8ebefa;
+    border-color: $main-color2;
   }
 }
 
@@ -137,7 +127,7 @@
 }
 
 .selectTriggerActive {
-  background: #0400fa;
+  background: $main-color1;
   color: #fff;
 }
 
@@ -205,7 +195,7 @@
   &:hover {
     background: #f7f8fa;
   }
-  &[aria-selected='true'] .optText {
+  &[aria-selected="true"] .optText {
     font-weight: 700;
   }
 }
@@ -226,11 +216,11 @@
 }
 
 .boxOn {
-  background: #0400fa;
-  border-color: #0400fa;
+  background: $main-color1;
+  border-color: $main-color1;
 }
 .boxOn::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 0.18vw;
   top: 0.1vw;
@@ -268,13 +258,12 @@
   cursor: pointer;
   appearance: none;
   outline: none;
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
 
 .regionTriggerActive {
-  background: #0400fa;
+  background: $main-color1;
   color: #fff;
-  border-color: #0400fa;
+  border-color: $main-color1;
 }
 
 .regionLabel {
@@ -338,13 +327,12 @@
     background: #fff;
     font-weight: 700;
     box-shadow: 0 0.16vw 0.52vw rgba(0, 0, 0, 0.05);
-    transition: background 0.15s, color 0.15s, border-color 0.15s;
     color: #111;
   }
   :global(.active) {
-    background: #0400fa;
+    background: $main-color1;
     color: #fff;
-    border-color: #0400fa;
+    border-color: $main-color1;
   }
 }
 
