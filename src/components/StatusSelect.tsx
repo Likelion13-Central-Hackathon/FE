@@ -6,10 +6,11 @@ type Props = {
   onChange: (v: string) => void;
   options: string[];
   placeholder?: string;
-  /** 이 컴포넌트를 쓰는 파일에서만 개별 크기 제어 */
-  width?: string;   // 예: "7.92vw" / "160px" / "100%"
-  height?: string;  // 예: "2.19vw" / "40px"
-  style?: React.CSSProperties; // (선택) 더 세밀한 오버라이드
+  width?: string;
+  height?: string;
+  style?: React.CSSProperties;
+  /** 드롭다운 z-index(필요하면 조절) */
+  menuZIndex?: number;
 };
 
 const StatusSelect: React.FC<Props> = ({
@@ -20,6 +21,7 @@ const StatusSelect: React.FC<Props> = ({
   width,
   height,
   style,
+  menuZIndex = 10000, // ← 메뉴를 충분히 위로 올림
 }) => {
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -40,7 +42,6 @@ const StatusSelect: React.FC<Props> = ({
     <div
       className={styles.selectWrap}
       ref={wrapRef}
-      // ✅ 이 컴포넌트를 쓰는 파일에서만 크기 오버라이드
       style={{ width, height, ...style }}
     >
       <button
@@ -51,7 +52,6 @@ const StatusSelect: React.FC<Props> = ({
         onClick={() => setOpen((o) => !o)}
         aria-haspopup="listbox"
         aria-expanded={open}
-        // 버튼 높이도 맞춰줌 (width는 부모가 먹음)
         style={{ width, height }}
       >
         {label}
@@ -62,7 +62,8 @@ const StatusSelect: React.FC<Props> = ({
         <div
           className={styles.selectMenu}
           role="listbox"
-          onMouseDown={(e) => e.preventDefault()}
+          onMouseDown={(e) => e.preventDefault()} // blur 방지
+          style={{ zIndex: menuZIndex, minWidth: width ?? "100%" }} // ← z-index 강제
         >
           <div className={styles.selectMenuWrapper}>
             {options.map((opt) => {

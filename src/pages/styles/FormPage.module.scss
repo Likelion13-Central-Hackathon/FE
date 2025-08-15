@@ -30,7 +30,6 @@
   font-family: 'Pretendard', sans-serif;
   display: flex;
   flex-direction: column;
-  padding-bottom: 2vw; /* 하단 버튼 여유 */
 }
 
 .logo {
@@ -39,12 +38,4 @@
   left: 14.32vw;
   width: 10.05vw;
   height: 2.03vw;
-}
-
-.nextBtnWrapper {
-  font-size: 0.63vw;
-  display: flex;
-  justify-content: center;
-  margin-top: 2vw;
-  margin-bottom: 1.69vw;
 }

@@ -1,8 +1,9 @@
 // BaseResource.tsx
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import styles from "./BaseResource.module.scss";
 import BasicButton from "../../../components/BasicButton";
 import StatusSelect from "../../../components/StatusSelect";
+import { FormData, UpdateForm } from "../FormPage";
 
 type Resource = { key: string; title: string; desc: string };
 
@@ -37,29 +38,36 @@ const CARD_WIDTHS_BY_KEY: Record<string, string> = {
 
 const CARD_HEIGHT = "5vw";
 const TEAM_WIDTHS    = ["4.43vw", "4.53vw", "4.84vw", "5.05vw", "5.63vw"];
-const CAPITAL_WIDTHS = ["6.15vw", "6.25vw", "6.25vw", "6.67vw",  "6.67vw", "4.43vw"];
+const CAPITAL_WIDTHS = ["6.15vw", "6.25vw", "6.25vw", "6.67vw", "6.67vw", "4.43vw"];
 
-const BaseResource: React.FC<{ onPrev: () => void }> = ({ onPrev }) => {
-  const [team, setTeam] = useState<string | null>(null);
-  const [capital, setCapital] = useState<string | null>(null);
-  const [levels, setLevels] = useState<Record<string, string | null>>({});
+const BaseResource: React.FC<{
+  data: FormData;
+  updateForm: UpdateForm;
+  onPrev: () => void;
+}> = ({ data, updateForm, onPrev }) => {
+  const onSelectTeam = (v: string) =>
+    updateForm({ team: data.team === v ? null : v });
 
-  const onSelectTeam = (v: string) => setTeam(prev => (prev === v ? null : v));
-  const onSelectCapital = (v: string) => setCapital(prev => (prev === v ? null : v));
+  const onSelectCapital = (v: string) =>
+    updateForm({ capital: data.capital === v ? null : v });
+
   const onChangeLevel = (key: string, v: string) => {
-    setLevels(prev => ({ ...prev, [key]: prev[key] === v ? null : v }));
+    const next = { ...(data.levels || {}) };
+    next[key] = next[key] === v ? null : v;
+    updateForm({ levels: next });
   };
 
   const disableNext = useMemo(() => false, []);
 
   const onNext = () => {
-    const payload = { team, capital, levels };
+    const payload = { team: data.team, capital: data.capital, levels: data.levels };
     console.log("BaseResource payload:", payload);
+    // TODO: 제출 페이지 또는 다음 스텝으로 이동이 필요하면 연결
   };
 
   // 카드 렌더러 (공통)
   const renderCard = (r: Resource) => {
-    const v = levels[r.key] ?? null;
+    const v = data.levels?.[r.key] ?? null;
     return (
       <div
         key={r.key}
@@ -102,7 +110,7 @@ const BaseResource: React.FC<{ onPrev: () => void }> = ({ onPrev }) => {
               <h3 className={styles.label}>함께하는 팀원은 몇 명 인가요?</h3>
               <div className={styles.chipRow}>
                 {TEAM_OPTIONS.map((opt, idx) => {
-                  const on = team === opt;
+                  const on = data.team === opt;
                   return (
                     <BasicButton
                       key={opt}
@@ -123,7 +131,7 @@ const BaseResource: React.FC<{ onPrev: () => void }> = ({ onPrev }) => {
               <h3 className={styles.label}>현재 창업에 사용 가능한 자본 규모를 알려주세요.</h3>
               <div className={styles.chipRow}>
                 {CAPITAL_OPTIONS.map((opt, idx) => {
-                  const on = capital === opt;
+                  const on = data.capital === opt;
                   return (
                     <BasicButton
                       key={opt}
@@ -164,7 +172,7 @@ const BaseResource: React.FC<{ onPrev: () => void }> = ({ onPrev }) => {
       <footer className={styles.groupFooter}>
         <div className={styles.footerBtns}>
           <BasicButton text="이전" onClick={onPrev} width="5.26vw" height="1.93vw" />
-          <BasicButton text="다음" onClick={onNext} width="5.26vw" height="1.93vw" disabled={false} />
+          <BasicButton text="다음" onClick={onNext} width="5.26vw" height="1.93vw" disabled={disableNext} />
         </div>
       </footer>
     </>

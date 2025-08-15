@@ -1,21 +1,27 @@
-/* ===== 학적 상태 드롭다운 (StatusSelect 전용) ===== */
+/* ===== StatusSelect 전용 SCSS (전체) ===== */
+
+/* 래퍼: 드롭다운 기준점 */
 .selectWrap {
-  position: relative;
-  width: 7.92vw;
+  position: relative; /* 메뉴의 위치 기준 */
+  display: inline-block;
+  width: 7.92vw; /* 기본값 — 컴포넌트 props로 인라인 오버라이드 가능 */
   height: 2.19vw;
   background: #fff;
-  z-index: 2;
+  overflow: visible; /* 메뉴가 잘리지 않도록 */
+  z-index: auto; /* 상위 z-index 간섭 최소화 */
+  box-sizing: border-box;
 }
 
+/* 트리거 버튼 */
 .selectTrigger {
   position: relative;
-  z-index: 2;
+  z-index: 1; /* 메뉴(.selectMenu)가 위로 오도록 1로 고정 */
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.42vw;
 
-  width: 7.92vw;
+  width: 7.92vw; /* 기본값 — 인라인 width/height가 우선 적용 */
   height: 2.19vw;
 
   border: 0.05vw solid #000;
@@ -28,6 +34,7 @@
 
   cursor: pointer;
   box-sizing: border-box;
+  user-select: none;
 }
 
 .selectTriggerActive {
@@ -43,20 +50,28 @@
   color: currentColor;
 }
 
+/* 드롭다운 메뉴 */
 .selectMenu {
   position: absolute;
-  top: calc(100% + 0.42vw);
+  top: calc(100% + 0.42vw); /* 트리거 바로 아래 */
   left: 0;
-  width: 7.92vw;
-  height: 10vw;
-  z-index: 9999;
-  overflow-y: auto;
-  background: #fff;
-  border-radius: 0 0.42vw 0.42vw 0;
-  box-shadow: 0 0.21vw 1.04vw rgba(0, 0, 0, 0.12);
-  padding: 0.42vw 0;
-  z-index: 9999;
 
+  width: 7.92vw; /* 트리거와 동일 폭 */
+  max-width: 40vw; /* 안전장치 */
+  height: 10vw;
+  max-height: 50vh;
+
+  z-index: 10000; /* 항상 최상단 */
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  background: #fff;
+  border-radius: 0 0.42vw 0.42vw 0; /* 디자인 요청 유지 */
+  box-shadow: 0 0.21vw 1.04vw rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 0.42vw 0;
+
+  /* 스크롤바 커스텀 */
   &::-webkit-scrollbar {
     width: 0.42vw;
   }
@@ -69,38 +84,44 @@
   }
 }
 
+/* 메뉴 내부 컨테이너 */
 .selectMenuWrapper {
   display: flex;
   flex-direction: column;
 }
 
+/* 옵션 행 */
 .optRow {
   width: 7.5vw;
   height: 2.5vw;
+
   display: flex;
   align-items: center;
-  row-gap: 0.83vw;
   column-gap: 1.67vw;
+  row-gap: 0.83vw;
+
   padding: 0.83vw 1.04vw;
   background: transparent;
+
   border: 0;
-  text-align: left;
-  cursor: pointer;
-  appearance: none;
   outline: none;
-  box-shadow: none;
+  appearance: none;
+  text-align: left;
   border-radius: 0.52vw;
+  cursor: pointer;
 
   &:hover {
     background: #f7f8fa;
   }
 }
 
+/* 옵션 텍스트 */
 .optText {
   font-size: 0.83vw;
   color: #2b2f37;
 }
 
+/* 체크 박스 스타일 */
 .box {
   flex: 0 0 auto;
   width: 1.04vw;
@@ -115,6 +136,7 @@
   background: #0400fa;
   border-color: #0400fa;
 }
+
 .boxOn::after {
   content: '';
   position: absolute;
@@ -127,4 +149,14 @@
   border-right: 0;
   transform: rotate(-45deg);
   box-sizing: border-box;
+}
+
+/* ===== 겹침/잘림 방지 보조 (필요 시 사용) =====
+   - 부모 레이아웃에서 드롭다운이 잘리는 경우가 있으면,
+     해당 부모 모듈에서 아래 전역 선택자를 활용해 overflow와 z-index를 정리하세요.
+*/
+:global(.rankWrap),
+:global(.resourceCard) {
+  overflow: visible;
+  z-index: auto;
 }

@@ -2,132 +2,129 @@ import React, { useEffect, useRef, useState } from "react";
 import s from "./InfoForm.module.scss";
 import styles from "./InfoForm.module.scss";
 import BasicButton from "../../../components/BasicButton";
-import ConsiderForm from "./ConsiderForm";
-import BaseResource from "./BaseResource";
-
-/* 새로 분리한 컴포넌트 import */
 import StatusSelect from "../../../components/StatusSelect";
+import { FormData, UpdateForm } from "../FormPage";
 
-const STATUS_OPTIONS = ["휴학", "재학", "편입", "재입학"];
+const STATUS_OPTIONS = ["휴학", "재학", "편입", "재입학"] as const;
 const REGION_OPTIONS = [
   "서울특별시","부산광역시","대구광역시","인천광역시","광주광역시",
   "대전광역시","울산광역시","경기도","강원특별자치도","충청북도",
   "충청남도","전라북도","전라남도","경상북도","경상남도","제주특별자치도",
 ];
 
-export const InfoForm: React.FC = () => {
-  const [step, setStep] = useState<"info" | "consider" | "base">("info");
-
-  const [isCollege, setIsCollege] = useState<boolean | null>(null);
-  const [status, setStatus] = useState<string | null>(null);
-  // ✅ 단일 선택
-  const [region, setRegion] = useState<string>("");
-
-  const goNext = () => setStep("consider");
-
+const InfoForm: React.FC<{
+  data: FormData;
+  updateForm: UpdateForm;
+  onNext: () => void;
+}> = ({ data, updateForm, onNext }) => {
   return (
     <>
-      {step === "info" && (
-        <>
-          <div className={s.questionbox}>
-            {/* Q1 */}
-            <div className={s.q}>
-              <label className={s.label}>
-                몇 살이에요? 어디에서 사업을 하고 계신지도 알려주세요.
-              </label>
-              <div className={s.row}>
-                <div className={s.col}>
-                  <div className={s.subLabel}>나이</div>
-                  <input className={s.age} type="text" placeholder="Ex. 만 25세" />
-                </div>
+      <div className={s.questionbox}>
+        {/* Q1 */}
+        <div className={s.q}>
+          <label className={s.label}>
+            몇 살이에요? 어디에서 사업을 하고 계신지도 알려주세요.
+          </label>
 
-                <div className={s.col}>
-                  <div className={s.subLabel}>사업장 주소</div>
-                  <RegionSelect
-                    value={region}
-                    onChange={(v) => setRegion(v)}
-                    placeholder="지역 선택하기"
-                    options={REGION_OPTIONS}
-                  />
-                </div>
-              </div>
+          <div className={s.row}>
+            <div className={s.col}>
+              <div className={s.subLabel}>나이</div>
+              <input
+                className={s.age}
+                type="text"
+                placeholder="Ex. 만 25세"
+                value={data.age}
+                onChange={(e) => updateForm({ age: e.target.value })}
+              />
             </div>
 
-            {/* Q2 */}
-            <div className={s.q}>
-              <label className={s.label}>현재 대학교에 다니고 있나요?</label>
-              <div className={s.btnGroup}>
-                <BasicButton
-                  text="예"
-                  onClick={() => setIsCollege(true)}
-                  width="7.03125vw"
-                  height="2.1875vw"
-                  active={isCollege === true}
-                  className={styles.smallBtn}
-                />
-                <BasicButton
-                  text="아니오"
-                  onClick={() => setIsCollege(false)}
-                  width="7.03125vw"
-                  height="2.1875vw"
-                  active={isCollege === false}
-                  className={styles.smallBtn}
-                />
-              </div>
+            <div className={s.col}>
+              <div className={s.subLabel}>사업장 주소</div>
+              <RegionSelect
+                value={data.region}
+                onChange={(v) => updateForm({ region: v })}
+                placeholder="지역 선택하기"
+                options={REGION_OPTIONS}
+              />
             </div>
-
-            {/* Q3 — 예일 때만 노출 */}
-            {isCollege === true && (
-              <div className={s.q}>
-                <label className={s.label}>
-                  어느 대학교에 다니고 계신가요? 학적상태도 알려주세요.
-                </label>
-                <div className={s.caption}>예를 선택했을 시에만 표기.</div>
-
-                <div className={s.row}>
-                  <input className={s.unv} type="text" placeholder="학교입력" />
-
-                  {/* ✅ 분리한 StatusSelect 사용 */}
-                  <StatusSelect
-                    value={status}
-                    onChange={(v) => setStatus(v)}
-                    options={STATUS_OPTIONS}
-                    classes={{
-                      wrap: s.selectWrap,
-                      trigger: s.selectTrigger,
-                      triggerActive: s.selectTriggerActive,
-                      caret: s.caret,
-                      menu: s.selectMenu,
-                      menuWrapper: s.selectMenuWrapper,
-                      optRow: s.optRow,
-                      optText: s.optText,
-                      box: s.box,
-                      boxOn: s.boxOn,
-                    }}
-                  />
-                </div>
-              </div>
-            )}
           </div>
+        </div>
 
-          {/* 하단 중앙 버튼 */}
-          <div className={s.nextBtnWrapper}>
+        {/* Q2 */}
+        <div className={s.q}>
+          <label className={s.label}>현재 대학교에 다니고 있나요?</label>
+          <div className={s.btnGroup}>
             <BasicButton
-              text="다음"
-              onClick={goNext}
-              width="5.26vw"
-              height="1.92vw"
+              text="예"
+              onClick={() => updateForm({ isCollege: true })}
+              width="7.03125vw"
+              height="2.1875vw"
+              active={data.isCollege === true}
+              className={styles.smallBtn}
+            />
+            <BasicButton
+              text="아니오"
+              onClick={() => updateForm({ isCollege: false, status: null })}
+              width="7.03125vw"
+              height="2.1875vw"
+              active={data.isCollege === false}
               className={styles.smallBtn}
             />
           </div>
-        </>
-      )}
+        </div>
 
-      {step === "consider" && (
-        <ConsiderForm onPrev={() => setStep("info")} onNext={() => setStep("base")} />
-      )}
+        {/* Q3 — 예일 때만 노출 */}
+{data.isCollege === true && (
+  <div className={s.q}>
+    <label className={s.label}>
+      어느 대학교에 다니고 계신가요? 학적상태도 알려주세요.
+    </label>
+    <div className={s.caption}>예를 선택했을 시에만 표기.</div>
 
-      {step === "base" && <BaseResource onPrev={() => setStep("consider")} />}
+    <div className={s.row}>
+      <input
+        className={s.unv}
+        type="text"
+        placeholder="학교입력"
+        value={data.university}                 // ✅ 바인딩
+        onChange={(e) =>                       // ✅ 부모 상태 업데이트
+          updateForm({ university: e.target.value })
+        }
+      />
+
+      <StatusSelect
+        value={data.status}
+        onChange={(v) => updateForm({ status: v })}
+        options={STATUS_OPTIONS as unknown as string[]}
+        classes={{
+          wrap: s.selectWrap,
+          trigger: s.selectTrigger,
+          triggerActive: s.selectTriggerActive,
+          caret: s.caret,
+          menu: s.selectMenu,
+          menuWrapper: s.selectMenuWrapper,
+          optRow: s.optRow,
+          optText: s.optText,
+          box: s.box,
+          boxOn: s.boxOn,
+        }}
+      />
+    </div>
+  </div>
+)}
+
+      </div>
+
+      {/* 하단 중앙 버튼 */}
+      <div className={s.nextBtnWrapper}>
+        <BasicButton
+          text="다음"
+          onClick={onNext}
+          width="5.26vw"
+          height="1.92vw"
+          className={styles.smallBtn}
+        />
+      </div>
     </>
   );
 };
@@ -147,7 +144,7 @@ function RegionSelect({
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  // 단일 선택 상태
+  // 단일 선택 상태(컴포넌트 내부 UI용)
   const [selectedSido, setSelectedSido] = useState<string | null>(null);
   const [selectedSigungu, setSelectedSigungu] = useState<string | null>(null);
   const [activeSido, setActiveSido] = useState<string | null>(null);
@@ -252,7 +249,7 @@ function RegionSelect({
                     type="button"
                     className={s.regionOption}
                     onClick={() => chooseSigungu(sgg)}
-                  >
+                >
                     <span className={`${s.box} ${checked ? s.boxOn : ""}`} />
                     <span className={s.regionText}>{sgg}</span>
                   </button>
