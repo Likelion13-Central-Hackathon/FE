@@ -22,16 +22,27 @@ export type FormData = {
 export type UpdateForm = (changes: Partial<FormData>) => void;
 
 // RightOrbit 관련
-export type OrbitLabelTriple = [string, string, string];
+// 공통 좌표 타입
+export type OrbitPointPos = { top: string; left: string; transform: string };
 
+// 라벨: 3개 또는 5개
+export type OrbitLabels =
+  | [string, string, string]
+  | [string, string, string, string, string];
+
+// 좌표
 export type OrbitPositions = {
-  t1: { top: string; left: string; transform: string };
-  t2: { top: string; left: string; transform: string };
-  t3: { top: string; left: string; transform: string };
+  t1: OrbitPointPos;
+  t2: OrbitPointPos;
+  t3: OrbitPointPos;
+} & {
+  t4?: OrbitPointPos;
+  t5?: OrbitPointPos;
 };
 
+// 프리셋
 export type OrbitPreset = {
-  labels: OrbitLabelTriple;
+  labels: OrbitLabels;
   positions: OrbitPositions;
 };
 

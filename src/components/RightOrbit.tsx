@@ -1,46 +1,52 @@
-// src/components/RightOrbit.tsx
 import React from "react";
 import s from "./styles/RightOrbit.module.scss";
 
-type PointPos = React.CSSProperties; // top/left/transform 등 자유롭게
+type PointPos = React.CSSProperties;
+const KEYS = ["t1", "t2", "t3", "t4", "t5"] as const;
+type TickKey = (typeof KEYS)[number];
 
 type Props = {
-  /** [왼쪽(위/좌), 가운데(활성), 오른쪽(아래/우)] */
-  labels?: [string, string, string];
-  /** 각 포인트 좌표/회전 등을 컴포넌트별로 덮어쓰기 */
-  positions?: {
-    t1?: PointPos;
-    t2?: PointPos;
-    t3?: PointPos;
-  };
+  /* 라벨 개수: 3 또는 5개 모두 허용 */
+  labels?: string[];
+  /* 좌표/회전: 필요한 키만 넘기면 됨 (t1~t5) */
+  positions?: Partial<Record<TickKey, PointPos>>;
+  /* 어떤 점을 활성으로 표시할지 (기본: 가운데 1) */
+  activeIndex?: number;
   size?: "sm" | "md";
   showLabels?: boolean;
+  side?: "left" | "right";
 };
 
 const RightOrbit: React.FC<Props> = ({
   labels = ["창업지원 및 자원", "인적사항", "창업내용"],
   positions,
+  activeIndex = 1,
   showLabels = true,
+  side = "right",
 }) => {
+  // labels 길이에 맞춰 t1~t5 중 필요한 만큼만 렌더
+  const count = Math.min(labels.length, KEYS.length);
+  const keys = KEYS.slice(0, count) as TickKey[];
+
   return (
-    <div className={s.ring}>
-      {/* t1 */}
-      <div className={`${s.tick} ${s.t1}`} style={positions?.t1}>
-        {showLabels && <span className={`${s.label} ${s.dim}`}>{labels[0]}</span>}
-        <span className={s.dot} />
-      </div>
-
-      {/* t2 — 가운데(활성) */}
-      <div className={`${s.tick} ${s.t2}`} style={positions?.t2}>
-        {showLabels && <span className={s.label}>{labels[1]}</span>}
-        <span className={`${s.dot} ${s.on}`} />
-      </div>
-
-      {/* t3 */}
-      <div className={`${s.tick} ${s.t3}`} style={positions?.t3}>
-        {showLabels && <span className={`${s.label} ${s.dim}`}>{labels[2]}</span>}
-        <span className={s.dot} />
-      </div>
+    <div className={`${s.ring} ${side === "left" ? s.sideLeft : s.sideRight}`}>
+      {keys.map((key, i) => {
+        const isActive = i === activeIndex;
+        return (
+          <div
+            key={key}
+            className={`${s.tick} ${s[key] ?? ""}`}
+            style={positions?.[key]}
+          >
+            {showLabels && (
+              <span className={`${s.label} ${isActive ? "" : s.dim}`}>
+                {labels[i] ?? ""}
+              </span>
+            )}
+            <span className={`${s.dot} ${isActive ? s.on : ""}`} />
+          </div>
+        );
+      })}
     </div>
   );
 };

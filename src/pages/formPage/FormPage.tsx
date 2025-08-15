@@ -1,4 +1,3 @@
-// FormPage.tsx
 import React, { useCallback, useMemo, useState } from "react";
 import styles from "../styles/FormPage.module.scss";
 import logo from "../../assets/images/main-logo.svg";
@@ -75,10 +74,7 @@ const FormPage: React.FC = () => {
   }, []);
 
   const orbit = useMemo(() => ORBIT_PRESETS[step], [step]);
-  const stepIndex = useMemo(
-    () => ["info", "consider", "base"].indexOf(step),
-    [step]
-  );
+  const stepIndex = useMemo(() => STEPS.indexOf(step), [step]);
 
   const goNext = useCallback(() => {
     setStep((prev) =>
