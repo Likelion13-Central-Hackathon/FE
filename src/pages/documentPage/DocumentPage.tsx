@@ -5,7 +5,7 @@ import { revisingTitles } from "../../data/RevisingTitleData";
 
 const DocumentPage = () => {
   return (
-    <div style={{ display: "flex", gap: "5.73vw" }}>
+    <div className={s.documentPageWrapper}>
       <div style={{ width: "12.45vw", backgroundColor: "yellow" }}>
         각도기 영역
       </div>
