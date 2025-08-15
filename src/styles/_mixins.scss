@@ -42,6 +42,15 @@
   }
 }
 
+// 줄바꿈 불가, 넘치는건 ...으로
+@mixin overflow-ellipsis() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  max-width: 100%;
+}
+
 // 자주 쓰는 구조 있으면 추가
 
 /*
