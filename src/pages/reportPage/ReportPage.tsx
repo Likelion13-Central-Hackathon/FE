@@ -17,7 +17,7 @@ import ReportOutBox from "../../components/ReportOutBox";
 import ReportInBox from "../../components/ReportInBox";
 import RecommendPlan from "./components/RecommendPlan";
 import RecommendPlanLabel from "./components/RecommendPlanLabel";
-import { planLabels } from "../../data/planLabelData";
+import { planLabels } from "../../data/planData";
 import NewsItem from "./components/NewsItem";
 import MarkDownBox from "./components/MarkDownBox";
 import BusinessItem from "./components/BusinessItem";
