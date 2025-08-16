@@ -22,13 +22,14 @@ type RankItemCommon = {
 type RankItemDetail = RankItemCommon & {
   link: string;
   region: string;
-  stage: string;
+  businessDuration: string;
   target: string;
   contact: string;
   applyMethod: string;
   supportDetails: string;
-  requiredDocuments: string;
-  applyProcedureAndEvaluation: string;
+  targetAge: string;
+  isRecruiting: boolean;
+  guidanceUrl: string;
   reason: string;
 };
 

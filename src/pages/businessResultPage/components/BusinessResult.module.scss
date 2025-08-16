@@ -145,7 +145,7 @@
         .arcOverlay {
           position: absolute;
           top: 32%;
-          left: 0.4%;
+          left: 0.5%;
           width: 100%;
           height: 67%;
           pointer-events: none;
@@ -161,6 +161,11 @@
       height: 100%;
       padding: 1.04vw;
       gap: 1.04vw;
+      overflow-y: scroll;
+
+      .target {
+        color: $main-color1;
+      }
 
       span {
         font-size: 1.25vw;
@@ -172,6 +177,13 @@
         font-weight: 500;
         color: $color-sub-black;
         margin-top: 0.42vw;
+      }
+
+      a {
+        text-decoration: underline;
+        color: gray;
+        word-break: break-all;
+        overflow-wrap: break-word;
       }
     }
   }
