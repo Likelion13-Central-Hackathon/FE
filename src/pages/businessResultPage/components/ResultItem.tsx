@@ -11,6 +11,8 @@ import SCORE from "../../../assets/images/icon/report-score.svg";
 import CHAR from "../../../assets/images/character-2d.png";
 import ProtractorStroker from "../../../components/ProtractorStroker";
 import { formatToMMDD } from "../../../utils/date";
+import MarkDownBox from "../../reportPage/components/MarkDownBox";
+import { formatRecruiting, linkify, normalizeUrl } from "../../../utils/format";
 
 const ResultItem: React.FC<ResultItemProps> = ({ rankImg, item }) => {
   return (
@@ -39,7 +41,7 @@ const ResultItem: React.FC<ResultItemProps> = ({ rankImg, item }) => {
                 <ReportInBox width="37.08vw" height="8.65vw">
                   <div className={s.infoBox}>
                     <div className={s.infoBoxText1}>
-                      <p>창업업력 | {item.stage}</p>
+                      <p>창업업력 | {item.businessDuration}</p>
                       <p>
                         신청기간 | {formatToMMDD(item.startDate)}~
                         {formatToMMDD(item.endDate)}
@@ -47,8 +49,8 @@ const ResultItem: React.FC<ResultItemProps> = ({ rankImg, item }) => {
                       <p>지역 | {item.region}</p>
                     </div>
                     <div className={s.infoBoxText2}>
-                      <p>주관기관 | {item.agency}</p>
-                      <p>대상 | {item.target}</p>
+                      <p>제한 | {item.targetAge}</p>
+                      <p>상태 | {formatRecruiting(item.isRecruiting)}</p>
                       <p>연락처 | {item.contact}</p>
                     </div>
                   </div>
@@ -64,7 +66,7 @@ const ResultItem: React.FC<ResultItemProps> = ({ rankImg, item }) => {
                   <ProtractorStroker
                     angle={item.suitability}
                     className={s.arcOverlay}
-                    radius={137}
+                    radius={138}
                   />
                   <div className={s.scoreContainer}>
                     <img
@@ -87,7 +89,7 @@ const ResultItem: React.FC<ResultItemProps> = ({ rankImg, item }) => {
                     }}
                   />
                   <ReportInBox width="15.36vw" height="10.73vw">
-                    <p className={s.reason}>{item.reason}</p>
+                    <MarkDownBox research={item.reason} />
                   </ReportInBox>
                 </div>
               </ReportOutBox>
@@ -100,20 +102,40 @@ const ResultItem: React.FC<ResultItemProps> = ({ rankImg, item }) => {
               <ReportInBox width="29.22vw" height="27.19vw">
                 <div className={s.coreContent}>
                   <div>
-                    <span>신청 방법</span>
-                    <p>{item.applyMethod}</p>
+                    <span className={s.target}>대상: {item.target}</span>
+                  </div>
+                  <div>
+                    <span>주관 기관</span>
+                    <p>{item.agency}</p>
                   </div>
                   <div>
                     <span>지원 내용</span>
                     <p>{item.supportDetails}</p>
                   </div>
                   <div>
-                    <span>제출 서류</span>
-                    <p>{item.requiredDocuments}</p>
+                    <span>신청 방법</span>
+                    <p style={{ whiteSpace: "pre-line" }}>
+                      {item.applyMethod.split("|").map((line, idx) => (
+                        <p
+                          key={idx}
+                          dangerouslySetInnerHTML={{
+                            __html: linkify(line.trim()),
+                          }}
+                        />
+                      ))}
+                    </p>
                   </div>
                   <div>
-                    <span>신청 절차 및 평가 방법</span>
-                    <p>{item.applyProcedureAndEvaluation}</p>
+                    <span>참고 URL</span>
+                    <p>
+                      <a
+                        href={normalizeUrl(item.guidanceUrl)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {item.guidanceUrl}
+                      </a>
+                    </p>
                   </div>
                 </div>
               </ReportInBox>
