@@ -9,7 +9,7 @@ import PDF from "../../../assets/images/icon/download-icon.svg";
 import IconButton from "../../../components/IconButton";
 import GradientBox from "../../../components/GradientBox";
 import data from "../../../data/aiRevisingData.json";
-import { RevisingTitle } from "../../../data/RevisingTitleData";
+import { RevisingTitle } from "../../../data/revisingTitleData";
 
 const RevisingBox: React.FC<RevisingTitle> = ({ title, explanation }) => {
   const [aiAnswer, setAiAnswer] = useState<string>(""); // ai 첨삭 답변
