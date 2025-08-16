@@ -1,0 +1,26 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as m;
+
+.documentPageWrapper {
+  display: flex;
+  gap: 5.73vw;
+  background: url("../../assets/images/document-background.svg") center/contain
+    no-repeat;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top center;
+}
+
+.container {
+  width: 100%;
+  height: 56.25vw;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+}
+
+.section {
+  @include m.flex-row-center;
+  height: 100%;
+  scroll-snap-align: center;
+}
