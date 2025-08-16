@@ -1,11 +1,18 @@
-/* 전체 vw 통일, 1920px 기준 변환 */
 @use "../../styles/mixins" as m;
 @use "../../styles/variables" as *;
 
 .container {
+  display: flex;
+  aspect-ratio: 1920 / 1080;
+  background: url("../../assets/images/analyze-background.svg") center/contain
+    no-repeat;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top center;
+
   position: relative;
   width: 100%;
-  height: 56.25vw; /* 16:9 */
+
   display: flex;
   justify-content: center;
   align-items: flex-start;
