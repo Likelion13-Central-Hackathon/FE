@@ -24,6 +24,7 @@ import BusinessItem from "./components/BusinessItem";
 import { CountingScore } from "./components/CountingScore";
 import { getAngleMessage } from "../../utils/getScoreMsg";
 import ProtractorStroker from "../../components/ProtractorStroker";
+import ScrollTopButton from "../../components/ScrollTopButton";
 
 const ReportPage = () => {
   const navigate = useNavigate();
@@ -207,6 +208,7 @@ const ReportPage = () => {
           수 있습니다. 참고 자료로 만 활용하시기 바랍니다.
         </p>
       </div>
+      <ScrollTopButton />
     </div>
   );
 };

@@ -10,6 +10,7 @@ import data1 from "../../data/businessResultDummy.json";
 import data2 from "../../data/businessDetailDummy.json";
 import ResultItem from "./components/ResultItem";
 import DetailButton from "./components/DetailButton";
+import ScrollTopButton from "../../components/ScrollTopButton";
 
 const BusinessResultPage = () => {
   const navigate = useNavigate();
@@ -79,6 +80,7 @@ const BusinessResultPage = () => {
           </div>
         </div>
       </div>
+      <ScrollTopButton />
     </div>
   );
 };
