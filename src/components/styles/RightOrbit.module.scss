@@ -1,0 +1,70 @@
+@use "../../styles//mixins" as m;
+@use "../../styles/variables" as *;
+
+.ring {
+  --ring-size: 43.75vw;
+  --ring-top: 9.8vw;
+  --shift: 85%;
+  position: absolute;
+  width: var(--ring-size);
+  height: var(--ring-size);
+  border: 0.1vw solid $main-color2;
+  border-radius: 50%;
+  top: var(--ring-top);
+}
+
+/* 오른쪽 앵커 */
+.sideRight {
+  right: 0;
+  transform: translateX(var(--shift));
+}
+
+/* 왼쪽 앵커 */
+.sideLeft {
+  left: 0;
+  transform: translateX(calc(-1 * var(--shift)));
+}
+
+.tick {
+  position: absolute;
+}
+.t1 {
+}
+.t2 {
+}
+.t3 {
+}
+.t4 {
+}
+.t5 {
+}
+
+.dot {
+  display: inline-block;
+  width: 0.72vw;
+  height: 0.72vw;
+  border-radius: 50%;
+  background: $main-color2;
+  margin-left: 0.72vw;
+  margin-right: 0.42vw;
+  vertical-align: middle;
+}
+
+.dot.on {
+  background: $main-color1;
+}
+
+.label {
+  display: inline-block;
+  font-size: 0.83vw;
+  font-weight: bold;
+  color: $main-color1;
+  vertical-align: middle;
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+}
+
+.label.dim {
+  color: $main-color2;
+  font-weight: 600;
+}

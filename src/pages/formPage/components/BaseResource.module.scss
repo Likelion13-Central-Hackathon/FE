@@ -1,0 +1,136 @@
+/* 섹션 간격 */
+.sectionsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2.6vw;
+  flex: 1;
+  min-height: 0; /* 스크롤/수축 안전 */
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.63vw;
+}
+
+.label {
+  font-size: 1.04vw;
+  font-weight: 700;
+}
+
+/* 섹션 1·2 버튼 행 */
+.chipRow {
+  font-size: 0.625vw !important;
+  font-weight: 700 !important;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.31vw;
+}
+
+/* 자원 카드 그리드: 두 줄(위/아래)로 분리 */
+.resourceGrid {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2vw; /* 위/아래 줄 간격 */
+}
+
+.resourceRowTop,
+.resourceRowBottom {
+  display: flex;
+  flex-wrap: nowrap; /* 3개씩 고정 */
+}
+
+/* 위 3개의 좌우 간격 */
+.resourceRowTop {
+  column-gap: 2.76vw;
+}
+
+/* 아래 3개의 좌우 간격 */
+.resourceRowBottom {
+  column-gap: 1.35vw;
+}
+
+.resourceCard {
+  flex: none;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.resourceHead {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3vw;
+  align-items: center;
+}
+
+.resourceTitle {
+  font-size: 1.04vw;
+  font-weight: bold;
+}
+
+.resourceDesc {
+  width: 7.4vw;
+  font-size: 0.63vw;
+  color: #000000;
+  line-height: 1.5;
+  white-space: pre-line;
+}
+
+/* StatusSelect 래퍼 */
+.rankWrap {
+  display: flex;
+  align-items: center;
+  margin-top: 0.42vw;
+}
+
+/* ===== 외곽 레이아웃 ===== */
+.groupBody {
+  position: relative;
+  display: flex; /* 본문 + 하단 버튼 수직 스택 */
+  flex-direction: column;
+  width: 26.93vw;
+  height: 37.19vw;
+  margin-top: 7.24vw;
+  margin-left: 5.83vw;
+  overflow: visible;
+}
+
+/* 본문 래퍼 */
+.scaleWrap {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* 남은 높이 채움 */
+  min-height: 0; /* 자식 스크롤 가능하도록 */
+  /* 필요시 내부 스크롤을 원하면 아래 주석 해제
+  overflow: auto;
+  */
+}
+
+/* ===== 하단 버튼 ===== */
+.groupFooter {
+  margin-bottom: 1.04vw;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.footerBtns {
+  display: flex;
+  justify-content: center;
+  gap: 0.52vw;
+  margin-top: 0;
+}
+
+.smallFontBtn {
+  font-size: 0.63vw !important;
+  font-weight: 700;
+  white-space: nowrap;
+  word-break: keep-all;
+}
+
+.smallBtn {
+  font-size: 0.63vw;
+  font-weight: 700;
+}

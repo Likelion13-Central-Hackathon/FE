@@ -1,5 +1,5 @@
-@use "../../styles//mixins" as m;
-@use "../../styles/variables" as *;
+@use '../../styles//mixins' as m;
+@use '../../styles/variables' as *;
 
 .button {
   @include m.flex-row-double-center;
@@ -19,4 +19,10 @@
     color: $color-white;
     transform: scale(0.95);
   }
+}
+
+.active {
+  background: $main-color1;
+  color: #fff;
+  border-color: $main-color1;
 }

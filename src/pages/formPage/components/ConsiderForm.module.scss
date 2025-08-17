@@ -1,0 +1,432 @@
+@use "../../../styles/mixins" as m;
+@use "../../../styles/variables" as *;
+
+.sectionsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.63vw;
+
+  .section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.63vw;
+  }
+}
+
+.label {
+  font-size: 1.04vw;
+  font-weight: 700;
+}
+
+.primaryChip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.75vw;
+  padding: 0 0.9vw;
+  border-radius: 0.5vw;
+  border: 0.05vw solid #cfd6e4;
+  background: $main-color1;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.6vw;
+  box-shadow: 0 0.16vw 0.52vw rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+}
+
+.supportGrid {
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  row-gap: 0.63vw;
+  column-gap: 1.25vw;
+  justify-content: start;
+}
+
+.supportCard {
+  width: 3.65vw;
+  height: 5.73vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.supportCard:nth-child(n + 6) {
+  grid-column: span 1;
+}
+.supportCard:nth-child(n + 6):first-child {
+  grid-column-start: 2;
+}
+
+.supportIcon {
+  width: 2.86vw;
+  height: 2.86vw;
+  display: grid;
+  place-items: center;
+}
+.supportIcon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.iconPlaceholder {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.48vw;
+  background: #eaf0ff;
+}
+
+.supportLabel {
+  white-space: nowrap;
+  font-size: 0.63vw;
+  font-weight: 600;
+}
+
+.rankWrap {
+  margin-top: 0.16vw;
+}
+
+.rankSelect {
+  height: 1.36vw;
+  padding: 0 0.6vw;
+  border: 0.052vw solid #dde3ee;
+  border-radius: 0.42vw;
+  background: #fff;
+  font-size: 0.6vw;
+  outline: none;
+  cursor: pointer;
+}
+
+.chipRow {
+  display: flex;
+  gap: 0.31vw;
+  flex-wrap: nowrap;
+}
+
+.chip {
+  height: 1.67vw;
+  padding: 0 0.85vw;
+  border-radius: 0.5vw;
+  border: 0.05vw solid #dde3ee;
+  background: #fff;
+  font-weight: 700;
+  font-size: 0.6vw;
+  box-shadow: 0 0.16vw 0.52vw rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+}
+.chipOn {
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+
+.textarea {
+  width: 26.93vw;
+  height: 5.99vw;
+  border-radius: 0.26vw;
+  border: 0.052vw solid $main-color2;
+  font-size: 0.63vw;
+  letter-spacing: -0.1vw;
+  padding: 0.63vw;
+  background: #f9faff;
+  outline: none;
+  resize: none;
+
+  box-shadow: 0 0.42vw 1.35vw rgba(4, 0, 250, 0.06);
+
+  &::placeholder {
+    color: #aaaaaa;
+  }
+}
+
+.note {
+  margin-top: 0.4vw;
+  font-size: 0.6vw;
+  color: #757b88;
+}
+
+.pageFooter {
+  margin-bottom: 1.04vw;
+}
+.footerBtns {
+  display: flex;
+  justify-content: center;
+  gap: 0.52vw;
+}
+
+.groupBody {
+  width: 26.93vw;
+  height: 37.19vw;
+  margin-top: 4.22vw;
+  margin-left: 5.89vw;
+  display: flex;
+  flex-direction: column;
+  gap: 0.63vw;
+}
+
+.smallFontBtn {
+  font-size: 0.63vw !important;
+  font-weight: 700;
+  white-space: nowrap;
+  word-break: keep-all;
+}
+
+/* ===== FieldSelect ===== */
+.fieldWrap {
+  position: relative;
+  display: inline-block;
+  width: 6.15vw;
+}
+
+.fieldTrigger {
+  width: 6.15vw;
+  height: 1.67vw;
+  font-size: 0.63vw;
+  background: #fff;
+  border-radius: 0.31vw;
+  border: 0.05vw solid black;
+  color: #111;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  outline: none;
+}
+.fieldTriggerActive {
+  background: $main-color1;
+  color: #fff;
+  border-color: $main-color1;
+}
+.fieldTriggerLabel {
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fieldMenu {
+  position: absolute;
+  top: calc(100% + 0.42vw);
+  left: 0;
+  z-index: 50;
+  width: 15.68vw;
+  height: 25.56vw;
+  border-radius: 0 0.26vw 0.26vw 0;
+  background: #fff;
+  box-shadow: 0 0.83vw 3.33vw rgba(20, 40, 120, 0.18);
+  border: 0.05vw solid #eef1f7;
+  overflow: hidden;
+}
+
+/* ===== 상단 헤더 ===== */
+.fieldHeader {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.63vw;
+  padding: 0.73vw 0.83vw 0.63vw;
+  background: #fff;
+  border-bottom: none;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 1.5vw;
+    right: 1.5vw;
+    height: 0.05vw;
+    background-color: #d9d9d9;
+  }
+}
+
+.fieldHeaderTitle {
+  font-weight: 800;
+  font-size: 0.83vw;
+  color: #151a23;
+}
+
+.fieldSearch {
+  position: relative;
+}
+.searchInput {
+  width: 100%;
+  height: 1.88vw;
+  border: 0.05vw solid #e3e8f3;
+  border-radius: 0.42vw;
+  padding: 0 1.98vw 0 0.83vw;
+  font-size: 0.73vw;
+  background: white;
+  outline: none;
+
+  &:focus {
+    border-color: #cfd8f6;
+    background: #fff;
+  }
+}
+.searchIcon {
+  position: absolute;
+  right: 0.63vw;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.83vw;
+  opacity: 0.6;
+}
+
+.fieldList {
+  max-height: 23vw;
+  overflow-y: auto;
+  padding: 0.42vw 0 0.63vw;
+
+  &::-webkit-scrollbar {
+    width: 0.42vw;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #e0e6f3;
+    border-radius: 0.42vw;
+  }
+}
+
+.fieldDivider {
+  height: 0.05vw;
+  margin: 0.63vw 0.83vw;
+  background: #d9d9d9;
+}
+
+.fieldOption {
+  width: 14.84vw;
+  height: 3.65vw;
+  border-radius: 0.63vw;
+  margin-left: 0.42vw;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+
+  &:hover {
+    background: #f6f8ff;
+  }
+}
+.fieldOptionActive {
+  background: #eef3ff;
+}
+.fieldOptionFocus {
+  outline: none;
+}
+
+.fieldMain {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.73vw;
+}
+.fieldGroup {
+  margin-left: 0.83vw;
+  display: grid;
+  place-items: center;
+  font-size: 1.25vw;
+  color: #000000;
+}
+.fieldTexts {
+  text-align: left;
+  display: grid;
+  gap: 0.15vw;
+}
+.fieldTitle {
+  font-size: 0.83vw;
+  font-weight: medium;
+  color: #111;
+  line-height: 1.2;
+}
+.fieldSub {
+  font-size: 0.73vw;
+  color: #757575;
+  line-height: 1.2;
+}
+
+.fieldRight {
+  font-size: 0.83vw;
+  color: $color-sub-black;
+  font-weight: 400;
+  line-height: 1.2;
+  vertical-align: middle;
+  position: relative;
+  top: -0.6vw;
+  margin-right: 0.42vw;
+}
+
+.fieldEmpty {
+  padding: 2vw 0.83vw;
+  font-size: 0.73vw;
+  color: #7b8596;
+  text-align: center;
+}
+
+/* ===== 상태 안내 모달 ===== */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(22, 30, 50, 0.32);
+  backdrop-filter: blur(6px);
+  display: grid;
+  place-items: center;
+  z-index: 20000;
+}
+.modal {
+  position: relative;
+  width: 25.26vw;
+  min-height: 9.48vw;
+  background: #fff;
+  border-radius: 0.42vw;
+  box-shadow: 0 1.25vw 2.5vw rgba(20, 40, 120, 0.18);
+  padding: 1.2vw 1.4vw 0.9vw;
+}
+
+.modalTitle {
+  top: 1.15vw;
+  left: 1.35vw;
+  font-size: 1.04vw;
+  font-weight: bold;
+  color: black;
+}
+.modalBody {
+  margin-top: 1.04vw;
+  left: 1.15vw;
+  display: grid;
+  color: #222;
+  font-size: 1.04vw;
+  line-height: 1.6;
+  padding-right: 0.2vw;
+}
+.modalLine {
+  color: #222;
+}
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.8vw;
+}
+.modalSelect {
+  position: absolute;
+  bottom: 1.25vw;
+  right: 1.25vw;
+  background: transparent;
+  border: none;
+  color: $gray-500;
+  font-size: 0.63vw;
+  cursor: pointer;
+}
+.modalSelect:hover {
+  color: $main-color1;
+}
+
+.smallBtn {
+  font-size: 0.63vw;
+  font-weight: 700;
+}
