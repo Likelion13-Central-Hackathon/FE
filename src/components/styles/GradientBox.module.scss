@@ -1,12 +1,12 @@
-@use '../../styles//mixins' as m;
-@use '../../styles/variables' as *;
+@use "../../styles//mixins" as m;
+@use "../../styles/variables" as *;
 
 .gradientBox {
   position: relative;
   background: linear-gradient(
     -135deg,
-    rgba(221, 220, 251, 0.5) 0%,
-    rgba(183, 210, 253, 0.5) 100%
+    rgba(221, 220, 251, 0.8) 0%,
+    rgba(183, 210, 253, 0.8) 100%
   );
   @include m.flex-column-center;
   border-radius: 0.94vw;
