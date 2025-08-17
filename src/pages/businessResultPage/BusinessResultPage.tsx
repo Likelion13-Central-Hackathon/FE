@@ -1,9 +1,9 @@
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import s from "../styles/BusinessResultPage.module.scss";
-import RANK1 from "../../assets/images/result-first.svg";
-import RANK2 from "../../assets/images/result-second.svg";
-import RANK3 from "../../assets/images/result-third.svg";
+import RANK1 from "../../assets/images/result/result-first.svg";
+import RANK2 from "../../assets/images/result/result-second.svg";
+import RANK3 from "../../assets/images/result/result-third.svg";
 import BACK from "../../assets/images/icon/back-icon.svg";
 import RankItem from "./components/RankItem";
 import data1 from "../../data/businessResultDummy.json";

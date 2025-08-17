@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import s from "./styles/IntroPage.module.scss";
 import { useNavigate } from "react-router-dom";
 import IntroLayout from "../components/IntroLayout";
-import TITLE from "../assets/images/second-logo.svg";
+import TITLE from "../assets/images/logo/second-logo.svg";
 import BasicButton from "../components/BasicButton";
 import EmailPWBox from "../components/EmailPWBox";
 

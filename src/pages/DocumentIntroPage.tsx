@@ -3,7 +3,7 @@ import s from "./styles/IntroPage.module.scss";
 import { useNavigate } from "react-router-dom";
 import IntroLayout from "../components/IntroLayout";
 import BasicButton from "../components/BasicButton";
-import TITLE from "../assets/images/third-logo.svg";
+import TITLE from "../assets/images/logo/third-logo.svg";
 
 const DocumentIntroPage = () => {
   const navigate = useNavigate();

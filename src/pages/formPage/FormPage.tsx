@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from "react";
 import styles from "../styles/FormPage.module.scss";
-import logo from "../../assets/images/main-logo.svg";
+import logo from "../../assets/images/logo/main-logo.svg";
 import InfoForm from "./components/InfoForm";
 import ConsiderForm from "./components/ConsiderForm";
 import BaseResource from "./components/BaseResource";
