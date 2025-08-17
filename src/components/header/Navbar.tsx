@@ -21,7 +21,7 @@ const Navbar = () => {
         분석할각?
       </NavLink>
       <NavLink
-        to="/document"
+        to="/document-intro"
         className={({ isActive }) =>
           isActive ? `${s.link} ${s.active}` : s.link
         }

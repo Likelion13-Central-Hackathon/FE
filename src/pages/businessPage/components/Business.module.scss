@@ -35,3 +35,22 @@
     color: $gray-800;
   }
 }
+
+.linkButton {
+  @include m.flex-row-double-center;
+  width: 5.3vw;
+  height: 1.98vw;
+  border: none;
+  border-radius: 0.31vw;
+  margin: 0.83vw;
+  @include m.button-click();
+  background-color: $main-color1;
+  gap: 0.1vw;
+  box-shadow: 0vw 0.42vw 1.35vw rgba(0, 94, 255, 0.06);
+
+  p {
+    font-size: 0.83vw;
+    font-weight: 700;
+    color: $color-white;
+  }
+}

@@ -8,6 +8,7 @@ interface IntroProps extends SizeProps {
   title: string;
   text: string;
   children?: React.ReactNode; // 하위 컴포넌트
+  warningText?: string;
 }
 
 const IntroLayout: React.FC<IntroProps> = ({
@@ -16,6 +17,7 @@ const IntroLayout: React.FC<IntroProps> = ({
   width = "27.55vw",
   height = "13.18vw",
   children,
+  warningText,
 }) => {
   return (
     <div className={s.mainPageWrapper}>
@@ -31,6 +33,8 @@ const IntroLayout: React.FC<IntroProps> = ({
         <div className={s.childrenWrapper}>{children}</div>
       </div>
       <FloatingMotion />
+
+      {warningText && <div className={s.warningText}>{warningText}</div>}
     </div>
   );
 };
