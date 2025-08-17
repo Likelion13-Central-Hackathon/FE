@@ -3,17 +3,13 @@
 
 .container {
   display: flex;
-  aspect-ratio: 1920 / 1080;
-  background: url("../../assets/images/analyze-background.svg") center/contain
-    no-repeat;
-  background-repeat: no-repeat;
-  background-size: cover;
+  width: 100%;
+  height: 100vh;
+  background: url("../../assets/images/analyze-background.svg") top center /
+    cover no-repeat;
   background-position: top center;
 
   position: relative;
-  width: 100%;
-
-  display: flex;
   justify-content: center;
   align-items: flex-start;
   overflow: hidden;

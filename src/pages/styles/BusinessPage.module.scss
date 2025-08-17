@@ -3,14 +3,10 @@
 
 .businessWrapper {
   display: flex;
-  aspect-ratio: 1920 / 1080;
-  background: url("../../assets/images/map-background.png") center/contain
-    no-repeat;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: top center;
   width: 100%;
-
+  height: 100vh;
+  background: url("../../assets/images/map-background.png") top center / cover
+    no-repeat;
   .backButton {
     width: 2.81vw;
     height: 1.72vw;
