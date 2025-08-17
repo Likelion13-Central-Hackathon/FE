@@ -151,17 +151,6 @@
   box-shadow: 0 0.21vw 1.04vw rgba(0, 0, 0, 0.12);
   padding: 0.42vw 0;
   z-index: 10;
-
-  &::-webkit-scrollbar {
-    width: 0.42vw;
-  }
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: #d0d5dd;
-    border-radius: 1.04vw;
-  }
 }
 
 .selectMenuWrapper {

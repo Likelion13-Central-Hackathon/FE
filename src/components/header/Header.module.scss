@@ -36,3 +36,8 @@
   height: 4.17vw;
   z-index: 1000;
 }
+.scrolled {
+  // 스크롤 시 반투명
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(6px); // 블러 효과
+}

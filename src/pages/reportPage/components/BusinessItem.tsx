@@ -1,11 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import s from "./Report.module.scss";
 import ReportInBox from "../../../components/ReportInBox";
 import { BusinessItemProps } from "../../../types/report";
 
 const BusinessItem: React.FC<BusinessItemProps> = ({ business }) => {
+  const navigate = useNavigate();
+
   return (
-    <div>
+    <div onClick={() => navigate("/business/result")}>
       <ReportInBox width="46.72vw" height="4.48vw">
         <div className={s.businessItemContainer}>
           <div style={{ display: "flex", justifyContent: "space-between" }}>

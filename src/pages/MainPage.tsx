@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import s from "./styles/MainPage.module.scss";
-import TITLE from "../assets/images/first-logo.svg";
+import TITLE from "../assets/images/logo/first-logo.svg";
 import BasicButton from "../components/BasicButton";
 import IntroLayout from "../components/IntroLayout";
 

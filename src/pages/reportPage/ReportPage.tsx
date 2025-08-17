@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import s from "../styles/ReportPage.module.scss";
@@ -8,10 +8,10 @@ import IconButton from "../../components/IconButton";
 import DOWNLOAD from "../../assets/images/icon/download-icon.svg";
 import MAIL from "../../assets/images/icon/mail-icon.svg";
 import PLUS from "../../assets/images/icon/plus-icon.svg";
-import LOGO from "../../assets/images/report-logo.svg";
-import QR from "../../assets/images/qr-code.png";
+import LOGO from "../../assets/images/logo/report-logo.svg";
+import QR from "../../assets/images/report/qr-code.png";
 import CHAR from "../../assets/images/character-2d.png";
-import ANGLE from "../../assets/images/protractor.png";
+import ANGLE from "../../assets/images/report/protractor.png";
 import SCORE from "../../assets/images/icon/report-score.svg";
 import ReportOutBox from "../../components/ReportOutBox";
 import ReportInBox from "../../components/ReportInBox";
@@ -24,14 +24,36 @@ import BusinessItem from "./components/BusinessItem";
 import { CountingScore } from "./components/CountingScore";
 import { getAngleMessage } from "../../utils/getScoreMsg";
 import ProtractorStroker from "../../components/ProtractorStroker";
+import ScrollTopButton from "../../components/ScrollTopButton";
+import MailModal from "../../components/MailModal";
 
 const ReportPage = () => {
   const navigate = useNavigate();
 
+  const [isOpen, setIsOpen] = useState(false); // 메일 모달창
+  const [email, setEmail] = useState(""); // 이메일
+  const [password, setPassword] = useState(""); // 비밀번호
+
   const news = data?.data?.newsList ?? []; // 뉴스기사 목록
+
+  // 메일 구독 함수(메모이제이션)
+  const handleSubmit = useCallback(() => {
+    console.log("submit", { email, password }); // 임시
+  }, [email, password]);
 
   return (
     <div className={s.reportPageWrapper}>
+      {isOpen && (
+        <MailModal
+          open={isOpen}
+          email={email}
+          password={password}
+          onChangeEmail={setEmail}
+          onChangePassword={setPassword}
+          onSubmit={handleSubmit}
+          onClose={() => setIsOpen(false)}
+        />
+      )}
       <div className={s.reportContainer}>
         <section>
           {/* 상단 제목 부분 + 아이콘 2개 */}
@@ -45,7 +67,11 @@ const ReportPage = () => {
                 text="PDF"
                 onClick={() => window.print()}
               />
-              <IconButton imgSrc={MAIL} text="Mail" />
+              <IconButton
+                imgSrc={MAIL}
+                text="Mail"
+                onClick={() => setIsOpen(true)}
+              />
             </div>
           </div>
           <div className={s.dateBox}>
@@ -207,6 +233,7 @@ const ReportPage = () => {
           수 있습니다. 참고 자료로 만 활용하시기 바랍니다.
         </p>
       </div>
+      <ScrollTopButton />
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import RevisingBox from "./RevisingBox";
 import QuestionsBox from "./QuestionsBox";
-import { RevisingTitle } from "../../../data/RevisingTitleData";
+import { RevisingTitle } from "../../../data/revisingTitleData";
 import data from "../../../data/aiQuestionData.json";
 
 const DocumentItem: React.FC<RevisingTitle> = ({ title, explanation }) => {

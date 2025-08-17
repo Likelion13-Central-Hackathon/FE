@@ -17,14 +17,14 @@ import {
   type SupportKey,
 } from "../../../data/formData";
 
-import CR1 from "../../../assets/images/consider-resource1.svg";
-import CR2 from "../../../assets/images/consider-resource2.svg";
-import CR3 from "../../../assets/images/consider-resource3.svg";
-import CR4 from "../../../assets/images/consider-resource4.svg";
-import CR5 from "../../../assets/images/consider-resource5.svg";
-import CR6 from "../../../assets/images/consider-resource6.svg";
-import CR7 from "../../../assets/images/consider-resource7.svg";
-import CR8 from "../../../assets/images/consider-resource8.svg";
+import CR1 from "../../../assets/images/form/consider-resource1.svg";
+import CR2 from "../../../assets/images/form/consider-resource2.svg";
+import CR3 from "../../../assets/images/form/consider-resource3.svg";
+import CR4 from "../../../assets/images/form/consider-resource4.svg";
+import CR5 from "../../../assets/images/form/consider-resource5.svg";
+import CR6 from "../../../assets/images/form/consider-resource6.svg";
+import CR7 from "../../../assets/images/form/consider-resource7.svg";
+import CR8 from "../../../assets/images/form/consider-resource8.svg";
 
 const ICON_MAP: Record<SupportKey, string> = {
   facility: CR1,
