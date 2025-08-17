@@ -1,0 +1,140 @@
+@use '../../styles/mixins' as m;
+@use '../../styles/variables' as *;
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  backdrop-filter: blur(6px);
+  z-index: 20000;
+}
+
+.modal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 63.59vw;
+  height: 45.31vw;
+}
+
+.formArea {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 6.25vw;
+  margin-bottom: 1.56vw;
+}
+
+.character {
+  position: absolute;
+  width: 5.63vw;
+  height: 6.25vw;
+  top: 7.03vw;
+  left: 50%;
+  z-index: 100;
+  transform: translateX(-50%);
+  filter: drop-shadow(0 0.21vw 0.52vw rgba(0, 0, 0, 0.12));
+  pointer-events: none;
+  background-color: transparent;
+}
+
+.doneImage {
+  position: absolute;
+  grid-area: image;
+  width: 5.63vw;
+  height: 6.25vw;
+  top: 11.09vw;
+}
+
+.buttonRow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.63vw;
+}
+
+.smallBtn {
+  font-size: 0.63vw;
+}
+
+.ghostButton {
+  width: 6.98vw;
+  height: 2.4vw;
+  border-radius: 0.42vw;
+  border: 0.05vw solid #cfd6e4;
+  background: #ffffff;
+  font-size: 0.78vw;
+  font-weight: bold;
+  color: #1e2332;
+  box-shadow: 0 0.16vw 0.52vw rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+}
+
+.successWrap {
+  --gap: 2.08vw;
+  --maxw: 30vw;
+  display: grid;
+  grid-auto-rows: max-content;
+  justify-items: center;
+  align-items: center;
+  row-gap: var(--gap);
+  padding-top: 4.17vw;
+  width: 100%;
+  text-align: center;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    'image'
+    'buttons';
+}
+
+.okRow {
+  grid-area: buttons;
+  position: absolute;
+  top: 21.25vw;
+  display: flex;
+  justify-content: center;
+}
+
+.characterDone {
+  display: none;
+}
+
+@media (max-width: 1280px) {
+  .doneTitle {
+    font-size: 1.25vw;
+  }
+  .doneSub {
+    font-size: 0.95vw;
+  }
+}
+
+.u-order-1 {
+  order: 1;
+}
+.u-order-2 {
+  order: 2;
+}
+.u-order-3 {
+  order: 3;
+}
+
+.headerBoxInner {
+  font-size: 1.04vw;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+}
+
+.headerBoxInnerDone {
+  height: 3.33vw;
+}
+.headerBoxWrapDone {
+  position: absolute;
+  top: 7.24vw;
+}
