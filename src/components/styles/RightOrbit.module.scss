@@ -10,7 +10,7 @@
   height: var(--ring-size);
   border: 0.1vw solid $main-color2;
   border-radius: 50%;
-  top: var(--ring-top);
+  top: 6vw;
 }
 
 /* 오른쪽 앵커 */
@@ -24,9 +24,15 @@
   left: 0;
   transform: translateX(calc(-1 * var(--shift)));
 }
+.sideLeft .tick {
+  flex-direction: row-reverse;
+}
 
 .tick {
   position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 0.42vw; /* 점-라벨 간격 */
 }
 .t1 {
 }
@@ -45,8 +51,6 @@
   height: 0.72vw;
   border-radius: 50%;
   background: $main-color2;
-  margin-left: 0.72vw;
-  margin-right: 0.42vw;
   vertical-align: middle;
 }
 

@@ -1,5 +1,5 @@
-@use '../../styles//mixins' as m;
-@use '../../styles/variables' as *;
+@use "../../styles//mixins" as m;
+@use "../../styles/variables" as *;
 
 .button {
   @include m.flex-row-double-center;
@@ -10,8 +10,7 @@
   font-size: 0.83vw;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease,
-    transform 0.1s ease;
+  padding: 0;
 
   &:active {
     background-color: $main-color1;

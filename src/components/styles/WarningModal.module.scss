@@ -1,0 +1,74 @@
+@use '../../styles/mixins' as m;
+@use '../../styles/variables' as *;
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  backdrop-filter: blur(6px);
+  z-index: 20000;
+}
+
+.modal {
+  width: 47.19vw;
+  height: 23.18vw;
+  background: #fff;
+  border-radius: 0.42vw;
+  border: 0.05vw solid #fcfcfc;
+  box-shadow: 0 0.42vw 1.56vw rgba(4, 0, 250, 0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  img {
+    width: 6.51vw;
+    height: 6.51vw;
+  }
+}
+
+.message {
+  margin-top: 1.56vw;
+  font-size: 1.88vw;
+  font-weight: bold;
+  text-align: center;
+  color: black;
+  width: 46.09vw;
+  height: 5.21vw;
+  line-height: 1.4;
+
+  p {
+    margin: 0;
+  }
+}
+
+.buttonRow {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.6vw;
+}
+
+.buttonRow :global(button) {
+  font-size: 1.04vw;
+  font-weight: bold;
+}
+
+@media (max-width: 1280px) {
+  .modal {
+    width: 36vw;
+    padding: 3.3vw 2.8vw 2.8vw;
+  }
+  .icon img {
+    width: 4.2vw;
+  }
+  .message p:first-child {
+    font-size: 1.25vw;
+  }
+  .message p:not(:first-child) {
+    font-size: 1.08vw;
+  }
+}

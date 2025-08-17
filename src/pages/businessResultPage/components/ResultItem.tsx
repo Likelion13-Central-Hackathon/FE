@@ -6,7 +6,7 @@ import RankItem from "./RankItem";
 import { ResultItemProps } from "../../../types/business";
 import ReportInBox from "../../../components/ReportInBox";
 import LinkButton from "../../../components/LinkButton";
-import ANGLE from "../../../assets/images/protractor2.png";
+import ANGLE from "../../../assets/images/result/protractor2.png";
 import SCORE from "../../../assets/images/icon/report-score.svg";
 import CHAR from "../../../assets/images/character-2d.png";
 import ProtractorStroker from "../../../components/ProtractorStroker";

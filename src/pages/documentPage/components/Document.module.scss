@@ -1,0 +1,181 @@
+@use "../../../styles//mixins" as m;
+@use "../../../styles/variables" as *;
+
+// RevisingBox
+.titleBox {
+  margin-left: 0.8vw;
+  margin-bottom: 1.25vw;
+
+  .titleAndDownload {
+    @include m.flex-row-center;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    p {
+      font-size: 1.88vw;
+      font-weight: 700;
+      color: $main-color1;
+    }
+  }
+
+  p {
+    font-size: 1.04vw;
+    font-weight: 700;
+    color: $main-color1;
+    margin-top: 0.25vw;
+  }
+}
+
+// 문항 + 상세설명
+.itemInfo {
+  width: 59.48vw;
+  @include m.flex-column-center;
+  align-items: flex-start;
+  gap: 0.94vw;
+
+  span {
+    font-size: 1.67vw;
+    font-weight: 700;
+    color: $gray-800;
+  }
+  p {
+    font-size: 1.04vw;
+    font-weight: 500;
+    color: $gray-400;
+    white-space: pre-wrap;
+  }
+}
+
+// 답변 입력하기, AI 첨삭 답변 글씨
+.guideText {
+  width: 100%;
+  padding: 0 1.04vw;
+  font-size: 1.25vw;
+  font-weight: 500;
+  color: $color-black;
+}
+
+.aiTitle {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 1.04vw;
+}
+
+// AI 첨삭 답변
+.aiResponse {
+  overflow-y: scroll;
+
+  width: 20.94vw;
+  height: 16.67vw;
+  font-size: 0.83vw;
+  font-weight: 500;
+  color: $color-black;
+
+  overflow-y: auto;
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+
+.textarea {
+  width: 20.94vw;
+  height: 16.67vw;
+  overflow-y: scroll;
+
+  background-color: transparent;
+  padding: 0;
+  border: none;
+  outline: none;
+  resize: none;
+  font-size: 0.83vw;
+  font-weight: 500;
+  color: $color-black;
+
+  &::placeholder {
+    color: $gray-400;
+  }
+}
+
+.returnButton {
+  @include m.flex-column-center;
+  gap: 0.78vw;
+  padding: 0 1.41vw;
+
+  .rotate {
+    animation: spin360 1s linear forwards;
+  }
+}
+
+@keyframes spin360 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+// QuestionBox
+.questionBox {
+  @include m.flex-column-center;
+  justify-content: flex-end;
+  gap: 0.57vw;
+
+  .infoText1,
+  .infoText2 {
+    font-size: 1.04vw;
+    color: $color-black;
+    white-space: pre-wrap;
+  }
+  .infoText1 {
+    font-weight: 600;
+  }
+  .infoText2 {
+    font-weight: 700;
+  }
+
+  .qaFourBox {
+    @include m.flex-column-center;
+    justify-content: flex-start;
+    gap: 1.04vw;
+    overflow-y: scroll;
+    width: 9.79vw;
+    height: 95%;
+
+    .qaItem {
+      width: 100%;
+      height: auto;
+
+      font-size: 0.63vw;
+
+      p {
+        font-weight: 500;
+        margin-top: 1.04vw;
+      }
+      span {
+        font-weight: 700;
+      }
+    }
+  }
+
+  .retryButton {
+    @include m.button-click;
+    width: 4.01vw;
+    height: 1.15vw;
+    font-size: 0.52vw;
+    font-weight: 700;
+    color: white;
+    border: none;
+    background-color: $main-color1;
+    border-radius: 5.21vw;
+    padding: 0;
+  }
+
+  .makeButton {
+    @include m.button-click;
+    font-size: 1.25vw;
+    font-weight: 500;
+    color: $gray-400;
+    border-bottom: 0.1vw solid $gray-400;
+  }
+}

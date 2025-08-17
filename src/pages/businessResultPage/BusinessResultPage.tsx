@@ -1,15 +1,16 @@
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import s from "../styles/BusinessResultPage.module.scss";
-import RANK1 from "../../assets/images/result-first.svg";
-import RANK2 from "../../assets/images/result-second.svg";
-import RANK3 from "../../assets/images/result-third.svg";
+import RANK1 from "../../assets/images/result/result-first.svg";
+import RANK2 from "../../assets/images/result/result-second.svg";
+import RANK3 from "../../assets/images/result/result-third.svg";
 import BACK from "../../assets/images/icon/back-icon.svg";
 import RankItem from "./components/RankItem";
 import data1 from "../../data/businessResultDummy.json";
 import data2 from "../../data/businessDetailDummy.json";
 import ResultItem from "./components/ResultItem";
 import DetailButton from "./components/DetailButton";
+import ScrollTopButton from "../../components/ScrollTopButton";
 
 const BusinessResultPage = () => {
   const navigate = useNavigate();
@@ -79,6 +80,7 @@ const BusinessResultPage = () => {
           </div>
         </div>
       </div>
+      <ScrollTopButton />
     </div>
   );
 };

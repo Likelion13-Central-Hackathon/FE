@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import s from "./styles/IntroPage.module.scss";
 import { useNavigate } from "react-router-dom";
 import IntroLayout from "../components/IntroLayout";
-import TITLE from "../assets/images/second-logo.svg";
+import TITLE from "../assets/images/logo/second-logo.svg";
 import BasicButton from "../components/BasicButton";
 import EmailPWBox from "../components/EmailPWBox";
 
@@ -17,6 +17,7 @@ const FormIntroPage = () => {
     <IntroLayout
       title={TITLE}
       text={`지역의 미래는 창업에서 시작됩니다.\n당신의 가능성을 분석해 드립니다.`}
+      warningText={`정밀한 분석을 위해 최대한 구체적으로 질문에 응답해 주세요.\n입력하지 않은 정보는 미응답 처리가 되어 결과값의 영향을 미칠 수 있습니다.`}
     >
       {!showEmailPwBox ? (
         <div className={s.boxContainer1}>
