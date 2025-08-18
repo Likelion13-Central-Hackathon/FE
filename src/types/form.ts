@@ -1,13 +1,31 @@
 // 단계
 export type Step = "info" | "consider" | "base";
 
+// 학적 상태
+export type AcademicStatus =
+  | "ENROLLED"
+  | "LEAVE_OF_ABSENCE"
+  | "TRANSFER"
+  | "READMISSION";
+
+export const ACADEMIC_STATUS_OPTIONS: {
+  value: AcademicStatus;
+  label: string;
+}[] = [
+  { value: "ENROLLED", label: "재학" },
+  { value: "LEAVE_OF_ABSENCE", label: "휴학" },
+  { value: "TRANSFER", label: "편입" },
+  { value: "READMISSION", label: "재입학" },
+];
+
 // 폼 데이터
 export type FormData = {
   age: string;
-  region: string;
-  isCollege: boolean | null;
-  status: string | null;
-  university: string;
+  addressCity: string;
+  addressDistrict: string;
+  isEnrolled: boolean | null;
+  university: string | null;
+  academicStatus: AcademicStatus | null;
   selectedField: string | null;
   supportRanks: Record<string, RankCode>;
   careers: string | null;

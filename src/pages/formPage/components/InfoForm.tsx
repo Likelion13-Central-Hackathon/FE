@@ -3,18 +3,35 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import s from "./InfoForm.module.scss";
 import BasicButton from "../../../components/BasicButton";
 import StatusSelect from "../../../components/StatusSelect";
-import { StepComponentProps } from "../../../types/form";
 import {
-  STATUS_OPTIONS1,
-  REGION_OPTIONS,
-  SIGUNGU_MAP,
-} from "../../../data/formData";
+  ACADEMIC_STATUS_OPTIONS,
+  AcademicStatus,
+  StepComponentProps,
+} from "../../../types/form";
+import { REGION_OPTIONS, SIGUNGU_MAP } from "../../../data/formData";
 
 const InfoForm: React.FC<StepComponentProps> = ({
   data,
   updateForm,
   onNext,
 }) => {
+  const handleClickYes = () => {
+    // 재학
+    updateForm({
+      isEnrolled: true,
+      university: data.university ?? "",
+    });
+  };
+
+  const handleClickNo = () => {
+    // 비재학: 대학/학적 null
+    updateForm({
+      isEnrolled: false,
+      university: null,
+      academicStatus: null,
+    });
+  };
+
   return (
     <>
       <div className={s.questionbox}>
@@ -37,14 +54,18 @@ const InfoForm: React.FC<StepComponentProps> = ({
                   updateForm({ age: onlyNums });
                 }}
                 aria-label="나이"
+                inputMode="numeric"
               />
             </div>
 
             <div className={s.col}>
               <div className={s.subLabel}>사업장 주소</div>
               <RegionSelect
-                value={data.region}
-                onChange={(v) => updateForm({ region: v })}
+                city={data.addressCity || ""}
+                district={data.addressDistrict || ""}
+                onChange={(city, district) =>
+                  updateForm({ addressCity: city, addressDistrict: district })
+                }
                 placeholder="지역 선택하기"
                 options={[...REGION_OPTIONS]}
               />
@@ -58,27 +79,27 @@ const InfoForm: React.FC<StepComponentProps> = ({
           <div className={s.btnGroup}>
             <BasicButton
               text="예"
-              onClick={() => updateForm({ isCollege: true })}
+              onClick={handleClickYes}
               width="7.03125vw"
               height="2.1875vw"
-              active={data.isCollege === true}
+              active={data.isEnrolled === true}
               className={s.smallBtn}
-              aria-pressed={data.isCollege === true}
+              aria-pressed={data.isEnrolled === true}
             />
             <BasicButton
               text="아니오"
-              onClick={() => updateForm({ isCollege: false, status: null })}
+              onClick={handleClickNo}
               width="7.03125vw"
               height="2.1875vw"
-              active={data.isCollege === false}
+              active={data.isEnrolled === false}
               className={s.smallBtn}
-              aria-pressed={data.isCollege === false}
+              aria-pressed={data.isEnrolled === false}
             />
           </div>
         </div>
 
         {/* Q3 — 예일 때만 노출 */}
-        {data.isCollege === true && (
+        {data.isEnrolled === true && (
           <div className={s.q}>
             <label className={s.label}>
               어느 대학교에 다니고 계신가요? 학적상태도 알려주세요.
@@ -89,15 +110,15 @@ const InfoForm: React.FC<StepComponentProps> = ({
                 className={s.unv}
                 type="text"
                 placeholder="학교입력"
-                value={data.university}
+                value={data.university ?? ""}
                 onChange={(e) => updateForm({ university: e.target.value })}
                 aria-label="대학교"
               />
 
-              <StatusSelect
-                value={data.status}
-                onChange={(v) => updateForm({ status: v })}
-                options={STATUS_OPTIONS1 as unknown as string[]}
+              <StatusSelect<AcademicStatus>
+                value={data.academicStatus}
+                onChange={(v) => updateForm({ academicStatus: v })}
+                options={ACADEMIC_STATUS_OPTIONS}
               />
             </div>
           </div>
@@ -120,13 +141,15 @@ const InfoForm: React.FC<StepComponentProps> = ({
 
 /* ===== 지역 선택 드롭다운 (단일 선택) ===== */
 function RegionSelect({
-  value,
+  city,
+  district,
   onChange,
   placeholder = "지역 선택하기",
   options,
 }: {
-  value: string;
-  onChange: (v: string) => void;
+  city: string;
+  district: string;
+  onChange: (city: string, district: string) => void;
   placeholder?: string;
   options: string[];
 }) {
@@ -137,6 +160,17 @@ function RegionSelect({
   const [selectedSido, setSelectedSido] = useState<string | null>(null);
   const [selectedSigungu, setSelectedSigungu] = useState<string | null>(null);
   const [activeSido, setActiveSido] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (city) {
+      setSelectedSido(city);
+      setActiveSido(city);
+    } else {
+      setSelectedSido(null);
+      setActiveSido(null);
+    }
+    setSelectedSigungu(district || null);
+  }, [city, district]);
 
   useEffect(() => {
     const onDoc = (e: MouseEvent) => {
@@ -152,8 +186,8 @@ function RegionSelect({
       return selectedSigungu
         ? `${selectedSido} / ${selectedSigungu}`
         : selectedSido;
-    return value || placeholder;
-  }, [selectedSido, selectedSigungu, value, placeholder]);
+    return (city && district ? `${city} / ${district}` : "") || placeholder;
+  }, [selectedSido, selectedSigungu, city, district, placeholder]);
 
   const chooseSido = (sido: string) => {
     setSelectedSido(sido);
@@ -164,7 +198,7 @@ function RegionSelect({
   const chooseSigungu = (sgg: string) => {
     if (!selectedSido) return;
     setSelectedSigungu(sgg);
-    onChange(`${selectedSido} ${sgg}`);
+    onChange(selectedSido, sgg);
     setOpen(false);
   };
 
@@ -177,7 +211,9 @@ function RegionSelect({
     <div className={s.regionWrap} ref={ref}>
       <button
         type="button"
-        className={`${s.regionTrigger} ${value ? s.regionTriggerActive : ""}`}
+        className={`${s.regionTrigger} ${
+          city && district ? s.regionTriggerActive : ""
+        }`}
         onClick={() => setOpen((o) => !o)}
         aria-haspopup="listbox"
         aria-expanded={open}

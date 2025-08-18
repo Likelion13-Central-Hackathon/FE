@@ -1,9 +1,6 @@
-import type { FieldOpt, RankLabel, RankCode } from "../types/form";
+import { type FieldOpt, type RankLabel, type RankCode } from "../types/form";
 
 // ----- InfoForm.tsx
-// 상태 옵션
-export const STATUS_OPTIONS1 = ["휴학", "재학", "편입", "재입학"] as const;
-
 // 시/도 목록
 export const REGION_OPTIONS = [
   "서울특별시",
