@@ -5,13 +5,12 @@
   @include m.flex-row-double-center;
   position: relative;
   padding-left: 7.81vw;
-  aspect-ratio: 1920 / 1080;
-  background: url("../../assets/images/main-background.png") center/contain
-    no-repeat;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: top center;
   width: 100%;
+  height: 100vh;
+  background: url("../../assets/images/background/main-background.svg") top
+    center / cover no-repeat;
+  background-position: top center;
+  background-position: top center;
 
   // .titleContainer {
   //   padding-bottom: 3.13vw;

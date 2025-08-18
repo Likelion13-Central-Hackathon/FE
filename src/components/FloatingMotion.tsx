@@ -7,9 +7,16 @@ import IMG3 from "../assets/images/floating/floating3.png";
 import IMG4 from "../assets/images/floating/floating4.png";
 import CHAR from "../assets/images/floating/character.png";
 
-const FloatingMotion: React.FC = () => {
+interface FloatingProps {
+  mirrored: boolean;
+}
+
+const FloatingMotion: React.FC<FloatingProps> = ({ mirrored = false }) => {
   return (
-    <div className={s.wrapper}>
+    <div
+      className={s.wrapper}
+      style={{ transform: mirrored ? "scaleX(-1)" : "none" }}
+    >
       <div className={s.floatingWrapper}>
         <img
           src={IMG1}

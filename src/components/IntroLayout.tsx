@@ -32,7 +32,7 @@ const IntroLayout: React.FC<IntroProps> = ({
         </div>
         <div className={s.childrenWrapper}>{children}</div>
       </div>
-      <FloatingMotion />
+      <FloatingMotion mirrored={false} />
 
       {warningText && <div className={s.warningText}>{warningText}</div>}
     </div>

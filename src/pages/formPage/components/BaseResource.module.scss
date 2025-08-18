@@ -102,20 +102,10 @@
 .scaleWrap {
   display: flex;
   flex-direction: column;
-  flex: 1; /* 남은 높이 채움 */
-  min-height: 0; /* 자식 스크롤 가능하도록 */
-  /* 필요시 내부 스크롤을 원하면 아래 주석 해제
-  overflow: auto;
-  */
+  gap: 3.49vw;
 }
 
 /* ===== 하단 버튼 ===== */
-.groupFooter {
-  margin-bottom: 1.04vw;
-  flex-shrink: 0;
-  z-index: 1;
-}
-
 .footerBtns {
   display: flex;
   justify-content: center;

@@ -1,6 +1,6 @@
 import React from "react";
 import s from "./Report.module.scss";
-import CHART from "../../../assets/images/charts.svg";
+import CHART from "../../../assets/images/report/charts.svg";
 import { rotateArray, startMonthIndex } from "../../../utils/date";
 import { RecommendPlanProps } from "../../../types/report";
 import { planStepTitles } from "../../../data/planData";
