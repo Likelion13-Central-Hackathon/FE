@@ -11,12 +11,12 @@
 
   justify-content: center;
   align-items: flex-start;
-  overflow-x: hidden;
 
   @include m.flex-row-double-center;
 }
 
 .formBox {
+  position: relative;
   background: #fff;
   border-radius: 1.04vw;
   width: 38.54vw;
@@ -29,8 +29,8 @@
 
 .logo {
   position: absolute;
-  top: 12%;
-  left: 45%;
+  top: 3%;
+  left: 36%;
   width: 10.05vw;
   height: 2.03vw;
 }
