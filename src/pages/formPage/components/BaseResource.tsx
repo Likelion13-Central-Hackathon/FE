@@ -14,7 +14,6 @@ import {
   TEAM_OPTIONS,
   CAPITAL_OPTIONS,
   RESOURCES,
-  CARD_WIDTHS_BY_KEY,
   CARD_HEIGHT,
   RANK_OPTIONS,
 } from "../../../data/formData";
@@ -64,16 +63,12 @@ const BaseResource: React.FC<StepComponentProps> = ({
         key={r.key}
         className={styles.resourceCard}
         style={{
-          width: CARD_WIDTHS_BY_KEY[r.key] ?? "8.6vw",
           height: CARD_HEIGHT,
         }}
       >
         <div className={styles.resourceHead}>
           <div className={styles.resourceTitle}>{r.title}</div>
-          <div
-            className={styles.resourceDesc}
-            dangerouslySetInnerHTML={{ __html: r.desc }}
-          />
+          <div className={styles.resourceDesc}>{r.desc}</div>
         </div>
 
         <div className={styles.rankWrap}>
@@ -146,16 +141,8 @@ const BaseResource: React.FC<StepComponentProps> = ({
                 <h3 className={styles.label}>
                   자본 이외에도 활용가능한 자원이 있다면 알려주세요.
                 </h3>
-
                 <div className={styles.resourceGrid}>
-                  {/* 윗줄 (좌우 갭 2.76vw) */}
-                  <div className={styles.resourceRowTop}>
-                    {RESOURCES.slice(0, 3).map(renderCard)}
-                  </div>
-                  {/* 아랫줄 (좌우 갭 1.35vw) */}
-                  <div className={styles.resourceRowBottom}>
-                    {RESOURCES.slice(3, 6).map(renderCard)}
-                  </div>
+                  {RESOURCES.map(renderCard)}
                 </div>
               </section>
             </div>

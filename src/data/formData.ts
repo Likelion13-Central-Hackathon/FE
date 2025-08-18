@@ -993,13 +993,4 @@ export const RESOURCES: readonly {
   },
 ] as const;
 
-export const CARD_WIDTHS_BY_KEY: Readonly<Record<string, string>> = {
-  dev: "6.15vw",
-  design: "6.15vw",
-  marketing: "7.03vw",
-  network: "8.59vw",
-  space: "6.72vw",
-  knowledge: "6.89vw",
-} as const;
-
 export const CARD_HEIGHT = "5vw" as const;
