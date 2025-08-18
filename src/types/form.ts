@@ -8,16 +8,6 @@ export type AcademicStatus =
   | "TRANSFER"
   | "READMISSION";
 
-export const ACADEMIC_STATUS_OPTIONS: {
-  value: AcademicStatus;
-  label: string;
-}[] = [
-  { value: "ENROLLED", label: "재학" },
-  { value: "LEAVE_OF_ABSENCE", label: "휴학" },
-  { value: "TRANSFER", label: "편입" },
-  { value: "READMISSION", label: "재입학" },
-];
-
 // 폼 데이터
 export type FormData = {
   age: string;
@@ -26,11 +16,11 @@ export type FormData = {
   isEnrolled: boolean | null;
   university: string | null;
   academicStatus: AcademicStatus | null;
-  selectedField: string | null;
-  supportRanks: Record<string, RankCode>;
-  careers: string | null;
-  statuses: string | null;
-  itemText: string;
+  interestArea: string;
+  supportNeeds: Partial<Record<SupportKey, RankCode>>;
+  businessAge: BusinessAge | null;
+  stage: StartupStage | null;
+  description: string;
   team: string | null;
   capital: string | null;
   levels: Record<string, string>;
@@ -76,7 +66,21 @@ export type StepComponentProps = {
 export type RankLabel = "상" | "중" | "하" | "없음";
 export type RankCode = "HIGH" | "MEDIUM" | "LOW" | "NONE";
 
-export const RANK_LABELS: RankLabel[] = ["상", "중", "하", "없음"];
+// 업력
+export type BusinessAge =
+  | "PRE_STARTUP"
+  | "EARLY_STAGE"
+  | "GROWTH_STAGE"
+  | "NEW_INDUSTRY";
+
+// 현황
+export type StartupStage =
+  | "EXPLORATION"
+  | "PLANNING_VALIDATION"
+  | "PREPARATION"
+  | "IDEA"
+  | "EXECUTION"
+  | "GROWTH";
 
 // 사업 종류
 export type FieldOpt = {
@@ -86,3 +90,13 @@ export type FieldOpt = {
   subtitle?: string;
   order: number;
 };
+
+export type SupportKey =
+  | "facility"
+  | "rnd"
+  | "space"
+  | "mentor"
+  | "network"
+  | "finance"
+  | "hr"
+  | "global";

@@ -1,6 +1,23 @@
-import { type FieldOpt, type RankLabel, type RankCode } from "../types/form";
+import {
+  type FieldOpt,
+  type RankCode,
+  AcademicStatus,
+  StartupStage,
+  SupportKey,
+} from "../types/form";
 
 // ----- InfoForm.tsx
+// 학적 상태
+export const ACADEMIC_STATUS_OPTIONS: {
+  value: AcademicStatus;
+  label: string;
+}[] = [
+  { value: "ENROLLED", label: "재학" },
+  { value: "LEAVE_OF_ABSENCE", label: "휴학" },
+  { value: "TRANSFER", label: "편입" },
+  { value: "READMISSION", label: "재입학" },
+];
+
 // 시/도 목록
 export const REGION_OPTIONS = [
   "서울특별시",
@@ -265,36 +282,16 @@ export const SIGUNGU_MAP: Record<string, string[]> = {
 };
 
 // ----- ConsiderForm.tsx
-// 라벨 목록
-export const RANK_LABELS = [
-  "상",
-  "중",
-  "하",
-  "없음",
-] as const satisfies readonly RankLabel[];
-
-// 라벨 → 코드
-export const RANK_LABEL_TO_CODE: Record<RankLabel, RankCode> = {
-  상: "HIGH",
-  중: "MEDIUM",
-  하: "LOW",
-  없음: "NONE",
-};
-
-// 코드 → 라벨
-export const RANK_CODE_TO_LABEL: Record<RankCode, RankLabel> = {
-  HIGH: "상",
-  MEDIUM: "중",
-  LOW: "하",
-  NONE: "없음",
-};
-
-// 타입가드 (UI 입력 검증용)
-export const isRankLabel = (v: string): v is RankLabel =>
-  (RANK_LABELS as readonly string[]).includes(v);
+// 순위
+export const RANK_OPTIONS: readonly { value: RankCode; label: string }[] = [
+  { value: "HIGH", label: "상" },
+  { value: "MEDIUM", label: "중" },
+  { value: "LOW", label: "하" },
+  { value: "NONE", label: "없음" },
+] as const;
 
 // 사업 종류
-export const FIELD_OPTIONS = [
+export const FIELD_OPTIONS: readonly FieldOpt[] = [
   {
     id: "A-1",
     group: "A",
@@ -822,96 +819,121 @@ export const FIELD_OPTIONS = [
     subtitle: "국제 및 외국기관",
     order: 99,
   },
-] as const satisfies readonly FieldOpt[];
-
-export const SUPPORT_ITEMS = [
-  { key: "facility", label: "사업화" },
-  { key: "rnd", label: "기술개발(R&D)" },
-  { key: "space", label: "시설·공간·보육" },
-  { key: "mentor", label: "멘토링·컨설팅" },
-  { key: "network", label: "행사·네트워크" },
-  { key: "finance", label: "융자" },
-  { key: "hr", label: "인력" },
-  { key: "global", label: "글로벌" },
 ] as const;
 
-export type SupportKey = (typeof SUPPORT_ITEMS)[number]["key"];
+// 지원 순위
+export const SUPPORT_ITEMS = [
+  { key: "facility", value: "COMMERCIALIZATION", label: "사업화" },
+  { key: "rnd", value: "RND", label: "기술개발(R&D)" },
+  { key: "space", value: "FACILITY_INCUBATION", label: "시설·공간·보육" },
+  { key: "mentor", value: "MENTORING_CONSULTING", label: "멘토링·컨설팅" },
+  { key: "network", value: "EVENT_NETWORK", label: "행사·네트워크" },
+  { key: "finance", value: "LOAN", label: "융자" },
+  { key: "hr", value: "TALENT", label: "인력" },
+  { key: "global", value: "GLOBAL", label: "글로벌" },
+] as const satisfies readonly {
+  key: SupportKey;
+  value:
+    | "COMMERCIALIZATION"
+    | "RND"
+    | "FACILITY_INCUBATION"
+    | "MENTORING_CONSULTING"
+    | "EVENT_NETWORK"
+    | "LOAN"
+    | "TALENT"
+    | "GLOBAL";
+  label: string;
+}[];
 
 /* --- 창업 업력 옵션 --- */
 export const CAREER_OPTIONS = [
-  { label: "예비창업", width: "4.95vw" },
-  { label: "초기(3년 이내)", width: "6.46vw" },
-  { label: "도약기(4~7년이내)", width: "7.55vw" },
-  { label: "신산업(10년 이내)", width: "7.24vw" },
+  { label: "예비창업", value: "PRE_STARTUP", width: "4.95vw" },
+  { label: "초기(3년 이내)", value: "EARLY_STAGE", width: "6.46vw" },
+  { label: "도약기(4~7년이내)", value: "GROWTH_STAGE", width: "7.55vw" },
+  { label: "신산업(10년 이내)", value: "NEW_INDUSTRY", width: "7.24vw" },
 ] as const;
 
 /* --- 현재 창업 현황 버튼 --- */
 export const STATUS_OPTIONS2 = [
-  { label: "탐색단계 >", width: "3.80vw" },
-  { label: "기획&검증단계 >", width: "5.42vw" },
-  { label: "준비단계 >", width: "3.80vw" },
-  { label: "아이디어 단계 >", width: "5.00vw" },
-  { label: "실행단계 >", width: "3.80vw" },
-  { label: "성장단계 >", width: "3.80vw" },
+  {
+    label: "탐색단계 >",
+    value: "EXPLORATION",
+    width: "3.80vw" as StartupStage,
+  },
+  {
+    label: "기획&검증단계 >",
+    value: "PLANNING_VALIDATION",
+    width: "5.42vw" as StartupStage,
+  },
+  {
+    label: "준비단계 >",
+    value: "PREPARATION",
+    width: "3.80vw" as StartupStage,
+  },
+  { label: "아이디어 단계 >", value: "IDEA", width: "5.00vw" as StartupStage },
+  { label: "실행단계 >", value: "EXECUTION", width: "3.80vw" as StartupStage },
+  { label: "성장단계 >", value: "GROWTH", width: "3.80vw" as StartupStage },
 ] as const;
 
 /* --- 상태 안내 모달 콘텐츠 --- */
-export const STATUS_MODAL: Record<string, { title: string; lines: string[] }> =
-  {
-    "탐색단계 >": {
-      title: "탐색 단계",
-      lines: [
-        "창업에 대한 막연한 관심.",
-        "다양한 정보 탐색 (온라인 콘텐츠, 교육 등).",
-        "창업 분야/아이템에 대한 고민 시작.",
-      ],
-    },
-    "기획&검증단계 >": {
-      title: "기획 & 검증 단계 (Pre-BM)",
-      lines: [
-        "시장조사, 경쟁사 분석, 고객 인터뷰.",
-        "비즈니스 모델(BM) 구체화.",
-        "간단한 MVP 또는 프로토타입 제작.",
-        "피드백 및 수정 반복",
-      ],
-    },
-    "준비단계 >": {
-      title: "준비 단계 (Pre-startup)",
-      lines: [
-        "시장조사, 경쟁사 분석, 고객 인터뷰.",
-        "비즈니스 모델(BM) 구체화.",
-        "간단한 MVP 또는 프로토타입 제작.",
-        "피드백 및 수정 반복",
-      ],
-    },
-    "아이디어 단계 >": {
-      title: "아이디어 단계",
-      lines: [
-        "창업 아이템 발굴 또는 브레인 스토밍",
-        "시장 문제나 고객 니즈 정의.",
-        "창업동아리, 커뮤니티 등 참여.",
-      ],
-    },
-    "실행단계 >": {
-      title: "실행 단계 (사업화)",
-      lines: [
-        "사업자 등록 또는 법인설립.",
-        "제품/서비스 정식 출시.",
-        "마케팅 및 고객 확보.",
-        "매출 발생 시도, 초기 운영.",
-        "후속 투자, 파트너십, 유통망 구축 등.",
-      ],
-    },
-    "성장단계 >": {
-      title: "성장 단계 (초기 운영 이후)",
-      lines: [
-        "제품 개선/확장.",
-        "브랜드 구축.",
-        "후속 투자 유치, 스케일업.",
-        "채용, 조직화 등 내부 시스템 구축.",
-      ],
-    },
-  };
+export const STATUS_MODAL_BY_STAGE: Record<
+  StartupStage,
+  { title: string; lines: string[] }
+> = {
+  EXPLORATION: {
+    title: "탐색 단계",
+    lines: [
+      "창업에 대한 막연한 관심.",
+      "다양한 정보 탐색 (온라인 콘텐츠, 교육 등).",
+      "창업 분야/아이템에 대한 고민 시작.",
+    ],
+  },
+  PLANNING_VALIDATION: {
+    title: "기획 & 검증 단계 (Pre-BM)",
+    lines: [
+      "시장조사, 경쟁사 분석, 고객 인터뷰.",
+      "비즈니스 모델(BM) 구체화.",
+      "간단한 MVP 또는 프로토타입 제작.",
+      "피드백 및 수정 반복",
+    ],
+  },
+  PREPARATION: {
+    title: "준비 단계 (Pre-startup)",
+    lines: [
+      "시장조사, 경쟁사 분석, 고객 인터뷰.",
+      "비즈니스 모델(BM) 구체화.",
+      "간단한 MVP 또는 프로토타입 제작.",
+      "피드백 및 수정 반복",
+    ],
+  },
+  IDEA: {
+    title: "아이디어 단계",
+    lines: [
+      "창업 아이템 발굴 또는 브레인 스토밍",
+      "시장 문제나 고객 니즈 정의.",
+      "창업동아리, 커뮤니티 등 참여.",
+    ],
+  },
+  EXECUTION: {
+    title: "실행 단계 (사업화)",
+    lines: [
+      "사업자 등록 또는 법인설립.",
+      "제품/서비스 정식 출시.",
+      "마케팅 및 고객 확보.",
+      "매출 발생 시도, 초기 운영.",
+      "후속 투자, 파트너십, 유통망 구축 등.",
+    ],
+  },
+  GROWTH: {
+    title: "성장 단계 (초기 운영 이후)",
+    lines: [
+      "제품 개선/확장.",
+      "브랜드 구축.",
+      "후속 투자 유치, 스케일업.",
+      "채용, 조직화 등 내부 시스템 구축.",
+    ],
+  },
+};
 
 // ----- BaseResource.tsx
 export type Resource = { key: string; title: string; desc: string };

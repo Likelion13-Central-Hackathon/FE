@@ -3,18 +3,20 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./ConsiderForm.module.scss";
 import BasicButton from "../../../components/BasicButton";
 import StatusSelect from "../../../components/StatusSelect";
-import type { StepComponentProps, FieldOpt } from "../../../types/form";
+import type {
+  StepComponentProps,
+  FieldOpt,
+  RankCode,
+  StartupStage,
+  SupportKey,
+} from "../../../types/form";
 import {
   FIELD_OPTIONS,
   SUPPORT_ITEMS,
   CAREER_OPTIONS,
   STATUS_OPTIONS2,
-  STATUS_MODAL,
-  RANK_LABELS as RO,
-  RANK_LABEL_TO_CODE as L2C,
-  RANK_CODE_TO_LABEL as C2L,
-  isRankLabel,
-  type SupportKey,
+  RANK_OPTIONS,
+  STATUS_MODAL_BY_STAGE,
 } from "../../../data/formData";
 
 import CR1 from "../../../assets/images/form/consider-resource1.svg";
@@ -37,7 +39,7 @@ const ICON_MAP: Record<SupportKey, string> = {
   global: CR8,
 };
 
-/* ===== 분야 단일 드롭다운 (강화 버전) ===== */
+/* ===== 분야 드롭다운 ===== */
 function FieldSelect({
   value,
   onChange,
@@ -231,26 +233,43 @@ const ConsiderForm: React.FC<StepComponentProps> = ({
 }) => {
   // UI용 모달 상태
   const [statusModalOpen, setStatusModalOpen] = useState(false);
-  const [pendingStatus, setPendingStatus] = useState<string | null>(null);
+  const [pendingStage, setPendingStage] = useState<StartupStage | null>(null);
 
-  const onRankChange = (key: string, label: string) => {
-    if (!isRankLabel(label)) return;
-    updateForm({ supportRanks: { ...data.supportRanks, [key]: L2C[label] } });
+  // interestArea를 -> option id
+  const selectedFieldId = useMemo(() => {
+    const m = FIELD_OPTIONS.find(
+      (o) => o.subtitle === data.interestArea || o.title === data.interestArea
+    );
+    return m?.id ?? null;
+  }, [data.interestArea]);
+
+  // 분야 선택 시 id를 area로 저장
+  const onSelectField = (id: string) => {
+    const opt = FIELD_OPTIONS.find((o) => o.id === id);
+    const area = (opt?.subtitle || opt?.title || "").trim();
+    updateForm({ interestArea: area });
   };
 
-  const onStatusClick = (label: string) => {
-    setPendingStatus(label);
+  // 지원 필요도: RankCode
+  const onRankChange = (key: SupportKey, code: RankCode) => {
+    updateForm({ supportNeeds: { ...(data.supportNeeds ?? {}), [key]: code } });
+  };
+
+  // 모달 열기
+  const onStatusClick = (stage: StartupStage) => {
+    setPendingStage(stage);
     setStatusModalOpen(true);
   };
 
+  // 모달 확인시 라벨 → enum 변환 후 저장
   const confirmStatus = () => {
-    if (pendingStatus) updateForm({ statuses: pendingStatus });
+    if (!pendingStage) return;
+    updateForm({ stage: pendingStage });
     setStatusModalOpen(false);
-    setPendingStatus(null);
+    setPendingStage(null);
   };
 
   const handleNext = () => {
-    // 검증/전처리가 필요하면 여기에서 수행
     onNext?.();
   };
 
@@ -266,8 +285,8 @@ const ConsiderForm: React.FC<StepComponentProps> = ({
               어떤 분야에서 창업을 고려하고 있는지 알려주세요.
             </p>
             <FieldSelect
-              value={data.selectedField}
-              onChange={(id) => updateForm({ selectedField: id })}
+              value={selectedFieldId}
+              onChange={onSelectField}
               options={FIELD_OPTIONS}
             />
           </section>
@@ -285,18 +304,13 @@ const ConsiderForm: React.FC<StepComponentProps> = ({
                   </div>
                   <div className={styles.supportLabel}>{it.label}</div>
                   <div className={styles.rankWrap}>
-                    <StatusSelect
-                      value={
-                        data.supportRanks[it.key]
-                          ? C2L[data.supportRanks[it.key]]
-                          : null
-                      }
-                      onChange={(v) => onRankChange(it.key, v)}
-                      options={[...RO] as unknown as string[]}
+                    <StatusSelect<RankCode>
+                      value={data.supportNeeds?.[it.key] ?? null}
+                      onChange={(code) => onRankChange(it.key, code)}
+                      options={RANK_OPTIONS}
                       placeholder="순위"
                       width="3.65vw"
                       height="1.15vw"
-                      menuZIndex={10000}
                     />
                   </div>
                 </div>
@@ -312,10 +326,11 @@ const ConsiderForm: React.FC<StepComponentProps> = ({
                 <BasicButton
                   key={c.label}
                   text={c.label}
-                  active={data.careers === c.label}
+                  active={data.businessAge === c.value}
                   onClick={() =>
                     updateForm({
-                      careers: data.careers === c.label ? null : c.label,
+                      businessAge:
+                        data.businessAge === c.value ? null : c.value,
                     })
                   }
                   width={c.width}
@@ -332,10 +347,10 @@ const ConsiderForm: React.FC<StepComponentProps> = ({
             <div className={styles.chipRow}>
               {STATUS_OPTIONS2.map((st) => (
                 <BasicButton
-                  key={st.label}
+                  key={st.value}
                   text={st.label}
-                  active={data.statuses === st.label}
-                  onClick={() => onStatusClick(st.label)}
+                  active={data.stage === st.value}
+                  onClick={() => onStatusClick(st.value)}
                   width={st.width}
                   height="1.67vw"
                   className={styles.smallFontBtn}
@@ -352,8 +367,8 @@ const ConsiderForm: React.FC<StepComponentProps> = ({
               placeholder={
                 "본 지원사업을 통해 개발 또는 구체화하고자 하는 제품·서비스 개요(사용 용도, 사양, 가격 등), \n핵심 기능·성능, 고객 제공 혜택 등\n※ 예시 : 가벼움(고객 제공 혜택)을 위해서 용량을 줄이는 재료(핵심 기능)를 사용"
               }
-              value={data.itemText}
-              onChange={(e) => updateForm({ itemText: e.target.value })}
+              value={data.description}
+              onChange={(e) => updateForm({ description: e.target.value })}
             />
           </section>
         </div>
@@ -381,20 +396,20 @@ const ConsiderForm: React.FC<StepComponentProps> = ({
       </footer>
 
       {/* ===== 상태 안내 모달 ===== */}
-      {statusModalOpen && pendingStatus && (
+      {statusModalOpen && pendingStage && (
         <div
           className={styles.modalOverlay}
           onClick={() => {
             setStatusModalOpen(false);
-            setPendingStatus(null);
+            setPendingStage(null);
           }}
         >
           <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
             <div className={styles.modalTitle}>
-              {STATUS_MODAL[pendingStatus].title}
+              {STATUS_MODAL_BY_STAGE[pendingStage].title}
             </div>
             <div className={styles.modalBody}>
-              {STATUS_MODAL[pendingStatus].lines.map((t, i) => (
+              {STATUS_MODAL_BY_STAGE[pendingStage].lines.map((t, i) => (
                 <div key={i} className={styles.modalLine}>
                   • {t}
                 </div>

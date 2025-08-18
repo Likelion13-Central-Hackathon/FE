@@ -3,12 +3,12 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import s from "./InfoForm.module.scss";
 import BasicButton from "../../../components/BasicButton";
 import StatusSelect from "../../../components/StatusSelect";
+import { AcademicStatus, StepComponentProps } from "../../../types/form";
 import {
   ACADEMIC_STATUS_OPTIONS,
-  AcademicStatus,
-  StepComponentProps,
-} from "../../../types/form";
-import { REGION_OPTIONS, SIGUNGU_MAP } from "../../../data/formData";
+  REGION_OPTIONS,
+  SIGUNGU_MAP,
+} from "../../../data/formData";
 
 const InfoForm: React.FC<StepComponentProps> = ({
   data,
