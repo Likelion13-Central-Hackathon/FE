@@ -47,6 +47,15 @@ const BaseResource: React.FC<StepComponentProps> = ({
     updateForm({ resources: next });
   };
 
+  // 필수값 충족 여부, 다음 버튼 활성 조건
+  const canSubmit = !!data.teamSize && !!data.capital;
+  const disableNext = !canSubmit;
+
+  const handleNext = () => {
+    if (!canSubmit) return;
+    onNext?.();
+  };
+
   // 카드 렌더러
   const renderCard = (r: Resource) => {
     const v = (data.resources?.[r.key] ?? null) as RankCode | null;
@@ -162,10 +171,11 @@ const BaseResource: React.FC<StepComponentProps> = ({
                 />
                 <BasicButton
                   text="다음"
-                  onClick={onNext}
+                  onClick={handleNext}
                   width="5.26vw"
                   height="1.93vw"
                   className={styles.smallBtn}
+                  disabled={disableNext}
                 />
               </div>
             </footer>

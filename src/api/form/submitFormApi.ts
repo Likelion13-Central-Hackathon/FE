@@ -10,7 +10,7 @@ const submitFormApi = async (
 ): Promise<IdeaCreateResult | null> => {
   try {
     const res = await defaultInstance.post<ApiEnvelope<IdeaCreateResult>>(
-      "/idea",
+      "/ideas",
       body
     );
     const { httpStatus, isSuccess, data, message } = res.data;

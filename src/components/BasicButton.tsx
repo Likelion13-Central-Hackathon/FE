@@ -26,7 +26,9 @@ const BasicButton: React.FC<ButtonProps> = ({
 
   return (
     <button
-      className={`${s.button} ${active ? s.active : ""} ${className}`}
+      className={`${s.button} ${active ? s.active : ""} ${
+        disabled ? s.disabled : ""
+      } ${className}`}
       style={style}
       onClick={onClick}
       disabled={disabled}

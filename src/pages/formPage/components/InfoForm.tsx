@@ -32,6 +32,29 @@ const InfoForm: React.FC<StepComponentProps> = ({
     });
   };
 
+  // 필수값 충족 여부
+  const ageOk = useMemo(() => {
+    const onlyNums = String(data.age ?? "").trim();
+    return /^[0-9]+$/.test(onlyNums) && Number(onlyNums) > 0;
+  }, [data.age]);
+
+  const addrOk = !!data.addressCity && !!data.addressDistrict; // 주소
+  const enrolledChosen = data.isEnrolled !== null; // 재학 여부
+  const universityOk =
+    data.isEnrolled === true ? !!data.university?.trim() : true; // 대학명
+  const statusOk =
+    data.isEnrolled === true ? data.academicStatus !== null : true; // 학적 상태
+
+  // 다음 버튼 활성 조건
+  const canProceed =
+    ageOk && addrOk && enrolledChosen && universityOk && statusOk;
+  const disableNext = !canProceed;
+
+  const handleNext = () => {
+    if (!canProceed) return;
+    onNext?.();
+  };
+
   return (
     <>
       <div className={s.questionbox}>
@@ -129,9 +152,10 @@ const InfoForm: React.FC<StepComponentProps> = ({
       <div className={s.nextBtnWrapper}>
         <BasicButton
           text="다음"
-          onClick={onNext}
+          onClick={handleNext}
           width="5.26vw"
           height="1.92vw"
+          disabled={disableNext}
           className={s.smallBtn}
         />
       </div>

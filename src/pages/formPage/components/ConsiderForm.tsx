@@ -224,7 +224,6 @@ function FieldSelect({
   );
 }
 
-/* ===== 본 컴포넌트 ===== */
 const ConsiderForm: React.FC<StepComponentProps> = ({
   data,
   updateForm,
@@ -264,11 +263,28 @@ const ConsiderForm: React.FC<StepComponentProps> = ({
     setPendingStage(null);
   };
 
+  // 필수값 충족 여부
+  const hasInterest = useMemo(
+    () => !!data.interestArea?.trim(),
+    [data.interestArea]
+  );
+  const hasBusinessAge = data.businessAge !== null; // 업력
+  const hasStage = data.stage !== null; // 현황
+  const hasDescription = useMemo(
+    // 아이템 설명
+    () => data.description.trim().length > 0,
+    [data.description]
+  );
+
+  // 다음 버튼 활성 조건
+  const canProceed =
+    hasInterest && hasBusinessAge && hasStage && hasDescription;
+  const disableNext = !canProceed;
+
   const handleNext = () => {
+    if (!canProceed) return;
     onNext?.();
   };
-
-  const disableNext = useMemo(() => false, []);
 
   return (
     <>
