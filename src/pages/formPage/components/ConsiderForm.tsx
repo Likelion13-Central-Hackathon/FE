@@ -29,14 +29,14 @@ import CR7 from "../../../assets/images/form/consider-resource7.svg";
 import CR8 from "../../../assets/images/form/consider-resource8.svg";
 
 const ICON_MAP: Record<SupportKey, string> = {
-  facility: CR1,
-  rnd: CR2,
-  space: CR3,
-  mentor: CR4,
-  network: CR5,
-  finance: CR6,
-  hr: CR7,
-  global: CR8,
+  COMMERCIALIZATION: CR1,
+  RND: CR2,
+  FACILITY_INCUBATION: CR3,
+  MENTORING_CONSULTING: CR4,
+  EVENT_NETWORK: CR5,
+  LOAN: CR6,
+  TALENT: CR7,
+  GLOBAL: CR8,
 };
 
 /* ===== 분야 드롭다운 ===== */
@@ -250,11 +250,6 @@ const ConsiderForm: React.FC<StepComponentProps> = ({
     updateForm({ interestArea: area });
   };
 
-  // 지원 필요도: RankCode
-  const onRankChange = (key: SupportKey, code: RankCode) => {
-    updateForm({ supportNeeds: { ...(data.supportNeeds ?? {}), [key]: code } });
-  };
-
   // 모달 열기
   const onStatusClick = (stage: StartupStage) => {
     setPendingStage(stage);
@@ -306,7 +301,14 @@ const ConsiderForm: React.FC<StepComponentProps> = ({
                   <div className={styles.rankWrap}>
                     <StatusSelect<RankCode>
                       value={data.supportNeeds?.[it.key] ?? null}
-                      onChange={(code) => onRankChange(it.key, code)}
+                      onChange={(code) =>
+                        updateForm({
+                          supportNeeds: {
+                            ...(data.supportNeeds ?? {}),
+                            [it.key]: code,
+                          },
+                        })
+                      }
                       options={RANK_OPTIONS}
                       placeholder="순위"
                       width="3.65vw"

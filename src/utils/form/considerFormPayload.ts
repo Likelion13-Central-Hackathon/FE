@@ -3,15 +3,14 @@ import type {
   RankCode,
   BusinessAge,
   StartupStage,
+  SupportKey,
 } from "../../types/form";
 import { SUPPORT_ITEMS } from "../../data/formData";
-
-export type SupportApiKey = (typeof SUPPORT_ITEMS)[number]["value"];
 
 // 이 파일이 반환하는 페이로드 타입
 export type ConsiderPayload = {
   interestArea: string;
-  supportNeeds: Record<SupportApiKey, RankCode>;
+  supportNeeds: Record<SupportKey, RankCode>;
   businessAge: BusinessAge;
   stage: StartupStage;
   description: string;
@@ -48,12 +47,14 @@ export function considerFormPayload(data: FormData): ConsiderPayload {
     throw new Error("창업 아이템 설명을 입력해주세요.");
   }
 
-  const supportNeeds = SUPPORT_ITEMS.reduce((acc, it) => {
-    const apiKey = it.value as SupportApiKey;
-    const code: RankCode = (data.supportNeeds?.[it.key] ?? "NONE") as RankCode;
-    acc[apiKey] = code;
-    return acc;
-  }, {} as Record<SupportApiKey, RankCode>);
+  // 지원 순위
+  const supportNeeds = SUPPORT_ITEMS.reduce<Record<SupportKey, RankCode>>(
+    (acc, it) => {
+      acc[it.key] = data.supportNeeds?.[it.key] ?? "NONE";
+      return acc;
+    },
+    {} as Record<SupportKey, RankCode>
+  );
 
   return {
     interestArea,

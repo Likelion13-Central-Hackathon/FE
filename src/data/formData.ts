@@ -2,8 +2,11 @@ import {
   type FieldOpt,
   type RankCode,
   AcademicStatus,
+  CapitalScale,
+  ResourceKey,
   StartupStage,
   SupportKey,
+  TeamSize,
 } from "../types/form";
 
 // ----- InfoForm.tsx
@@ -823,27 +826,15 @@ export const FIELD_OPTIONS: readonly FieldOpt[] = [
 
 // 지원 순위
 export const SUPPORT_ITEMS = [
-  { key: "facility", value: "COMMERCIALIZATION", label: "사업화" },
-  { key: "rnd", value: "RND", label: "기술개발(R&D)" },
-  { key: "space", value: "FACILITY_INCUBATION", label: "시설·공간·보육" },
-  { key: "mentor", value: "MENTORING_CONSULTING", label: "멘토링·컨설팅" },
-  { key: "network", value: "EVENT_NETWORK", label: "행사·네트워크" },
-  { key: "finance", value: "LOAN", label: "융자" },
-  { key: "hr", value: "TALENT", label: "인력" },
-  { key: "global", value: "GLOBAL", label: "글로벌" },
-] as const satisfies readonly {
-  key: SupportKey;
-  value:
-    | "COMMERCIALIZATION"
-    | "RND"
-    | "FACILITY_INCUBATION"
-    | "MENTORING_CONSULTING"
-    | "EVENT_NETWORK"
-    | "LOAN"
-    | "TALENT"
-    | "GLOBAL";
-  label: string;
-}[];
+  { key: "COMMERCIALIZATION", label: "사업화" },
+  { key: "RND", label: "기술개발(R&D)" },
+  { key: "FACILITY_INCUBATION", label: "시설·공간·보육" },
+  { key: "MENTORING_CONSULTING", label: "멘토링·컨설팅" },
+  { key: "EVENT_NETWORK", label: "행사·네트워크" },
+  { key: "LOAN", label: "융자" },
+  { key: "TALENT", label: "인력" },
+  { key: "GLOBAL", label: "글로벌" },
+] as const satisfies readonly { key: SupportKey; label: string }[];
 
 /* --- 창업 업력 옵션 --- */
 export const CAREER_OPTIONS = [
@@ -938,68 +929,65 @@ export const STATUS_MODAL_BY_STAGE: Record<
 // ----- BaseResource.tsx
 export type Resource = { key: string; title: string; desc: string };
 
+// 팀
 export const TEAM_OPTIONS = [
-  "1-2명",
-  "3-5명",
-  "6-10명",
-  "11-20명",
-  "팀원 모집중",
-] as const;
-export const TEAM_WIDTHS = [
-  "4.43vw",
-  "4.53vw",
-  "4.84vw",
-  "5.05vw",
-  "5.63vw",
+  { label: "1-2명", value: "SIZE_1_2" as TeamSize, width: "4.43vw" },
+  { label: "3-5명", value: "SIZE_3_5" as TeamSize, width: "4.53vw" },
+  { label: "6-10명", value: "SIZE_6_10" as TeamSize, width: "4.84vw" },
+  { label: "11-20명", value: "SIZE_11_20" as TeamSize, width: "5.05vw" },
+  { label: "팀원 모집중", value: "RECRUITING" as TeamSize, width: "5.63vw" },
 ] as const;
 
+// 자본
 export const CAPITAL_OPTIONS = [
-  "100만원 이내",
-  "300만원 이내",
-  "500만원 이내",
-  "1,000만원 이내",
-  "1,000만원 이상",
-  "무자본",
-] as const;
-export const CAPITAL_WIDTHS = [
-  "6.15vw",
-  "6.25vw",
-  "6.25vw",
-  "6.67vw",
-  "6.67vw",
-  "4.43vw",
-] as const;
-
-export const LEVEL_OPTIONS = ["상", "중", "하", "없음"] as const;
-
-export const RESOURCES: readonly Resource[] = [
+  { label: "100만원 이내", value: "UNDER_1M" as CapitalScale, width: "6.15vw" },
+  { label: "300만원 이내", value: "UNDER_3M" as CapitalScale, width: "6.25vw" },
+  { label: "500만원 이내", value: "UNDER_5M" as CapitalScale, width: "6.25vw" },
   {
-    key: "dev",
+    label: "1,000만원 이내",
+    value: "UNDER_10M" as CapitalScale,
+    width: "6.67vw",
+  },
+  {
+    label: "1,000만원 이상",
+    value: "OVER_10M" as CapitalScale,
+    width: "6.67vw",
+  },
+  { label: "무자본", value: "NONE" as CapitalScale, width: "4.43vw" },
+] as const;
+
+export const RESOURCES: readonly {
+  key: ResourceKey;
+  title: string;
+  desc: string;
+}[] = [
+  {
+    key: "TECH_CAPABILITY",
     title: "기술·개발 역량",
     desc: "앱 및 웹 개발, 데이터 분석,\n제품개발",
   },
   {
-    key: "design",
+    key: "DESIGN_CAPABILITY",
     title: "디자인 역량",
     desc: "로고, 패키지, 상세페이지\nUX/UI, 영상제작, 홍보물",
   },
   {
-    key: "marketing",
+    key: "MARKETING_CHANNEL",
     title: "홍보·마케팅 채널",
     desc: "로고, 패키지, 상세페이지\nUX/UI, 영상제작, 홍보물",
   },
   {
-    key: "network",
+    key: "HUMAN_NETWORK",
     title: "인적자원 및 네트워크",
     desc: "협업이 가능한 팀원&멘토\n전문가 및 창업자 네트워크",
   },
   {
-    key: "space",
+    key: "SPACE_EQUIPMENT",
     title: "공간·장비",
     desc: "협업이 가능한 팀원&멘토\n전문가 및 창업자 네트워크",
   },
   {
-    key: "knowledge",
+    key: "KNOWLEDGE_EXPERIENCE",
     title: "지식·경험",
     desc: "특정산업의 경험\n(전공, 활동, 경력) 및 전문지식",
   },
