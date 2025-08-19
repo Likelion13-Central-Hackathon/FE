@@ -47,4 +47,10 @@ export type ItemHandle = {
 // DocumentItem props (RevisingTitle + PDF 내보내기 콜백)
 export type DocumentItemProps = RevisingTitle & {
   onExportAll?: () => void;
+  onRequireWarn?: () => void
+};
+
+export type ExtraProps = {
+  getAiAnswer?: () => string;
+  onRequireWarn?: () => void;
 };

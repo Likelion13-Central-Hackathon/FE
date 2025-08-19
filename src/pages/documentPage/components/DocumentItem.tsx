@@ -11,8 +11,12 @@ import type {
   QuestionsBoxHandle,
 } from "../../../types/document";
 
-const DocumentItem = forwardRef<ItemHandle, DocumentItemProps>(
-  ({ title, explanation, onExportAll }, ref) => {
+type Props = DocumentItemProps & {
+  onRequireWarn?: () => void;
+};
+
+const DocumentItem = forwardRef<ItemHandle, Props>(
+  ({ title, explanation, onExportAll, onRequireWarn }, ref) => {
     const revisingRef = useRef<RevisingBoxHandle>(null);
     const questionsRef = useRef<QuestionsBoxHandle>(null);
 
@@ -43,7 +47,13 @@ const DocumentItem = forwardRef<ItemHandle, DocumentItemProps>(
           <RevisingBox ref={revisingRef} title={title} explanation={explanation} />
         </div>
 
-        <QuestionsBox ref={questionsRef} questions={data.data} />
+         <QuestionsBox
+        ref={questionsRef}
+        questions={data.data}
+        getAiAnswer={() => revisingRef.current?.getAiAnswer?.() ?? ""}
+        onRequireWarn={onRequireWarn}
+      />
+
       </div>
     );
   }

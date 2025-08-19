@@ -3,10 +3,13 @@ import s from "./Document.module.scss";
 import b from "../../../components/styles/Box.module.scss";
 import ReportOutBox from "../../../components/ReportOutBox";
 import ReportInBox from "../../../components/ReportInBox";
-import type { QuestionsBoxProps, QuestionsBoxHandle } from "../../../types/document";
+import type { QuestionsBoxProps, QuestionsBoxHandle,ExtraProps } from "../../../types/document";
+import WarningModal from "../../../components/WarningModal";
 
-const QuestionsBox = forwardRef<QuestionsBoxHandle, QuestionsBoxProps>(({ questions }, ref) => {
-  const [started, setStarted] = useState(false);
+const QuestionsBox = forwardRef<QuestionsBoxHandle, QuestionsBoxProps & ExtraProps>(
+  ({ questions, getAiAnswer, onRequireWarn }, ref) => {  
+    const [started, setStarted] = useState(false);
+  const [showWarn, setShowWarn] = useState(false);   
 
   useImperativeHandle(ref, () => ({
     getVisibleQA: () =>
@@ -16,7 +19,15 @@ const QuestionsBox = forwardRef<QuestionsBoxHandle, QuestionsBoxProps>(({ questi
       })),
   }));
 
-  const handleStart = () => setStarted(true);
+  const handleStart = () => {
+    const ai = (getAiAnswer?.() ?? "").trim();
+    if (!ai) {
+      onRequireWarn?.();          
+      return;
+    }
+    setStarted(true);
+  };
+
   const handleRetry = () => {
     console.log("질문 다시 요청");
   };
@@ -59,6 +70,7 @@ const QuestionsBox = forwardRef<QuestionsBoxHandle, QuestionsBoxProps>(({ questi
             </div>
           )}
         </ReportInBox>
+        {showWarn && <WarningModal onClose={() => setShowWarn(false)} />}
       </ReportOutBox>
     </div>
   );

@@ -14,6 +14,7 @@ const RevisingBox = forwardRef<RevisingBoxHandle, RevisingTitle>(
     const [userAnswer, setUserAnswer] = useState<string>("");
     const [aiAnswer, setAiAnswer] = useState<string>("");
     const [rotating, setRotating] = useState<boolean>(false);
+    const isDisabled = userAnswer.trim().length === 0;
 
     useImperativeHandle(ref, () => ({
       getUserAnswer: () => userAnswer,
@@ -25,6 +26,7 @@ const RevisingBox = forwardRef<RevisingBoxHandle, RevisingTitle>(
     };
 
     const handleRevising = () => {
+      if (isDisabled) return;
       setRotating(true);
       setTimeout(() => setRotating(false), 1000);
       if (data.isSuccess && data.data?.aiAnswer) {
@@ -76,6 +78,8 @@ const RevisingBox = forwardRef<RevisingBoxHandle, RevisingTitle>(
                     height="1.67vw"
                     text="첨삭받기"
                     onClick={handleRevising}
+                    disabled={isDisabled}
+                    aria-disabled={isDisabled}
                   />
                 </div>
 
