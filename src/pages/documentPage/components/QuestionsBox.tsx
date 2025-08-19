@@ -3,11 +3,7 @@ import s from "./Document.module.scss";
 import b from "../../../components/styles/Box.module.scss";
 import ReportOutBox from "../../../components/ReportOutBox";
 import ReportInBox from "../../../components/ReportInBox";
-import { QuestionsBoxProps } from "../../../types/document";
-
-export type QuestionsBoxHandle = {
-  getVisibleQA: () => { question: string; answer: string }[];
-};
+import type { QuestionsBoxProps, QuestionsBoxHandle } from "../../../types/document";
 
 const QuestionsBox = forwardRef<QuestionsBoxHandle, QuestionsBoxProps>(({ questions }, ref) => {
   const [started, setStarted] = useState(false);

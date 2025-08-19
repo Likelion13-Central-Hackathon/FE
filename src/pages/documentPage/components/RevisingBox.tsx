@@ -7,17 +7,12 @@ import BasicButton from "../../../components/BasicButton";
 import RETURN from "../../../assets/images/return-button.png";
 import GradientBox from "../../../components/GradientBox";
 import data from "../../../data/aiRevisingData.json";
-import { RevisingTitle } from "../../../data/revisingTitleData";
-
-export type RevisingBoxHandle = {
-  getUserAnswer: () => string;
-  getAiAnswer: () => string;
-};
+import type { RevisingBoxHandle, RevisingTitle } from "../../../types/document";
 
 const RevisingBox = forwardRef<RevisingBoxHandle, RevisingTitle>(
   ({ title, explanation }, ref) => {
-    const [userAnswer, setUserAnswer] = useState<string>("");  
-    const [aiAnswer, setAiAnswer] = useState<string>("");      
+    const [userAnswer, setUserAnswer] = useState<string>("");
+    const [aiAnswer, setAiAnswer] = useState<string>("");
     const [rotating, setRotating] = useState<boolean>(false);
 
     useImperativeHandle(ref, () => ({
