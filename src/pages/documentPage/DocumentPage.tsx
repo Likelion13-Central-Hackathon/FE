@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, useMemo, useCallback } from "react";
 import s from "../styles/DocumentPage.module.scss";
-import DocumentItem, { ItemHandle } from "./components/DocumentItem";
+import DocumentItem from "./components/DocumentItem";
+import type { ItemHandle } from "../../types/document";
 import { revisingTitles } from "../../data/revisingTitleData";
 import RightOrbit from "../../components/RightOrbit";
 import { BASE_LABELS, BASE_POSITION } from "../../data/documentData";

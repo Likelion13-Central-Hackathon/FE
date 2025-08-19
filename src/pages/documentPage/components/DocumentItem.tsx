@@ -1,24 +1,17 @@
 import React, { useRef, forwardRef, useImperativeHandle } from "react";
 import IconButton from "../../../components/IconButton";
 import PDF from "../../../assets/images/icon/download-icon.svg";
-import RevisingBox, { RevisingBoxHandle } from "./RevisingBox";
-import QuestionsBox, { QuestionsBoxHandle } from "./QuestionsBox";
-import type { RevisingTitle } from "../../../data/revisingTitleData";
+import RevisingBox from "./RevisingBox";
+import QuestionsBox from "./QuestionsBox";
+import data from "../../../data/aiQuestionData.json";
+import type {
+  ItemHandle,
+  DocumentItemProps,
+  RevisingBoxHandle,
+  QuestionsBoxHandle,
+} from "../../../types/document";
 
-export type ItemHandle = {
-  getSnapshot: () => {
-    title: string;
-    userAnswer: string;
-    aiAnswer: string;
-    qa: { question: string; answer: string }[];
-  };
-};
-
-type Props = RevisingTitle & {
-  onExportAll?: () => void; 
-};
-
-const DocumentItem = forwardRef<ItemHandle, Props>(
+const DocumentItem = forwardRef<ItemHandle, DocumentItemProps>(
   ({ title, explanation, onExportAll }, ref) => {
     const revisingRef = useRef<RevisingBoxHandle>(null);
     const questionsRef = useRef<QuestionsBoxHandle>(null);
@@ -50,7 +43,7 @@ const DocumentItem = forwardRef<ItemHandle, Props>(
           <RevisingBox ref={revisingRef} title={title} explanation={explanation} />
         </div>
 
-        <QuestionsBox ref={questionsRef} questions={[]} />
+        <QuestionsBox ref={questionsRef} questions={data.data} />
       </div>
     );
   }
