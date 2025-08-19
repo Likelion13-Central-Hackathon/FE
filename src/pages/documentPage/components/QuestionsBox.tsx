@@ -1,21 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, forwardRef, useImperativeHandle } from "react";
 import s from "./Document.module.scss";
 import b from "../../../components/styles/Box.module.scss";
 import ReportOutBox from "../../../components/ReportOutBox";
 import ReportInBox from "../../../components/ReportInBox";
 import { QuestionsBoxProps } from "../../../types/document";
 
-const QuestionsBox: React.FC<QuestionsBoxProps> = ({ questions }) => {
-  const [started, setStarted] = useState(false); // 생성 여부
+export type QuestionsBoxHandle = {
+  getVisibleQA: () => { question: string; answer: string }[];
+};
 
-  // QA 생성
-  const handleStart = () => {
-    setStarted(true);
-  };
+const QuestionsBox = forwardRef<QuestionsBoxHandle, QuestionsBoxProps>(({ questions }, ref) => {
+  const [started, setStarted] = useState(false);
 
-  // 다른질문 보기
+  useImperativeHandle(ref, () => ({
+    getVisibleQA: () =>
+      (started ? questions.slice(0, 4) : []).map((q) => ({
+        question: q.question,
+        answer: q.answer,
+      })),
+  }));
+
+  const handleStart = () => setStarted(true);
   const handleRetry = () => {
-    console.log("질문 다시 요청"); // 임시
+    console.log("질문 다시 요청");
   };
 
   return (
@@ -36,14 +43,12 @@ const QuestionsBox: React.FC<QuestionsBoxProps> = ({ questions }) => {
         )}
 
         <ReportInBox width="10.88vw" height="27.40vw">
-          {/* 생성 전 */}
           {!started && (
             <p className={s.makeButton} onClick={handleStart}>
               생성하기
             </p>
           )}
 
-          {/* 생성 후 */}
           {started && (
             <div className={s.qaFourBox}>
               {questions.slice(0, 4).map((q, i) => (
@@ -61,6 +66,6 @@ const QuestionsBox: React.FC<QuestionsBoxProps> = ({ questions }) => {
       </ReportOutBox>
     </div>
   );
-};
+});
 
 export default QuestionsBox;
