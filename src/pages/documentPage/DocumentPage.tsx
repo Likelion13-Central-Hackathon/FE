@@ -1,43 +1,54 @@
-import React, { useEffect, useRef, useState, useMemo } from "react";
+import React, { useEffect, useRef, useState, useMemo, useCallback } from "react";
 import s from "../styles/DocumentPage.module.scss";
-import DocumentItem from "./components/DocumentItem";
+import DocumentItem, { ItemHandle } from "./components/DocumentItem";
 import { revisingTitles } from "../../data/revisingTitleData";
 import RightOrbit from "../../components/RightOrbit";
 import { BASE_LABELS, BASE_POSITION } from "../../data/documentData";
+import { pdf } from "@react-pdf/renderer";
+import MyDocumentAll from "../../components/MyDocumentAll";
 
-// Label 목록 인덱스 회전 함수
-function rotateToCenter5<T>(
-  arr: readonly [T, T, T, T, T],
-  idx: number
-): [T, T, T, T, T] {
-  const n = 5,
-    M = 2;
+function rotateToCenter5<T>(arr: readonly [T, T, T, T, T], idx: number): [T, T, T, T, T] {
+  const n = 5, M = 2;
   const start = (((idx - M) % n) + n) % n;
-  return [
-    arr[start],
-    arr[(start + 1) % n],
-    arr[(start + 2) % n],
-    arr[(start + 3) % n],
-    arr[(start + 4) % n],
-  ];
+  return [arr[start], arr[(start + 1) % n], arr[(start + 2) % n], arr[(start + 3) % n], arr[(start + 4) % n]];
 }
 
 const DocumentPage = () => {
   const [activeSection, setActiveSection] = useState(0);
+  const [downloading, setDownloading] = useState(false);
+
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  // 라벨을 중앙(2)으로 오도록
+  const itemHandlesRef = useRef<(ItemHandle | null)[]>([]);
+
+
+  if (itemHandlesRef.current.length !== revisingTitles.length) {
+    itemHandlesRef.current = Array(revisingTitles.length).fill(null);
+  }
+  if (sectionRefs.current.length !== revisingTitles.length) {
+    sectionRefs.current = Array(revisingTitles.length).fill(null);
+  }
+
+
+  const setItemHandle = useCallback(
+    (idx: number) => (inst: ItemHandle | null) => {
+      itemHandlesRef.current[idx] = inst;
+    },
+    []
+  );
+
   const labelsForOrbit = useMemo(
     () => rotateToCenter5(BASE_LABELS, activeSection),
     [activeSection]
   );
 
-  // 인덱스를 받아 ref 콜백 만들기
-  const setSectionRef = (idx: number) => (el: HTMLDivElement | null) => {
-    sectionRefs.current[idx] = el;
-  };
+  const setSectionRef = useCallback(
+    (idx: number) => (el: HTMLDivElement | null) => {
+      sectionRefs.current[idx] = el;
+    },
+    []
+  );
 
-  // 스크롤 감지
   useEffect(() => {
     const obs = new IntersectionObserver(
       (entries) => {
@@ -60,13 +71,38 @@ const DocumentPage = () => {
     return () => obs.disconnect();
   }, [activeSection]);
 
+
+  const handleExportAll = async () => {
+    if (downloading) return;
+    setDownloading(true);
+    try {
+      const items = itemHandlesRef.current.map((handle, idx) => {
+        const snap = handle?.getSnapshot?.();
+        return snap ?? { title: revisingTitles[idx].title, userAnswer: "", aiAnswer: "", qa: [] };
+      });
+
+      const instance = pdf(<MyDocumentAll items={items} />);
+      const blob = await instance.toBlob();
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "전체_지원서류.pdf";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } catch (e) {
+      console.error("PDF 생성 오류:", e);
+      alert("PDF 생성 중 오류가 발생했습니다.");
+    } finally {
+      setDownloading(false);
+    }
+  };
+
   return (
     <div className={s.documentPageWrapper}>
-      <div
-        style={{
-          width: "12.45vw",
-        }}
-      >
+      <div style={{ width: "12.45vw" }}>
         <RightOrbit
           side="left"
           labels={labelsForOrbit}
@@ -75,6 +111,7 @@ const DocumentPage = () => {
           showLabels
         />
       </div>
+
       <div className={s.container}>
         {revisingTitles.map((item, index) => (
           <div
@@ -83,7 +120,12 @@ const DocumentPage = () => {
             data-index={index}
             ref={setSectionRef(index)}
           >
-            <DocumentItem title={item.title} explanation={item.explanation} />
+            <DocumentItem
+              ref={setItemHandle(index)}      
+              title={item.title}
+              explanation={item.explanation}
+              onExportAll={handleExportAll}    
+            />
           </div>
         ))}
       </div>
