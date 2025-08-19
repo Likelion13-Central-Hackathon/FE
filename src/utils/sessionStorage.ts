@@ -1,20 +1,24 @@
-// --- ideaId
-const KEY = "idea:current";
+// 세션스토리지에 id 저장, 조회, 삭제
+export type IdSession = {
+  save: (id: number) => void;
+  read: () => number | null;
+  clear: () => void;
+};
 
-// ideaId -> 문자열 변환 -> sessionStorage에 저장
-export function saveIdeaIdToSession(ideaId: number) {
-  sessionStorage.setItem(KEY, String(ideaId));
-}
+export const makeIdSession = (key: string): IdSession => ({
+  save(id: number) {
+    sessionStorage.setItem(key, String(id));
+  },
+  read(): number | null {
+    const raw = sessionStorage.getItem(key);
+    if (!raw) return null;
+    const n = Number(raw);
+    return Number.isFinite(n) ? n : null;
+  },
+  clear() {
+    sessionStorage.removeItem(key);
+  },
+});
 
-// ideaId 조회 -> 숫자 변환 (없으면 null)
-export function readIdeaIdFromSession(): number | null {
-  const raw = sessionStorage.getItem(KEY);
-  if (!raw) return null;
-  const n = Number(raw);
-  return Number.isFinite(n) ? n : null;
-}
-
-// sesscionStorage에서 ideaId 삭제
-export function clearIdeaIdFromSession() {
-  sessionStorage.removeItem(KEY);
-}
+export const ideaSession = makeIdSession("idea:current"); // ideaId
+export const reportSession = makeIdSession("report:current"); // reportId

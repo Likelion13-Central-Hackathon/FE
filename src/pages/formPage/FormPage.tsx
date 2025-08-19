@@ -17,8 +17,8 @@ import {
 import { submitFormRequestBody } from "../../utils/form/submitFormRequestBody";
 import submitFormApi from "../../api/form/submitFormApi";
 import Loading from "../../components/Loading";
-import { saveIdeaIdToSession } from "../../utils/sessionStorage";
 import createReportApi from "../../api/form/createReportApi";
+import { ideaSession, reportSession } from "../../utils/sessionStorage";
 
 const STEPS: Step[] = ["info", "consider", "base"];
 
@@ -108,17 +108,17 @@ const FormPage: React.FC = () => {
       setSubmitting(true);
 
       const body = submitFormRequestBody(formData); // 3개의 form Request 조립
-      const { ideaId } = await submitFormApi(body); // 창업 아이디어 생성 api 호출
-      saveIdeaIdToSession(ideaId); // 세션스토리지에 ideaId 저장
 
-      try {
-        await createReportApi(ideaId); // 레포트 생성 api 호출
-      } catch (e) {
-        console.warn("FormPage 레포트 생성 실패..: ", e);
-      }
+      // 1. 창업 아이디어 생성 api 호출
+      const { ideaId } = await submitFormApi(body);
+      ideaSession.save(ideaId); // 세션스토리지에 ideaId 저장
+
+      // 2. 레포트 생성 api 호출
+      const { reportId } = await createReportApi(ideaId);
+      reportSession.save(reportId); // 세션스토리지에 reportId 저장
 
       // 성공 시 보고서 페이지로 이동
-      navigate("/report", { replace: true, state: { ideaId } });
+      navigate("/report", { replace: true });
     } catch {
       console.log("FormPage handleSubmit Error");
       alert("제출에 실패했습니다. 잠시 후 다시 시도해주세요.");
