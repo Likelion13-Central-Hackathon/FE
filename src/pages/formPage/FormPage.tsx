@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "../styles/FormPage.module.scss";
 import logo from "../../assets/images/logo/main-logo.svg";
 import InfoForm from "./components/InfoForm";
@@ -13,6 +14,11 @@ import {
   OrbitPreset,
   StepComponentProps,
 } from "../../types/form";
+import { submitFormRequestBody } from "../../utils/form/submitFormRequestBody";
+import submitFormApi from "../../api/form/submitFormApi";
+import Loading from "../../components/Loading";
+import { saveIdeaIdToSession } from "../../utils/sessionStorage";
+import createReportApi from "../../api/form/createReportApi";
 
 const STEPS: Step[] = ["info", "consider", "base"];
 
@@ -43,20 +49,24 @@ const ORBIT_PRESETS: Record<Step, OrbitPreset> = {
   },
 };
 
+// 초기 데이터
 const INITIAL_FORM_DATA: FormData = {
   age: "",
-  region: "",
-  isCollege: null,
-  status: null,
-  university: "",
-  selectedField: null,
-  supportRanks: {},
-  careers: null,
-  statuses: null,
-  itemText: "",
-  team: null,
+  addressCity: "",
+  addressDistrict: "",
+  isEnrolled: null,
+  university: null,
+  academicStatus: null,
+
+  interestArea: "",
+  supportNeeds: {},
+  businessAge: null,
+  stage: null,
+  description: "",
+
+  teamSize: null,
   capital: null,
-  levels: {},
+  resources: {},
 };
 
 const STEP_COMPONENTS: Record<Step, React.ComponentType<StepComponentProps>> = {
@@ -66,8 +76,11 @@ const STEP_COMPONENTS: Record<Step, React.ComponentType<StepComponentProps>> = {
 };
 
 const FormPage: React.FC = () => {
+  const navigate = useNavigate();
+
   const [step, setStep] = useState<Step>("info");
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA);
+  const [submitting, setSubmitting] = useState(false);
 
   const updateForm: UpdateForm = useCallback((changes) => {
     setFormData((prev) => ({ ...prev, ...changes }));
@@ -88,13 +101,45 @@ const FormPage: React.FC = () => {
     );
   }, []);
 
+  // 최종 제출
+  const handleSubmit = useCallback(async () => {
+    if (submitting) return; // 중복 클릭 방지
+    try {
+      setSubmitting(true);
+
+      const body = submitFormRequestBody(formData); // 3개의 form Request 조립
+      const { ideaId } = await submitFormApi(body); // 창업 아이디어 생성 api 호출
+      saveIdeaIdToSession(ideaId); // 세션스토리지에 ideaId 저장
+
+      try {
+        await createReportApi(ideaId); // 레포트 생성 api 호출
+      } catch (e) {
+        console.warn("FormPage 레포트 생성 실패..: ", e);
+      }
+
+      // 성공 시 보고서 페이지로 이동
+      navigate("/report", { replace: true, state: { ideaId } });
+    } catch {
+      console.log("FormPage handleSubmit Error");
+      alert("제출에 실패했습니다. 잠시 후 다시 시도해주세요.");
+    } finally {
+      setSubmitting(false);
+    }
+  }, [submitting, formData, navigate]);
+
   const StepComponent = STEP_COMPONENTS[step];
+
   const stepProps: StepComponentProps = useMemo(() => {
     const props: StepComponentProps = { data: formData, updateForm };
     if (stepIndex > 0) props.onPrev = goPrev;
-    if (stepIndex < STEPS.length - 1) props.onNext = goNext;
+    // 마지막 스텝이면 onNext가 handleSubmit
+    props.onNext = stepIndex < STEPS.length - 1 ? goNext : handleSubmit;
     return props;
-  }, [formData, updateForm, goPrev, goNext, stepIndex]);
+  }, [formData, updateForm, goPrev, goNext, stepIndex, handleSubmit]);
+
+  if (submitting) {
+    return <Loading />;
+  }
 
   return (
     <div className={styles.container}>
