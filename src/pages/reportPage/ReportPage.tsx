@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import s from "../styles/ReportPage.module.scss";
 import b from "../../components/styles/Box.module.scss";
@@ -34,6 +34,8 @@ import { useReportMail } from "../../hooks/useReportMail";
 
 const ReportPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
   // 메일 관련 커스텀 훅
   const {
     isOpen,
@@ -49,8 +51,16 @@ const ReportPage = () => {
   const [loading, setLoading] = useState(true);
 
   const reportId = reportSession.read(); // 세션스토리지에서 reportId 조회
+  const prefetched = location.state?.prefetched as ReportDetail | undefined; // FormIntro에서 보내준 데이터
 
   useEffect(() => {
+    // prefetched가 있으면 레포트 보여주기
+    if (prefetched) {
+      setReport(prefetched);
+      setLoading(false);
+      return;
+    }
+
     if (!reportId) {
       setLoading(false);
       return;
@@ -73,7 +83,7 @@ const ReportPage = () => {
     })();
 
     return () => controller.abort();
-  }, [reportId]);
+  }, [prefetched, reportId]);
 
   if (loading)
     return (

@@ -5,13 +5,43 @@ import IntroLayout from "../components/IntroLayout";
 import TITLE from "../assets/images/logo/second-logo.svg";
 import BasicButton from "../components/BasicButton";
 import EmailPWBox from "../components/EmailPWBox";
+import { reportSession } from "../utils/sessionStorage";
+import getReportByEmailApi from "../api/report/getReportByEmailApi";
 
 const FormIntroPage = () => {
-  const [showEmailPwBox, setShowEmailPwBox] = useState(false);
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [showEmailPwBox, setShowEmailPwBox] = useState(false); // EmailPWBox 유무
+  const [email, setEmail] = useState(""); // 이메일
+  const [password, setPassword] = useState(""); // 비밀번호
+  const [loading, setLoading] = useState(false);
+
+  // 처음 “분석결과 조회” 버튼
+  const handleQueryClick = async () => {
+    const reportId = reportSession.read();
+    // 세션스토리지에 reportId가 있으면 ReportPage로 이동
+    if (reportId) {
+      navigate("/report");
+      return;
+    }
+    // 없으면 EmailPWBox 보이기
+    setShowEmailPwBox(true);
+  };
+
+  // 두번째 “분석결과 조회” 버튼
+  const handleEmailPwSubmit = async () => {
+    if (!email || !password) return;
+
+    try {
+      setLoading(true);
+      const data = await getReportByEmailApi({ email, password });
+      navigate("/report", { state: { prefetched: data } }); // ReportPage로 데이터와 함께 이동
+    } catch {
+      console.error("FormIntroPage handleEmailPwSubmit Error");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <IntroLayout
@@ -27,10 +57,7 @@ const FormIntroPage = () => {
             height="2.5vw"
             onClick={() => navigate("/form")}
           />
-          <button
-            className={s.underlineBtn}
-            onClick={() => setShowEmailPwBox(true)}
-          >
+          <button className={s.underlineBtn} onClick={handleQueryClick}>
             분석결과 조회
           </button>
         </div>
@@ -41,12 +68,10 @@ const FormIntroPage = () => {
             password={password}
             onChangeEmail={setEmail}
             onChangePassword={setPassword}
+            infoShow={false}
           />
-          <button
-            className={s.underlineBtn}
-            onClick={() => navigate("/report")}
-          >
-            분석결과 조회
+          <button className={s.underlineBtn} onClick={handleEmailPwSubmit}>
+            {loading ? "조회 중..." : "분석결과 조회"}
           </button>
         </div>
       )}
