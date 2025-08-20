@@ -11,12 +11,13 @@ import type {
   QuestionsBoxHandle,
 } from "../../../types/document";
 
-type Props = DocumentItemProps & {
-  onRequireWarn?: () => void;
-};
+  type Props = DocumentItemProps & {
+    onRequireWarn?: () => void;
+    questionNumber: number;
+  };
 
 const DocumentItem = forwardRef<ItemHandle, Props>(
-  ({ title, explanation, onExportAll, onRequireWarn }, ref) => {
+  ({ title, explanation, onExportAll, onRequireWarn, questionNumber }, ref) => {
     const revisingRef = useRef<RevisingBoxHandle>(null);
     const questionsRef = useRef<QuestionsBoxHandle>(null);
 
@@ -44,7 +45,12 @@ const DocumentItem = forwardRef<ItemHandle, Props>(
             <IconButton imgSrc={PDF} text="PDF" onClick={handleClick} />
           </div>
 
-          <RevisingBox ref={revisingRef} title={title} explanation={explanation} />
+          <RevisingBox
+            ref={revisingRef}
+            title={title}
+            explanation={explanation}
+            questionNumber={questionNumber}
+          />
         </div>
 
          <QuestionsBox

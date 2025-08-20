@@ -132,6 +132,7 @@ const DocumentPage = () => {
               explanation={item.explanation}
               onExportAll={handleExportAll}    
               onRequireWarn={openWarn}
+              questionNumber={index + 1}
             />
           </div>
         ))}
