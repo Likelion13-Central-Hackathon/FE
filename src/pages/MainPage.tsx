@@ -11,7 +11,7 @@ const MainPage = () => {
 
   const handleNavigate = (path: string) => {
     ideaSession.save(3); // 테스트용
-    reportSession.save(7); // 테스트용
+    reportSession.save(2); // 테스트용
     navigate(path);
   };
 

@@ -8,6 +8,7 @@ import character from "../assets/images/character-2d.svg";
 import { checkPassword, checkEmail } from "../utils/validation";
 import subscribeMailApi from "../api/report/subscribeMailApi";
 import { ideaSession } from "../utils/sessionStorage";
+import LoadingSpinner from "./LoadingSpinner";
 
 type Props = {
   open: boolean;
@@ -70,6 +71,16 @@ const MailModal: React.FC<Props> = ({
   };
 
   if (!open) return null;
+
+  if (loading) {
+    return (
+      <div className={s.modalOverlay}>
+        <div className={s.headerBoxWrap}>
+          <LoadingSpinner />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={s.modalOverlay} role="dialog" aria-modal="true">
