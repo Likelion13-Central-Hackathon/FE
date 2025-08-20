@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import s from "./styles/MailModal.module.scss";
 import GradientBox from "./GradientBox";
 import ReportInBox from "./ReportInBox";
 import EmailPWBox from "./EmailPWBox";
 import BasicButton from "./BasicButton";
 import character from "../assets/images/character-2d.svg";
+import { checkPassword, checkEmail } from "../utils/validation";
 
 type Props = {
   open: boolean;
@@ -25,13 +26,19 @@ const MailModal: React.FC<Props> = ({
   onSubmit,
   onClose,
 }) => {
-
   const [step, setStep] = useState<"form" | "done">("form");
 
   useEffect(() => {
     if (open) setStep("form");
   }, [open]);
 
+  // Email, Password 유효성 검사
+  const emailOK = useMemo(() => checkEmail(email), [email]);
+  const pwCheck = useMemo(() => checkPassword(password), [password]);
+
+  const isFormValid = emailOK && pwCheck.isValid;
+
+  // 메일 구독 함수
   const handleNext = () => {
     onSubmit?.();
     setStep("done");
@@ -41,30 +48,38 @@ const MailModal: React.FC<Props> = ({
 
   return (
     <div className={s.modalOverlay} role="dialog" aria-modal="true">
-      <GradientBox width="52.66vw" height="28.75vw" ellipseTop="55.25%" ellipseRight="-25%">
-        <div
-  className={`${s.headerBoxWrap} ${step === "done" ? s.headerBoxWrapDone : ""}`}>
-    <ReportInBox
-      width="17.92vw"
-      height={step === "done" ? "3.33vw" : "4.58vw"}
-    >
-      <div
-        className={`${s.headerBoxInner} ${
-          step === "done" ? s.headerBoxInnerDone : ""
-        }`}
+      <GradientBox
+        width="52.66vw"
+        height="28.75vw"
+        ellipseTop="55.25%"
+        ellipseRight="-25%"
       >
-        {step === "form" ? (
-          <>
-            매주 업데이트 되는 청년창업 로드맵을
-            <br />
-            메일로 받아보세요.
-          </>
-        ) : (
-          <>이메일이 정상적으로 등록되었습니다.</>
-        )}
-      </div>
-    </ReportInBox>
-  </div>
+        <div
+          className={`${s.headerBoxWrap} ${
+            step === "done" ? s.headerBoxWrapDone : ""
+          }`}
+        >
+          <ReportInBox
+            width="17.92vw"
+            height={step === "done" ? "3.33vw" : "4.58vw"}
+          >
+            <div
+              className={`${s.headerBoxInner} ${
+                step === "done" ? s.headerBoxInnerDone : ""
+              }`}
+            >
+              {step === "form" ? (
+                <>
+                  매주 업데이트 되는 청년창업 로드맵을
+                  <br />
+                  메일로 받아보세요.
+                </>
+              ) : (
+                <>이메일이 정상적으로 등록되었습니다.</>
+              )}
+            </div>
+          </ReportInBox>
+        </div>
 
         <img
           className={`${s.character} ${step === "done" ? s.characterDone : ""}`}
@@ -82,6 +97,7 @@ const MailModal: React.FC<Props> = ({
                   onChangeEmail={onChangeEmail}
                   onChangePassword={onChangePassword}
                   onSubmit={handleNext}
+                  infoShow={true}
                 />
               </ReportInBox>
             </div>
@@ -93,6 +109,7 @@ const MailModal: React.FC<Props> = ({
                 text="다음"
                 onClick={handleNext}
                 className={s.smallBtn}
+                disabled={!isFormValid}
               />
               <BasicButton
                 width="5.26vw"

@@ -7,6 +7,7 @@ interface EmailPWBoxProps {
   onChangeEmail: (v: string) => void;
   onChangePassword: (v: string) => void;
   onSubmit?: () => void;
+  infoShow: boolean;
 }
 
 const EmailPWBox: React.FC<EmailPWBoxProps> = ({
@@ -15,6 +16,7 @@ const EmailPWBox: React.FC<EmailPWBoxProps> = ({
   onChangeEmail,
   onChangePassword,
   onSubmit,
+  infoShow = false,
 }) => {
   return (
     <div className={s.emailBox}>
@@ -38,6 +40,9 @@ const EmailPWBox: React.FC<EmailPWBoxProps> = ({
       <section>
         <label className={s.label} htmlFor="pw-input">
           Password
+          {infoShow && (
+            <span>영문 대·소문자, 숫자, 특수문자 중 2가지 이상 포함</span>
+          )}
         </label>
         <input
           id="pw-input"

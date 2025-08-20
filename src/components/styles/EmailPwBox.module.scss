@@ -29,6 +29,17 @@
   font-size: 1.04vw;
   font-weight: 600;
   color: $color-black;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  span {
+    font-size: 0.53vw;
+    font-weight: 400;
+    color: $main-color2;
+
+    text-align: end;
+  }
 }
 
 .input {
