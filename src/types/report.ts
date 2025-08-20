@@ -57,3 +57,16 @@ export type ReportDetail = {
   newsList: ReportNews[];
   recommendations: ReportRecommendation[];
 };
+
+// 레포트 상세 조회 RequestBody
+export interface EmailPw {
+  email: string;
+  password: string;
+}
+
+// ----- 메일 구독 api용
+export interface SubscribeMailRequest extends EmailPw {
+  ideaId: number;
+}
+
+export type SubscribeMailData = null;

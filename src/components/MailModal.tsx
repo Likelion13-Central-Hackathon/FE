@@ -6,6 +6,8 @@ import EmailPWBox from "./EmailPWBox";
 import BasicButton from "./BasicButton";
 import character from "../assets/images/character-2d.svg";
 import { checkPassword, checkEmail } from "../utils/validation";
+import subscribeMailApi from "../api/report/subscribeMailApi";
+import { ideaSession } from "../utils/sessionStorage";
 
 type Props = {
   open: boolean;
@@ -13,7 +15,6 @@ type Props = {
   password: string;
   onChangeEmail: (v: string) => void;
   onChangePassword: (v: string) => void;
-  onSubmit: () => void;
   onClose: () => void;
 };
 
@@ -23,13 +24,17 @@ const MailModal: React.FC<Props> = ({
   password,
   onChangeEmail,
   onChangePassword,
-  onSubmit,
   onClose,
 }) => {
   const [step, setStep] = useState<"form" | "done">("form");
+  const [loading, setLoading] = useState(false);
 
+  // 열리면 form 모드로 설정
   useEffect(() => {
-    if (open) setStep("form");
+    if (open) {
+      setStep("form");
+      setLoading(false);
+    }
   }, [open]);
 
   // Email, Password 유효성 검사
@@ -39,9 +44,29 @@ const MailModal: React.FC<Props> = ({
   const isFormValid = emailOK && pwCheck.isValid;
 
   // 메일 구독 함수
-  const handleNext = () => {
-    onSubmit?.();
-    setStep("done");
+  const handleNext = async () => {
+    if (!isFormValid || loading) return;
+
+    try {
+      setLoading(true);
+      const ideaId = ideaSession.read(); // 세션스토리지에서 ideaId 조회
+      if (!ideaId) {
+        throw new Error("유효한 ideaId가 없습니다.");
+      }
+      // 메일 구독 api 조회
+      await subscribeMailApi({
+        email,
+        password,
+        ideaId,
+      });
+
+      setStep("done");
+    } catch (e) {
+      console.error(e);
+      alert("메일 구독 신청 실패.. 잠시 후 다시 시도해주세요.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!open) return null;
@@ -109,7 +134,7 @@ const MailModal: React.FC<Props> = ({
                 text="다음"
                 onClick={handleNext}
                 className={s.smallBtn}
-                disabled={!isFormValid}
+                disabled={!isFormValid || loading}
               />
               <BasicButton
                 width="5.26vw"
