@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import s from "../styles/ReportPage.module.scss";
@@ -30,13 +30,20 @@ import type { ReportDetail } from "../../types/report";
 import getReportApi from "../../api/report/getReportApi";
 import { reportSession } from "../../utils/sessionStorage";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import { useReportMail } from "../../hooks/useReportMail";
 
 const ReportPage = () => {
   const navigate = useNavigate();
-
-  const [isOpen, setIsOpen] = useState(false); // 메일 모달창
-  const [email, setEmail] = useState(""); // 이메일
-  const [password, setPassword] = useState(""); // 비밀번호
+  // 메일 관련 커스텀 훅
+  const {
+    isOpen,
+    email,
+    password,
+    open: openMailModal,
+    close: closeMailModal,
+    setEmail,
+    setPassword,
+  } = useReportMail();
 
   const [report, setReport] = useState<ReportDetail | null>(null);
   const [loading, setLoading] = useState(true);
@@ -68,11 +75,6 @@ const ReportPage = () => {
     return () => controller.abort();
   }, [reportId]);
 
-  // 메일 구독 함수(메모이제이션)
-  const handleSubmit = useCallback(() => {
-    console.log("submit", { email, password }); // 임시
-  }, [email, password]);
-
   if (loading)
     return (
       <div className={s.reportPageWrapper}>
@@ -99,8 +101,7 @@ const ReportPage = () => {
           password={password}
           onChangeEmail={setEmail}
           onChangePassword={setPassword}
-          onSubmit={handleSubmit}
-          onClose={() => setIsOpen(false)}
+          onClose={closeMailModal}
         />
       )}
 
@@ -117,11 +118,7 @@ const ReportPage = () => {
                 text="PDF"
                 onClick={() => window.print()}
               />
-              <IconButton
-                imgSrc={MAIL}
-                text="Mail"
-                onClick={() => setIsOpen(true)}
-              />
+              <IconButton imgSrc={MAIL} text="Mail" onClick={openMailModal} />
             </div>
           </div>
           <div className={s.dateBox}>
