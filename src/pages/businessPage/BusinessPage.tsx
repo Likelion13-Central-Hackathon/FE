@@ -38,6 +38,7 @@ const BusinessPage = () => {
                 filteredData.map((item) => (
                   <BusinessItem
                     key={item.id}
+                    id={item.id}
                     title={item.title}
                     region={item.region}
                     supportArea={item.supportArea}

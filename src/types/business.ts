@@ -37,3 +37,12 @@ export type ResultItemProps = {
   rankImg: string;
   item: RankItemDetail;
 };
+
+// 전체 지원사업 조회 api용
+export type BusinessItemProps = {
+  id: number;
+  title: string;
+  region: string;
+  supportArea: string;
+  link: string;
+};
