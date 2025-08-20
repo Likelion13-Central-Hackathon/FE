@@ -1,4 +1,4 @@
-// 메일 구독 신청 API(POST)
+// 메일 구독 신청 API (POST)
 import { ApiEnvelopeNullable } from "../../types/api";
 import { SubscribeMailData, SubscribeMailRequest } from "../../types/report";
 import defaultInstance from "../utils/instance";
