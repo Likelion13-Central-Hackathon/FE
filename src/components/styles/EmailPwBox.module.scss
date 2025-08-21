@@ -29,6 +29,23 @@
   font-size: 1.04vw;
   font-weight: 600;
   color: $color-black;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  .labelInfo,
+  .labelWarning {
+    font-size: 0.53vw;
+    font-weight: 400;
+    text-align: end;
+  }
+
+  .labelInfo {
+    color: $main-color2;
+  }
+  .labelWarning {
+    color: #ab0000;
+  }
 }
 
 .input {

@@ -10,7 +10,6 @@ import ANGLE from "../../../assets/images/result/protractor2.png";
 import SCORE from "../../../assets/images/icon/report-score.svg";
 import CHAR from "../../../assets/images/character-2d.png";
 import ProtractorStroker from "../../../components/ProtractorStroker";
-import { formatToMMDD } from "../../../utils/date";
 import MarkDownBox from "../../reportPage/components/MarkDownBox";
 import { formatRecruiting, linkify, normalizeUrl } from "../../../utils/format";
 
@@ -43,8 +42,7 @@ const ResultItem: React.FC<ResultItemProps> = ({ rankImg, item }) => {
                     <div className={s.infoBoxText1}>
                       <p>창업업력 | {item.businessDuration}</p>
                       <p>
-                        신청기간 | {formatToMMDD(item.startDate)}~
-                        {formatToMMDD(item.endDate)}
+                        신청기간 | {item.startDate}~{item.endDate}
                       </p>
                       <p>지역 | {item.region}</p>
                     </div>
@@ -114,7 +112,7 @@ const ResultItem: React.FC<ResultItemProps> = ({ rankImg, item }) => {
                   </div>
                   <div>
                     <span>신청 방법</span>
-                    <p style={{ whiteSpace: "pre-line" }}>
+                    <div style={{ whiteSpace: "pre-line" }}>
                       {item.applyMethod.split("|").map((line, idx) => (
                         <p
                           key={idx}
@@ -123,7 +121,7 @@ const ResultItem: React.FC<ResultItemProps> = ({ rankImg, item }) => {
                           }}
                         />
                       ))}
-                    </p>
+                    </div>
                   </div>
                   <div>
                     <span>참고 URL</span>

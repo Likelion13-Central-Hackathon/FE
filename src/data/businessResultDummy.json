@@ -1,36 +1,59 @@
-{
-  "isSuccess": true,
-  "code": "SUCCESS_200",
-  "httpStatus": 200,
-  "message": "호출에 성공하였습니다.",
-  "data": [
-    {
-      "recommendedId": 11,
-      "suitability": 92,
-      "supportArea": "행사ㆍ네트워크",
-      "title": "서울 핀테크 위크 2025 데모데이",
-      "agency": "제2서울핀테크랩",
-      "startDate": "2025.08.08",
-      "endDate": "2025.08.13"
-    },
-    {
-      "recommendedId": 12,
-      "suitability": 87,
-      "supportArea": "멘토링ㆍ컨설팅ㆍ교육",
-      "title": "뉴본벤처스 월간 IR데이",
-      "agency": "주식회사 뉴본벤처스",
-      "startDate": "2025.08.07",
-      "endDate": "2025.08.18"
-    },
-    {
-      "recommendedId": 13,
-      "suitability": 80,
-      "supportArea": "판로ㆍ해외진출",
-      "title": "미국 해외진출 스타트업 지원 프로그램",
-      "agency": "글로벌벤처센터",
-      "startDate": "2025.08.05",
-      "endDate": "2025.08.14"
-    }
-  ],
-  "timeStamp": "2025-08-10 12:21:32"
-}
+[
+  {
+    "suitability": 94,
+    "supportArea": "판로ㆍ해외진출",
+    "title": "FADO(Fast Access to Demand Overseas) 2025 수산분야 창업기업 해외진출 지원 프로그램 참여기업 모집",
+    "agency": "해양수산과학기술진흥원장 / 창업투자팀",
+    "startDate": "08.18",
+    "endDate": "08.19",
+    "link": "https://www.k-startup.go.kr/web/contents/bizpbanc-deadline.do?schM=view&pbancSn=174672",
+    "region": "전국",
+    "businessDuration": "예비창업자,1년미만,2년미만,3년미만,5년미만,7년미만,10년미만",
+    "targetAge": "제한 없음",
+    "target": "해외진출을 희망하는 수산분야 창업기업",
+    "contact": "0234600374",
+    "applyMethod": "이메일: t19JDgb18X/Rfd8Sn2D6M65GWcYrQlKFBGs+SB3c+60=",
+    "supportDetails": "해양수산과학기술진흥원은 2025년 9월 10일(수)~12일(금) 개최되는 싱가포르 아시아 수산식품 박람회 2025와 연계하여 수산분야 창업기업의 해외진출을 지원하고자 하오니 관심 있는 기업의 많은 신청 바랍니다.",
+    "guidanceUrl": "www.kimst.re.kr/startup/ko/bbs/i-17/show.do?seq=141",
+    "isRecruiting": true,
+    "reason": "아이디어는 축산업에 중점을 두고 있으며, 지원사업은 수산분야 창업기업을 대상으로 하고 있어 분야가 일치하지 않습니다. 또한, 아이디어가 위치한 인천광역시 부평구는 전국을 대상으로 하는 지원사업의 지역 요건을 충족하지만, 지원사업의 '해외진출을 희망하는' 조건과 아이디어의 내용이 직접적으로 연결되지 않습니다. 따라서 아이디어와 지원사업이 잘 맞지 않습니다."
+  },
+  {
+    "suitability": 92,
+    "supportArea": "판로ㆍ해외진출",
+    "title": "FADO(Fast Access to Demand Overseas) 2025 수산분야 창업기업 해외진출 지원 프로그램 참여기업 모집",
+    "agency": "해양수산과학기술진흥원장 / 창업투자팀",
+    "startDate": "08.18",
+    "endDate": "08.19",
+    "link": "https://www.k-startup.go.kr/web/contents/bizpbanc-deadline.do?schM=view&pbancSn=174672",
+    "region": "전국",
+    "businessDuration": "예비창업자,1년미만,2년미만,3년미만,5년미만,7년미만,10년미만",
+    "targetAge": "제한 없음",
+    "target": "해외진출을 희망하는 수산분야 창업기업",
+    "contact": "0234600374",
+    "applyMethod": "이메일: t19JDgb18X/Rfd8Sn2D6M65GWcYrQlKFBGs+SB3c+60=",
+    "supportDetails": "해양수산과학기술진흥원은 2025년 9월 10일(수)~12일(금) 개최되는 싱가포르 아시아 수산식품 박람회 2025와 연계하여 수산분야 창업기업의 해외진출을 지원하고자 하오니 관심 있는 기업의 많은 신청 바랍니다.",
+    "guidanceUrl": "www.kimst.re.kr/startup/ko/bbs/i-17/show.do?seq=141",
+    "isRecruiting": true,
+    "reason": "아이디어는 축산업에 중점을 두고 있으며, 지원사업은 수산분야 창업기업을 대상으로 하고 있어 분야가 일치하지 않습니다. 또한, 아이디어가 위치한 인천광역시 부평구는 전국을 대상으로 하는 지원사업의 지역 요건을 충족하지만, 지원사업의 '해외진출을 희망하는' 조건과 아이디어의 내용이 직접적으로 연결되지 않습니다. 따라서 아이디어와 지원사업이 잘 맞지 않습니다."
+  },
+  {
+    "suitability": 86,
+    "supportArea": "판로ㆍ해외진출",
+    "title": "FADO(Fast Access to Demand Overseas) 2025 수산분야 창업기업 해외진출 지원 프로그램 참여기업 모집",
+    "agency": "해양수산과학기술진흥원장 / 창업투자팀",
+    "startDate": "08.18",
+    "endDate": "08.19",
+    "link": "https://www.k-startup.go.kr/web/contents/bizpbanc-deadline.do?schM=view&pbancSn=174672",
+    "region": "전국",
+    "businessDuration": "예비창업자,1년미만,2년미만,3년미만,5년미만,7년미만,10년미만",
+    "targetAge": "제한 없음",
+    "target": "해외진출을 희망하는 수산분야 창업기업",
+    "contact": "0234600374",
+    "applyMethod": "이메일: t19JDgb18X/Rfd8Sn2D6M65GWcYrQlKFBGs+SB3c+60=",
+    "supportDetails": "해양수산과학기술진흥원은 2025년 9월 10일(수)~12일(금) 개최되는 싱가포르 아시아 수산식품 박람회 2025와 연계하여 수산분야 창업기업의 해외진출을 지원하고자 하오니 관심 있는 기업의 많은 신청 바랍니다.",
+    "guidanceUrl": "www.kimst.re.kr/startup/ko/bbs/i-17/show.do?seq=141",
+    "isRecruiting": true,
+    "reason": "아이디어는 축산업에 중점을 두고 있으며, 지원사업은 수산분야 창업기업을 대상으로 하고 있어 분야가 일치하지 않습니다. 또한, 아이디어가 위치한 인천광역시 부평구는 전국을 대상으로 하는 지원사업의 지역 요건을 충족하지만, 지원사업의 '해외진출을 희망하는' 조건과 아이디어의 내용이 직접적으로 연결되지 않습니다. 따라서 아이디어와 지원사업이 잘 맞지 않습니다."
+  }
+]

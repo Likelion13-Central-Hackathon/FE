@@ -2,13 +2,7 @@ import React from "react";
 import s from "./Business.module.scss";
 import ReportInBox from "../../../components/ReportInBox";
 import LinkButton from "../../../components/LinkButton";
-
-interface BusinessItemProps {
-  title: string;
-  region: string;
-  supportArea: string;
-  link: string;
-}
+import { BusinessItemProps } from "../../../types/business";
 
 const BusinessItem: React.FC<BusinessItemProps> = ({
   title,

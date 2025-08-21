@@ -11,15 +11,13 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   loading = true,
 }) => {
   return (
-    <div>
-      <BeatLoader
-        color="#0400fa"
-        loading={loading}
-        size={size}
-        aria-label="Loading Spinner"
-        data-testid="loader"
-      />
-    </div>
+    <BeatLoader
+      color="#0400fa"
+      loading={loading}
+      size={size}
+      aria-label="Loading Spinner"
+      data-testid="loader"
+    />
   );
 };
 
