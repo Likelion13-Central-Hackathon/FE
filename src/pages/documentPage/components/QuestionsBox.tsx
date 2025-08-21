@@ -3,69 +3,108 @@ import s from "./Document.module.scss";
 import b from "../../../components/styles/Box.module.scss";
 import ReportOutBox from "../../../components/ReportOutBox";
 import ReportInBox from "../../../components/ReportInBox";
-import { QuestionsBoxProps } from "../../../types/document";
+import type {
+  QuestionsBoxProps,
+  QuestionsBoxHandle,
+  ExtraProps,
+  QAItem,
+} from "../../../types/document";
+import createAiQnaApi from "../../../api/document/createAiQnaApi";
+import { aiAnswerSession$ } from "../../../utils/sessionStorage";
 
-export type QuestionsBoxHandle = {
-  getVisibleQA: () => { question: string; answer: string }[];
-};
+const QuestionsBox = forwardRef<QuestionsBoxHandle, QuestionsBoxProps & ExtraProps>(
+  ({ questions, getAiAnswer, onRequireWarn, questionNumber }, ref) => {
+    const [started, setStarted] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [qaList, setQaList] = useState<QAItem[]>(questions ?? []);
 
-const QuestionsBox = forwardRef<QuestionsBoxHandle, QuestionsBoxProps>(({ questions }, ref) => {
-  const [started, setStarted] = useState(false);
+    useImperativeHandle(ref, () => ({
+      getVisibleQA: () =>
+        (started ? qaList.slice(0, 4) : []).map((q) => ({
+          question: q.question,
+          answer: q.answer,
+        })),
+    }));
 
-  useImperativeHandle(ref, () => ({
-    getVisibleQA: () =>
-      (started ? questions.slice(0, 4) : []).map((q) => ({
-        question: q.question,
-        answer: q.answer,
-      })),
-  }));
+    const fetchQna = async () => {
+      const ai = (getAiAnswer?.() ?? "").trim();
+      const aId = aiAnswerSession$(questionNumber).read();
+      if (aId == null || Number.isNaN(aId)) {
+        onRequireWarn?.();  
+        return;             
+      }
 
-  const handleStart = () => setStarted(true);
-  const handleRetry = () => {
-    console.log("질문 다시 요청");
-  };
+      if (!ai || !aId) {
+        onRequireWarn?.();
+      }
 
-  return (
-    <div className={s.questionBox}>
-      <ReportOutBox width="12.97vw" height="5.63vw">
-        <p className={s.infoText1}>
-          {`AI 첨삭 이후, 답변에 따른\n예상 질문도 생성해 보세요!`}
-        </p>
-      </ReportOutBox>
+      setLoading(true);
+      try {
+        const items = await createAiQnaApi(aId);
+        if (!items || items.length === 0) throw new Error("생성된 예상 질문이 없습니다.");
+        setQaList(items);
+        setStarted(true);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-      <ReportOutBox width="12.97vw" height="33.28vw" className={b.column}>
-        <p className={s.infoText2}>문항별 질의응답 예상 질문</p>
+    const handleStart = () => fetchQna();
+    const handleRetry = () => fetchQna();
 
-        {started && (
-          <button className={s.retryButton} onClick={handleRetry}>
-            다른질문 보기
-          </button>
-        )}
+    return (
+      <div className={s.questionBox}>
+        <ReportOutBox width="12.97vw" height="5.63vw">
+          <p className={s.infoText1}>
+            {`AI 첨삭 이후, 답변에 따른\n예상 질문도 생성해 보세요!`}
+          </p>
+        </ReportOutBox>
 
-        <ReportInBox width="10.88vw" height="27.40vw">
-          {!started && (
-            <p className={s.makeButton} onClick={handleStart}>
-              생성하기
-            </p>
-          )}
+        <ReportOutBox width="12.97vw" height="33.28vw" className={b.column}>
+          <p className={s.infoText2}>문항별 질의응답 예상 질문</p>
 
           {started && (
-            <div className={s.qaFourBox}>
-              {questions.slice(0, 4).map((q, i) => (
-                <React.Fragment key={i}>
-                  <div className={s.qaItem}>
-                    <span>Q. {q.question}</span>
-                    <p>A. {q.answer}</p>
-                  </div>
-                  {i < 3 && <div>...</div>}
-                </React.Fragment>
-              ))}
-            </div>
+            <button
+              className={s.retryButton}
+              onClick={loading ? undefined : handleRetry}
+              disabled={loading}
+            >
+              {loading ? "생성 중..." : "다른질문 보기"}
+            </button>
           )}
-        </ReportInBox>
-      </ReportOutBox>
-    </div>
-  );
-});
 
+          <ReportInBox width="10.88vw" height="27.40vw">
+            {!started && (
+              <p
+                className={s.makeButton}
+                onClick={loading ? undefined : handleStart}
+                aria-busy={loading}
+              >
+                {loading ? "생성 중..." : "생성하기"}
+              </p>
+            )}
+
+            {started && (
+              <div className={s.qaFourBox}>
+                {qaList.slice(0, 4).map((q, i) => (
+                  <React.Fragment key={i}>
+                    <div className={s.qaItem}>
+                      <span>Q. {q.question}</span>
+                      <p>A. {q.answer}</p>
+                    </div>
+                    {i < 3 && <div>...</div>}
+                  </React.Fragment>
+                ))}
+              </div>
+            )}
+          </ReportInBox>
+        </ReportOutBox>
+      </div>
+    );
+  }
+);
+
+QuestionsBox.displayName = "QuestionsBox";
 export default QuestionsBox;
