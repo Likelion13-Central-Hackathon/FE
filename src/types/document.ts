@@ -22,6 +22,7 @@ export type QuestionsBoxProps = {
 export type RevisingBoxHandle = {
   getUserAnswer: () => string;
   getAiAnswer: () => string;
+  getAnswerId: () => number | null;
 };
 
 // QuestionsBox 핸들 (현재 노출되는 QA getter)
@@ -52,5 +53,6 @@ export type DocumentItemProps = RevisingTitle & {
 
 export type ExtraProps = {
   getAiAnswer?: () => string;
+  getAnswerId?: () => number | null;
   onRequireWarn?: () => void;
 };

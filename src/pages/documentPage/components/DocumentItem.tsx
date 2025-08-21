@@ -54,11 +54,12 @@ const DocumentItem = forwardRef<ItemHandle, Props>(
         </div>
 
          <QuestionsBox
-        ref={questionsRef}
-        questions={data.data}
-        getAiAnswer={() => revisingRef.current?.getAiAnswer?.() ?? ""}
-        onRequireWarn={onRequireWarn}
-      />
+            ref={questionsRef}
+            questions={data.data}
+            getAiAnswer={() => revisingRef.current?.getAiAnswer?.() ?? ""}
+            getAnswerId={() => revisingRef.current?.getAnswerId?.() ?? null}  
+            onRequireWarn={onRequireWarn}
+          />
 
       </div>
     );

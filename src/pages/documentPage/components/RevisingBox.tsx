@@ -11,7 +11,6 @@ import type { RevisingBoxHandle, RevisingTitle } from "../../../types/document";
 
 const RevisingBox = forwardRef<RevisingBoxHandle, RevisingTitle & { questionNumber: number }>(
   ({ title, explanation, questionNumber }, ref) => {
-
     const [userAnswer, setUserAnswer] = useState<string>("");
     const [aiAnswer, setAiAnswer] = useState<string>("");
     const [rotating, setRotating] = useState<boolean>(false);
@@ -35,15 +34,16 @@ const RevisingBox = forwardRef<RevisingBoxHandle, RevisingTitle & { questionNumb
       setRotating(true);
       setLoading(true);
       try {
-        const payload = await createAiAnswer({
+        const { aiAnswer, answerId } = await createAiAnswer({
           questionNumber,
           userAnswer: userAnswer.trim(),
         });
-        setAiAnswer(payload.data!.aiAnswer);
-        setAnswerId(payload.data!.answerId);
-      } catch (err: any) {
-        console.error(err);
-        alert(err?.message || "AI 첨삭 생성에 실패했습니다.");
+        setAiAnswer(aiAnswer);
+        setAnswerId(answerId);
+      } catch (e: unknown) {
+        console.error(e);
+        const msg = e instanceof Error ? e.message : String(e);
+        alert(msg || "AI 첨삭 생성에 실패했습니다.");
       } finally {
         setRotating(false);
         setLoading(false);

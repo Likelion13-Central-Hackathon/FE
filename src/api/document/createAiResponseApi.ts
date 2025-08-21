@@ -1,45 +1,62 @@
+// AI 첨삭 답변 API(POST)
+import { ApiEnvelope } from "../../types/api";
+import defaultInstance from "../utils/instance";
+
 export type CreateAiAnswerRequest = {
   questionNumber: number;
   userAnswer: string;
 };
 
-export type CreateAiAnswerResponse = {
-  isSuccess: boolean;
-  code: string;
-  httpStatus: number;
-  message: string;
-  data: { aiAnswer: string; answerId: number } | null;
-  timeStamp: string;
+export type CreateAiAnswerResult = {
+  aiAnswer: string;
+  answerId: number;
 };
 
-const RAW_BASE = import.meta.env.VITE_API_BASE_URL ?? "";
-const BASE_URL = RAW_BASE.replace(/\/+$/, ""); 
+type Options = {
+  signal?: AbortSignal;
+  token?: string;
+  idempotencyKey?: string;
+};
 
-
-const PATH = "/answers";
-
-export async function createAiAnswer(
+export const createAiAnswer = async (
   body: CreateAiAnswerRequest,
-  opts?: { signal?: AbortSignal; token?: string }
-): Promise<CreateAiAnswerResponse> {
-  const url = `${BASE_URL}${PATH}`; 
+  opts: Options = {}
+): Promise<CreateAiAnswerResult> => {
+  try {
+    const res = await defaultInstance.post<ApiEnvelope<CreateAiAnswerResult>>(
+      "/answers",
+      body,
+      {
+        signal: opts.signal,
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json; charset=utf-8",
+          ...(opts.token ? { Authorization: `Bearer ${opts.token}` } : {}),
+          ...(opts.idempotencyKey ? { "Idempotency-Key": opts.idempotencyKey } : {}),
+        },
+        validateStatus: () => true,
+      }
+    );
 
-  const headers: Record<string, string> = {
-    "Content-Type": "application/json; charset=utf-8",
-    "Idempotency-Key": crypto.randomUUID(),
-  };
-  if (opts?.token) headers.Authorization = `Bearer ${opts.token}`;
+    const { status } = res;
+    const { httpStatus, isSuccess, data, message } = res.data ?? {};
+    const effectiveStatus = typeof httpStatus === "number" ? httpStatus : status;
+    const okHttp = effectiveStatus >= 200 && effectiveStatus < 300;
+    const okEnvelope = typeof isSuccess === "boolean" ? isSuccess : okHttp;
 
-  const res = await fetch(url, {
-    method: "POST",
-    headers,
-    body: JSON.stringify(body),
-    signal: opts?.signal,
-  });
+    if (okHttp && okEnvelope && data) {
+      return data;
+    }
+    if (effectiveStatus === 500) {
+      throw new Error(message ?? "서버 내부에서 알 수 없는 오류가 발생했습니다.");
+    }
 
-  const payload = (await res.json()) as CreateAiAnswerResponse;
-  if (!res.ok || !payload.isSuccess || !payload.data) {
-    throw new Error(payload.message || `HTTP ${res.status}`);
+    throw new Error(message ?? `AI 첨삭 생성 실패(HTTP ${effectiveStatus})`);
+  } catch (e: unknown) {
+    console.error(e);
+    const msg = e instanceof Error ? e.message : String(e);
+    throw new Error("createAiAnswer Error: " + msg);
   }
-  return payload;
-}
+};
+
+export default createAiAnswer;
