@@ -33,12 +33,18 @@
   justify-content: space-between;
   align-items: flex-end;
 
-  span {
+  .labelInfo,
+  .labelWarning {
     font-size: 0.53vw;
     font-weight: 400;
-    color: $main-color2;
-
     text-align: end;
+  }
+
+  .labelInfo {
+    color: $main-color2;
+  }
+  .labelWarning {
+    color: #ab0000;
   }
 }
 

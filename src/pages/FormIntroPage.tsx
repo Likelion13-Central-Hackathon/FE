@@ -7,6 +7,7 @@ import BasicButton from "../components/BasicButton";
 import EmailPWBox from "../components/EmailPWBox";
 import { reportSession } from "../utils/sessionStorage";
 import getReportByEmailApi from "../api/report/getReportByEmailApi";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const FormIntroPage = () => {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ const FormIntroPage = () => {
   const [email, setEmail] = useState(""); // 이메일
   const [password, setPassword] = useState(""); // 비밀번호
   const [loading, setLoading] = useState(false);
+  const [warningShow, setWarningShow] = useState(false);
 
   // 처음 “분석결과 조회” 버튼
   const handleQueryClick = async () => {
@@ -30,13 +32,19 @@ const FormIntroPage = () => {
 
   // 두번째 “분석결과 조회” 버튼
   const handleEmailPwSubmit = async () => {
-    if (!email || !password) return;
+    if (!email || !password) {
+      setWarningShow(true);
+      return;
+    }
 
     try {
       setLoading(true);
       const data = await getReportByEmailApi({ email, password });
+      setWarningShow(false);
+
       navigate("/report", { state: { prefetched: data } }); // ReportPage로 데이터와 함께 이동
     } catch {
+      setWarningShow(true);
       console.error("FormIntroPage handleEmailPwSubmit Error");
     } finally {
       setLoading(false);
@@ -68,10 +76,10 @@ const FormIntroPage = () => {
             password={password}
             onChangeEmail={setEmail}
             onChangePassword={setPassword}
-            infoShow={false}
+            warningShow={warningShow}
           />
           <button className={s.underlineBtn} onClick={handleEmailPwSubmit}>
-            {loading ? "조회 중..." : "분석결과 조회"}
+            {loading ? <LoadingSpinner /> : "분석결과 조회"}
           </button>
         </div>
       )}
