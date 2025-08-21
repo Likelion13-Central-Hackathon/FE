@@ -6,8 +6,10 @@ import ReportInBox from "../../../components/ReportInBox";
 import BasicButton from "../../../components/BasicButton";
 import RETURN from "../../../assets/images/return-button.png";
 import GradientBox from "../../../components/GradientBox";
-import { createAiAnswer } from "../../../api/document/createAiResponseApi";
 import type { RevisingBoxHandle, RevisingTitle } from "../../../types/document";
+import { aiAnswerSession$ } from "../../../utils/sessionStorage";
+import createAiAnswer from "../../../api/document/createAiResponseApi";
+
 
 const RevisingBox = forwardRef<RevisingBoxHandle, RevisingTitle & { questionNumber: number }>(
   ({ title, explanation, questionNumber }, ref) => {
@@ -15,14 +17,14 @@ const RevisingBox = forwardRef<RevisingBoxHandle, RevisingTitle & { questionNumb
     const [aiAnswer, setAiAnswer] = useState<string>("");
     const [rotating, setRotating] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
-    const [answerId, setAnswerId] = useState<number | null>(null);
+  
 
     const isDisabled = userAnswer.trim().length === 0;
 
     useImperativeHandle(ref, () => ({
       getUserAnswer: () => userAnswer,
       getAiAnswer: () => aiAnswer,
-      getAnswerId: () => answerId,
+      getAnswerId:() => aiAnswerSession$(questionNumber).read()
     }));
 
     const handleCopy = () => {
@@ -39,7 +41,7 @@ const RevisingBox = forwardRef<RevisingBoxHandle, RevisingTitle & { questionNumb
           userAnswer: userAnswer.trim(),
         });
         setAiAnswer(aiAnswer);
-        setAnswerId(answerId);
+        aiAnswerSession$(questionNumber).save(answerId);
       } catch (e: unknown) {
         console.error(e);
         const msg = e instanceof Error ? e.message : String(e);

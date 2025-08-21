@@ -1,41 +1,15 @@
 // AI 첨삭 답변 API(POST)
 import { ApiEnvelope } from "../../types/api";
+import { CreateAiAnswerRequest, CreateAiAnswerResult } from "../../types/document";
 import defaultInstance from "../utils/instance";
-
-export type CreateAiAnswerRequest = {
-  questionNumber: number;
-  userAnswer: string;
-};
-
-export type CreateAiAnswerResult = {
-  aiAnswer: string;
-  answerId: number;
-};
-
-type Options = {
-  signal?: AbortSignal;
-  token?: string;
-  idempotencyKey?: string;
-};
 
 export const createAiAnswer = async (
   body: CreateAiAnswerRequest,
-  opts: Options = {}
 ): Promise<CreateAiAnswerResult> => {
   try {
     const res = await defaultInstance.post<ApiEnvelope<CreateAiAnswerResult>>(
       "/answers",
       body,
-      {
-        signal: opts.signal,
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json; charset=utf-8",
-          ...(opts.token ? { Authorization: `Bearer ${opts.token}` } : {}),
-          ...(opts.idempotencyKey ? { "Idempotency-Key": opts.idempotencyKey } : {}),
-        },
-        validateStatus: () => true,
-      }
     );
 
     const { status } = res;
