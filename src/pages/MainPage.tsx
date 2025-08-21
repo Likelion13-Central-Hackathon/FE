@@ -4,14 +4,11 @@ import s from "./styles/MainPage.module.scss";
 import TITLE from "../assets/images/logo/first-logo.svg";
 import BasicButton from "../components/BasicButton";
 import IntroLayout from "../components/IntroLayout";
-import { ideaSession, reportSession } from "../utils/sessionStorage";
 
 const MainPage = () => {
   const navigate = useNavigate();
 
   const handleNavigate = (path: string) => {
-    ideaSession.save(3); // 테스트용
-    reportSession.save(2); // 테스트용
     navigate(path);
   };
 

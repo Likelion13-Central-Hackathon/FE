@@ -6,7 +6,7 @@ import defaultInstance from "../utils/instance";
 const getReportByEmailApi = async (body: EmailPw): Promise<ReportDetail> => {
   try {
     const res = await defaultInstance.post<ApiEnvelope<ReportDetail>>(
-      `/reports/lastest`,
+      `/reports/latest`,
       body
     );
     const { httpStatus, isSuccess, data, message } = res.data;
