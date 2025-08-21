@@ -7,11 +7,11 @@ import CHAR from "../../assets/images/character-2d.png";
 import MapBox from "./components/MapBox";
 import ReportOutBox from "../../components/ReportOutBox";
 import BusinessItem from "./components/BusinessItem";
-//import data from "../../data/businessDummy.json";
 import { BusinessItemProps } from "../../types/business";
 import getAllBusinessApi from "../../api/business/getAllBusinessApi";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import PageNavigation from "./components/PageNavigation";
+import usePagination from "../../hooks/usePagenation";
 
 const PAGE_SIZE = 5; // 페이지 당 아이템 개수
 const WINDOW_SIZE = 4; // 페이지네이션 숫자 개수
@@ -19,21 +19,27 @@ const WINDOW_SIZE = 4; // 페이지네이션 숫자 개수
 const BusinessPage = () => {
   const navigate = useNavigate();
   const [region, setRegion] = useState("서울"); // 선택된 지역
-  const [page, setPage] = useState(0); // 페이지
   const [items, setItems] = useState<BusinessItemProps[]>([]);
   const [loading, setLoading] = useState(false);
 
   const [cache, setCache] = useState<Record<number, BusinessItemProps[]>>({}); // 페이지 캐시
-  const [maxKnownPage, setMaxKnownPage] = useState(0); // 지금까지 발견한 최대 페이지
-  const [windowStart, setWindowStart] = useState(0); // 시작 인덱스(슬라이딩)
+
+  const {
+    page,
+    pageButtons,
+    canPrev,
+    goPrev,
+    goNext,
+    goPage,
+    ackKnown,
+    reset: resetPagination,
+  } = usePagination({ windowSize: WINDOW_SIZE });
 
   // region이 바뀌면 초기화
   useEffect(() => {
-    setPage(0);
+    resetPagination();
     setCache({});
-    setMaxKnownPage(0);
-    setWindowStart(0);
-  }, [region]);
+  }, [region, resetPagination]);
 
   // page, region이 바뀔 때마다 조회 api 호출
   useEffect(() => {
@@ -43,6 +49,7 @@ const BusinessPage = () => {
     // 캐시에 현재 페이지가 있으면 API 호출 생략
     if (cache[page]) {
       setItems(cache[page]);
+      ackKnown(page);
       return () => controller.abort();
     }
 
@@ -54,8 +61,7 @@ const BusinessPage = () => {
         const data = await getAllBusinessApi(page, PAGE_SIZE, region);
         setCache((prev) => ({ ...prev, [page]: data }));
         setItems(data);
-        // 지금까지의 최대 페이지 갱신
-        setMaxKnownPage((prev) => Math.max(prev, page));
+        ackKnown(page); // 이 페이지까지 존재 확정
       } catch {
         console.log("BusinessPage useEffect Error");
         setItems([]);
@@ -64,51 +70,10 @@ const BusinessPage = () => {
       }
     })();
     return () => controller.abort();
-  }, [page, region, cache]);
+  }, [page, region, cache, ackKnown]);
 
-  // 이전, 다음버튼 활성화 조건
-  const canPrev = page > 0;
+  // 다음버튼 활성화 조건
   const canNext = items.length === PAGE_SIZE;
-
-  // 숫자 버튼(슬라이딩 윈도우) 최대 4개
-  const end = Math.min(windowStart + WINDOW_SIZE - 1, maxKnownPage);
-  const pageButtons: number[] = [];
-  for (let i = windowStart; i <= end; i++) pageButtons.push(i);
-
-  // 이전 페이지 이동
-  const goPrev = () => {
-    if (!canPrev) return;
-    setPage((p) => {
-      const next = Math.max(0, p - 1);
-      setWindowStart((ws) => (next < ws ? Math.max(0, ws - 1) : ws));
-      return next;
-    });
-  };
-
-  // 다음 페이지 이동
-  const goNext = () => {
-    if (!canNext) return;
-    setPage((p) => {
-      const next = p + 1;
-      setWindowStart((ws) => {
-        const winEnd = ws + WINDOW_SIZE - 1;
-        return next > winEnd ? ws + 1 : ws;
-      });
-      return next;
-    });
-  };
-
-  // 특정 페이지로 이동
-  const goPage = (p: number) => {
-    if (p === page) return;
-    setWindowStart((ws) => {
-      const winEnd = ws + WINDOW_SIZE - 1;
-      if (p < ws) return p;
-      if (p > winEnd) return p - (WINDOW_SIZE - 1);
-      return ws;
-    });
-    setPage(p);
-  };
 
   return (
     <div className={s.businessWrapper}>
@@ -128,7 +93,6 @@ const BusinessPage = () => {
           <MapBox
             onRegionSelect={(r) => {
               setRegion(r);
-              setPage(0);
             }}
           />
           <ReportOutBox width="48.80vw" height="41.35vw" className={b.column}>
@@ -163,7 +127,7 @@ const BusinessPage = () => {
               canPrev={canPrev}
               canNext={canNext}
               onPrev={goPrev}
-              onNext={goNext}
+              onNext={() => goNext({ canNext })}
               onPage={goPage}
             />
           </ReportOutBox>
