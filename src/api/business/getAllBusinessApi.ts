@@ -1,5 +1,5 @@
 // 전체 창업 지원사업 목록 조회 (GET)
-import { ApiEnvelope } from "../../types/api";
+import { ApiEnvelopeNullable } from "../../types/api";
 import { BusinessItemProps } from "../../types/business";
 import defaultInstance from "../utils/instance";
 
@@ -9,12 +9,11 @@ const getAllBusinessApi = async (
   region: string
 ): Promise<BusinessItemProps[]> => {
   try {
-    const res = await defaultInstance.get<ApiEnvelope<BusinessItemProps[]>>(
-      "/startup-supports",
-      {
-        params: { page, num, region },
-      }
-    );
+    const res = await defaultInstance.get<
+      ApiEnvelopeNullable<BusinessItemProps[]>
+    >("/startup-supports", {
+      params: { page, num, region },
+    });
     const { httpStatus, isSuccess, data, message } = res.data ?? {};
 
     if (httpStatus === 200 && isSuccess) {
