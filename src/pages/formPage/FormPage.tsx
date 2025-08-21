@@ -17,8 +17,8 @@ import {
 import { submitFormRequestBody } from "../../utils/form/submitFormRequestBody";
 import submitFormApi from "../../api/form/submitFormApi";
 import Loading from "../../components/Loading";
-import { saveIdeaIdToSession } from "../../utils/sessionStorage";
 import createReportApi from "../../api/form/createReportApi";
+import { ideaSession } from "../../utils/sessionStorage";
 
 const STEPS: Step[] = ["info", "consider", "base"];
 
@@ -109,7 +109,7 @@ const FormPage: React.FC = () => {
 
       const body = submitFormRequestBody(formData); // 3개의 form Request 조립
       const { ideaId } = await submitFormApi(body); // 창업 아이디어 생성 api 호출
-      saveIdeaIdToSession(ideaId); // 세션스토리지에 ideaId 저장
+      ideaSession.save(ideaId); // 세션스토리지에 ideaId 저장
 
       try {
         await createReportApi(ideaId); // 레포트 생성 api 호출

@@ -7,6 +7,7 @@ import RightOrbit from "../../components/RightOrbit";
 import { BASE_LABELS, BASE_POSITION } from "../../data/documentData";
 import { pdf } from "@react-pdf/renderer";
 import MyDocumentAll from "../../components/MyDocumentAll";
+import WarningModal from "../../components/WarningModal";
 
 function rotateToCenter5<T>(arr: readonly [T, T, T, T, T], idx: number): [T, T, T, T, T] {
   const n = 5, M = 2;
@@ -17,6 +18,10 @@ function rotateToCenter5<T>(arr: readonly [T, T, T, T, T], idx: number): [T, T, 
 const DocumentPage = () => {
   const [activeSection, setActiveSection] = useState(0);
   const [downloading, setDownloading] = useState(false);
+
+  const [showWarn, setShowWarn] = useState(false);
+  const openWarn = () => setShowWarn(true);
+  const closeWarn = () => setShowWarn(false);
 
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -126,10 +131,13 @@ const DocumentPage = () => {
               title={item.title}
               explanation={item.explanation}
               onExportAll={handleExportAll}    
+              onRequireWarn={openWarn}
+              questionNumber={index + 1}
             />
           </div>
         ))}
       </div>
+      {showWarn && <WarningModal onClose={closeWarn} />}
     </div>
   );
 };

@@ -6,29 +6,50 @@ import ReportInBox from "../../../components/ReportInBox";
 import BasicButton from "../../../components/BasicButton";
 import RETURN from "../../../assets/images/return-button.png";
 import GradientBox from "../../../components/GradientBox";
-import data from "../../../data/aiRevisingData.json";
 import type { RevisingBoxHandle, RevisingTitle } from "../../../types/document";
+import { aiAnswerSession$ } from "../../../utils/sessionStorage";
+import createAiAnswer from "../../../api/document/createAiResponseApi";
 
-const RevisingBox = forwardRef<RevisingBoxHandle, RevisingTitle>(
-  ({ title, explanation }, ref) => {
+
+const RevisingBox = forwardRef<RevisingBoxHandle, RevisingTitle & { questionNumber: number }>(
+  ({ title, explanation, questionNumber }, ref) => {
     const [userAnswer, setUserAnswer] = useState<string>("");
     const [aiAnswer, setAiAnswer] = useState<string>("");
     const [rotating, setRotating] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false);
+  
 
+    const isDisabled = userAnswer.trim().length === 0;
+
+    //pdf를 위한 ref 코드
     useImperativeHandle(ref, () => ({
       getUserAnswer: () => userAnswer,
       getAiAnswer: () => aiAnswer,
+      getAnswerId:() => aiAnswerSession$(questionNumber).read()
     }));
 
     const handleCopy = () => {
       navigator.clipboard.writeText(aiAnswer).catch(console.error);
     };
 
-    const handleRevising = () => {
+    const handleRevising = async () => {
+      if (isDisabled || loading) return;
       setRotating(true);
-      setTimeout(() => setRotating(false), 1000);
-      if (data.isSuccess && data.data?.aiAnswer) {
-        setAiAnswer(data.data.aiAnswer);
+      setLoading(true);
+      try {
+        const { aiAnswer, answerId } = await createAiAnswer({
+          questionNumber,
+          userAnswer: userAnswer.trim(),
+        });
+        setAiAnswer(aiAnswer);
+        aiAnswerSession$(questionNumber).save(answerId);
+      } catch (e: unknown) {
+        console.error(e);
+        const msg = e instanceof Error ? e.message : String(e);
+        alert(msg || "AI 첨삭 생성에 실패했습니다.");
+      } finally {
+        setRotating(false);
+        setLoading(false);
       }
     };
 
@@ -76,6 +97,8 @@ const RevisingBox = forwardRef<RevisingBoxHandle, RevisingTitle>(
                     height="1.67vw"
                     text="첨삭받기"
                     onClick={handleRevising}
+                    disabled={isDisabled || loading}
+                    aria-disabled={isDisabled || loading}
                   />
                 </div>
 
