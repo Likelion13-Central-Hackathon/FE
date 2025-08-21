@@ -1,25 +1,23 @@
 import React, { useRef, forwardRef, useImperativeHandle } from "react";
 import IconButton from "../../../components/IconButton";
 import PDF from "../../../assets/images/icon/download-icon.svg";
-import RevisingBox, { RevisingBoxHandle } from "./RevisingBox";
-import QuestionsBox, { QuestionsBoxHandle } from "./QuestionsBox";
-import type { RevisingTitle } from "../../../data/revisingTitleData";
+import RevisingBox from "./RevisingBox";
+import QuestionsBox from "./QuestionsBox";
+import data from "../../../data/aiQuestionData.json";
+import type {
+  ItemHandle,
+  DocumentItemProps,
+  RevisingBoxHandle,
+  QuestionsBoxHandle,
+} from "../../../types/document";
 
-export type ItemHandle = {
-  getSnapshot: () => {
-    title: string;
-    userAnswer: string;
-    aiAnswer: string;
-    qa: { question: string; answer: string }[];
+  type Props = DocumentItemProps & {
+    onRequireWarn?: () => void;
+    questionNumber: number;
   };
-};
-
-type Props = RevisingTitle & {
-  onExportAll?: () => void; 
-};
 
 const DocumentItem = forwardRef<ItemHandle, Props>(
-  ({ title, explanation, onExportAll }, ref) => {
+  ({ title, explanation, onExportAll, onRequireWarn, questionNumber }, ref) => {
     const revisingRef = useRef<RevisingBoxHandle>(null);
     const questionsRef = useRef<QuestionsBoxHandle>(null);
 
@@ -47,10 +45,22 @@ const DocumentItem = forwardRef<ItemHandle, Props>(
             <IconButton imgSrc={PDF} text="PDF" onClick={handleClick} />
           </div>
 
-          <RevisingBox ref={revisingRef} title={title} explanation={explanation} />
+          <RevisingBox
+            ref={revisingRef}
+            title={title}
+            explanation={explanation}
+            questionNumber={questionNumber}
+          />
         </div>
 
-        <QuestionsBox ref={questionsRef} questions={[]} />
+         <QuestionsBox
+            ref={questionsRef}
+            questions={data.data}
+            getAiAnswer={() => revisingRef.current?.getAiAnswer?.() ?? ""}
+            onRequireWarn={onRequireWarn}
+            questionNumber={questionNumber}
+          />
+
       </div>
     );
   }

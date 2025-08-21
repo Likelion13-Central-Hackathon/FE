@@ -22,3 +22,11 @@ export const makeIdSession = (key: string): IdSession => ({
 
 export const ideaSession = makeIdSession("idea:current"); // ideaId
 export const reportSession = makeIdSession("report:current"); // reportId
+// answerId
+const _cache = new Map<number, IdSession>();
+export const aiAnswerSession$ = (qnum: number): IdSession => {
+  if (!_cache.has(qnum)) {
+    _cache.set(qnum, makeIdSession(`aiAnswer:current${qnum}`));
+  }
+  return _cache.get(qnum)!;
+};
