@@ -10,9 +10,10 @@ import type {
   QAItem,
 } from "../../../types/document";
 import createAiQnaApi from "../../../api/document/createAiQnaApi";
+import { aiAnswerSession$ } from "../../../utils/sessionStorage";
 
 const QuestionsBox = forwardRef<QuestionsBoxHandle, QuestionsBoxProps & ExtraProps>(
-  ({ questions, getAiAnswer, getAnswerId, onRequireWarn }, ref) => {
+  ({ questions, getAiAnswer, onRequireWarn, questionNumber }, ref) => {
     const [started, setStarted] = useState(false);
     const [loading, setLoading] = useState(false);
     const [qaList, setQaList] = useState<QAItem[]>(questions ?? []);
@@ -27,7 +28,7 @@ const QuestionsBox = forwardRef<QuestionsBoxHandle, QuestionsBoxProps & ExtraPro
 
     const fetchQna = async () => {
       const ai = (getAiAnswer?.() ?? "").trim();
-      const aId = getAnswerId?.() ?? null;
+      const aId = aiAnswerSession$(questionNumber).read();
       if (aId == null || Number.isNaN(aId)) {
         onRequireWarn?.();  
         return;             

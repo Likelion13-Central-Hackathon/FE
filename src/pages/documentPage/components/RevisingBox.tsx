@@ -21,6 +21,7 @@ const RevisingBox = forwardRef<RevisingBoxHandle, RevisingTitle & { questionNumb
 
     const isDisabled = userAnswer.trim().length === 0;
 
+    //pdf를 위한 ref 코드
     useImperativeHandle(ref, () => ({
       getUserAnswer: () => userAnswer,
       getAiAnswer: () => aiAnswer,

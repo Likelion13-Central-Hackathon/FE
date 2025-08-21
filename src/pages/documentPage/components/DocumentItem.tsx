@@ -57,8 +57,8 @@ const DocumentItem = forwardRef<ItemHandle, Props>(
             ref={questionsRef}
             questions={data.data}
             getAiAnswer={() => revisingRef.current?.getAiAnswer?.() ?? ""}
-            getAnswerId={() => revisingRef.current?.getAnswerId?.() ?? null}  
             onRequireWarn={onRequireWarn}
+            questionNumber={questionNumber}
           />
 
       </div>

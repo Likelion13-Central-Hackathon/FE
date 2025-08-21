@@ -55,6 +55,7 @@ export type ExtraProps = {
   getAiAnswer?: () => string;
   getAnswerId?: () => number | null;
   onRequireWarn?: () => void;
+  questionNumber:number;
 };
 
 export type CreateAiAnswerRequest = {
