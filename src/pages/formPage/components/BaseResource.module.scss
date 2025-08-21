@@ -27,36 +27,25 @@
   gap: 0.31vw;
 }
 
-/* 자원 카드 그리드: 두 줄(위/아래)로 분리 */
 .resourceGrid {
-  display: flex;
-  flex-direction: column;
-  row-gap: 2vw; /* 위/아래 줄 간격 */
-}
-
-.resourceRowTop,
-.resourceRowBottom {
-  display: flex;
-  flex-wrap: nowrap; /* 3개씩 고정 */
-}
-
-/* 위 3개의 좌우 간격 */
-.resourceRowTop {
-  column-gap: 2.76vw;
-}
-
-/* 아래 3개의 좌우 간격 */
-.resourceRowBottom {
-  column-gap: 1.35vw;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  row-gap: 2vw;
+  align-items: stretch;
 }
 
 .resourceCard {
-  flex: none;
-  width: auto;
+  width: 100%;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  text-align: center;
+}
+.resourceCard img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 .resourceHead {
@@ -69,14 +58,15 @@
 .resourceTitle {
   font-size: 1.04vw;
   font-weight: bold;
+  text-align: center;
 }
 
 .resourceDesc {
-  width: 7.4vw;
   font-size: 0.63vw;
   color: #000000;
   line-height: 1.5;
   white-space: pre-line;
+  text-align: center;
 }
 
 /* StatusSelect 래퍼 */

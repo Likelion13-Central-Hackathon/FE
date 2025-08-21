@@ -1,19 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./styles/StatusSelect.module.scss";
 
-type Props = {
-  value: string | null;
-  onChange: (v: string) => void;
-  options: string[];
+type Option<T extends string> = { value: T; label: string };
+
+type Props<T extends string> = {
+  value: T | null;
+  onChange: (v: T) => void;
+  options: readonly Option<T>[];
   placeholder?: string;
   width?: string;
   height?: string;
   style?: React.CSSProperties;
-  /** 드롭다운 z-index(필요하면 조절) */
+  /** 드롭다운 z-index */
   menuZIndex?: number;
 };
 
-const StatusSelect: React.FC<Props> = ({
+function StatusSelect<T extends string>({
   value,
   onChange,
   options,
@@ -21,8 +23,8 @@ const StatusSelect: React.FC<Props> = ({
   width,
   height,
   style,
-  menuZIndex = 10000, // ← 메뉴를 충분히 위로 올림
-}) => {
+  menuZIndex = 10000,
+}: Props<T>) {
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
 
@@ -36,7 +38,9 @@ const StatusSelect: React.FC<Props> = ({
     return () => document.removeEventListener("mousedown", onDoc);
   }, []);
 
-  const label = value ?? placeholder;
+  // value에 해당하는 라벨 찾기
+  const activeLabel =
+    (value && options.find((o) => o.value === value)?.label) || placeholder;
 
   return (
     <div
@@ -54,7 +58,7 @@ const StatusSelect: React.FC<Props> = ({
         aria-expanded={open}
         style={{ width, height }}
       >
-        {label}
+        {activeLabel}
         <span className={styles.caret}>▼</span>
       </button>
 
@@ -67,23 +71,23 @@ const StatusSelect: React.FC<Props> = ({
         >
           <div className={styles.selectMenuWrapper}>
             {options.map((opt) => {
-              const checked = value === opt;
+              const checked = value === opt.value;
               return (
                 <button
-                  key={opt}
+                  key={opt.value}
                   type="button"
                   className={styles.optRow}
                   role="option"
                   aria-selected={checked}
                   onClick={() => {
-                    onChange(opt);
+                    onChange(opt.value);
                     setOpen(false);
                   }}
                 >
                   <span
                     className={`${styles.box} ${checked ? styles.boxOn : ""}`}
                   />
-                  <span className={styles.optText}>{opt}</span>
+                  <span className={styles.optText}>{opt.label}</span>
                 </button>
               );
             })}
@@ -92,6 +96,6 @@ const StatusSelect: React.FC<Props> = ({
       )}
     </div>
   );
-};
+}
 
 export default StatusSelect;
