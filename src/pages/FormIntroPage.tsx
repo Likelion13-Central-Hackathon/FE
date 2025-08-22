@@ -42,6 +42,7 @@ const FormIntroPage = () => {
       const data = await getReportByEmailApi({ email, password });
       setWarningShow(false);
 
+      reportSession.save(data.id); // 세션스토리지에 reportId 저장
       navigate("/report", { state: { prefetched: data } }); // ReportPage로 데이터와 함께 이동
     } catch {
       setWarningShow(true);
