@@ -1,15 +1,16 @@
-import React, { useState, forwardRef, useImperativeHandle } from "react";
-import s from "./Document.module.scss";
-import b from "../../../components/styles/Box.module.scss";
-import ReportOutBox from "../../../components/ReportOutBox";
-import ReportInBox from "../../../components/ReportInBox";
+import React, { useState, forwardRef, useImperativeHandle } from 'react';
+import s from './Document.module.scss';
+import b from '../../../components/styles/Box.module.scss';
+import ReportOutBox from '../../../components/ReportOutBox';
+import ReportInBox from '../../../components/ReportInBox';
 import type {
   QuestionsBoxHandle,
   ExtraProps,
   QAItem,
-} from "../../../types/document";
-import createAiQnaApi from "../../../api/document/createAiQnaApi";
-import { aiAnswerSession$ } from "../../../utils/sessionStorage";
+} from '../../../types/document';
+import createAiQnaApi from '../../../api/document/createAiQnaApi';
+import { aiAnswerSession$ } from '../../../utils/sessionStorage';
+import LoadingSpinner from '../../../components/LoadingSpinner';
 
 const QuestionsBox = forwardRef<QuestionsBoxHandle, ExtraProps>(
   ({ getAiAnswer, onRequireWarn, questionNumber }, ref) => {
@@ -26,7 +27,7 @@ const QuestionsBox = forwardRef<QuestionsBoxHandle, ExtraProps>(
     }));
 
     const fetchQna = async () => {
-      const ai = (getAiAnswer?.() ?? "").trim();
+      const ai = (getAiAnswer?.() ?? '').trim();
       const aId = aiAnswerSession$(questionNumber).read();
       if (aId == null || Number.isNaN(aId)) {
         onRequireWarn?.();
@@ -41,7 +42,7 @@ const QuestionsBox = forwardRef<QuestionsBoxHandle, ExtraProps>(
       try {
         const items = await createAiQnaApi(aId);
         if (!items || items.length === 0)
-          throw new Error("생성된 예상 질문이 없습니다.");
+          throw new Error('생성된 예상 질문이 없습니다.');
         setQaList(items);
         setStarted(true);
       } catch (err) {
@@ -71,7 +72,7 @@ const QuestionsBox = forwardRef<QuestionsBoxHandle, ExtraProps>(
               onClick={loading ? undefined : handleRetry}
               disabled={loading}
             >
-              {loading ? "생성 중..." : "다른질문 보기"}
+              {loading ? '생성 중...' : '다른질문 보기'}
             </button>
           )}
 
@@ -82,7 +83,7 @@ const QuestionsBox = forwardRef<QuestionsBoxHandle, ExtraProps>(
                 onClick={loading ? undefined : handleStart}
                 aria-busy={loading}
               >
-                {loading ? "생성 중..." : "생성하기"}
+                {loading ? <LoadingSpinner /> : '생성하기'}
               </p>
             )}
 
@@ -106,5 +107,5 @@ const QuestionsBox = forwardRef<QuestionsBoxHandle, ExtraProps>(
   }
 );
 
-QuestionsBox.displayName = "QuestionsBox";
+QuestionsBox.displayName = 'QuestionsBox';
 export default QuestionsBox;
