@@ -119,7 +119,7 @@ const ReportPage = () => {
         <section>
           {/* 상단 제목 부분 + 아이콘 2개 */}
           <div className={s.titleContainer}>
-            <p className={s.title}>"제목" 로드맵</p>
+            <p className={s.title}>{report.title} 로드맵</p>
             <div
               style={{ display: "flex", gap: "0.63vw", alignItems: "flex-end" }}
             >

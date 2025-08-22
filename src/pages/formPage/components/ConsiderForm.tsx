@@ -269,11 +269,7 @@ const ConsiderForm: React.FC<StepComponentProps> = ({
   );
   const hasBusinessAge = data.businessAge !== null; // 업력
   const hasStage = data.stage !== null; // 현황
-  const hasTitle = useMemo(
-    // 제목
-    () => data.title.trim().length > 0,
-    [data.title]
-  );
+  const hasTitle = data.title?.trim().length > 0; // 제목
   const hasDescription = useMemo(
     // 아이템 설명
     () => data.description.trim().length > 0,
