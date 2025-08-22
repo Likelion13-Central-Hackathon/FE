@@ -9,15 +9,6 @@ export type RevisingTitle = {
   explanation: string;
 };
 
-/* ===== 컴포넌트 Props ===== */
-
-// QuestionsBox props (questions 배열 전달)
-export type QuestionsBoxProps = {
-  questions: QAItem[];
-};
-
-/* ===== 컴포넌트 Handles ===== */
-
 // RevisingBox 핸들 (사용자/AI 답변 getter)
 export type RevisingBoxHandle = {
   getUserAnswer: () => string;
@@ -48,14 +39,14 @@ export type ItemHandle = {
 // DocumentItem props (RevisingTitle + PDF 내보내기 콜백)
 export type DocumentItemProps = RevisingTitle & {
   onExportAll?: () => void;
-  onRequireWarn?: () => void
+  onRequireWarn?: () => void;
 };
 
 export type ExtraProps = {
   getAiAnswer?: () => string;
   getAnswerId?: () => number | null;
   onRequireWarn?: () => void;
-  questionNumber:number;
+  questionNumber: number;
 };
 
 export type CreateAiAnswerRequest = {
