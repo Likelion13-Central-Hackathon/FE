@@ -20,6 +20,7 @@ export type FormData = {
   supportNeeds: Partial<Record<SupportKey, RankCode>>;
   businessAge: BusinessAge | null;
   stage: StartupStage | null;
+  title: string;
   description: string;
   teamSize: TeamSize | null;
   capital: CapitalScale | null;

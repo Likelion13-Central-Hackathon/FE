@@ -46,6 +46,7 @@ export type ReportRecommendation = {
 export type ReportDetail = {
   id: number;
   angle: number;
+  title: string;
   researchMethod: string;
   strength: string;
   weakness: string;

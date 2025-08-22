@@ -62,6 +62,7 @@ const INITIAL_FORM_DATA: FormData = {
   supportNeeds: {},
   businessAge: null,
   stage: null,
+  title: "",
   description: "",
 
   teamSize: null,

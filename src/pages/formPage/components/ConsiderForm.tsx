@@ -269,6 +269,7 @@ const ConsiderForm: React.FC<StepComponentProps> = ({
   );
   const hasBusinessAge = data.businessAge !== null; // 업력
   const hasStage = data.stage !== null; // 현황
+  const hasTitle = data.title?.trim().length > 0; // 제목
   const hasDescription = useMemo(
     // 아이템 설명
     () => data.description.trim().length > 0,
@@ -277,7 +278,7 @@ const ConsiderForm: React.FC<StepComponentProps> = ({
 
   // 다음 버튼 활성 조건
   const canProceed =
-    hasInterest && hasBusinessAge && hasStage && hasDescription;
+    hasInterest && hasBusinessAge && hasStage && hasTitle && hasDescription;
   const disableNext = !canProceed;
 
   const handleNext = () => {
@@ -383,6 +384,8 @@ const ConsiderForm: React.FC<StepComponentProps> = ({
               placeholder="창업 아이템 제목 (띄어쓰기 포함 30자 이내)"
               className={styles.titleInput}
               maxLength={30}
+              value={data.title}
+              onChange={(e) => updateForm({ title: e.target.value })}
             />
             <textarea
               className={styles.textarea}
