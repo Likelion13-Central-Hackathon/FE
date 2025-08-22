@@ -66,7 +66,7 @@ export interface EmailPw {
 
 // ----- 메일 구독 api용
 export interface SubscribeMailRequest extends EmailPw {
-  ideaId: number;
+  reportId: number;
 }
 
 export type SubscribeMailData = null;
