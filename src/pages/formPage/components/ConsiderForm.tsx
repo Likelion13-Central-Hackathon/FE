@@ -1,4 +1,3 @@
-// ConsiderForm.tsx
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./ConsiderForm.module.scss";
 import BasicButton from "../../../components/BasicButton";
@@ -270,6 +269,7 @@ const ConsiderForm: React.FC<StepComponentProps> = ({
   );
   const hasBusinessAge = data.businessAge !== null; // 업력
   const hasStage = data.stage !== null; // 현황
+  const hasTitle = data.title?.trim().length > 0; // 제목
   const hasDescription = useMemo(
     // 아이템 설명
     () => data.description.trim().length > 0,
@@ -278,7 +278,7 @@ const ConsiderForm: React.FC<StepComponentProps> = ({
 
   // 다음 버튼 활성 조건
   const canProceed =
-    hasInterest && hasBusinessAge && hasStage && hasDescription;
+    hasInterest && hasBusinessAge && hasStage && hasTitle && hasDescription;
   const disableNext = !canProceed;
 
   const handleNext = () => {
@@ -314,23 +314,22 @@ const ConsiderForm: React.FC<StepComponentProps> = ({
                     <img src={ICON_MAP[it.key]} alt={it.label} />
                   </div>
                   <div className={styles.supportLabel}>{it.label}</div>
-                  <div className={styles.rankWrap}>
-                    <StatusSelect<RankCode>
-                      value={data.supportNeeds?.[it.key] ?? null}
-                      onChange={(code) =>
-                        updateForm({
-                          supportNeeds: {
-                            ...(data.supportNeeds ?? {}),
-                            [it.key]: code,
-                          },
-                        })
-                      }
-                      options={RANK_OPTIONS}
-                      placeholder="순위"
-                      width="3.65vw"
-                      height="1.15vw"
-                    />
-                  </div>
+
+                  <StatusSelect<RankCode>
+                    value={data.supportNeeds?.[it.key] ?? null}
+                    onChange={(code) =>
+                      updateForm({
+                        supportNeeds: {
+                          ...(data.supportNeeds ?? {}),
+                          [it.key]: code,
+                        },
+                      })
+                    }
+                    options={RANK_OPTIONS}
+                    placeholder="순위"
+                    width="3.65vw"
+                    height="1.15vw"
+                  />
                 </div>
               ))}
             </div>
@@ -380,6 +379,14 @@ const ConsiderForm: React.FC<StepComponentProps> = ({
           {/* 섹션 5: 아이템 텍스트 */}
           <section className={styles.section}>
             <p className={styles.label}>어떤 창업 아이템을 준비중인가요?</p>
+            <input
+              type="text"
+              placeholder="창업 아이템 제목 (띄어쓰기 포함 30자 이내)"
+              className={styles.titleInput}
+              maxLength={30}
+              value={data.title}
+              onChange={(e) => updateForm({ title: e.target.value })}
+            />
             <textarea
               className={styles.textarea}
               placeholder={

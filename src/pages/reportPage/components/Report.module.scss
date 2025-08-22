@@ -129,7 +129,7 @@
           object-fit: contain;
           display: block;
           clip-path: inset(0 100% 0 0);
-          animation: liner 2s ease-out forwards;
+          animation: liner 2s ease-out 6s forwards;
         }
       }
 
@@ -213,15 +213,17 @@
   h1,
   h2,
   h3 {
-    margin: 1em 0 0.5em;
+    margin: 1.2vw 0;
   }
+
   p {
-    margin: 0.75em 0;
+    margin: 0.9vw 0;
   }
+
   ul,
   ol {
-    margin: 0.75em 0;
-    padding-left: 1.25rem;
+    margin: 0.9vw 0;
+    padding-left: 1.5vw;
   }
 }
 

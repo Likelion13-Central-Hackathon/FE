@@ -7,7 +7,7 @@ import BasicButton from "./BasicButton";
 import character from "../assets/images/character-2d.svg";
 import { checkPassword, checkEmail } from "../utils/validation";
 import subscribeMailApi from "../api/report/subscribeMailApi";
-import { ideaSession } from "../utils/sessionStorage";
+import { reportSession } from "../utils/sessionStorage";
 import LoadingSpinner from "./LoadingSpinner";
 
 type Props = {
@@ -50,15 +50,15 @@ const MailModal: React.FC<Props> = ({
 
     try {
       setLoading(true);
-      const ideaId = ideaSession.read(); // 세션스토리지에서 ideaId 조회
-      if (!ideaId) {
-        throw new Error("유효한 ideaId가 없습니다.");
+      const reportId = reportSession.read(); // 세션스토리지에서 reportId 조회
+      if (!reportId) {
+        throw new Error("유효한 reportId가 없습니다.");
       }
       // 메일 구독 api 조회
       await subscribeMailApi({
         email,
         password,
-        ideaId,
+        reportId,
       });
 
       setStep("done");

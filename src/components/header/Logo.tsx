@@ -12,6 +12,7 @@ const Logo: React.FC<SizeProps> = ({ width = "8.8vw", height = "2.34vw" }) => {
       alt="Logo"
       style={{ width, height, cursor: "pointer" }}
       onClick={() => navigate("/")}
+      draggable="false"
     />
   );
 };

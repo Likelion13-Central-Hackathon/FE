@@ -46,6 +46,7 @@ export type ReportRecommendation = {
 export type ReportDetail = {
   id: number;
   angle: number;
+  title: string;
   researchMethod: string;
   strength: string;
   weakness: string;
@@ -66,7 +67,7 @@ export interface EmailPw {
 
 // ----- 메일 구독 api용
 export interface SubscribeMailRequest extends EmailPw {
-  ideaId: number;
+  reportId: number;
 }
 
 export type SubscribeMailData = null;

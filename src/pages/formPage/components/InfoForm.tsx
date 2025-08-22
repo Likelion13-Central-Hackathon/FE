@@ -1,4 +1,3 @@
-// components/InfoForm.tsx
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import s from "./InfoForm.module.scss";
 import BasicButton from "../../../components/BasicButton";
