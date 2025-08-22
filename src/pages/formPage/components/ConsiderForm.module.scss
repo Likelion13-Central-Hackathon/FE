@@ -43,12 +43,17 @@
 }
 
 .supportCard {
-  width: 3.65vw;
-  height: 5.73vw;
+  width: 3.26vw;
+  height: 5.13vw;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.42vw;
+  gap: 0.36vw;
+
+  .rankWrap {
+    padding: 0;
+    margin: 0;
+  }
 }
 
 .supportCard:nth-child(n + 6) {
@@ -59,8 +64,8 @@
 }
 
 .supportIcon {
-  width: 2.86vw;
-  height: 2.86vw;
+  width: 2.56vw;
+  height: 2.56vw;
   display: grid;
   place-items: center;
 }
@@ -115,13 +120,12 @@
   border-color: #111;
 }
 
+.titleInput,
 .textarea {
   width: 26.93vw;
-  height: 5.99vw;
   border-radius: 0.26vw;
   border: 0.052vw solid $main-color2;
   font-size: 0.63vw;
-  letter-spacing: -0.1vw;
   padding: 0.63vw;
   background: #f9faff;
   outline: none;
@@ -132,6 +136,12 @@
   &::placeholder {
     color: #aaaaaa;
   }
+}
+.titleInput {
+  height: 1.09vw;
+}
+.textarea {
+  height: 5.99vw;
 }
 
 .note {
