@@ -1,4 +1,5 @@
 import React, { useRef, forwardRef, useImperativeHandle } from "react";
+import s from "./Document.module.scss";
 import IconButton from "../../../components/IconButton";
 import PDF from "../../../assets/images/icon/download-icon.svg";
 import RevisingBox from "./RevisingBox";
@@ -36,25 +37,16 @@ const DocumentItem = forwardRef<ItemHandle, Props>(
     };
 
     return (
-      <div style={{ display: "flex", gap: "1.04vw", alignItems: "flex-start" }}>
-        <div style={{ flex: "1 1 auto" }}>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "flex-end",
-              marginBottom: "0.52vw",
-            }}
-          >
-            <IconButton imgSrc={PDF} text="PDF" onClick={handleClick} />
-          </div>
-
-          <RevisingBox
-            ref={revisingRef}
-            title={title}
-            explanation={explanation}
-            questionNumber={questionNumber}
-          />
+      <div className={s.documentItemContainer}>
+        <div className={s.pdfButton}>
+          <IconButton imgSrc={PDF} text="PDF" onClick={handleClick} />
         </div>
+        <RevisingBox
+          ref={revisingRef}
+          title={title}
+          explanation={explanation}
+          questionNumber={questionNumber}
+        />
 
         <QuestionsBox
           ref={questionsRef}

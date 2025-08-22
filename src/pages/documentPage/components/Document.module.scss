@@ -180,3 +180,18 @@
     border-bottom: 0.1vw solid $gray-400;
   }
 }
+
+// DocumentItem
+.documentItemContainer {
+  display: flex;
+  gap: 1.04vw;
+  align-items: flex-end;
+  position: relative;
+
+  .pdfButton {
+    position: absolute;
+    top: 4%;
+    right: 20%;
+    z-index: 300;
+  }
+}
