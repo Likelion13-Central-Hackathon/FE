@@ -26,25 +26,25 @@ const ORBIT_PRESETS: Record<Step, OrbitPreset> = {
   info: {
     labels: ["창업지원 및 자원", "인적사항", "창업내용"],
     positions: {
-      t1: { top: "23%", left: "-8.2%", transform: "rotate(45deg)" },
-      t2: { top: "50%", left: "-9%", transform: "rotate(0deg)" },
-      t3: { top: "77%", left: "-1%", transform: "rotate(-45deg)" },
+      t1: { top: "23%", left: "-7.3%", transform: "rotate(45deg)" },
+      t2: { top: "50%", left: "-8.5%", transform: "rotate(0deg)" },
+      t3: { top: "77%", left: "-0.6%", transform: "rotate(-45deg)" },
     },
   },
   consider: {
     labels: ["인적사항", "창업내용", "창업지원 및 자원"],
     positions: {
-      t1: { top: "25%", left: "-3.2%", transform: "rotate(45deg)" },
-      t2: { top: "50%", left: "-9%", transform: "rotate(0deg)" },
-      t3: { top: "80%", left: "-5.2%", transform: "rotate(-45deg)" },
+      t1: { top: "25%", left: "-2.6%", transform: "rotate(45deg)" },
+      t2: { top: "50%", left: "-8.5%", transform: "rotate(0deg)" },
+      t3: { top: "80%", left: "-5%", transform: "rotate(-45deg)" },
     },
   },
   base: {
     labels: ["창업내용", "창업지원 및 자원", "인적사항"],
     positions: {
-      t1: { top: "25%", left: "-3.2%", transform: "rotate(45deg)" },
-      t2: { top: "50%", left: "-14.7%", transform: "rotate(0deg)" },
-      t3: { top: "78%", left: "-0.4%", transform: "rotate(-45deg)" },
+      t1: { top: "25%", left: "-2.6%", transform: "rotate(45deg)" },
+      t2: { top: "50%", left: "-14.2%", transform: "rotate(0deg)" },
+      t3: { top: "78%", left: "0.3%", transform: "rotate(-45deg)" },
     },
   },
 };

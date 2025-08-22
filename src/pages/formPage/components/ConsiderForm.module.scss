@@ -9,7 +9,7 @@
   .section {
     display: flex;
     flex-direction: column;
-    gap: 0.63vw;
+    gap: 0.42vw;
   }
 }
 
@@ -48,6 +48,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 0.42vw;
 }
 
 .supportCard:nth-child(n + 6) {
@@ -80,13 +81,9 @@
   font-size: 0.63vw;
   font-weight: 600;
 }
-.rankWrap {
-  margin-top: 0.42vw;
-}
 
 .rankSelect {
   height: 1.36vw;
-  padding: 0 0.6vw;
   border: 0.052vw solid #dde3ee;
   border-radius: 0.42vw;
   background: #fff;

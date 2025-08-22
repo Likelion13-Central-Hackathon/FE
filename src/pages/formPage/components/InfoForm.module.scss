@@ -31,8 +31,8 @@
 /* 행/열 */
 .row {
   display: flex;
-  column-gap: 2.6vw;
-  row-gap: 0.8vw;
+  align-items: center;
+  gap: 2.6vw;
   margin-top: 1.04vw;
   overflow: visible;
 
@@ -52,16 +52,14 @@
 }
 
 .col {
-  width: 7.19vw;
-  height: 3.91vw;
-  column-gap: 2.6vw;
-  row-gap: 0.8vw;
+  @include m.flex-column-center;
+  gap: 0.63vw;
 }
 
 .row input.age {
   width: 7.19vw;
   height: 2.19vw;
-  margin-top: 0.63vw;
+
   font-size: 0.63vw;
   border-radius: 0.26vw;
   border-color: $main-color2;
@@ -233,11 +231,10 @@
   width: 7.2vw;
   height: 2.19vw;
   font-size: 0.63vw;
-  background: #fff;
+  background: transparent;
   border-radius: 0.26vw;
-  margin-top: 0.63vw;
   padding: 0 0.83vw;
-  border: 0.05vw solid #dde3ee;
+  border: 0.05vw solid $color-black;
   color: #111;
 
   display: flex;

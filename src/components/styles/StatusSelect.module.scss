@@ -2,13 +2,13 @@
 
 /* 래퍼: 드롭다운 기준점 */
 .selectWrap {
-  position: relative; /* 메뉴의 위치 기준 */
+  position: relative;
   display: inline-block;
-  width: 7.92vw; /* 기본값 — 컴포넌트 props로 인라인 오버라이드 가능 */
+  width: 7.92vw;
   height: 2.19vw;
   background: #fff;
-  overflow: visible; /* 메뉴가 잘리지 않도록 */
-  z-index: auto; /* 상위 z-index 간섭 최소화 */
+  overflow: visible;
+  z-index: auto;
   box-sizing: border-box;
 }
 
@@ -20,21 +20,22 @@
   align-items: center;
   justify-content: center;
   gap: 0.42vw;
-
-  width: 7.92vw; /* 기본값 — 인라인 width/height가 우선 적용 */
+  width: 7.92vw;
   height: 2.19vw;
 
   border: 0.05vw solid #000;
   border-radius: 0.42vw;
   background: #fff;
-
-  font-size: 0.73vw;
-  font-weight: 500;
   color: #000;
-
   cursor: pointer;
   box-sizing: border-box;
   user-select: none;
+
+  .triggerText {
+    width: 100%;
+    font-size: 0.63vw;
+    font-weight: 500;
+  }
 }
 
 .selectTriggerActive {
@@ -42,22 +43,14 @@
   color: #fff;
 }
 
-.caret {
-  display: inline-block;
-  width: 0.57vw;
-  height: 0.47vw;
-  transform: translateY(-0.02vw);
-  color: currentColor;
-}
-
 /* 드롭다운 메뉴 */
 .selectMenu {
   position: absolute;
-  top: calc(100% + 0.42vw); /* 트리거 바로 아래 */
+  top: calc(100% + 0.42vw);
   left: 0;
 
-  width: 7.92vw; /* 트리거와 동일 폭 */
-  max-width: 40vw; /* 안전장치 */
+  width: 7.92vw;
+  max-width: 40vw;
   height: 10vw;
   max-height: 50vh;
 
@@ -66,22 +59,10 @@
   overflow-x: hidden;
 
   background: #fff;
-  border-radius: 0 0.42vw 0.42vw 0; /* 디자인 요청 유지 */
+  border-radius: 0 0.42vw 0.42vw 0;
   box-shadow: 0 0.21vw 1.04vw rgba(0, 0, 0, 0.12);
   border: 1px solid rgba(0, 0, 0, 0.08);
   padding: 0.42vw 0;
-
-  /* 스크롤바 커스텀 */
-  &::-webkit-scrollbar {
-    width: 0.42vw;
-  }
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: #d0d5dd;
-    border-radius: 1.04vw;
-  }
 }
 
 /* 메뉴 내부 컨테이너 */
@@ -138,7 +119,7 @@
 }
 
 .boxOn::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 0.18vw;
   top: 0.1vw;
