@@ -25,7 +25,7 @@ export const CountingScore: React.FC<CounterProps> = ({
   useEffect(() => {
     const controls = animate(count, safeTarget, { duration, ease: "easeOut" });
     return () => controls.stop();
-  }, [target, duration, count]);
+  }, [safeTarget, duration, count]);
 
   return <motion.span style={text}>{display}</motion.span>;
 };

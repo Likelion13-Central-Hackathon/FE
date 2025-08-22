@@ -4,7 +4,6 @@ import b from "../../../components/styles/Box.module.scss";
 import ReportOutBox from "../../../components/ReportOutBox";
 import ReportInBox from "../../../components/ReportInBox";
 import type {
-  QuestionsBoxProps,
   QuestionsBoxHandle,
   ExtraProps,
   QAItem,
@@ -12,11 +11,11 @@ import type {
 import createAiQnaApi from "../../../api/document/createAiQnaApi";
 import { aiAnswerSession$ } from "../../../utils/sessionStorage";
 
-const QuestionsBox = forwardRef<QuestionsBoxHandle, QuestionsBoxProps & ExtraProps>(
-  ({ questions, getAiAnswer, onRequireWarn, questionNumber }, ref) => {
+const QuestionsBox = forwardRef<QuestionsBoxHandle, ExtraProps>(
+  ({ getAiAnswer, onRequireWarn, questionNumber }, ref) => {
     const [started, setStarted] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [qaList, setQaList] = useState<QAItem[]>(questions ?? []);
+    const [qaList, setQaList] = useState<QAItem[]>([]);
 
     useImperativeHandle(ref, () => ({
       getVisibleQA: () =>
@@ -30,8 +29,8 @@ const QuestionsBox = forwardRef<QuestionsBoxHandle, QuestionsBoxProps & ExtraPro
       const ai = (getAiAnswer?.() ?? "").trim();
       const aId = aiAnswerSession$(questionNumber).read();
       if (aId == null || Number.isNaN(aId)) {
-        onRequireWarn?.();  
-        return;             
+        onRequireWarn?.();
+        return;
       }
 
       if (!ai || !aId) {
@@ -41,7 +40,8 @@ const QuestionsBox = forwardRef<QuestionsBoxHandle, QuestionsBoxProps & ExtraPro
       setLoading(true);
       try {
         const items = await createAiQnaApi(aId);
-        if (!items || items.length === 0) throw new Error("생성된 예상 질문이 없습니다.");
+        if (!items || items.length === 0)
+          throw new Error("생성된 예상 질문이 없습니다.");
         setQaList(items);
         setStarted(true);
       } catch (err) {

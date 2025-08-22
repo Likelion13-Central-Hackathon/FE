@@ -14,7 +14,7 @@ const WarningModal: React.FC<Props> = ({ onClose }) => {
         </div>
         <div className={s.message}>
           <p>질의응답을 생성할 수 없습니다.</p>
-          <p>문항을 선택하고 작성해 주세요.</p>
+          <p>AI 첨삭 답변을 먼저 받아주세요.</p>
         </div>
         <div className={s.buttonRow}>
           <BasicButton

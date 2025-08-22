@@ -58,8 +58,7 @@ function StatusSelect<T extends string>({
         aria-expanded={open}
         style={{ width, height }}
       >
-        {activeLabel}
-        <span className={styles.caret}>▼</span>
+        <span className={styles.triggerText}>{activeLabel} ▼</span>
       </button>
 
       {open && (
