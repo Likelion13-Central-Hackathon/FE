@@ -1,5 +1,12 @@
 import React from "react";
-import { Document, Page, Text, View, StyleSheet, Font } from "@react-pdf/renderer";
+import {
+  Document,
+  Page,
+  Text,
+  View,
+  StyleSheet,
+  Font,
+} from "@react-pdf/renderer";
 
 Font.register({
   family: "NotoSansKR",
@@ -9,7 +16,7 @@ Font.register({
 const styles = StyleSheet.create({
   page: { padding: 30, fontFamily: "NotoSansKR" },
   section: { marginBottom: 15 },
-  title: { fontSize: 11, marginBottom: 10, color: "blue" , fontWeight: "bold" },
+  title: { fontSize: 11, marginBottom: 10, color: "blue", fontWeight: "bold" },
   text: { fontSize: 10, marginBottom: 5 },
 });
 
@@ -33,7 +40,10 @@ const MyDocumentAll: React.FC<{ items: Snap[] }> = ({ items }) => (
           <Text style={styles.title}>사용자 답변</Text>
           <Text style={styles.text}>
             {(it.userAnswer || "입력 없음").split("\n").map((line, idx) => (
-              <Text key={idx}>{line}{"\n"}</Text>
+              <Text key={idx}>
+                {line}
+                {"\n"}
+              </Text>
             ))}
           </Text>
         </View>
@@ -41,8 +51,11 @@ const MyDocumentAll: React.FC<{ items: Snap[] }> = ({ items }) => (
         <View style={styles.section}>
           <Text style={styles.title}>AI 첨삭 답변</Text>
           <Text style={styles.text}>
-            {(it.aiAnswer || "아직 없음").split("\n").map((line, idx) => (
-              <Text key={idx}>{line}{"\n"}</Text>
+            {(it.aiAnswer || "내용 없음").split("\n").map((line, idx) => (
+              <Text key={idx}>
+                {line}
+                {"\n"}
+              </Text>
             ))}
           </Text>
         </View>
@@ -51,8 +64,12 @@ const MyDocumentAll: React.FC<{ items: Snap[] }> = ({ items }) => (
           <Text style={styles.title}>문항별 질의응답 예상 질문</Text>
           {it.qa.slice(0, 4).map((qa, idx) => (
             <View key={idx} style={{ marginBottom: 8 }}>
-              <Text style={styles.text}>Q{idx + 1}. {qa.question}</Text>
-              <Text style={styles.text}>A{idx + 1}. {qa.answer}</Text>
+              <Text style={styles.text}>
+                Q{idx + 1}. {qa.question}
+              </Text>
+              <Text style={styles.text}>
+                A{idx + 1}. {qa.answer}
+              </Text>
             </View>
           ))}
         </View>

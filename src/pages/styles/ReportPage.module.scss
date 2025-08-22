@@ -187,7 +187,7 @@
         transform-style: preserve-3d;
         backface-visibility: hidden;
         will-change: transform;
-        animation: doorWobble 1800ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+        animation: doorWobble 1.8s cubic-bezier(0.22, 0.61, 0.36, 1) 5s 3 both;
 
         p {
           width: 18.49vw;

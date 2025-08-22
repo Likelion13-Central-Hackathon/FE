@@ -2,7 +2,7 @@ import { animate, motion, useMotionValue, useTransform } from "framer-motion";
 import { useEffect } from "react";
 
 interface CounterProps {
-  target: number; // 숫자
+  target: number | null; // 숫자
   duration?: number;
 }
 
@@ -16,14 +16,16 @@ export const CountingScore: React.FC<CounterProps> = ({
   target,
   duration = 2,
 }) => {
+  const safeTarget = Number.isFinite(target as number) ? (target as number) : 0;
+
   const count = useMotionValue(0);
   const rounded = useTransform(count, (v) => Math.round(v));
   const display = useTransform(rounded, (v) => `${v}°`);
 
   useEffect(() => {
-    const controls = animate(count, target, { duration, ease: "easeOut" });
+    const controls = animate(count, safeTarget, { duration, ease: "easeOut" });
     return () => controls.stop();
-  }, [target, duration, count]);
+  }, [safeTarget, duration, count]);
 
   return <motion.span style={text}>{display}</motion.span>;
 };

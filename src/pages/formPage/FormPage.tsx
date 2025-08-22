@@ -18,7 +18,7 @@ import { submitFormRequestBody } from "../../utils/form/submitFormRequestBody";
 import submitFormApi from "../../api/form/submitFormApi";
 import Loading from "../../components/Loading";
 import createReportApi from "../../api/form/createReportApi";
-import { ideaSession } from "../../utils/sessionStorage";
+import { ideaSession, reportSession } from "../../utils/sessionStorage";
 
 const STEPS: Step[] = ["info", "consider", "base"];
 
@@ -26,25 +26,25 @@ const ORBIT_PRESETS: Record<Step, OrbitPreset> = {
   info: {
     labels: ["창업지원 및 자원", "인적사항", "창업내용"],
     positions: {
-      t1: { top: "23%", left: "-8.2%", transform: "rotate(45deg)" },
-      t2: { top: "50%", left: "-9%", transform: "rotate(0deg)" },
-      t3: { top: "77%", left: "-1%", transform: "rotate(-45deg)" },
+      t1: { top: "23%", left: "-7.3%", transform: "rotate(45deg)" },
+      t2: { top: "50%", left: "-8.5%", transform: "rotate(0deg)" },
+      t3: { top: "77%", left: "-0.6%", transform: "rotate(-45deg)" },
     },
   },
   consider: {
     labels: ["인적사항", "창업내용", "창업지원 및 자원"],
     positions: {
-      t1: { top: "25%", left: "-3.2%", transform: "rotate(45deg)" },
-      t2: { top: "50%", left: "-9%", transform: "rotate(0deg)" },
-      t3: { top: "80%", left: "-5.2%", transform: "rotate(-45deg)" },
+      t1: { top: "25%", left: "-2.6%", transform: "rotate(45deg)" },
+      t2: { top: "50%", left: "-8.5%", transform: "rotate(0deg)" },
+      t3: { top: "80%", left: "-5%", transform: "rotate(-45deg)" },
     },
   },
   base: {
     labels: ["창업내용", "창업지원 및 자원", "인적사항"],
     positions: {
-      t1: { top: "25%", left: "-3.2%", transform: "rotate(45deg)" },
-      t2: { top: "50%", left: "-14.7%", transform: "rotate(0deg)" },
-      t3: { top: "78%", left: "-0.4%", transform: "rotate(-45deg)" },
+      t1: { top: "25%", left: "-2.6%", transform: "rotate(45deg)" },
+      t2: { top: "50%", left: "-14.2%", transform: "rotate(0deg)" },
+      t3: { top: "78%", left: "0.3%", transform: "rotate(-45deg)" },
     },
   },
 };
@@ -108,17 +108,17 @@ const FormPage: React.FC = () => {
       setSubmitting(true);
 
       const body = submitFormRequestBody(formData); // 3개의 form Request 조립
-      const { ideaId } = await submitFormApi(body); // 창업 아이디어 생성 api 호출
+
+      // 1. 창업 아이디어 생성 api 호출
+      const { ideaId } = await submitFormApi(body);
       ideaSession.save(ideaId); // 세션스토리지에 ideaId 저장
 
-      try {
-        await createReportApi(ideaId); // 레포트 생성 api 호출
-      } catch (e) {
-        console.warn("FormPage 레포트 생성 실패..: ", e);
-      }
+      // 2. 레포트 생성 api 호출
+      const { reportId } = await createReportApi(ideaId);
+      reportSession.save(reportId); // 세션스토리지에 reportId 저장
 
       // 성공 시 보고서 페이지로 이동
-      navigate("/report", { replace: true, state: { ideaId } });
+      navigate("/report", { replace: true });
     } catch {
       console.log("FormPage handleSubmit Error");
       alert("제출에 실패했습니다. 잠시 후 다시 시도해주세요.");

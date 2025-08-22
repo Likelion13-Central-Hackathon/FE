@@ -5,7 +5,7 @@ export type Region = (typeof regions)[number];
 export type RegionName = Region["name"];
 
 // ResultItem, RankItem
-type RankItemCommon = {
+export type RankItemCommon = {
   title: string;
   startDate: string;
   endDate: string;
@@ -14,12 +14,7 @@ type RankItemCommon = {
   supportArea: string;
 };
 
-// 통신용
-// type RankItemSimple = RankItemCommon & {
-//   recommendedId: number;
-// };
-
-type RankItemDetail = RankItemCommon & {
+export type RankItemDetail = RankItemCommon & {
   link: string;
   region: string;
   businessDuration: string;
@@ -41,4 +36,13 @@ export type RankItemProps = {
 export type ResultItemProps = {
   rankImg: string;
   item: RankItemDetail;
+};
+
+// 전체 지원사업 조회 api용
+export type BusinessItemProps = {
+  id: number;
+  title: string;
+  region: string;
+  supportArea: string;
+  link: string;
 };

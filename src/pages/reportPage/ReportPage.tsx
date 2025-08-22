@@ -1,9 +1,8 @@
-import React, { useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import s from "../styles/ReportPage.module.scss";
 import b from "../../components/styles/Box.module.scss";
-import data from "../../data/reportDummy.json";
 import IconButton from "../../components/IconButton";
 import DOWNLOAD from "../../assets/images/icon/download-icon.svg";
 import MAIL from "../../assets/images/icon/mail-icon.svg";
@@ -27,19 +26,81 @@ import ProtractorStroker from "../../components/ProtractorStroker";
 import ScrollTopButton from "../../components/ScrollTopButton";
 import MailModal from "../../components/MailModal";
 
+import type { ReportDetail } from "../../types/report";
+import getReportApi from "../../api/report/getReportApi";
+import { reportSession } from "../../utils/sessionStorage";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import { useReportMail } from "../../hooks/useReportMail";
+
 const ReportPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const [isOpen, setIsOpen] = useState(false); // 메일 모달창
-  const [email, setEmail] = useState(""); // 이메일
-  const [password, setPassword] = useState(""); // 비밀번호
+  // 메일 관련 커스텀 훅
+  const {
+    isOpen,
+    email,
+    password,
+    open: openMailModal,
+    close: closeMailModal,
+    setEmail,
+    setPassword,
+  } = useReportMail();
 
-  const news = data?.data?.newsList ?? []; // 뉴스기사 목록
+  const [report, setReport] = useState<ReportDetail | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  // 메일 구독 함수(메모이제이션)
-  const handleSubmit = useCallback(() => {
-    console.log("submit", { email, password }); // 임시
-  }, [email, password]);
+  const reportId = reportSession.read(); // 세션스토리지에서 reportId 조회
+  const prefetched = location.state?.prefetched as ReportDetail | undefined; // FormIntro에서 보내준 데이터
+
+  useEffect(() => {
+    // prefetched가 있으면 레포트 보여주기
+    if (prefetched) {
+      setReport(prefetched);
+      setLoading(false);
+      return;
+    }
+
+    if (!reportId) {
+      setLoading(false);
+      return;
+    }
+
+    // 컴포넌트가 언마운트 될때 fetch 요청 취소
+    const controller = new AbortController();
+
+    (async () => {
+      try {
+        setLoading(true);
+        // 레포트 조회 api 호출
+        const data = await getReportApi(reportId);
+        setReport(data);
+      } catch {
+        console.log("ReportPage useEffect Error");
+      } finally {
+        setLoading(false);
+      }
+    })();
+
+    return () => controller.abort();
+  }, [prefetched, reportId]);
+
+  if (loading)
+    return (
+      <div className={s.reportPageWrapper}>
+        <div className={s.reportContainer}>
+          <LoadingSpinner />
+        </div>
+      </div>
+    );
+  if (!report)
+    return (
+      <div className={s.reportPageWrapper}>
+        <div className={s.reportContainer}>
+          <p>레포트가 존재하지 않습니다!</p>
+        </div>
+      </div>
+    );
 
   return (
     <div className={s.reportPageWrapper}>
@@ -50,15 +111,15 @@ const ReportPage = () => {
           password={password}
           onChangeEmail={setEmail}
           onChangePassword={setPassword}
-          onSubmit={handleSubmit}
-          onClose={() => setIsOpen(false)}
+          onClose={closeMailModal}
         />
       )}
+
       <div className={s.reportContainer}>
         <section>
           {/* 상단 제목 부분 + 아이콘 2개 */}
           <div className={s.titleContainer}>
-            <p className={s.title}>창업할각 로드맵</p>
+            <p className={s.title}>"제목" 로드맵</p>
             <div
               style={{ display: "flex", gap: "0.63vw", alignItems: "flex-end" }}
             >
@@ -67,15 +128,11 @@ const ReportPage = () => {
                 text="PDF"
                 onClick={() => window.print()}
               />
-              <IconButton
-                imgSrc={MAIL}
-                text="Mail"
-                onClick={() => setIsOpen(true)}
-              />
+              <IconButton imgSrc={MAIL} text="Mail" onClick={openMailModal} />
             </div>
           </div>
           <div className={s.dateBox}>
-            <p className={s.date}>{`생성일자 | ${data.data.createdAt}`}</p>
+            <p className={s.date}>{`생성일자 | ${report.createdAt}`}</p>
             <p className={s.mailText}>
               * 메일 알림을 설정하지 않을 시, 로드맵을 다시 조회할 수 없습니다.
             </p>
@@ -89,12 +146,12 @@ const ReportPage = () => {
               <p className={s.subTitle}>창업할 각</p>
               <img src={ANGLE} alt="protractor" className={s.angleImg} />
               <ProtractorStroker
-                angle={data.data.angle}
+                angle={report.angle}
                 className={s.arcOverlay}
               />
               <div className={s.scoreContainer}>
-                <img src={SCORE} alt="protractor" style={{ width: "1.56vw" }} />
-                <CountingScore target={data.data.angle} />
+                <img src={SCORE} alt="score" style={{ width: "1.56vw" }} />
+                <CountingScore target={report.angle} />
               </div>
             </div>
             {/* 캐릭터 + 말풍선 */}
@@ -105,8 +162,8 @@ const ReportPage = () => {
                 transition={{ duration: 2, ease: "easeOut" }}
               >
                 <ReportInBox width="17vw" height="3.33vw">
-                  <p style={{ fontSize: "0.83vw", fontWeight: "600" }}>
-                    {getAngleMessage(data.data.angle)}
+                  <p style={{ fontSize: "0.83vw", fontWeight: 600 }}>
+                    {getAngleMessage(report.angle)}
                   </p>
                 </ReportInBox>
               </motion.div>
@@ -136,7 +193,7 @@ const ReportPage = () => {
               <div className={s.researchBox}>
                 <p className={s.subTitle}>추천 리서치 방법</p>
                 <ReportInBox width="12.14vw" height="18.02vw">
-                  <MarkDownBox research={data.data.researchMethod} />
+                  <MarkDownBox research={report.researchMethod} />
                 </ReportInBox>
               </div>
             </ReportOutBox>
@@ -160,18 +217,18 @@ const ReportPage = () => {
                       onClick={() => navigate("/business/result")}
                     />
                   </div>
-
-                  <BusinessItem business={data.data.recommendations[0]} />
-                  <BusinessItem business={data.data.recommendations[1]} />
+                  {report.recommendations.slice(0, 2).map((biz, idx) => (
+                    <BusinessItem key={idx} business={biz} />
+                  ))}
                 </div>
               </ReportOutBox>
 
               {/* 관련 뉴스 2개 */}
               <ReportOutBox width="48.80vw" height="8.39vw">
                 <div className={s.newsContainer}>
-                  <p className={s.subTitle}>관련 지역 & 산업 뉴스 및 트랜드</p>
+                  <p className={s.subTitle}>관련 지역 & 산업 뉴스 및 트렌드</p>
                   <div className={s.newsRow}>
-                    {news.slice(0, 2).map((item, idx, arr) => (
+                    {report.newsList.slice(0, 2).map((item, idx, arr) => (
                       <React.Fragment key={item.link ?? idx}>
                         <NewsItem
                           title={item.title ?? ""}
@@ -187,20 +244,19 @@ const ReportPage = () => {
               </ReportOutBox>
             </div>
           </div>
-
           {/* swot 강점, 약점, 기회, 위협 */}
           <div className={s.swotBox}>
             <div className={`${s.swot} ${s.s}`}>
-              <p>{data.data.strength}</p>
+              <p>{report.strength}</p>
             </div>
             <div className={`${s.swot} ${s.w}`}>
-              <p>{data.data.weakness}</p>
+              <p>{report.weakness}</p>
             </div>
             <div className={`${s.swot} ${s.o}`}>
-              <p>{data.data.opportunity}</p>
+              <p>{report.opportunity}</p>
             </div>
             <div className={`${s.swot} ${s.t}`}>
-              <p>{data.data.threat}</p>
+              <p>{report.threat}</p>
             </div>
           </div>
 
@@ -221,8 +277,8 @@ const ReportPage = () => {
               </div>
               {/* 다이어그램 */}
               <RecommendPlan
-                createdAt={data.data.createdAt}
-                steps={data.data.steps}
+                createdAt={report.createdAt}
+                steps={report.steps}
               />
             </div>
           </ReportOutBox>
@@ -230,9 +286,10 @@ const ReportPage = () => {
 
         <p className={s.warningText}>
           ※ 본 결과는 AI 분석을 기반으로 제공되었으며, 실제 상황과 차이가 있을
-          수 있습니다. 참고 자료로 만 활용하시기 바랍니다.
+          수 있습니다. 참고 자료로만 활용하시기 바랍니다.
         </p>
       </div>
+
       <ScrollTopButton />
     </div>
   );
