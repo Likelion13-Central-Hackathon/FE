@@ -1,4 +1,3 @@
-// ConsiderForm.tsx
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./ConsiderForm.module.scss";
 import BasicButton from "../../../components/BasicButton";

@@ -1,4 +1,3 @@
-// BaseResource.tsx
 import React from "react";
 import styles from "./BaseResource.module.scss";
 import BasicButton from "../../../components/BasicButton";
