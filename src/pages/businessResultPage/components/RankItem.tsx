@@ -1,9 +1,8 @@
 import React from "react";
 import s from "./BusinessResult.module.scss";
 import { RankItemProps } from "../../../types/business";
-import { formatToMMDD } from "../../../utils/date";
 
-const ResultItem: React.FC<RankItemProps> = ({ rankImg, item }) => {
+const RankItem: React.FC<RankItemProps> = ({ rankImg, item }) => {
   return (
     <div style={{ position: "relative", width: "15.57vw", height: "21.67vw" }}>
       <img
@@ -19,11 +18,11 @@ const ResultItem: React.FC<RankItemProps> = ({ rankImg, item }) => {
           <p>주관기관 | {item.agency}</p>
         </div>
         <p className={s.rankDate}>
-          신청기간 | {formatToMMDD(item.startDate)}~{formatToMMDD(item.endDate)}
+          신청기간 | {item.startDate}~{item.endDate}
         </p>
       </div>
     </div>
   );
 };
 
-export default ResultItem;
+export default RankItem;

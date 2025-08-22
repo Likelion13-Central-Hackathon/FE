@@ -17,12 +17,13 @@
 }
 
 * {
+  font-family: Pretendard, "Arial", Helvetica, sans-serif;
   box-sizing: border-box;
 }
 
 body {
-  font-family: Pretendard, "Arial", Helvetica, sans-serif;
   background-color: $background-color;
+  overflow-x: hidden;
 }
 
 html,
