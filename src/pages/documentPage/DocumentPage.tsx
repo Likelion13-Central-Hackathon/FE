@@ -1,18 +1,34 @@
-import React, { useEffect, useRef, useState, useMemo, useCallback } from "react";
-import s from "../styles/DocumentPage.module.scss";
-import DocumentItem from "./components/DocumentItem";
-import type { ItemHandle } from "../../types/document";
-import { revisingTitles } from "../../data/revisingTitleData";
-import RightOrbit from "../../components/RightOrbit";
-import { BASE_LABELS, BASE_POSITION } from "../../data/documentData";
-import { pdf } from "@react-pdf/renderer";
-import MyDocumentAll from "../../components/MyDocumentAll";
-import WarningModal from "../../components/WarningModal";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  useMemo,
+  useCallback,
+} from 'react';
+import s from '../styles/DocumentPage.module.scss';
+import DocumentItem from './components/DocumentItem';
+import type { ItemHandle } from '../../types/document';
+import { revisingTitles } from '../../data/revisingTitleData';
+import RightOrbit from '../../components/RightOrbit';
+import { BASE_LABELS, BASE_POSITION } from '../../data/documentData';
+import { pdf } from '@react-pdf/renderer';
+import MyDocumentAll from '../../components/MyDocumentAll';
+import WarningModal from '../../components/WarningModal';
 
-function rotateToCenter5<T>(arr: readonly [T, T, T, T, T], idx: number): [T, T, T, T, T] {
-  const n = 5, M = 2;
+function rotateToCenter5<T>(
+  arr: readonly [T, T, T, T, T],
+  idx: number
+): [T, T, T, T, T] {
+  const n = 5,
+    M = 2;
   const start = (((idx - M) % n) + n) % n;
-  return [arr[start], arr[(start + 1) % n], arr[(start + 2) % n], arr[(start + 3) % n], arr[(start + 4) % n]];
+  return [
+    arr[start],
+    arr[(start + 1) % n],
+    arr[(start + 2) % n],
+    arr[(start + 3) % n],
+    arr[(start + 4) % n],
+  ];
 }
 
 const DocumentPage = () => {
@@ -27,14 +43,12 @@ const DocumentPage = () => {
 
   const itemHandlesRef = useRef<(ItemHandle | null)[]>([]);
 
-
   if (itemHandlesRef.current.length !== revisingTitles.length) {
     itemHandlesRef.current = Array(revisingTitles.length).fill(null);
   }
   if (sectionRefs.current.length !== revisingTitles.length) {
     sectionRefs.current = Array(revisingTitles.length).fill(null);
   }
-
 
   const setItemHandle = useCallback(
     (idx: number) => (inst: ItemHandle | null) => {
@@ -77,30 +91,36 @@ const DocumentPage = () => {
     return () => obs.disconnect();
   }, [activeSection]);
 
-
   const handleExportAll = async () => {
     if (downloading) return;
     setDownloading(true);
     try {
       const items = itemHandlesRef.current.map((handle, idx) => {
         const snap = handle?.getSnapshot?.();
-        return snap ?? { title: revisingTitles[idx].title, userAnswer: "", aiAnswer: "", qa: [] };
+        return (
+          snap ?? {
+            title: revisingTitles[idx].title,
+            userAnswer: '',
+            aiAnswer: '',
+            qa: [],
+          }
+        );
       });
 
       const instance = pdf(<MyDocumentAll items={items} />);
       const blob = await instance.toBlob();
       const url = URL.createObjectURL(blob);
 
-      const a = document.createElement("a");
+      const a = document.createElement('a');
       a.href = url;
-      a.download = "전체_지원서류.pdf";
+      a.download = '전체_지원서류.pdf';
       document.body.appendChild(a);
       a.click();
       a.remove();
       URL.revokeObjectURL(url);
     } catch (e) {
-      console.error("PDF 생성 오류:", e);
-      alert("PDF 생성 중 오류가 발생했습니다.");
+      console.error('PDF 생성 오류:', e);
+      alert('PDF 생성 중 오류가 발생했습니다.');
     } finally {
       setDownloading(false);
     }
@@ -108,13 +128,14 @@ const DocumentPage = () => {
 
   return (
     <div className={s.documentPageWrapper}>
-      <div style={{ width: "12.45vw" }}>
+      <div className={s.orbitWrap} style={{ width: '12.45vw' }}>
         <RightOrbit
           side="left"
           labels={labelsForOrbit}
           positions={BASE_POSITION}
           activeIndex={2}
           showLabels
+          top="9.2vw"
         />
       </div>
 
@@ -127,10 +148,10 @@ const DocumentPage = () => {
             ref={setSectionRef(index)}
           >
             <DocumentItem
-              ref={setItemHandle(index)}      
+              ref={setItemHandle(index)}
               title={item.title}
               explanation={item.explanation}
-              onExportAll={handleExportAll}    
+              onExportAll={handleExportAll}
               onRequireWarn={openWarn}
               questionNumber={index + 1}
             />

@@ -1,13 +1,13 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import s from "./InfoForm.module.scss";
-import BasicButton from "../../../components/BasicButton";
-import StatusSelect from "../../../components/StatusSelect";
-import { AcademicStatus, StepComponentProps } from "../../../types/form";
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import s from './InfoForm.module.scss';
+import BasicButton from '../../../components/BasicButton';
+import StatusSelect from '../../../components/StatusSelect';
+import { AcademicStatus, StepComponentProps } from '../../../types/form';
 import {
   ACADEMIC_STATUS_OPTIONS,
   REGION_OPTIONS,
   SIGUNGU_MAP,
-} from "../../../data/formData";
+} from '../../../data/formData';
 
 const InfoForm: React.FC<StepComponentProps> = ({
   data,
@@ -18,7 +18,7 @@ const InfoForm: React.FC<StepComponentProps> = ({
     // 재학
     updateForm({
       isEnrolled: true,
-      university: data.university ?? "",
+      university: data.university ?? '',
     });
   };
 
@@ -33,7 +33,7 @@ const InfoForm: React.FC<StepComponentProps> = ({
 
   // 필수값 충족 여부
   const ageOk = useMemo(() => {
-    const onlyNums = String(data.age ?? "").trim();
+    const onlyNums = String(data.age ?? '').trim();
     return /^[0-9]+$/.test(onlyNums) && Number(onlyNums) > 0;
   }, [data.age]);
 
@@ -72,7 +72,7 @@ const InfoForm: React.FC<StepComponentProps> = ({
                 value={data.age}
                 onChange={(e) => {
                   // 백엔드한테 넘길때 숫자로 변환 필요
-                  const onlyNums = e.target.value.replace(/[^0-9]/g, "");
+                  const onlyNums = e.target.value.replace(/[^0-9]/g, '');
                   updateForm({ age: onlyNums });
                 }}
                 aria-label="나이"
@@ -83,8 +83,8 @@ const InfoForm: React.FC<StepComponentProps> = ({
             <div className={s.col}>
               <div className={s.subLabel}>사업장 주소</div>
               <RegionSelect
-                city={data.addressCity || ""}
-                district={data.addressDistrict || ""}
+                city={data.addressCity || ''}
+                district={data.addressDistrict || ''}
                 onChange={(city, district) =>
                   updateForm({ addressCity: city, addressDistrict: district })
                 }
@@ -132,7 +132,7 @@ const InfoForm: React.FC<StepComponentProps> = ({
                 className={s.unv}
                 type="text"
                 placeholder="학교입력"
-                value={data.university ?? ""}
+                value={data.university ?? ''}
                 onChange={(e) => updateForm({ university: e.target.value })}
                 aria-label="대학교"
               />
@@ -167,7 +167,7 @@ function RegionSelect({
   city,
   district,
   onChange,
-  placeholder = "지역 선택하기",
+  placeholder = '지역 선택하기',
   options,
 }: {
   city: string;
@@ -200,8 +200,8 @@ function RegionSelect({
       if (ref.current && !ref.current.contains(e.target as Node))
         setOpen(false);
     };
-    document.addEventListener("mousedown", onDoc);
-    return () => document.removeEventListener("mousedown", onDoc);
+    document.addEventListener('mousedown', onDoc);
+    return () => document.removeEventListener('mousedown', onDoc);
   }, []);
 
   const label = useMemo(() => {
@@ -209,7 +209,7 @@ function RegionSelect({
       return selectedSigungu
         ? `${selectedSido} / ${selectedSigungu}`
         : selectedSido;
-    return (city && district ? `${city} / ${district}` : "") || placeholder;
+    return (city && district ? `${city} / ${district}` : '') || placeholder;
   }, [selectedSido, selectedSigungu, city, district, placeholder]);
 
   const chooseSido = (sido: string) => {
@@ -235,7 +235,7 @@ function RegionSelect({
       <button
         type="button"
         className={`${s.regionTrigger} ${
-          city && district ? s.regionTriggerActive : ""
+          city && district ? s.regionTriggerActive : ''
         }`}
         onClick={() => setOpen((o) => !o)}
         aria-haspopup="listbox"
@@ -263,7 +263,7 @@ function RegionSelect({
                   onClick={() => chooseSido(sido)}
                   aria-selected={checked}
                 >
-                  <span className={`${s.box} ${checked ? s.boxOn : ""}`} />
+                  <span className={`${s.box} ${checked ? s.boxOn : ''}`} />
                   <span className={s.regionText}>{sido}</span>
                 </button>
               );
@@ -276,7 +276,7 @@ function RegionSelect({
               className={s.regionMenu}
               role="listbox"
               onMouseDown={(e) => e.preventDefault()}
-              style={{ left: "calc(100% + 10vw)" }}
+              style={{ left: 'calc(100% + 10vw)' }}
             >
               <div className={s.selectext}>시/군/구</div>
               {sigunguList.map((sgg) => {
@@ -289,7 +289,7 @@ function RegionSelect({
                     onClick={() => chooseSigungu(sgg)}
                     aria-selected={checked}
                   >
-                    <span className={`${s.box} ${checked ? s.boxOn : ""}`} />
+                    <span className={`${s.box} ${checked ? s.boxOn : ''}`} />
                     <span className={s.regionText}>{sgg}</span>
                   </button>
                 );
