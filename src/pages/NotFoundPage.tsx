@@ -1,5 +1,5 @@
 import React from "react";
-import character from "../assets/images/error-3Dcharacter.svg";
+import character from "../assets/images/error-3Dcharacter.png";
 import warningtext from "../assets/images/error-warningtext.svg";
 import styles from "./styles/NotFoundPage.module.scss";
 

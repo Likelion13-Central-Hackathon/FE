@@ -2,7 +2,7 @@ import React from "react";
 import s from "./styles/Loading.module.scss";
 import SvgLogo from "./SvgLogo";
 import FloatingMotion from "./FloatingMotion";
-import PLUS3D from "../assets/images/plus-3d.svg";
+import PLUS3D from "../assets/images/plus-3d.png";
 
 const Loading = () => {
   return (
