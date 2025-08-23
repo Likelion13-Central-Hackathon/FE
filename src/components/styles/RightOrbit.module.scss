@@ -1,5 +1,5 @@
-@use "../../styles//mixins" as m;
-@use "../../styles/variables" as *;
+@use '../../styles//mixins' as m;
+@use '../../styles/variables' as *;
 
 .ring {
   --ring-size: 43.75vw;
@@ -10,7 +10,6 @@
   height: var(--ring-size);
   border: 0.1vw solid $main-color2;
   border-radius: 50%;
-  top: 6vw;
 }
 
 /* 오른쪽 앵커 */

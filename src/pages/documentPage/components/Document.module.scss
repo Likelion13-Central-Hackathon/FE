@@ -1,5 +1,5 @@
-@use "../../../styles//mixins" as m;
-@use "../../../styles/variables" as *;
+@use '../../../styles//mixins' as m;
+@use '../../../styles/variables' as *;
 
 // RevisingBox
 .titleBox {
@@ -15,6 +15,7 @@
       font-size: 1.88vw;
       font-weight: 700;
       color: $main-color1;
+      margin: 0;
     }
   }
 
@@ -22,7 +23,7 @@
     font-size: 1.04vw;
     font-weight: 700;
     color: $main-color1;
-    margin-top: 0.25vw;
+    margin: 0.82vw 0 0;
   }
 }
 
@@ -183,6 +184,7 @@
 
 // DocumentItem
 .documentItemContainer {
+  margin-top: 5vw;
   display: flex;
   gap: 1.04vw;
   align-items: flex-end;
