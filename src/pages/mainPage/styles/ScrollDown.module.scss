@@ -1,0 +1,42 @@
+@use "../../../styles/mixins" as m;
+@use "../../../styles/variables" as *;
+
+.scrollDownContainer {
+  position: relative;
+  height: 5.21vw;
+  margin-right: 3.13vw;
+}
+
+.btn-motion span {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 2.08vw;
+  height: 2.08vw;
+  margin-left: -0.63vw;
+  border-left: 0.26vw solid $main-color2;
+  border-bottom: 0.26vw solid $main-color2;
+  transform: rotate(-45deg);
+  animation: btn-motion 1.5s infinite;
+  opacity: 0;
+  box-sizing: border-box;
+}
+.btn-motion span:nth-of-type(1) {
+  animation-delay: 0s;
+}
+.btn-motion span:nth-of-type(2) {
+  top: 0.83vw;
+  animation-delay: 0.15s;
+}
+
+@keyframes btn-motion {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

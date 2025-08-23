@@ -6,6 +6,7 @@ import FloatingMotion from "./FloatingMotion";
 import ANALYZE from "../assets/images/icon/analyze-icon.svg";
 import SELECTED from "../assets/images/icon/selected-icon.svg";
 import ExplanationBox from "../pages/mainPage/componenets/ExplanationBox";
+import ScrollDown from "../pages/mainPage/componenets/ScrollDown";
 
 interface IntroProps extends SizeProps {
   title: string;
@@ -49,6 +50,7 @@ const IntroLayout: React.FC<IntroProps> = ({
             title="분석할각?"
             text="지역의 미래는 창업에서 시작됩니다. 당신의 가능성을 분석해 드립니다."
           />
+          <ScrollDown />
           <ExplanationBox
             imgSrc={SELECTED}
             width="2.45vw"
