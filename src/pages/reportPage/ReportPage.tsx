@@ -1,36 +1,36 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { motion } from "framer-motion";
-import s from "../styles/ReportPage.module.scss";
-import b from "../../components/styles/Box.module.scss";
-import IconButton from "../../components/IconButton";
-import DOWNLOAD from "../../assets/images/icon/download-icon.svg";
-import MAIL from "../../assets/images/icon/mail-icon.svg";
-import PLUS from "../../assets/images/icon/plus-icon.svg";
-import LOGO from "../../assets/images/logo/report-logo.svg";
-import QR from "../../assets/images/report/qr-code.png";
-import CHAR from "../../assets/images/character-2d.svg";
-import ANGLE from "../../assets/images/report/protractor.png";
-import SCORE from "../../assets/images/icon/report-score.svg";
-import ReportOutBox from "../../components/ReportOutBox";
-import ReportInBox from "../../components/ReportInBox";
-import RecommendPlan from "./components/RecommendPlan";
-import RecommendPlanLabel from "./components/RecommendPlanLabel";
-import { planLabels } from "../../data/planData";
-import NewsItem from "./components/NewsItem";
-import MarkDownBox from "./components/MarkDownBox";
-import BusinessItem from "./components/BusinessItem";
-import { CountingScore } from "./components/CountingScore";
-import { getAngleMessage } from "../../utils/getScoreMsg";
-import ProtractorStroker from "../../components/ProtractorStroker";
-import ScrollTopButton from "../../components/ScrollTopButton";
-import MailModal from "../../components/MailModal";
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import s from '../styles/ReportPage.module.scss';
+import b from '../../components/styles/Box.module.scss';
+import IconButton from '../../components/IconButton';
+import DOWNLOAD from '../../assets/images/icon/download-icon.svg';
+import MAIL from '../../assets/images/icon/mail-icon.svg';
+import PLUS from '../../assets/images/icon/plus-icon.svg';
+import LOGO from '../../assets/images/logo/report-logo.svg';
+import QR from '../../assets/images/report/qr-code.png';
+import CHAR from '../../assets/images/character-2d.svg';
+import ANGLE from '../../assets/images/report/protractor.png';
+import SCORE from '../../assets/images/icon/report-score.svg';
+import ReportOutBox from '../../components/ReportOutBox';
+import ReportInBox from '../../components/ReportInBox';
+import RecommendPlan from './components/RecommendPlan';
+import RecommendPlanLabel from './components/RecommendPlanLabel';
+import { planLabels } from '../../data/planData';
+import NewsItem from './components/NewsItem';
+import MarkDownBox from './components/MarkDownBox';
+import BusinessItem from './components/BusinessItem';
+import { CountingScore } from './components/CountingScore';
+import { getAngleMessage } from '../../utils/getScoreMsg';
+import ProtractorStroker from '../../components/ProtractorStroker';
+import ScrollTopButton from '../../components/ScrollTopButton';
+import MailModal from '../../components/MailModal';
 
-import type { ReportDetail } from "../../types/report";
-import getReportApi from "../../api/report/getReportApi";
-import { reportSession } from "../../utils/sessionStorage";
-import LoadingSpinner from "../../components/LoadingSpinner";
-import { useReportMail } from "../../hooks/useReportMail";
+import type { ReportDetail } from '../../types/report';
+import getReportApi from '../../api/report/getReportApi';
+import { reportSession } from '../../utils/sessionStorage';
+import LoadingSpinner from '../../components/LoadingSpinner';
+import { useReportMail } from '../../hooks/useReportMail';
 
 const ReportPage = () => {
   const navigate = useNavigate();
@@ -76,7 +76,7 @@ const ReportPage = () => {
         const data = await getReportApi(reportId);
         setReport(data);
       } catch {
-        console.log("ReportPage useEffect Error");
+        console.log('ReportPage useEffect Error');
       } finally {
         setLoading(false);
       }
@@ -121,7 +121,7 @@ const ReportPage = () => {
           <div className={s.titleContainer}>
             <p className={s.title}>{report.title} 로드맵</p>
             <div
-              style={{ display: "flex", gap: "0.63vw", alignItems: "flex-end" }}
+              style={{ display: 'flex', gap: '0.63vw', alignItems: 'flex-end' }}
             >
               <IconButton
                 imgSrc={DOWNLOAD}
@@ -143,14 +143,14 @@ const ReportPage = () => {
           {/* 창업할각(각도기, 캐릭터, QR코드) */}
           <ReportOutBox>
             <div className={s.angleWrap}>
-              <p className={s.subTitle}>창업할 각</p>
+              <p className={s.subTitle}>지금 나의 창업각도는?</p>
               <img src={ANGLE} alt="protractor" className={s.angleImg} />
               <ProtractorStroker
                 angle={report.angle}
                 className={s.arcOverlay}
               />
               <div className={s.scoreContainer}>
-                <img src={SCORE} alt="score" style={{ width: "1.56vw" }} />
+                <img src={SCORE} alt="score" style={{ width: '1.56vw' }} />
                 <CountingScore target={report.angle} />
               </div>
             </div>
@@ -159,30 +159,30 @@ const ReportPage = () => {
               <motion.div
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 2, ease: "easeOut" }}
+                transition={{ duration: 2, ease: 'easeOut' }}
               >
                 <ReportInBox width="17vw" height="3.33vw">
-                  <p style={{ fontSize: "0.83vw", fontWeight: 600 }}>
+                  <p style={{ fontSize: '0.83vw', fontWeight: 600 }}>
                     {getAngleMessage(report.angle)}
                   </p>
                 </ReportInBox>
               </motion.div>
-              <img src={CHAR} alt="character-2d" style={{ width: "6.5vw" }} />
+              <img src={CHAR} alt="character-2d" style={{ width: '6.5vw' }} />
             </div>
             {/* QR코드 */}
             <motion.div
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 2, ease: "easeOut" }}
+              transition={{ duration: 2, ease: 'easeOut' }}
             >
               <ReportInBox>
                 <img
                   src={LOGO}
                   alt="report-logo"
-                  style={{ width: "14.48vw" }}
+                  style={{ width: '14.48vw' }}
                 />
-                <div style={{ width: "1.25vw" }} />
-                <img src={QR} alt="qr-code" style={{ width: "4.95vw" }} />
+                <div style={{ width: '1.25vw' }} />
+                <img src={QR} alt="qr-code" style={{ width: '4.95vw' }} />
               </ReportInBox>
             </motion.div>
           </ReportOutBox>
@@ -191,7 +191,7 @@ const ReportPage = () => {
             {/* 추천 리서치 방법 */}
             <ReportOutBox width="14.22vw" height="22.60vw" className={b.column}>
               <div className={s.researchBox}>
-                <p className={s.subTitle}>추천 리서치 방법</p>
+                <p className={s.subTitle}>성장을 위한 주간 핵심 제안!</p>
                 <ReportInBox width="12.14vw" height="18.02vw">
                   <MarkDownBox research={report.researchMethod} />
                 </ReportInBox>
@@ -207,14 +207,16 @@ const ReportPage = () => {
               >
                 <div className={s.businessBox}>
                   <div
-                    style={{ display: "flex", justifyContent: "space-between" }}
+                    style={{ display: 'flex', justifyContent: 'space-between' }}
                   >
-                    <p className={s.subTitle}>적합한 청년창업지원사업</p>
+                    <p className={s.subTitle}>
+                      나에게 딱 맞는 주간 지원사업은?
+                    </p>
                     <img
                       src={PLUS}
                       alt="plus-icon"
-                      style={{ width: "1.56vw" }}
-                      onClick={() => navigate("/business/result")}
+                      style={{ width: '1.56vw' }}
+                      onClick={() => navigate('/business/result')}
                     />
                   </div>
                   {report.recommendations.slice(0, 2).map((biz, idx) => (
@@ -226,13 +228,15 @@ const ReportPage = () => {
               {/* 관련 뉴스 2개 */}
               <ReportOutBox width="48.80vw" height="8.39vw">
                 <div className={s.newsContainer}>
-                  <p className={s.subTitle}>관련 지역 & 산업 뉴스 및 트렌드</p>
+                  <p className={s.subTitle}>
+                    안 보면 손해보는 주간 산업 트렌드
+                  </p>
                   <div className={s.newsRow}>
                     {report.newsList.slice(0, 2).map((item, idx, arr) => (
                       <React.Fragment key={item.link ?? idx}>
                         <NewsItem
-                          title={item.title ?? ""}
-                          url={item.link ?? ""}
+                          title={item.title ?? ''}
+                          url={item.link ?? ''}
                         />
                         {idx < arr.length - 1 && (
                           <div className={s.newsDivider} />
@@ -263,7 +267,7 @@ const ReportPage = () => {
           {/* 추천 창업 계획 다이어그램 */}
           <ReportOutBox height="43.59vw" className={b.column}>
             <div className={s.recommendBox}>
-              <p className={s.subTitle}>추천 창업 계획</p>
+              <p className={s.subTitle}>내 사업, 앞으로 어떻게 해볼까?</p>
 
               {/* 라벨 4개 */}
               <div className={s.planLabel}>
