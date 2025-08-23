@@ -9,7 +9,7 @@ import MAIL from "../../assets/images/icon/mail-icon.svg";
 import PLUS from "../../assets/images/icon/plus-icon.svg";
 import LOGO from "../../assets/images/logo/report-logo.svg";
 import QR from "../../assets/images/report/qr-code.png";
-import CHAR from "../../assets/images/character-2d.png";
+import CHAR from "../../assets/images/character-2d.svg";
 import ANGLE from "../../assets/images/report/protractor.png";
 import SCORE from "../../assets/images/icon/report-score.svg";
 import ReportOutBox from "../../components/ReportOutBox";
