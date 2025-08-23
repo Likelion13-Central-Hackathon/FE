@@ -1,0 +1,27 @@
+@use "../../styles//mixins" as m;
+@use "../../styles/variables" as *;
+
+.explanationBoxContainer {
+  @include m.flex-column-center;
+  align-items: flex-start;
+  gap: 0.63vw;
+  width: 23vw;
+  margin-top: 1.35vw;
+
+  p {
+    font-size: 0.83vw;
+    font-weight: 600;
+    color: $gray-500;
+  }
+
+  .iconBox {
+    @include m.flex-row-double-center;
+    gap: 0.63vw;
+
+    p {
+      font-size: 1.04vw;
+      font-weight: 700;
+      color: $color-black;
+    }
+  }
+}

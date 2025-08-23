@@ -17,6 +17,7 @@ const MainPage = () => {
       title={TITLE}
       text={`청년의 시작, 확신으로 바꾸다.\n클릭 한 번으로 알아보는 나의 창업 유형`}
       height="5.92vw"
+      main={true}
     >
       <div className={s.buttonContainer}>
         <BasicButton

@@ -2,7 +2,8 @@
 @use "../../styles/variables" as *;
 
 .mainPageWrapper {
-  @include m.flex-row-double-center;
+  @include m.flex-column-center;
+
   position: relative;
   padding-left: 7.81vw;
   width: 100%;
@@ -38,5 +39,12 @@
     font-weight: 500;
     color: $gray-300;
     white-space: pre-line;
+  }
+
+  .explanationBoxs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 62.97vw;
   }
 }

@@ -13,3 +13,10 @@ export interface SizeTextProps {
 export interface LinkProps {
   link?: string;
 }
+
+export interface ExplationBox {
+  imgSrc: string;
+  width?: string;
+  title: string;
+  text: string;
+}
