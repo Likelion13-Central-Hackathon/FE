@@ -13,6 +13,7 @@ export type ConsiderPayload = {
   supportNeeds: Record<SupportKey, RankCode>;
   businessAge: BusinessAge;
   stage: StartupStage;
+  title: string;
   description: string;
 };
 
@@ -47,6 +48,11 @@ export function considerFormPayload(data: FormData): ConsiderPayload {
     throw new Error("창업 아이템 설명을 입력해주세요.");
   }
 
+  const title = (data.title || "").trim();
+  if (!title) {
+    throw new Error("창업 아이템 제목을 입력해주세요.");
+  }
+
   // 지원 순위
   const supportNeeds = SUPPORT_ITEMS.reduce<Record<SupportKey, RankCode>>(
     (acc, it) => {
@@ -61,6 +67,7 @@ export function considerFormPayload(data: FormData): ConsiderPayload {
     supportNeeds,
     businessAge: data.businessAge,
     stage: data.stage,
+    title,
     description,
   };
 }

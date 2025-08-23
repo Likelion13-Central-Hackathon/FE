@@ -1,0 +1,60 @@
+@use "../../../styles/mixins" as m;
+@use "../../../styles/variables" as *;
+
+.scrollTextBox {
+  display: flex;
+  gap: 1.25vw;
+  align-items: start;
+}
+
+.icon {
+  margin-top: 0.4vw;
+  width: 1.7vw;
+  transform-origin: center; // 뒤집을 때 중심
+}
+
+.right {
+  .icon {
+    transform: scaleX(-1); // 좌우 반전
+  }
+}
+
+.textBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.42vw;
+
+  .title {
+    font-size: 2.5vw;
+    font-weight: 700;
+    color: $color-black;
+    white-space: pre-line;
+  }
+  .subTitle {
+    font-size: 1.67vw;
+    font-weight: 500;
+    color: $gray-800;
+  }
+  .text {
+    margin-top: 1.93vw;
+    font-size: 1.25vw;
+    font-weight: 300;
+    color: $gray-500;
+    white-space: pre-line;
+    line-height: 1.4;
+  }
+}
+
+// 텍스트 정렬
+.alignLeft {
+  align-items: flex-start;
+  text-align: left;
+}
+.alignCenter {
+  align-items: center;
+  text-align: center;
+}
+.alignRight {
+  align-items: flex-end;
+  text-align: right;
+}

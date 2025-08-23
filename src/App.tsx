@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 import "./styles/global.scss";
 import Layout from "./components/Layout";
-import MainPage from "./pages/MainPage";
+import MainPage from "./pages/mainPage/MainPage";
 import FormPage from "./pages/formPage/FormPage";
 import ReportPage from "./pages/reportPage/ReportPage";
 import BusinessPage from "./pages/businessPage/BusinessPage";
