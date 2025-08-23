@@ -14,9 +14,19 @@ export interface LinkProps {
   link?: string;
 }
 
-export interface ExplationBox {
-  imgSrc: string;
-  width?: string;
+export interface Explation {
   title: string;
   text: string;
+}
+
+export interface ExplationBoxProps extends Explation {
+  imgSrc: string;
+  width?: string;
+}
+
+export interface ScrollTextBoxProps extends Explation {
+  subTitle: string;
+  direction?: string;
+  alignment?: string;
+  marginTop?: string;
 }
