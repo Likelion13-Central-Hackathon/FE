@@ -5,7 +5,7 @@ import TitleContainer from "./TitleContainer";
 import FloatingMotion from "./FloatingMotion";
 import ANALYZE from "../assets/images/icon/analyze-icon.svg";
 import SELECTED from "../assets/images/icon/selected-icon.svg";
-import ExplanationBox from "./ExplanationBox";
+import ExplanationBox from "../pages/mainPage/componenets/ExplanationBox";
 
 interface IntroProps extends SizeProps {
   title: string;
