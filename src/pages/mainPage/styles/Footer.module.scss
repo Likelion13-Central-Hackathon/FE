@@ -1,0 +1,73 @@
+@use "../../../styles/mixins" as m;
+@use "../../../styles/variables" as *;
+
+.footerContainer {
+  width: 69.48vw;
+  height: 34.95vw;
+  margin-top: 8vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  .footerLeft {
+    @include m.flex-column-center;
+    gap: 3.23vw;
+    align-items: flex-start;
+    margin-bottom: 2.84vw;
+
+    p {
+      font-size: 1.25vw;
+      font-weight: 600;
+      color: $gray-200;
+      white-space: pre-line;
+    }
+  }
+
+  .footerRight {
+    width: 23.75vw;
+    height: 21.56vw;
+    display: flex;
+    flex-direction: column;
+    gap: 0.73vw;
+    margin-bottom: 2.86vw;
+
+    .plus3D {
+      width: 11.32vw;
+      margin-left: 12.4vw;
+      animation: float3 4s ease-in-out infinite;
+    }
+
+    .qrText {
+      font-size: 1.04vw;
+      font-weight: 500;
+      color: $gray-100;
+    }
+
+    .qrImg {
+      display: flex;
+      justify-content: space-between;
+
+      p {
+        width: 11.7vw;
+        font-size: 0.52vw;
+        font-weight: 400;
+        color: white;
+      }
+      img {
+        margin-right: 2.6vw;
+      }
+    }
+  }
+}
+
+@keyframes float3 {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-1vw) rotate(-1deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}

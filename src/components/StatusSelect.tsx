@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
-import styles from "./styles/StatusSelect.module.scss";
+import React, { useEffect, useRef, useState } from 'react';
+import styles from './styles/StatusSelect.module.scss';
+import caretDown from '../assets/images/icon/ReverseTriangle-icon.svg';
 
 type Option<T extends string> = { value: T; label: string };
 
@@ -19,7 +20,7 @@ function StatusSelect<T extends string>({
   value,
   onChange,
   options,
-  placeholder = "학적 입력",
+  placeholder = '학적 입력',
   width,
   height,
   style,
@@ -34,8 +35,8 @@ function StatusSelect<T extends string>({
         setOpen(false);
       }
     };
-    document.addEventListener("mousedown", onDoc);
-    return () => document.removeEventListener("mousedown", onDoc);
+    document.addEventListener('mousedown', onDoc);
+    return () => document.removeEventListener('mousedown', onDoc);
   }, []);
 
   // value에 해당하는 라벨 찾기
@@ -51,14 +52,20 @@ function StatusSelect<T extends string>({
       <button
         type="button"
         className={`${styles.selectTrigger} ${
-          open || value ? styles.selectTriggerActive : ""
+          open || value ? styles.selectTriggerActive : ''
         }`}
         onClick={() => setOpen((o) => !o)}
         aria-haspopup="listbox"
         aria-expanded={open}
         style={{ width, height }}
       >
-        <span className={styles.triggerText}>{activeLabel} ▼</span>
+        <span className={styles.triggerText}>{activeLabel} </span>
+        <img
+          src={caretDown}
+          alt=""
+          aria-hidden="true"
+          className={styles.caret}
+        />
       </button>
 
       {open && (
@@ -66,7 +73,7 @@ function StatusSelect<T extends string>({
           className={styles.selectMenu}
           role="listbox"
           onMouseDown={(e) => e.preventDefault()} // blur 방지
-          style={{ zIndex: menuZIndex, minWidth: width ?? "100%" }} // ← z-index 강제
+          style={{ zIndex: menuZIndex, minWidth: width ?? '100%' }} // ← z-index 강제
         >
           <div className={styles.selectMenuWrapper}>
             {options.map((opt) => {
@@ -84,7 +91,7 @@ function StatusSelect<T extends string>({
                   }}
                 >
                   <span
-                    className={`${styles.box} ${checked ? styles.boxOn : ""}`}
+                    className={`${styles.box} ${checked ? styles.boxOn : ''}`}
                   />
                   <span className={styles.optText}>{opt.label}</span>
                 </button>

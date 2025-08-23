@@ -1,5 +1,5 @@
-@use "../../../styles/mixins" as m;
-@use "../../../styles/variables" as *;
+@use '../../../styles/mixins' as m;
+@use '../../../styles/variables' as *;
 
 .sectionsWrapper {
   display: flex;
@@ -239,7 +239,7 @@
   border-bottom: none;
 
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     bottom: 0;
     left: 1.5vw;
@@ -379,7 +379,7 @@
   position: fixed;
   inset: 0;
   background: rgba(22, 30, 50, 0.32);
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(0.06vw);
   display: grid;
   place-items: center;
   z-index: 20000;
@@ -435,4 +435,23 @@
 .smallBtn {
   font-size: 0.63vw;
   font-weight: 700;
+}
+.withArrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+}
+
+.withArrow::after {
+  content: '';
+  display: inline-block;
+  width: 0.63vw;
+  height: 0.42vw;
+  margin-left: 0.06vw;
+  pointer-events: none;
+  background-color: currentColor;
+  -webkit-mask: url('../../../assets/images/icon/extrabutton-icon.svg')
+    no-repeat center / contain;
+  mask: url('../../../assets/images/icon/extrabutton-icon.svg') no-repeat center /
+    contain;
 }

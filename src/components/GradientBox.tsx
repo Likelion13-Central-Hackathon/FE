@@ -1,6 +1,6 @@
-import React from "react";
-import s from "./styles/GradientBox.module.scss";
-import { InBoxProps } from "../types/report";
+import React from 'react';
+import s from './styles/GradientBox.module.scss';
+import { InBoxProps } from '../types/report';
 
 type GradientBoxProps = InBoxProps & {
   ellipseTop?: string;
@@ -8,8 +8,8 @@ type GradientBoxProps = InBoxProps & {
 };
 
 const GradientBox: React.FC<GradientBoxProps> = ({
-  width = "63.59vw",
-  height = "45.31vw",
+  width = '63.59vw',
+  height = '45.31vw',
   ellipseTop,
   ellipseRight,
   children,
@@ -20,8 +20,8 @@ const GradientBox: React.FC<GradientBoxProps> = ({
       <div
         className={s.ellipse}
         style={{
-          top: ellipseTop,   
-          right: ellipseRight, 
+          top: ellipseTop,
+          right: ellipseRight,
         }}
       />
       {children}

@@ -17,7 +17,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.42vw;
+  gap: 0.32vw;
   width: 7.92vw;
   height: 2.19vw;
 
@@ -30,10 +30,22 @@
   user-select: none;
 
   .triggerText {
-    width: 100%;
+    width: auto;
+    display: inline-block;
     font-size: 0.63vw;
     font-weight: 500;
   }
+}
+
+.caret {
+  width: 0.52vw;
+  height: 0.52vw;
+  flex: 0 0 auto;
+  pointer-events: none;
+}
+
+.selectTriggerActive .caret {
+  filter: brightness(0) invert(1);
 }
 
 .selectTriggerActive {
@@ -49,7 +61,7 @@
 
   width: 7.92vw;
   max-width: 40vw;
-  height: 10vw;
+  height: 11vw;
   max-height: 50vh;
 
   z-index: 10000; /* 항상 최상단 */
@@ -117,7 +129,7 @@
 }
 
 .boxOn::after {
-  content: "";
+  content: '';
   position: absolute;
   left: 0.18vw;
   top: 0.1vw;

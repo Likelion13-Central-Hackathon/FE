@@ -1,10 +1,10 @@
-@use "../../styles/mixins" as m;
-@use "../../styles/variables" as *;
+@use '../../styles/mixins' as m;
+@use '../../styles/variables' as *;
 
 .reportPageWrapper {
   @include m.flex-row-double-center;
   aspect-ratio: 1920 / 2419;
-  background: url("../../assets/images/background/report-background.png")
+  background: url('../../assets/images/background/report-background.png')
     center/contain no-repeat;
   background-position: top center;
   width: 100%;
@@ -23,7 +23,7 @@
     );
 
     .subTitle {
-      font-size: 1.04vw;
+      font-size: 1.15vw;
       font-weight: 700;
       color: black;
     }
@@ -60,7 +60,7 @@
       justify-content: space-between;
 
       .title {
-        font-size: 1.88vw;
+        font-size: 1.77vw;
         font-weight: 700;
       }
     }
@@ -197,25 +197,25 @@
       }
 
       .s {
-        background-image: url("../../assets/images/report/swot-s.png");
+        background-image: url('../../assets/images/report/swot-s.png');
         padding-left: 5.6vw;
         padding-top: 4vw;
         animation-delay: 0ms;
       }
       .w {
-        background-image: url("../../assets/images/report/swot-w.png");
+        background-image: url('../../assets/images/report/swot-w.png');
         padding-right: 5.6vw;
         padding-top: 4vw;
         animation-delay: 240ms;
       }
       .o {
-        background-image: url("../../assets/images/report/swot-o.png");
+        background-image: url('../../assets/images/report/swot-o.png');
         padding-left: 5.6vw;
         padding-top: 1.5vw;
         animation-delay: 120ms;
       }
       .t {
-        background-image: url("../../assets/images/report/swot-t.png");
+        background-image: url('../../assets/images/report/swot-t.png');
         padding-right: 5.6vw;
         padding-top: 1.5vw;
         animation-delay: 360ms;
