@@ -58,7 +58,7 @@
   background: url("../../assets/images/background/main-background2.png") top
     center / contain no-repeat;
   background-position: top center;
-  padding-bottom: 42.71vw; // footer 들어갈 자리
+  padding-top: 2vw;
 
   .logoBox1 {
     @include m.flex-column-center;
@@ -128,5 +128,22 @@
     align-items: center;
     gap: 0.8vw;
     width: 100%;
+  }
+
+  .line1 {
+    width: 30vw;
+    height: 50vw;
+    position: absolute;
+    top: 11%;
+    left: 35.5%;
+    z-index: 10;
+  }
+  .line2 {
+    width: 20vw;
+    height: 37.5vw;
+    position: absolute;
+    top: 49.5%;
+    right: 34.5%;
+    z-index: 10;
   }
 }

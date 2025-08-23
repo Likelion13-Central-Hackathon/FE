@@ -5,6 +5,8 @@ import IntroLayout from "../../components/IntroLayout";
 import BasicButton from "../../components/BasicButton";
 import ScrollTextBox from "./componenets/ScrollTextBox";
 import ReportInBox from "../../components/ReportInBox";
+import Footer from "./componenets/Footer";
+import ScrollTopButton from "../../components/ScrollTopButton";
 
 import TITLE from "../../assets/images/logo/first-logo.svg";
 import LOGO1 from "../../assets/images/logo/scroll-logo1.png";
@@ -14,6 +16,8 @@ import MAP from "../../assets/images/main/main-map.png";
 import REPORT from "../../assets/images/main/main-report.png";
 import BUSINESS from "../../assets/images/main/main-business.png";
 import CHAR from "../../assets/images/character-2d.svg";
+import LINE1 from "../../assets/images/main/line1.svg";
+import LINE2 from "../../assets/images/main/line2.svg";
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -41,6 +45,7 @@ const MainPage = () => {
           />
         </div>
       </IntroLayout>
+      {/* 하단 스크롤 */}
       <div className={s.scrollSection}>
         <div className={s.logoBox1}>
           <img src={LOGO1} alt="scroll-logo1" style={{ width: "22.40vw" }} />
@@ -57,6 +62,7 @@ const MainPage = () => {
             marginTop="6.67vw"
           />
         </section>
+        <img src={LINE1} alt="line1" className={s.line1} />
         {/* 지도, 지원사업 */}
         <section className={s.section2}>
           <div>
@@ -85,6 +91,7 @@ const MainPage = () => {
               style={{ width: "24.74vw" }}
             />
           </div>
+          <img src={LINE2} alt="line2" className={s.line2} />
         </section>
         {/* 캐릭터 + 말풍선 */}
         <div className={s.characterBox}>
@@ -109,7 +116,10 @@ const MainPage = () => {
             marginTop="0.15vw"
           />
         </section>
+        {/* 푸터 */}
+        <Footer />
       </div>
+      <ScrollTopButton />
     </div>
   );
 };
