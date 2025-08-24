@@ -82,7 +82,7 @@ const ResultItem: React.FC<ResultItemProps> = ({ rankImg, item }) => {
                     alt="char-2d"
                     style={{
                       height: "6.25vw",
-                      marginRight: "-2.0vw",
+                      marginRight: "-1.5vw",
                       zIndex: 2,
                     }}
                   />

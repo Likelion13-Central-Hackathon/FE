@@ -4,6 +4,7 @@ import CHART from "../../../assets/images/report/charts.svg";
 import { rotateArray, startMonthIndex } from "../../../utils/date";
 import { RecommendPlanProps } from "../../../types/report";
 import { planStepTitles } from "../../../data/planData";
+import PlanImage from "./PlanImage";
 
 const RecommendPlan: React.FC<RecommendPlanProps> = ({ createdAt, steps }) => {
   const yAxis = ["180°", "150°", "120°", "90°", "60°", "30°", "0°"];
@@ -37,9 +38,7 @@ const RecommendPlan: React.FC<RecommendPlanProps> = ({ createdAt, steps }) => {
         </section>
         <div className={s.rightSection}>
           {/* 다이어그램 이미지 */}
-          <section className={s.planImg} aria-label="Plan image area">
-            <img src={CHART} alt="diagram" />
-          </section>
+          <PlanImage src={CHART} alt="diagram" />
           {/* X축: 월 */}
           <section className={s.planX} aria-label="X axis">
             {months.map((label) => (
@@ -52,12 +51,26 @@ const RecommendPlan: React.FC<RecommendPlanProps> = ({ createdAt, steps }) => {
       </div>
       {/* 1,2,3,4단계 */}
       <div className={s.stepsWrapper}>
-        {steps.map((step, idx) => (
-          <div key={idx} className={s.stepGroup}>
-            <p className={s.stepTitleItem}>{planStepTitles[idx]}</p>
-            <p className={s.stepItem}>{step}</p>
-          </div>
-        ))}
+        {steps.map((step, idx) => {
+          const parts = step
+            .split("-") // - 기준 분리
+            .map((p) => p.trim()) // 공백 정리
+            .filter(Boolean); // 빈 항목 제거
+
+          return (
+            <div key={idx} className={s.stepGroup}>
+              <p className={s.stepTitleItem}>{planStepTitles[idx]}</p>
+              <p className={s.stepItem}>
+                {parts.map((part, i) => (
+                  <React.Fragment key={i}>
+                    - {part}
+                    {i !== parts.length - 1 && <br />}
+                  </React.Fragment>
+                ))}
+              </p>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

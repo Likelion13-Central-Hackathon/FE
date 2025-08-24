@@ -11,6 +11,10 @@
   border: none;
   border-bottom: 0.05vw solid $gray-500;
   cursor: pointer;
+
+  &:hover {
+    color: $gray-800;
+  }
 }
 
 .boxContainer1 {

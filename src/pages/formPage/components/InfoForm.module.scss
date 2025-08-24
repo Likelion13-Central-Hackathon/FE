@@ -235,7 +235,7 @@
   border-radius: 0.26vw;
   padding: 0 0.83vw;
   border: 0.05vw solid $color-black;
-  color: #111;
+  color: $color-black;
 
   display: flex;
   align-items: center;
@@ -244,6 +244,11 @@
   cursor: pointer;
   appearance: none;
   outline: none;
+
+  &:hover {
+    background-color: $main-color1;
+    color: white;
+  }
 }
 
 .regionTriggerActive {
