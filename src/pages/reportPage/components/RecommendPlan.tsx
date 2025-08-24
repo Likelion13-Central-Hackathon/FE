@@ -51,12 +51,26 @@ const RecommendPlan: React.FC<RecommendPlanProps> = ({ createdAt, steps }) => {
       </div>
       {/* 1,2,3,4단계 */}
       <div className={s.stepsWrapper}>
-        {steps.map((step, idx) => (
-          <div key={idx} className={s.stepGroup}>
-            <p className={s.stepTitleItem}>{planStepTitles[idx]}</p>
-            <p className={s.stepItem}>{step}</p>
-          </div>
-        ))}
+        {steps.map((step, idx) => {
+          const parts = step
+            .split("-") // - 기준 분리
+            .map((p) => p.trim()) // 공백 정리
+            .filter(Boolean); // 빈 항목 제거
+
+          return (
+            <div key={idx} className={s.stepGroup}>
+              <p className={s.stepTitleItem}>{planStepTitles[idx]}</p>
+              <p className={s.stepItem}>
+                {parts.map((part, i) => (
+                  <React.Fragment key={i}>
+                    - {part}
+                    {i !== parts.length - 1 && <br />}
+                  </React.Fragment>
+                ))}
+              </p>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
