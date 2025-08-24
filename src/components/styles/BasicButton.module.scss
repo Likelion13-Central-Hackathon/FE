@@ -18,6 +18,12 @@
     color: $color-white;
     transform: scale(0.95);
   }
+
+  &:hover {
+    background-color: $main-color1;
+    border: none;
+    color: $color-white;
+  }
 }
 
 .active {
