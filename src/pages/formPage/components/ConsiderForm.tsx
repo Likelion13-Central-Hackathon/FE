@@ -1,14 +1,13 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import styles from './ConsiderForm.module.scss';
-import BasicButton from '../../../components/BasicButton';
-import StatusSelect from '../../../components/StatusSelect';
+import React, { useMemo, useState } from "react";
+import styles from "./ConsiderForm.module.scss";
+import BasicButton from "../../../components/BasicButton";
+import StatusSelect from "../../../components/StatusSelect";
 import type {
   StepComponentProps,
-  FieldOpt,
   RankCode,
   StartupStage,
   SupportKey,
-} from '../../../types/form';
+} from "../../../types/form";
 import {
   FIELD_OPTIONS,
   SUPPORT_ITEMS,
@@ -16,16 +15,17 @@ import {
   STATUS_OPTIONS2,
   RANK_OPTIONS,
   STATUS_MODAL_BY_STAGE,
-} from '../../../data/formData';
+} from "../../../data/formData";
 
-import CR1 from '../../../assets/images/form/consider-resource1.svg';
-import CR2 from '../../../assets/images/form/consider-resource2.svg';
-import CR3 from '../../../assets/images/form/consider-resource3.svg';
-import CR4 from '../../../assets/images/form/consider-resource4.svg';
-import CR5 from '../../../assets/images/form/consider-resource5.svg';
-import CR6 from '../../../assets/images/form/consider-resource6.svg';
-import CR7 from '../../../assets/images/form/consider-resource7.svg';
-import CR8 from '../../../assets/images/form/consider-resource8.svg';
+import CR1 from "../../../assets/images/form/consider-resource1.svg";
+import CR2 from "../../../assets/images/form/consider-resource2.svg";
+import CR3 from "../../../assets/images/form/consider-resource3.svg";
+import CR4 from "../../../assets/images/form/consider-resource4.svg";
+import CR5 from "../../../assets/images/form/consider-resource5.svg";
+import CR6 from "../../../assets/images/form/consider-resource6.svg";
+import CR7 from "../../../assets/images/form/consider-resource7.svg";
+import CR8 from "../../../assets/images/form/consider-resource8.svg";
+import FieldSelect from "./FieldSelect";
 
 const ICON_MAP: Record<SupportKey, string> = {
   COMMERCIALIZATION: CR1,
@@ -37,191 +37,6 @@ const ICON_MAP: Record<SupportKey, string> = {
   TALENT: CR7,
   GLOBAL: CR8,
 };
-
-/* ===== 분야 드롭다운 ===== */
-function FieldSelect({
-  value,
-  onChange,
-  placeholder = '분야 선택하기',
-  options,
-}: {
-  value: string | null;
-  onChange: (id: string) => void;
-  placeholder?: string;
-  options: readonly FieldOpt[];
-}) {
-  const [open, setOpen] = useState(false);
-  const [q, setQ] = useState('');
-  const [activeIndex, setActiveIndex] = useState(0);
-  const wrapRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const listRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const onDoc = (e: MouseEvent) => {
-      if (wrapRef.current && !wrapRef.current.contains(e.target as Node))
-        setOpen(false);
-    };
-    document.addEventListener('mousedown', onDoc);
-    return () => document.removeEventListener('mousedown', onDoc);
-  }, []);
-
-  useEffect(() => {
-    if (open) setTimeout(() => inputRef.current?.focus(), 0);
-  }, [open]);
-
-  const filtered = useMemo(() => {
-    const qq = q.trim().toLowerCase();
-    return options.filter((o) =>
-      `${o.group} ${o.title} ${o.subtitle ?? ''}`.toLowerCase().includes(qq)
-    );
-  }, [options, q]);
-
-  const grouped = useMemo(() => {
-    const m = new Map<string, FieldOpt[]>();
-    for (const it of filtered) {
-      if (!m.has(it.group)) m.set(it.group, []);
-      m.get(it.group)!.push(it);
-    }
-    return Array.from(m.entries()).sort((a, b) => a[0].localeCompare(b[0]));
-  }, [filtered]);
-
-  const selected = options.find((o) => o.id === value) || null;
-  const triggerLabel = selected
-    ? `${selected.group} / ${selected.order}`
-    : placeholder;
-
-  const flatList = useMemo(
-    () =>
-      grouped.reduce<FieldOpt[]>((acc, [, arr]) => (acc.push(...arr), acc), []),
-    [grouped]
-  );
-  useEffect(() => setActiveIndex(0), [q, open]);
-
-  const onKeyDown = (e: React.KeyboardEvent) => {
-    if (!open) return;
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      setActiveIndex((i) => Math.min(i + 1, flatList.length - 1));
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      setActiveIndex((i) => Math.max(i - 1, 0));
-    } else if (e.key === 'Enter') {
-      e.preventDefault();
-      const target = flatList[activeIndex];
-      if (target) {
-        onChange(target.id);
-        setOpen(false);
-      }
-    } else if (e.key === 'Escape') {
-      setOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    if (!listRef.current) return;
-    const item = listRef.current.querySelector<HTMLElement>(
-      `[data-idx="${activeIndex}"]`
-    );
-    if (item) {
-      const parent = listRef.current;
-      const itTop = item.offsetTop;
-      const itBottom = itTop + item.offsetHeight;
-      if (itTop < parent.scrollTop) parent.scrollTop = itTop - 8;
-      else if (itBottom > parent.scrollTop + parent.clientHeight)
-        parent.scrollTop = itBottom - parent.clientHeight + 8;
-    }
-  }, [activeIndex]);
-
-  return (
-    <div className={styles.fieldWrap} ref={wrapRef} onKeyDown={onKeyDown}>
-      <button
-        type="button"
-        className={`${styles.fieldTrigger} ${
-          selected ? styles.fieldTriggerActive : ''
-        }`}
-        onClick={() => setOpen((o) => !o)}
-        aria-haspopup="listbox"
-        aria-expanded={open}
-      >
-        <span className={styles.fieldTriggerLabel}>{triggerLabel}</span>
-      </button>
-
-      {open && (
-        <div
-          className={styles.fieldMenu}
-          role="listbox"
-          onMouseDown={(e) => e.preventDefault()}
-        >
-          <div className={styles.fieldHeader}>
-            <div className={styles.fieldHeaderTitle}>분류</div>
-            <div className={styles.fieldSearch}>
-              <input
-                ref={inputRef}
-                className={styles.searchInput}
-                type="text"
-                value={q}
-                onChange={(e) => setQ(e.target.value)}
-                placeholder="검색 Ex. 농업"
-              />
-              <span className={styles.searchIcon} aria-hidden>
-                🔍
-              </span>
-            </div>
-          </div>
-
-          <div className={styles.fieldList} ref={listRef}>
-            {grouped.map(([group, arr], gi) => (
-              <div key={group}>
-                {gi > 0 && <div className={styles.fieldDivider} />}
-
-                {arr.map((item, idxInGroup) => {
-                  const idx =
-                    grouped
-                      .slice(0, gi)
-                      .reduce((acc, [, a]) => acc + a.length, 0) + idxInGroup;
-                  const active = item.id === value;
-                  const focused = idx === activeIndex;
-
-                  return (
-                    <button
-                      key={item.id}
-                      type="button"
-                      data-idx={idx}
-                      className={`${styles.fieldOption} ${
-                        active ? styles.fieldOptionActive : ''
-                      } ${focused ? styles.fieldOptionFocus : ''}`}
-                      onClick={() => {
-                        onChange(item.id);
-                        setOpen(false);
-                      }}
-                    >
-                      <div className={styles.fieldMain}>
-                        <div className={styles.fieldGroup}>{item.group}</div>
-                        <div className={styles.fieldTexts}>
-                          <div className={styles.fieldTitle}>{item.title}</div>
-                          {item.subtitle && (
-                            <div className={styles.fieldSub}>
-                              {item.subtitle}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                      <div className={styles.fieldRight}>{item.order}</div>
-                    </button>
-                  );
-                })}
-              </div>
-            ))}
-            {flatList.length === 0 && (
-              <div className={styles.fieldEmpty}>검색 결과가 없습니다.</div>
-            )}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
 
 const ConsiderForm: React.FC<StepComponentProps> = ({
   data,
@@ -244,7 +59,7 @@ const ConsiderForm: React.FC<StepComponentProps> = ({
   // 분야 선택 시 id를 area로 저장
   const onSelectField = (id: string) => {
     const opt = FIELD_OPTIONS.find((o) => o.id === id);
-    const area = (opt?.subtitle || opt?.title || '').trim();
+    const area = (opt?.subtitle || opt?.title || "").trim();
     updateForm({ interestArea: area });
   };
 
@@ -390,7 +205,7 @@ const ConsiderForm: React.FC<StepComponentProps> = ({
             <textarea
               className={styles.textarea}
               placeholder={
-                '본 지원사업을 통해 개발 또는 구체화하고자 하는 제품·서비스 개요(사용 용도, 사양, 가격 등), \n핵심 기능·성능, 고객 제공 혜택 등\n※ 예시 : 가벼움(고객 제공 혜택)을 위해서 용량을 줄이는 재료(핵심 기능)를 사용'
+                "본 지원사업을 통해 개발 또는 구체화하고자 하는 제품·서비스 개요(사용 용도, 사양, 가격 등), \n핵심 기능·성능, 고객 제공 혜택 등\n※ 예시 : 가벼움(고객 제공 혜택)을 위해서 용량을 줄이는 재료(핵심 기능)를 사용"
               }
               value={data.description}
               onChange={(e) => updateForm({ description: e.target.value })}
