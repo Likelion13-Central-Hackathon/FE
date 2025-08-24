@@ -1,5 +1,5 @@
-@use '../../../styles/mixins' as m;
-@use '../../../styles/variables' as *;
+@use "../../../styles/mixins" as m;
+@use "../../../styles/variables" as *;
 
 .sectionsWrapper {
   display: flex;
@@ -190,7 +190,7 @@
   background: #fff;
   border-radius: 0.31vw;
   border: 0.05vw solid black;
-  color: #111;
+  color: $color-black;
 
   display: flex;
   align-items: center;
@@ -198,6 +198,11 @@
 
   cursor: pointer;
   outline: none;
+
+  &:hover {
+    background-color: $main-color1;
+    color: white;
+  }
 }
 .fieldTriggerActive {
   background: $main-color1;
@@ -239,7 +244,7 @@
   border-bottom: none;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0;
     left: 1.5vw;
@@ -443,15 +448,15 @@
 }
 
 .withArrow::after {
-  content: '';
+  content: "";
   display: inline-block;
   width: 0.63vw;
   height: 0.42vw;
   margin-left: 0.06vw;
   pointer-events: none;
   background-color: currentColor;
-  -webkit-mask: url('../../../assets/images/icon/extrabutton-icon.svg')
+  -webkit-mask: url("../../../assets/images/icon/extrabutton-icon.svg")
     no-repeat center / contain;
-  mask: url('../../../assets/images/icon/extrabutton-icon.svg') no-repeat center /
+  mask: url("../../../assets/images/icon/extrabutton-icon.svg") no-repeat center /
     contain;
 }

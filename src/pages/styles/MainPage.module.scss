@@ -7,9 +7,10 @@
   position: relative;
   padding-left: 7.81vw;
   width: 100%;
-  aspect-ratio: 1920 / 1080;
+  height: 100vh;
+
   background: url("../../assets/images/background/main-background.svg") top
-    center / contain no-repeat;
+    center / cover no-repeat;
   background-position: top center;
 
   // .titleContainer {
