@@ -1,4 +1,4 @@
-import React, { useState, forwardRef, useImperativeHandle } from "react";
+import React, { useState } from "react";
 import s from "./Document.module.scss";
 import b from "../../../components/styles/Box.module.scss";
 import ReportOutBox from "../../../components/ReportOutBox";
@@ -6,29 +6,30 @@ import ReportInBox from "../../../components/ReportInBox";
 import BasicButton from "../../../components/BasicButton";
 import RETURN from "../../../assets/images/return-button.png";
 import GradientBox from "../../../components/GradientBox";
-import type { RevisingBoxHandle, RevisingTitle } from "../../../types/document";
+import type { RevisingTitle } from "../../../types/document";
 import { aiAnswerSession$ } from "../../../utils/sessionStorage";
 import createAiAnswer from "../../../api/document/createAiResponseApi";
 import LoadingSpinner from "../../../components/LoadingSpinner";
+import { useDocStore } from "../../../store/documentStore";
 
-const RevisingBox = forwardRef<
-  RevisingBoxHandle,
-  RevisingTitle & { questionNumber: number }
->(({ title, explanation, questionNumber }, ref) => {
-  const [userAnswer, setUserAnswer] = useState<string>("");
-  const [aiAnswer, setAiAnswer] = useState<string>("");
+type Props = RevisingTitle & { questionNumber: number };
+
+const RevisingBox: React.FC<Props> = ({
+  title,
+  explanation,
+  questionNumber,
+}) => {
+  const item = useDocStore((s) => s.items[questionNumber]);
+  const update = useDocStore((s) => s.updateItem);
+
   const [rotating, setRotating] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
+  const userAnswer = item?.userAnswer ?? "";
+  const aiAnswer = item?.aiAnswer ?? "";
   const isDisabled = userAnswer.trim().length === 0;
 
-  //pdf를 위한 ref 코드
-  useImperativeHandle(ref, () => ({
-    getUserAnswer: () => userAnswer,
-    getAiAnswer: () => aiAnswer,
-    getAnswerId: () => aiAnswerSession$(questionNumber).read(),
-  }));
-
+  // 복사
   const handleCopy = () => {
     navigator.clipboard.writeText(aiAnswer).catch(console.error);
   };
@@ -38,11 +39,12 @@ const RevisingBox = forwardRef<
     setRotating(true);
     setLoading(true);
     try {
-      const { aiAnswer, answerId } = await createAiAnswer({
+      const { aiAnswer: nextAi, answerId } = await createAiAnswer({
         questionNumber,
         userAnswer: userAnswer.trim(),
       });
-      setAiAnswer(aiAnswer);
+      // zustand에 AI 답변 저장
+      update(questionNumber, { aiAnswer: nextAi });
       aiAnswerSession$(questionNumber).save(answerId);
     } catch (e: unknown) {
       console.error(e);
@@ -88,7 +90,9 @@ const RevisingBox = forwardRef<
                     placeholder="답변을 입력하세요."
                     className={s.textarea}
                     value={userAnswer}
-                    onChange={(e) => setUserAnswer(e.target.value)}
+                    onChange={(e) =>
+                      update(questionNumber, { userAnswer: e.target.value })
+                    }
                   />
                 </ReportInBox>
               </ReportOutBox>
@@ -149,6 +153,6 @@ const RevisingBox = forwardRef<
       </div>
     </GradientBox>
   );
-});
+};
 
 export default RevisingBox;

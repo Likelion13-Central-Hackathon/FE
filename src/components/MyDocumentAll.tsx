@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Document,
   Page,
@@ -6,83 +6,77 @@ import {
   View,
   StyleSheet,
   Font,
-} from '@react-pdf/renderer';
+} from "@react-pdf/renderer";
+import { ItemState } from "../types/document";
 
 Font.register({
-  family: 'MalgunGothic',
+  family: "MalgunGothic",
   fonts: [
     {
       src: `${import.meta.env.BASE_URL}fonts/malgun.ttf`,
-      fontWeight: 'normal',
+      fontWeight: "normal",
     },
     {
       src: `${import.meta.env.BASE_URL}fonts/malgunbd.ttf`,
-      fontWeight: 'bold',
+      fontWeight: "bold",
     },
   ],
 });
 
 const styles = StyleSheet.create({
-  page: { padding: 30, fontFamily: 'MalgunGothic' },
+  page: { padding: 30, fontFamily: "MalgunGothic" },
 
   /* === 타이틀 영역 === */
   titleWrap: { marginBottom: 16 },
   titleEyebrow: {
     fontSize: 10,
-    color: '#6B7280',
+    color: "#6B7280",
     marginBottom: 4,
     letterSpacing: 0.5,
   },
-  titleRow: { flexDirection: 'row', alignItems: 'center' },
+  titleRow: { flexDirection: "row", alignItems: "center" },
   titleAccent: {
     width: 4,
     height: 24,
-    backgroundColor: '#2563EB',
+    backgroundColor: "#2563EB",
     marginRight: 8,
   },
-  titleText: { fontSize: 22, fontWeight: 'bold', color: '#111827' },
-  titleRule: { marginTop: 6, height: 2, backgroundColor: '#2563EB' },
+  titleText: { fontSize: 22, fontWeight: "bold", color: "#111827" },
+  titleRule: { marginTop: 6, height: 2, backgroundColor: "#2563EB" },
 
-  /* === 문항(Question) 영역: 라벨 제거 === */
+  /* === 문항(Question) 영역 === */
   questionWrap: { marginBottom: 16 },
   questionBox: {
-    backgroundColor: '#F3F4F6', // gray-100
+    backgroundColor: "#F3F4F6",
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: '#E5E7EB', // gray-200
+    borderColor: "#E5E7EB",
     paddingVertical: 6,
     paddingHorizontal: 10,
   },
-  questionBoxRow: { flexDirection: 'row', alignItems: 'center' },
+  questionBoxRow: { flexDirection: "row", alignItems: "center" },
   questionBar: {
     width: 3,
     height: 18,
-    backgroundColor: '#2563EB',
+    backgroundColor: "#2563EB",
     borderRadius: 2,
     marginRight: 8,
   },
-  questionText: { fontSize: 14, color: '#111827' },
+  questionText: { fontSize: 14, color: "#111827" },
 
   /* 본문 섹션 */
   section: { marginBottom: 15 },
   sectionTitle: {
     fontSize: 16,
-    fontWeight: 'bold',
-    color: '#111827',
+    fontWeight: "bold",
+    color: "#111827",
     marginBottom: 8,
   },
   text: { fontSize: 14, marginBottom: 5 },
-  label: { fontWeight: 'bold' },
+  label: { fontWeight: "bold" },
 });
 
-export type Snap = {
-  title: string;
-  userAnswer: string;
-  aiAnswer: string;
-  qa: { question: string; answer: string }[];
-};
-
-const MyDocumentAll: React.FC<{ items: Snap[] }> = ({ items }) => (
+const MyDocumentAll: React.FC<{ items: ItemState[] }> = ({ items }) => (
   <Document>
     {items.map((it, i) => (
       <Page key={i} size="A4" style={styles.page} wrap>
@@ -101,7 +95,7 @@ const MyDocumentAll: React.FC<{ items: Snap[] }> = ({ items }) => (
           <View style={styles.questionBox}>
             <View style={styles.questionBoxRow}>
               <View style={styles.questionBar} />
-              <Text style={styles.questionText}>{it.title || '제목 없음'}</Text>
+              <Text style={styles.questionText}>{it.title || "제목 없음"}</Text>
             </View>
           </View>
         </View>
@@ -110,10 +104,10 @@ const MyDocumentAll: React.FC<{ items: Snap[] }> = ({ items }) => (
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>사용자 답변</Text>
           <Text style={styles.text}>
-            {(it.userAnswer || '입력 없음').split('\n').map((line, idx) => (
+            {(it.userAnswer || "입력 없음").split("\n").map((line, idx) => (
               <Text key={idx}>
                 {line}
-                {'\n'}
+                {"\n"}
               </Text>
             ))}
           </Text>
@@ -123,10 +117,10 @@ const MyDocumentAll: React.FC<{ items: Snap[] }> = ({ items }) => (
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>AI 첨삭 답변</Text>
           <Text style={styles.text}>
-            {(it.aiAnswer || '내용 없음').split('\n').map((line, idx) => (
+            {(it.aiAnswer || "내용 없음").split("\n").map((line, idx) => (
               <Text key={idx}>
                 {line}
-                {'\n'}
+                {"\n"}
               </Text>
             ))}
           </Text>

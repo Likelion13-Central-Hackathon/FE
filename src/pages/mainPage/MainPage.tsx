@@ -19,11 +19,13 @@ import CHAR from "../../assets/images/character-2d.svg";
 import LINE1 from "../../assets/images/main/line1.svg";
 import LINE2 from "../../assets/images/main/line2.svg";
 import FadeUp from "./componenets/FadeUp";
+import { reportSession } from "../../utils/sessionStorage";
 
 const MainPage = () => {
   const navigate = useNavigate();
 
   const handleNavigate = (path: string) => {
+    reportSession.save(54);
     navigate(path);
   };
 
