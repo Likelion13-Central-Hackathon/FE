@@ -33,7 +33,7 @@ https://likelion13-changuphalgak.netlify.app/
 
 1. **지원 체계를 활용하지 못한 청년들이 창업을 포기**
 
-- 창업지원금, 멘토링, 공간 지원 등 다양한 제도가 존재하지만, 본인에게 맞는 지원 사업을 고르기 힘들고 합격 여부 또한 장담하기 힘듦
+- 창업지원금, 멘토링, 공간 지원 등 다양한 제도가 존재하지만, 본인에게 맞는 지원 사업을 고르고 합격 여부를 장담하기 어려움
 
 2. **지역 사회 경제에 미치는 부정적 영향**
 
@@ -86,21 +86,43 @@ https://likelion13-changuphalgak.netlify.app/
 
 <br/>
 
-### 🛠 기술 스택
+### ✅ 빠른 실행 가이드
 
-| 역할            | 도구                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Development     | <img src="https://img.shields.io/badge/VSCode-007ACC?style=flat-square&logo=Visual Studio Code&logoColor=white"> <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white"> <img src="https://img.shields.io/badge/vite-646CFF?style=flat-square&logo=vite&logoColor=white">                                                                                                        |
-| Language        | <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=white"> <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=TypeScript&logoColor=white">                                                                                                                                                                                                   |
-| Styling         | <img src="https://img.shields.io/badge/Scss-CC6699?style=flat-square&logo=Sass&logoColor=white">                                                                                                                                                                                                                                                                                                                            |
-| Fetching        | <img src="https://img.shields.io/badge/Axios-5A29E4?style=flat-square&logo=Axios&logoColor=white">                                                                                                                                                                                                                                                                                                                          |
-| Main Library    | <img src="https://img.shields.io/badge/Zustand-885630?style=flat-square&logo=Zustand&logoColor=white"> <img src="https://img.shields.io/badge/react--router--dom-CA4245?style=flat-square&logo=Zustand&logoColor=white"> <img src="https://img.shields.io/badge/framer--motion-0055FF?style=flat-square&logoColor=white"> <img src="https://img.shields.io/badge/react--markdown-CB3837?style=flat-square&logoColor=white"> |
-| Version Control | <img src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white"/> <img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/>                                                                                                                                                                                                                       |
-| Deploy          | <img src="https://img.shields.io/badge/netlify-00C7B7?style=flat-square&logo=netlify&logoColor=white">                                                                                                                                                                                                                                                                                                                      |
+- 레포지토리 Clone
+- 환경변수 세팅(루트에 `.env` 파일을 생성하고 아래와 같이 설정합니다.)
+
+  ```bash
+  ## .env
+  VITE_BASE_URL=YOUR_SERVER_ADDRESS
+  ```
+
+- 애플리케이션 실행
+  ```bash
+  npm install
+  npm run dev
+  ```
 
 <br/>
 
-### ❓ 기술 스택 사용 이유
+### 🛠 기술 스택
+
+---
+
+| 역할            | 도구                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Development     | <img src="https://img.shields.io/badge/VSCode-007ACC?style=flat-square&logo=Visual Studio Code&logoColor=white"> <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white"> <img src="https://img.shields.io/badge/vite-646CFF?style=flat-square&logo=vite&logoColor=white">                                                                                                                                                                                                               |
+| Language        | <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=white"> <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=TypeScript&logoColor=white">                                                                                                                                                                                                                                                                                                          |
+| Styling         | <img src="https://img.shields.io/badge/Scss-CC6699?style=flat-square&logo=Sass&logoColor=white">                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| Fetching        | <img src="https://img.shields.io/badge/Axios-5A29E4?style=flat-square&logo=Axios&logoColor=white">                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| Main Library    | <img src="https://img.shields.io/badge/Zustand-885630?style=flat-square&logo=Zustand&logoColor=white"> <img src="https://img.shields.io/badge/react--router--dom-CA4245?style=flat-square&logo=Zustand&logoColor=white"> <img src="https://img.shields.io/badge/framer--motion-0055FF?style=flat-square&logoColor=white"> <img src="https://img.shields.io/badge/react--markdown-CB3837?style=flat-square&logoColor=white"> <img src="https://img.shields.io/badge/@react--pdf/renderer-2599ED?style=flat-square&logoColor=white"> |
+| Version Control | <img src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white"/> <img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/>                                                                                                                                                                                                                                                                                                                              |
+| Deploy          | <img src="https://img.shields.io/badge/netlify-00C7B7?style=flat-square&logo=netlify&logoColor=white">                                                                                                                                                                                                                                                                                                                                                                                                                             |
+
+<br/>
+
+### ❓ 기술적 완성도
+
+---
 
 - **Typescript**
 
@@ -119,6 +141,18 @@ https://likelion13-changuphalgak.netlify.app/
   - ref 기반 getSnapshot, useImperativeHandle 없이 전체 상태 수집 및 PDF 다운로드 가능
     <br/>
     → 문항별 상태를 전역에서 일관되게 관리하고, 합본 PDF를 쉽게 만들기 위함
+
+<br/>
+
+### 🔹 브랜치 전략
+
+---
+
+| 브랜치명       | 역할                                                          |
+| -------------- | ------------------------------------------------------------- |
+| `main`         | 배포 가능한 상태                                              |
+| `dev`          | 개발 중(통합 브랜치)                                          |
+| issue별 브랜치 | 이름 규칙: 키워드/#이슈번호-페이지이름 -> `design/#12-signup` |
 
 <br/>
 
