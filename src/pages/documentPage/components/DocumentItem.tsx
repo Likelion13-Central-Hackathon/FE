@@ -1,63 +1,48 @@
-import React, { useRef, forwardRef, useImperativeHandle } from "react";
+import React, { useEffect } from "react";
 import s from "./Document.module.scss";
 import IconButton from "../../../components/IconButton";
 import PDF from "../../../assets/images/icon/download-icon.svg";
 import RevisingBox from "./RevisingBox";
 import QuestionsBox from "./QuestionsBox";
-import type {
-  ItemHandle,
-  DocumentItemProps,
-  RevisingBoxHandle,
-  QuestionsBoxHandle,
-} from "../../../types/document";
+import type { DocumentItemProps } from "../../../types/document";
+import { useDocStore } from "../../../store/documentStore";
 
 type Props = DocumentItemProps & {
   onRequireWarn?: () => void;
   questionNumber: number;
 };
 
-const DocumentItem = forwardRef<ItemHandle, Props>(
-  ({ title, explanation, onExportAll, onRequireWarn, questionNumber }, ref) => {
-    const revisingRef = useRef<RevisingBoxHandle>(null);
-    const questionsRef = useRef<QuestionsBoxHandle>(null);
+const DocumentItem = ({
+  title,
+  explanation,
+  onExportAll,
+  onRequireWarn,
+  questionNumber,
+}: Props) => {
+  const initItem = useDocStore((s) => s.initItem);
 
-    useImperativeHandle(ref, () => ({
-      getSnapshot() {
-        return {
-          title,
-          userAnswer: revisingRef.current?.getUserAnswer?.() || "",
-          aiAnswer: revisingRef.current?.getAiAnswer?.() || "",
-          qa: questionsRef.current?.getVisibleQA?.() || [],
-        };
-      },
-    }));
+  useEffect(() => {
+    initItem(questionNumber, title);
+  }, [questionNumber, title, initItem]);
 
-    const handleClick = () => {
-      if (onExportAll) onExportAll();
-    };
-
-    return (
-      <div className={s.documentItemContainer}>
-        <div className={s.pdfButton}>
-          <IconButton imgSrc={PDF} text="PDF" onClick={handleClick} />
-        </div>
-        <RevisingBox
-          ref={revisingRef}
-          title={title}
-          explanation={explanation}
-          questionNumber={questionNumber}
-        />
-
-        <QuestionsBox
-          ref={questionsRef}
-          getAiAnswer={() => revisingRef.current?.getAiAnswer?.() ?? ""}
-          onRequireWarn={onRequireWarn}
-          questionNumber={questionNumber}
-        />
+  return (
+    <div className={s.documentItemContainer}>
+      <div className={s.pdfButton}>
+        <IconButton imgSrc={PDF} text="PDF" onClick={onExportAll} />
       </div>
-    );
-  }
-);
+      <RevisingBox
+        title={title}
+        explanation={explanation}
+        questionNumber={questionNumber}
+      />
+
+      <QuestionsBox
+        onRequireWarn={onRequireWarn}
+        questionNumber={questionNumber}
+      />
+    </div>
+  );
+};
 
 DocumentItem.displayName = "DocumentItem";
 
