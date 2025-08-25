@@ -18,6 +18,12 @@ const FormIntroPage = () => {
   const [loading, setLoading] = useState(false);
   const [warningShow, setWarningShow] = useState(false);
 
+  // 해커톤 심사 전용 조회 버튼
+  const handleTestClick = async () => {
+    reportSession.save(54);
+    navigate("/report");
+  };
+
   // 처음 “분석결과 조회” 버튼
   const handleQueryClick = async () => {
     const reportId = reportSession.read();
@@ -60,12 +66,20 @@ const FormIntroPage = () => {
     >
       {!showEmailPwBox ? (
         <div className={s.boxContainer1}>
-          <BasicButton
-            text="시작하기"
-            width="16.98vw"
-            height="2.5vw"
-            onClick={() => navigate("/form")}
-          />
+          <div style={{ display: "flex", gap: "0.42vw" }}>
+            <BasicButton
+              text="시작하기"
+              width="16.98vw"
+              height="2.5vw"
+              onClick={() => navigate("/form")}
+            />
+            <BasicButton
+              text="심사용 조회 버튼"
+              width="6.46vw"
+              height="2.50vw"
+              onClick={handleTestClick}
+            />
+          </div>
           <button className={s.underlineBtn} onClick={handleQueryClick}>
             분석결과 조회
           </button>
