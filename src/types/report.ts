@@ -69,5 +69,3 @@ export interface EmailPw {
 export interface SubscribeMailRequest extends EmailPw {
   reportId: number;
 }
-
-export type SubscribeMailData = null;

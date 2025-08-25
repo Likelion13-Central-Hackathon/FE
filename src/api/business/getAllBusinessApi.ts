@@ -4,9 +4,9 @@ import { BusinessItemProps } from "../../types/business";
 import defaultInstance from "../utils/instance";
 
 const getAllBusinessApi = async (
+  region: string,
   page: number = 0,
-  num: number = 5,
-  region: string
+  num: number = 5
 ): Promise<BusinessItemProps[]> => {
   try {
     const res = await defaultInstance.get<

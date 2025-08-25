@@ -13,11 +13,6 @@
     center / cover no-repeat;
   background-position: top center;
 
-  // .titleContainer {
-  //   padding-bottom: 3.13vw;
-  //   padding-left: 7.81vw;
-  // }
-
   .titleChildren {
     @include m.flex-column-center;
     align-items: flex-start;

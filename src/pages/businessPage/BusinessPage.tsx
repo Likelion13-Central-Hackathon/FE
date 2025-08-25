@@ -58,7 +58,7 @@ const BusinessPage = () => {
         setLoading(true);
 
         // 창업 지원사업 목록 조회 api 호출
-        const data = await getAllBusinessApi(page, PAGE_SIZE, region);
+        const data = await getAllBusinessApi(region, page, PAGE_SIZE);
         setCache((prev) => ({ ...prev, [page]: data }));
         setItems(data);
         ackKnown(page); // 이 페이지까지 존재 확정

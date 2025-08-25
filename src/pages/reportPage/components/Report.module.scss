@@ -128,8 +128,6 @@
           height: 100%;
           object-fit: contain;
           display: block;
-          //clip-path: inset(0 100% 0 0);
-          //animation: liner 2s ease-out 6s forwards;
         }
       }
 
@@ -226,9 +224,3 @@
     padding-left: 1.5vw;
   }
 }
-
-// @keyframes liner {
-//   to {
-//     clip-path: inset(0 0 0 0);
-//   }
-// }
