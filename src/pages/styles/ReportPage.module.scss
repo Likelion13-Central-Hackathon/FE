@@ -1,10 +1,10 @@
-@use '../../styles/mixins' as m;
-@use '../../styles/variables' as *;
+@use "../../styles/mixins" as m;
+@use "../../styles/variables" as *;
 
 .reportPageWrapper {
   @include m.flex-row-double-center;
   aspect-ratio: 1920 / 2419;
-  background: url('../../assets/images/background/report-background.png')
+  background: url("../../assets/images/background/report-background.png")
     center/contain no-repeat;
   background-position: top center;
   width: 100%;
@@ -165,10 +165,8 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       grid-template-rows: repeat(2, 1fr);
-      perspective: 2000px; /* 깊이감 */
-      perspective-origin: center; /* 시점 중앙 */
-
-      //padding: 5.8vw 0 0 9.5vw;
+      perspective: 2000px;
+      perspective-origin: center;
 
       .swot {
         width: 31.25vw;
@@ -197,25 +195,25 @@
       }
 
       .s {
-        background-image: url('../../assets/images/report/swot-s.png');
+        background-image: url("../../assets/images/report/swot-s.png");
         padding-left: 5.6vw;
         padding-top: 4vw;
         animation-delay: 0ms;
       }
       .w {
-        background-image: url('../../assets/images/report/swot-w.png');
+        background-image: url("../../assets/images/report/swot-w.png");
         padding-right: 5.6vw;
         padding-top: 4vw;
         animation-delay: 240ms;
       }
       .o {
-        background-image: url('../../assets/images/report/swot-o.png');
+        background-image: url("../../assets/images/report/swot-o.png");
         padding-left: 5.6vw;
         padding-top: 1.5vw;
         animation-delay: 120ms;
       }
       .t {
-        background-image: url('../../assets/images/report/swot-t.png');
+        background-image: url("../../assets/images/report/swot-t.png");
         padding-right: 5.6vw;
         padding-top: 1.5vw;
         animation-delay: 360ms;

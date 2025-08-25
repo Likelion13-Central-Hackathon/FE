@@ -1,6 +1,7 @@
 // ReportPlan에서 시작 월 index 추출
 export const startMonthIndex = (createdAt: string): number | null => {
-  const m = createdAt.match(/^(\d{4})\.(\d{2})\.(\d{2})$/);
+  const regex = /^(\d{4})\.(\d{2})\.(\d{2})$/;
+  const m = regex.exec(createdAt);
   if (!m) return null;
   const month = Number(m[2]);
   if (month < 1 || month > 12) return null;

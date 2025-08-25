@@ -13,7 +13,7 @@ export type InfoPayload = {
 
 export function infoFormPayload(data: FormData): InfoPayload {
   // age 숫자 변환
-  const ageNum = Number(String(data.age).replace(/[^0-9]/g, ""));
+  const ageNum = Number(String(data.age).replace(/\D/g, ""));
   if (!Number.isFinite(ageNum) || ageNum <= 0) {
     throw new Error("나이를 숫자로 입력해주세요.");
   }

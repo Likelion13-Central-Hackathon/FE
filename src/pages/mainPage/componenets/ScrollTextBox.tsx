@@ -14,12 +14,12 @@ const ScrollTextBox: React.FC<ScrollTextBoxProps> = ({
   // 이미지 화살표 방향
   const dirClass = direction === "right" ? s.right : "";
   // 텍스트 정렬
-  const alignClass =
-    alignment === "left"
-      ? s.alignLeft
-      : alignment === "right"
-      ? s.alignRight
-      : s.alignCenter;
+  const alignMap: Record<string, string> = {
+    left: s.alignLeft,
+    right: s.alignRight,
+    center: s.alignCenter,
+  };
+  const alignClass = alignMap[alignment] ?? s.alignCenter;
 
   return (
     <div className={`${s.scrollTextBox} ${dirClass}`} style={{ marginTop }}>

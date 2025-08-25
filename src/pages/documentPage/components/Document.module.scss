@@ -1,5 +1,5 @@
-@use '../../../styles//mixins' as m;
-@use '../../../styles/variables' as *;
+@use "../../../styles//mixins" as m;
+@use "../../../styles/variables" as *;
 
 // RevisingBox
 .titleBox {
@@ -72,8 +72,6 @@
   font-size: 0.83vw;
   font-weight: 500;
   color: $color-black;
-
-  overflow-y: auto;
   line-height: 1.4;
   white-space: pre-wrap;
 }

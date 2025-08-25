@@ -6,8 +6,8 @@ export default function PlanImage({
   src,
   alt = "",
 }: {
-  src: string;
-  alt?: string;
+  readonly src: string;
+  readonly alt?: string;
 }) {
   const prefersReduce = useReducedMotion();
   const ref = useRef<HTMLElement | null>(null);

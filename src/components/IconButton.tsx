@@ -10,7 +10,7 @@ interface IconButtonProps {
 const IconButton: React.FC<IconButtonProps> = ({ imgSrc, text, onClick }) => {
   return (
     <div className={s.iconBtn} onClick={onClick}>
-      <img src={imgSrc} style={{ width: "1.88vw" }} />
+      <img src={imgSrc} alt="icon-button" style={{ width: "1.88vw" }} />
       <p style={{ fontSize: "0.73vw", fontWeight: "500", color: "#757575" }}>
         {text}
       </p>

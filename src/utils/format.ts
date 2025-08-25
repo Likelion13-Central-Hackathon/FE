@@ -1,6 +1,11 @@
 // 모집 여부 포맷팅
+export enum RecruitmentStatus {
+  OPEN = "모집 중",
+  CLOSED = "모집 중 아님",
+}
+
 export const formatRecruiting = (isRecruiting: boolean) => {
-  return isRecruiting ? "모집 중" : "모집 중 아님";
+  return isRecruiting ? RecruitmentStatus.OPEN : RecruitmentStatus.CLOSED;
 };
 
 // https 붙이기

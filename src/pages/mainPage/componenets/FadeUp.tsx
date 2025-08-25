@@ -21,7 +21,7 @@ export default function FadeUp({
   once = false,
   className,
   style,
-}: Props) {
+}: Readonly<Props>) {
   return (
     <motion.div
       className={className}
