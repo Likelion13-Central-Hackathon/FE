@@ -105,7 +105,9 @@ https://likelion13-changuphalgak.netlify.app/
 
 <br/>
 
-### 🛠 기술 스택
+### 🛠 기능 구조도 및 기술 스택
+
+<img width="1856" height="954" alt="Image" src="https://github.com/user-attachments/assets/d7864dd8-d44c-4a95-badf-c2fc674e301c" />
 
 ---
 
